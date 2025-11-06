@@ -5311,8 +5311,6 @@ body:not(.home-page) .luxury-container {
         transform: translateY(-1px);
     }
 
-    /* Remove duplicate :active rule - already defined above */
-
     .mobile-wine-type-icon {
         width: 32px;
         height: 32px;
