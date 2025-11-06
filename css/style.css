@@ -3057,15 +3057,29 @@ body:not(.home-page) .luxury-container {
         min-height: 60vh;
     }
     
-    /* Ensure map is visible on tablet (768px - 1024px) */
+    /* Ensure map is visible on tablet (768px - 1024px) - iPad and tablets */
+    .main-content-desktop {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    
     .main-content-desktop .map-wrapper {
         display: flex !important;
         min-height: 500px !important;
+        max-height: 70vh !important;
+        flex: 1 !important;
     }
     
     .main-content-desktop #map {
         min-height: 500px !important;
+        max-height: 70vh !important;
         height: 100% !important;
+    }
+    
+    /* Hide mobile elements on tablet */
+    .mobile-map-wines-container,
+    .mobile-views-container {
+        display: none !important;
     }
 }
 
