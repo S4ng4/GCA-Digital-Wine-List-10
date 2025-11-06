@@ -1,0 +1,65 @@
+# Python files and scripts (not needed for web hosting)
+*.py
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Data files that might be too large or contain sensitive data
+wine_*.json
+wine_scraped_*.json
+wines_backup_*.json
+
+# Development files
+WebScracthingPromnt
+README_AUTOMATION.md
+README_WEB_SCRAPER.md
+README_WINE_EXTRACTION.md
+requirements.txt
+
+# Backup folders
+backups/
+
+# Templates (development files)
+templates/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Log files
+*.log
+
+# Node.js dependencies
+node_modules/
+package-lock.json
+
+# Generated files
+*.xlsx
+*.csv
+generate-excel.js
+
+# Development server files
+server.js
+package.json
+
+# Research and temporary files
+wine_research_results.md
+wine_images_mapping.json
