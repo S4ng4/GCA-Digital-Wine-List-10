@@ -5224,17 +5224,19 @@ body:not(.home-page) .luxury-container {
         display: none !important;
     }
 
-    /* Mobile Wine Type Selector (below nav) */
+    /* Mobile Wine Type Selector (below nav) - Apple-like design */
     .mobile-wine-type-selector {
         position: fixed;
         top: 70px;
         left: 0;
         right: 0;
         z-index: 180;
-        background: linear-gradient(180deg, rgba(26, 26, 26, 0.98) 0%, rgba(10, 10, 10, 0.98) 100%);
-        backdrop-filter: blur(10px);
+        background: linear-gradient(180deg, rgba(10, 10, 10, 0.98) 0%, rgba(26, 26, 26, 0.95) 100%);
+        backdrop-filter: blur(30px);
+        -webkit-backdrop-filter: blur(30px);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        padding: 1rem;
+        border-bottom: 0.5px solid rgba(212, 175, 55, 0.1);
+        padding: 0.75rem 1.25rem;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
@@ -5267,12 +5269,22 @@ body:not(.home-page) .luxury-container {
         align-items: center;
         gap: 0.5rem;
         padding: 0.875rem 1rem;
-        background: rgba(15, 15, 15, 0.9);
+        background: rgba(26, 26, 26, 0.6);
+        border: 0.5px solid rgba(212, 175, 55, 0.2);
+        border-radius: 16px;
         cursor: pointer;
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         min-width: 90px;
         position: relative;
         overflow: hidden;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .mobile-wine-type-chip:active {
+        transform: scale(0.96);
+        background: rgba(26, 26, 26, 0.8);
     }
 
     .mobile-wine-type-chip::before {
@@ -5291,13 +5303,15 @@ body:not(.home-page) .luxury-container {
     }
 
     .mobile-wine-type-chip.active {
-        background: rgba(212, 175, 55, 0.2);
-        box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+        background: rgba(212, 175, 55, 0.15);
+        border-color: rgba(212, 175, 55, 0.5);
+        box-shadow: 0 4px 16px rgba(212, 175, 55, 0.25),
+                    0 2px 8px rgba(212, 175, 55, 0.15),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        transform: translateY(-1px);
     }
 
-    .mobile-wine-type-chip:active {
-        transform: scale(0.95);
-    }
+    /* Remove duplicate :active rule - already defined above */
 
     .mobile-wine-type-icon {
         width: 32px;
@@ -5618,6 +5632,89 @@ body:not(.home-page) .luxury-container {
 
     .content-wrapper {
         margin-top: 70px;
+    }
+}
+
+/* Tablet UI Improvements - Apple-like design */
+@media (min-width: 768px) and (max-width: 1024px) {
+    /* Improved spacing for tablet */
+    .top-nav {
+        padding: 1.25rem 1.5rem;
+    }
+    
+    .search-bar-container {
+        padding: 1.25rem 1.5rem;
+    }
+    
+    /* Better typography for tablet */
+    .nav-title {
+        font-size: 1.5rem;
+        letter-spacing: -0.02em;
+        font-weight: 600;
+    }
+    
+    .nav-subtitle {
+        font-size: 0.9375rem;
+        letter-spacing: -0.01em;
+        opacity: 0.75;
+    }
+    
+    /* Improved search input on tablet */
+    .luxury-search-input {
+        font-size: 1rem;
+        padding: 0.875rem 1.125rem;
+        border-radius: 12px;
+        background: rgba(26, 26, 26, 0.8);
+        border: 0.5px solid rgba(212, 175, 55, 0.2);
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .luxury-search-input:focus {
+        background: rgba(26, 26, 26, 0.95);
+        border-color: rgba(212, 175, 55, 0.4);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+    }
+    
+    /* Improved filter buttons on tablet */
+    .luxury-filter-btn {
+        padding: 0.75rem 1.25rem;
+        border-radius: 10px;
+        font-size: 0.9375rem;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        min-height: 40px;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .luxury-filter-btn:active {
+        transform: scale(0.98);
+    }
+    
+    /* Better breadcrumb on tablet */
+    .breadcrumb {
+        padding: 0 1.5rem;
+        margin: 1.25rem auto 1.25rem;
+        font-size: 0.875rem;
+    }
+    
+    /* Improved wine cards on tablet */
+    .wine-card-sidebar {
+        padding: 1.25rem;
+        border-radius: 16px;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .wine-card-sidebar:active {
+        transform: scale(0.98);
+    }
+    
+    /* Better map styling on tablet */
+    .map-wrapper {
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+                    0 2px 8px rgba(0, 0, 0, 0.2);
     }
 }
 
