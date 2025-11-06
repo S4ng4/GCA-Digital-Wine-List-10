@@ -433,6 +433,9 @@ class WineListApp {
                 }
             }
         });
+        
+        // Update breadcrumb for home page
+        this.updateBreadcrumb('Home', 'Wine Collection');
     }
 
     renderRegionsPage() {
@@ -440,6 +443,14 @@ class WineListApp {
         if (!regionsContainer) {
             console.error('Regions container not found');
             return;
+        }
+
+        // Update breadcrumb for regions page
+        if (this.currentFilters.type) {
+            const typeName = this.getWineTypeName(this.currentFilters.type);
+            this.updateBreadcrumb('Home', `${typeName} Regions`);
+        } else {
+            this.updateBreadcrumb('Home', 'Wine Regions');
         }
 
         // Get all unique regions from wines (filtered by type if specified)
@@ -492,8 +503,31 @@ class WineListApp {
         }
     }
 
-    updateBreadcrumb() {
+    updateBreadcrumb(currentPage = 'Wine Collection', currentItem = null) {
+        // Update desktop breadcrumb
         const breadcrumb = document.querySelector('.breadcrumb');
+        const breadcrumbCurrent = document.getElementById('breadcrumbCurrent');
+        
+        // Update mobile breadcrumb
+        const mobileBreadcrumb = document.querySelector('.mobile-breadcrumb');
+        const mobileBreadcrumbCurrent = document.getElementById('mobileBreadcrumbCurrent');
+        
+        if (breadcrumbCurrent) {
+            if (currentItem) {
+                breadcrumbCurrent.textContent = currentItem;
+            } else {
+                breadcrumbCurrent.textContent = currentPage;
+            }
+        }
+        
+        if (mobileBreadcrumbCurrent) {
+            if (currentItem) {
+                mobileBreadcrumbCurrent.textContent = currentItem;
+            } else {
+                mobileBreadcrumbCurrent.textContent = currentPage;
+            }
+        }
+        
         if (breadcrumb) {
             if (this.currentFilters.type) {
                 breadcrumb.innerHTML = `
@@ -771,11 +805,16 @@ class WineListApp {
             
             breadcrumb.innerHTML = `
                 <a href="index.html">Home</a>
-                <i class="fas fa-chevron-right"></i>
+                <span class="breadcrumb-separator">/</span>
                 <a href="${regionUrl}">Wine Regions</a>
-                <i class="fas fa-chevron-right"></i>
-                <span>${this.currentFilters.region}</span>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">${this.currentFilters.region}</span>
             `;
+        }
+        
+        // Update mobile breadcrumb
+        if (mobileBreadcrumbCurrent) {
+            mobileBreadcrumbCurrent.textContent = this.currentFilters.region;
         }
     }
 
@@ -1270,7 +1309,14 @@ class WineListApp {
     }
 
     updateBreadcrumb(wine) {
+        // Update desktop breadcrumb
         const breadcrumb = document.getElementById('breadcrumb');
+        const breadcrumbCurrent = document.getElementById('breadcrumbCurrent');
+        
+        // Update mobile breadcrumb
+        const mobileBreadcrumb = document.querySelector('.mobile-breadcrumb');
+        const mobileBreadcrumbCurrent = document.getElementById('mobileBreadcrumbCurrent');
+        
         if (breadcrumb) {
             // Check if there's a wine type filter in the URL parameters
             const urlParams = new URLSearchParams(window.location.search);
@@ -1297,11 +1343,16 @@ class WineListApp {
             
             breadcrumb.innerHTML = `
                 <a href="${homeUrl}">Home</a>
-                <i class="fas fa-chevron-right"></i>
+                <span class="breadcrumb-separator">/</span>
                 <a href="${regionUrl}">${wine.region || 'Wine Regions'}</a>
-                <i class="fas fa-chevron-right"></i>
-                <span>${wine.wine_name}</span>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">${wine.wine_name}</span>
             `;
+        }
+        
+        // Update mobile breadcrumb
+        if (mobileBreadcrumbCurrent) {
+            mobileBreadcrumbCurrent.textContent = wine.wine_name;
         }
     }
 
