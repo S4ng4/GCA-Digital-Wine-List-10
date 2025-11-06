@@ -3040,7 +3040,7 @@ if (window.location.pathname === '/' || window.location.pathname.endsWith('index
                         touchZoom: true,
                         doubleClickZoom: true,
                         scrollWheelZoom: false // Disable scroll zoom on mobile
-                    }).setView([41.9, 12.6], 5);
+                    }).setView([41.9, 12.6], 6); // Zoom level 6 to show more of Italy
                     // Add tile layer with dark theme
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                         attribution: '© OpenStreetMap contributors',
@@ -3073,7 +3073,8 @@ if (window.location.pathname === '/' || window.location.pathname.endsWith('index
                                 onEachFeature: onEachMobileFeature
                             }).addTo(mobileMapInstance);
                             console.log('✅ Mobile geoJsonLayer created and added to map');
-                            mobileMapInstance.fitBounds(mobileGeoJsonLayer.getBounds(), { padding: [30, 30] });
+                            // Fit bounds with more padding to show all regions better
+                            mobileMapInstance.fitBounds(mobileGeoJsonLayer.getBounds(), { padding: [50, 50] });
                             
                             // Invalidate size again after GeoJSON is added
                             setTimeout(() => {
