@@ -5689,11 +5689,17 @@ body:not(.home-page) .luxury-container {
         transform: scale(0.98);
     }
     
-    /* Better breadcrumb on tablet */
+    /* Better breadcrumb on tablet - show desktop breadcrumb */
     .breadcrumb {
+        display: flex !important;
         padding: 0 1.5rem;
         margin: 1.25rem auto 1.25rem;
         font-size: 0.875rem;
+    }
+    
+    /* Hide mobile breadcrumb on tablet */
+    .mobile-breadcrumb {
+        display: none !important;
     }
     
     /* Improved wine cards on tablet */
