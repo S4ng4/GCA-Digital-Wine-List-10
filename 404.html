@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gran Caffè L'Aquila - Wine Collection</title>
+    <!-- Bootstrap 5.3 CSS (HTTPS CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Font Awesome (HTTPS CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <!-- Google Fonts (HTTPS) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Leaflet CSS (HTTPS CDN) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+    <script>
+        // GitHub Pages 404.html handler for SPA-like routing
+        // This script redirects to index.html and preserves the path for client-side routing
+        (function() {
+            var path = window.location.pathname;
+            var search = window.location.search;
+            var hash = window.location.hash;
+            
+            // If we're already on index.html, don't redirect
+            if (path.endsWith('/index.html') || path.endsWith('/')) {
+                return;
+            }
+            
+            // Redirect to index.html with the original path as a query parameter
+            // This allows the SPA to handle the routing
+            var redirectPath = './index.html';
+            if (path && path !== '/') {
+                redirectPath += '?path=' + encodeURIComponent(path);
+            }
+            if (search) {
+                redirectPath += (redirectPath.includes('?') ? '&' : '?') + search.substring(1);
+            }
+            if (hash) {
+                redirectPath += hash;
+            }
+            
+            window.location.replace(redirectPath);
+        })();
+    </script>
+</head>
+<body>
+    <!-- Fallback content in case JavaScript is disabled -->
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; font-family: 'Inter', sans-serif; background: #0A0A0A; color: #F5F5F0;">
+        <h1 style="color: #D4AF37; margin-bottom: 1rem;">Gran Caffè L'Aquila</h1>
+        <p>Redirecting to home page...</p>
+        <p style="margin-top: 1rem;"><a href="./index.html" style="color: #D4AF37; text-decoration: none;">Click here if you are not redirected</a></p>
+    </div>
+</body>
+</html>
+
