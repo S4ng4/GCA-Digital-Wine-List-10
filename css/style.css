@@ -3099,6 +3099,60 @@ body:not(.home-page) .luxury-container {
     .map-wrapper {
         display: flex !important;
     }
+}
+
+/* iPad and Tablet specific fixes */
+/* iPad Portrait (768px) */
+@media (min-width: 768px) and (max-width: 768px) and (orientation: portrait) {
+    .main-content-desktop {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    
+    .main-content-desktop .map-wrapper {
+        display: flex !important;
+        min-height: 500px !important;
+        max-height: 65vh !important;
+        flex: 1 !important;
+    }
+    
+    .main-content-desktop #map {
+        min-height: 500px !important;
+        max-height: 65vh !important;
+        height: 100% !important;
+    }
+    
+    .mobile-map-wines-container,
+    .mobile-views-container {
+        display: none !important;
+    }
+}
+
+/* iPad Landscape (1024px) and other tablets */
+@media (min-width: 810px) and (max-width: 1024px) {
+    .main-content-desktop {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    
+    .main-content-desktop .map-wrapper {
+        display: flex !important;
+        min-height: 500px !important;
+        max-height: 70vh !important;
+        flex: 1 !important;
+    }
+    
+    .main-content-desktop #map {
+        min-height: 500px !important;
+        max-height: 70vh !important;
+        height: 100% !important;
+    }
+    
+    .mobile-map-wines-container,
+    .mobile-views-container {
+        display: none !important;
+    }
+}
     
     .interactive-map-main {
         display: flex !important;
@@ -5435,7 +5489,8 @@ body:not(.home-page) .luxury-container {
 
 /* Simple responsive breakpoints */
 /* Tablet size (768px - 1024px) - Show desktop map with proper sizing */
-@media (min-width: 769px) and (max-width: 1024px) {
+/* This covers iPad and most tablets */
+@media (min-width: 768px) and (max-width: 1024px) {
     /* Ensure desktop content is visible on tablet */
     .main-content-desktop {
         display: flex !important;
@@ -5464,6 +5519,20 @@ body:not(.home-page) .luxury-container {
     
     .wines-grid-container {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
+    }
+}
+
+/* iPad Pro and larger tablets (1024px+) */
+@media (min-width: 1025px) and (max-width: 1366px) {
+    .main-content-desktop .map-wrapper {
+        display: flex !important;
+        min-height: 600px !important;
+        max-height: 75vh !important;
+    }
+    
+    .main-content-desktop #map {
+        min-height: 600px !important;
+        max-height: 75vh !important;
     }
 }
 
