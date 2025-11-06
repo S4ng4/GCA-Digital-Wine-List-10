@@ -61,9 +61,10 @@ class WineListApp {
     }
 
     async loadWineData() {
+        let winesPath;
         try {
             // Use getPath to ensure correct path for GitHub Pages
-            const winesPath = getPath('./data/wines.json');
+            winesPath = getPath('./data/wines.json');
             console.log('🍷 Loading wines from:', winesPath);
             
             // Add cache busting to avoid stale data
@@ -2709,6 +2710,8 @@ if (window.location.pathname === '/' || window.location.pathname.endsWith('index
                 })
                 .catch(error => {
                     console.error('❌ Error loading GeoJSON:', error);
+                    console.error('📍 GeoJSON URL:', 'https://raw.githubusercontent.com/openpolis/geojson-italy/master/geojson/limits_IT_regions.geojson');
+                    console.error('📍 Current URL:', window.location.href);
                     
                     // Show error message to user
                     const mapContainer = document.getElementById('map');
