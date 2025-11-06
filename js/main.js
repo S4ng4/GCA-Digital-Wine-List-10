@@ -1,5 +1,39 @@
 // Gran Caffè L'Aquila - Digital Wine List JavaScript
 
+// Get base path for GitHub Pages (automatically detects repo name)
+function getBasePath() {
+    // Get the pathname (e.g., "/GCA-Digital-Wine-List-10/" or "/")
+    const pathname = window.location.pathname;
+    
+    // If we're at root (/), return empty string
+    if (pathname === '/' || pathname === '/index.html') {
+        return '';
+    }
+    
+    // Extract repo name from pathname (e.g., "/GCA-Digital-Wine-List-10/" -> "/GCA-Digital-Wine-List-10")
+    const match = pathname.match(/^\/([^\/]+)/);
+    if (match && match[1] !== 'index.html') {
+        return '/' + match[1];
+    }
+    
+    return '';
+}
+
+// Helper function to get correct path for GitHub Pages
+function getPath(relativePath) {
+    const basePath = getBasePath();
+    // Remove leading ./ if present
+    const cleanPath = relativePath.replace(/^\.\//, '');
+    // Ensure path starts with /
+    const normalizedPath = cleanPath.startsWith('/') ? cleanPath : '/' + cleanPath;
+    return basePath + normalizedPath;
+}
+
+// Log base path for debugging
+const BASE_PATH = getBasePath();
+console.log('📍 Base Path:', BASE_PATH || '(root)');
+console.log('📍 Wines JSON Path:', getPath('./data/wines.json'));
+
 class WineListApp {
     constructor() {
         this.wines = [];
@@ -28,7 +62,12 @@ class WineListApp {
 
     async loadWineData() {
         try {
-            const response = await fetch('./data/wines.json');
+            // Use getPath to ensure correct path for GitHub Pages
+            const winesPath = getPath('./data/wines.json');
+            console.log('🍷 Loading wines from:', winesPath);
+            
+            // Add cache busting to avoid stale data
+            const response = await fetch(winesPath + '?v=' + Date.now());
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -80,8 +119,17 @@ class WineListApp {
         // Test all regions
         this.testAllRegions();
         } catch (error) {
-            console.error('Error loading wine data:', error);
-            this.showError(`Failed to load wine data: ${error.message}. Please refresh the page.`);
+            console.error('❌ Error loading wine data:', error);
+            console.error('📍 Attempted path:', winesPath);
+            console.error('📍 Base path:', BASE_PATH);
+            console.error('📍 Current URL:', window.location.href);
+            
+            // Show detailed error message
+            const errorMsg = `Failed to load wine data: ${error.message}. ` +
+                           `Path: ${winesPath}. ` +
+                           `Please check the console for details.`;
+            this.showError(errorMsg);
+            
             // Fallback to empty array if data loading fails
             this.wines = [];
             this.filteredWines = [];
