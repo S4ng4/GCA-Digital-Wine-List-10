@@ -530,17 +530,26 @@ class WineListApp {
         
         if (breadcrumb) {
             if (this.currentFilters.type) {
+                const typeName = this.getWineTypeName(this.currentFilters.type);
                 breadcrumb.innerHTML = `
                     <a href="index.html">Home</a>
-                    <i class="fas fa-chevron-right"></i>
-                    <span>${this.getWineTypeName(this.currentFilters.type)} Regions</span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-current">${typeName} Regions</span>
                 `;
+                
+                if (mobileBreadcrumbCurrent) {
+                    mobileBreadcrumbCurrent.textContent = `${typeName} Regions`;
+                }
             } else {
                 breadcrumb.innerHTML = `
                     <a href="index.html">Home</a>
-                    <i class="fas fa-chevron-right"></i>
-                    <span>Wine Regions</span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-current">Wine Regions</span>
                 `;
+                
+                if (mobileBreadcrumbCurrent) {
+                    mobileBreadcrumbCurrent.textContent = 'Wine Regions';
+                }
             }
         }
     }
