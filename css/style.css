@@ -2872,6 +2872,7 @@ body:not(.home-page) .luxury-container {
 #map {
     width: 100%;
     height: 100%;
+    min-height: 500px; /* Ensure map has minimum height */
     flex: 1;
     z-index: 1;
     background: transparent !important;
@@ -3319,13 +3320,15 @@ body:not(.home-page) .luxury-container {
     flex: 1;
     overflow: hidden;
     gap: 0;
+    min-height: 500px; /* Ensure content wrapper has minimum height */
 }
 
 /* When wines list is hidden (default), map takes full space */
 .map-wrapper {
     flex: 1;
     width: 100%;
-    display: flex; /* Visible by default */
+    min-height: 500px; /* Ensure map wrapper has minimum height */
+    display: flex !important; /* Always visible by default */
 }
 
 /* Hide wines list by default - shown only when region is selected */
@@ -3826,9 +3829,9 @@ body:not(.home-page) .luxury-container {
     flex: 1;
     position: relative;
     overflow: hidden;
-    min-height: 0;
+    min-height: 500px; /* Ensure map wrapper has minimum height */
     transition: opacity 0.3s ease, visibility 0.3s ease;
-    display: flex; /* Visible by default - full screen on load */
+    display: flex !important; /* Always visible by default */
 }
 
 .map-wrapper.hidden {
@@ -3838,6 +3841,7 @@ body:not(.home-page) .luxury-container {
 #map {
     width: 100%;
     height: 100%;
+    min-height: 500px; /* Ensure map has minimum height */
     z-index: 1;
 }
 
@@ -5388,5 +5392,49 @@ body:not(.home-page) .luxury-container {
 
     .content-wrapper {
         margin-top: 70px;
+    }
+}
+
+/* ==================== SIMPLE RESPONSIVE FIXES ==================== */
+/* Ensure map is always visible with proper height */
+.map-wrapper {
+    min-height: 500px !important;
+    display: flex !important;
+}
+
+#map {
+    min-height: 500px !important;
+}
+
+/* Ensure main content is visible */
+.main-content-desktop {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 500px !important;
+}
+
+/* Ensure wines grid is visible when shown */
+.wines-grid-container {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+    gap: 1.5rem !important;
+}
+
+/* Simple responsive breakpoints */
+@media (max-width: 768px) {
+    .map-wrapper,
+    #map {
+        min-height: 400px !important;
+    }
+    
+    .wines-grid-container {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .map-wrapper,
+    #map {
+        min-height: 300px !important;
     }
 }
