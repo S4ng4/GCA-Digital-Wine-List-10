@@ -3056,6 +3056,17 @@ body:not(.home-page) .luxury-container {
     .interactive-map-main {
         min-height: 60vh;
     }
+    
+    /* Ensure map is visible on tablet (768px - 1024px) */
+    .main-content-desktop .map-wrapper {
+        display: flex !important;
+        min-height: 500px !important;
+    }
+    
+    .main-content-desktop #map {
+        min-height: 500px !important;
+        height: 100% !important;
+    }
 }
 
 /* Desktop layout - ensure desktop elements are visible */
