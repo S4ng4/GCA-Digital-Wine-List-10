@@ -637,26 +637,85 @@ body:not(.home-page) .luxury-container {
     left: 100%;
 }
 
-/* Breadcrumb */
+/* Breadcrumb - Apple-like design */
 .breadcrumb {
     max-width: 1400px;
-    margin: 1rem auto 2rem;
+    margin: 1.5rem auto 1.5rem;
     padding: 0 2rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    color: rgba(245, 245, 240, 0.7);
+    gap: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: rgba(245, 245, 240, 0.6);
+    letter-spacing: -0.01em;
+    line-height: 1.5;
 }
 
 .breadcrumb a {
-    color: var(--gold);
+    color: rgba(212, 175, 55, 0.8);
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
 }
 
 .breadcrumb a:hover {
-    color: var(--ivory);
+    color: var(--gold);
+    transform: translateY(-1px);
+}
+
+.breadcrumb-separator {
+    color: rgba(245, 245, 240, 0.3);
+    font-weight: 300;
+    user-select: none;
+}
+
+.breadcrumb-current {
+    color: rgba(245, 245, 240, 0.9);
+    font-weight: 500;
+}
+
+/* Mobile Breadcrumb - Apple-like design */
+.mobile-breadcrumb {
+    display: none;
+    padding: 1rem 1.25rem;
+    margin: 0;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: rgba(245, 245, 240, 0.6);
+    letter-spacing: -0.01em;
+    line-height: 1.5;
+    background: linear-gradient(180deg, rgba(10, 10, 10, 0.95) 0%, rgba(26, 26, 26, 0.9) 100%);
+    border-bottom: 0.5px solid rgba(212, 175, 55, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.mobile-breadcrumb a {
+    color: rgba(212, 175, 55, 0.8);
+    text-decoration: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-breadcrumb a:active {
+    color: var(--gold);
+    transform: scale(0.98);
+}
+
+.mobile-breadcrumb .breadcrumb-separator {
+    color: rgba(245, 245, 240, 0.3);
+    font-weight: 300;
+    user-select: none;
+}
+
+.mobile-breadcrumb .breadcrumb-current {
+    color: rgba(245, 245, 240, 0.9);
+    font-weight: 500;
 }
 
 /* Main Content Wrapper - Map as Protagonist */
@@ -4940,7 +4999,7 @@ body:not(.home-page) .luxury-container {
     white-space: nowrap;
 }
 
-/* Mobile Responsive Styles */
+/* Mobile Responsive Styles - Apple-like design */
 @media (max-width: 768px) {
     /* Show mobile buttons, hide desktop sidebar */
     .mobile-menu-btn,
@@ -4964,6 +5023,16 @@ body:not(.home-page) .luxury-container {
         min-height: 0;
     }
 
+    /* Show mobile breadcrumb */
+    .mobile-breadcrumb {
+        display: flex !important;
+    }
+    
+    /* Hide desktop breadcrumb on mobile */
+    .breadcrumb {
+        display: none !important;
+    }
+
     /* Hide desktop map wrapper on mobile - use mobile map instead */
     .main-content-desktop .map-wrapper {
         display: none;
@@ -4977,6 +5046,72 @@ body:not(.home-page) .luxury-container {
     .main-content-desktop .wines-list-container {
         display: none;
     }
+    
+    /* Apple-like spacing improvements */
+    .top-nav {
+        padding: 1rem 1.25rem;
+    }
+    
+    .mobile-search-bar-container {
+        padding: 1rem 1.25rem;
+    }
+    
+    .mobile-wine-type-selector {
+        padding: 0.75rem 1.25rem;
+    }
+    
+    /* Improved typography for mobile - Apple style */
+    .nav-title {
+        font-size: 1.25rem;
+        letter-spacing: -0.02em;
+        font-weight: 600;
+    }
+    
+    .nav-subtitle {
+        font-size: 0.8125rem;
+        letter-spacing: -0.01em;
+        opacity: 0.7;
+    }
+    
+    /* Better touch targets - Apple recommends 44x44px */
+    .mobile-menu-btn,
+    .mobile-search-btn {
+        min-width: 44px;
+        min-height: 44px;
+        padding: 0.75rem;
+    }
+    
+    /* Improved search input - Apple style */
+    .mobile-search-input {
+        font-size: 1rem;
+        padding: 0.875rem 1rem 0.875rem 2.75rem;
+        border-radius: 12px;
+        background: rgba(26, 26, 26, 0.8);
+        border: 0.5px solid rgba(212, 175, 55, 0.2);
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .mobile-search-input:focus {
+        background: rgba(26, 26, 26, 0.95);
+        border-color: rgba(212, 175, 55, 0.4);
+        outline: none;
+    }
+    
+    /* Improved filter buttons - Apple style */
+    .mobile-filter-btn {
+        padding: 0.625rem 1rem;
+        border-radius: 10px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        min-height: 36px;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .mobile-filter-btn:active {
+        transform: scale(0.97);
+    }
+}
 
     /* Fixed top nav for mobile */
     .top-nav {
@@ -5198,7 +5333,7 @@ body:not(.home-page) .luxury-container {
         font-weight: 400;
     }
 
-    /* Mobile Map View */
+    /* Mobile Map View - Apple-like design */
     .mobile-map-view {
         flex: 1;
         position: relative;
@@ -5206,7 +5341,7 @@ body:not(.home-page) .luxury-container {
         display: flex;
         flex-direction: column;
         min-height: 0;
-        padding: 1rem;
+        padding: 1rem 1.25rem;
     }
 
     .mobile-map-wrapper {
@@ -5216,11 +5351,21 @@ body:not(.home-page) .luxury-container {
         height: 100%;
         min-height: 300px;
         max-height: 45vh;
-        border-radius: 16px;
+        border-radius: 20px;
         overflow: hidden;
-        border: 2px solid rgba(212, 175, 55, 0.4);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
-        background: rgba(26, 26, 26, 0.5);
+        border: 0.5px solid rgba(212, 175, 55, 0.3);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 
+                    0 2px 8px rgba(0, 0, 0, 0.2),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        background: rgba(26, 26, 26, 0.6);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .mobile-map-wrapper:active {
+        transform: scale(0.99);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
     }
 
     #mobileMap {
