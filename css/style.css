@@ -3207,19 +3207,19 @@ body:not(.home-page) .luxury-container {
         font-size: 0.7rem;
     }
     
-    /* Map elements are hidden together with map-wrapper on mobile */
-    .map-wrapper {
+    /* Map elements are hidden together with map-wrapper on mobile - only for wine-details page */
+    .wine-details-page .map-wrapper {
         display: none !important;
     }
     
-    .map-overlay, 
-    .legend, 
-    .region-info,
-    .interactive-map-main {
+    .wine-details-page .map-overlay, 
+    .wine-details-page .legend, 
+    .wine-details-page .region-info,
+    .wine-details-page .interactive-map-main {
         display: none !important;
     }
     
-    .controls {
+    .wine-details-page .controls {
         display: none !important;
     }
     
@@ -4885,7 +4885,8 @@ body:not(.home-page) .luxury-container {
         min-height: 0;
     }
 
-    .map-wrapper {
+    /* Hide desktop map wrapper on mobile - use mobile map instead */
+    .main-content-desktop .map-wrapper {
         display: none;
     }
 
@@ -4894,7 +4895,7 @@ body:not(.home-page) .luxury-container {
         display: none;
     }
 
-    .wines-list-container {
+    .main-content-desktop .wines-list-container {
         display: none;
     }
 
@@ -5135,6 +5136,7 @@ body:not(.home-page) .luxury-container {
         width: 100%;
         height: 100%;
         min-height: 400px;
+        max-height: 60vh;
         border-radius: 16px;
         overflow: hidden;
         border: 2px solid rgba(212, 175, 55, 0.4);
@@ -5421,10 +5423,39 @@ body:not(.home-page) .luxury-container {
 }
 
 /* Simple responsive breakpoints */
+/* Tablet size (768px - 1024px) - Show desktop map with proper sizing */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .main-content-desktop .map-wrapper {
+        display: flex !important;
+        min-height: 500px !important;
+    }
+    
+    .main-content-desktop #map {
+        min-height: 500px !important;
+        height: 100% !important;
+    }
+    
+    .wines-grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
+    }
+}
+
+/* Mobile size (max-width: 768px) - Use mobile map container */
 @media (max-width: 768px) {
-    .map-wrapper,
-    #map {
+    /* Desktop map should be hidden on mobile */
+    .main-content-desktop .map-wrapper {
+        display: none !important;
+    }
+    
+    /* Mobile map container sizing */
+    .mobile-map-wrapper {
         min-height: 400px !important;
+        max-height: 60vh !important;
+    }
+    
+    #mobileMap {
+        min-height: 400px !important;
+        max-height: 60vh !important;
     }
     
     .wines-grid-container {
@@ -5432,9 +5463,16 @@ body:not(.home-page) .luxury-container {
     }
 }
 
+/* Small mobile size (max-width: 480px) */
 @media (max-width: 480px) {
-    .map-wrapper,
-    #map {
+    /* Mobile map container sizing for small screens */
+    .mobile-map-wrapper {
         min-height: 300px !important;
+        max-height: 50vh !important;
+    }
+    
+    #mobileMap {
+        min-height: 300px !important;
+        max-height: 50vh !important;
     }
 }
