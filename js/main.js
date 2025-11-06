@@ -3082,6 +3082,8 @@ if (window.location.pathname === '/' || window.location.pathname.endsWith('index
                         })
                         .catch(error => {
                             console.error('❌ Error loading mobile GeoJSON:', error);
+                            console.error('📍 GeoJSON URL:', 'https://raw.githubusercontent.com/openpolis/geojson-italy/master/geojson/limits_IT_regions.geojson');
+                            console.error('📍 Current URL:', window.location.href);
                         });
                 } catch (error) {
                     console.error('❌ Error initializing mobile map:', error);
