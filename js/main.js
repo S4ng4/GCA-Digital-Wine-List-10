@@ -2711,6 +2711,55 @@ function initInteractiveMap() {
             maxZoom: 19
         }).addTo(mapInstance);
         
+        function updateMobileMapHeight() {
+            const mobileContainer = document.getElementById('mobileMapWinesContainer');
+            const mobileWrapper = document.getElementById('mobileMapWrapper');
+            if (!mobileContainer || !mobileWrapper) {
+                return;
+            }
+            const viewport = window.visualViewport;
+            const viewportHeight = viewport ? viewport.height : window.innerHeight;
+            const topNav = document.querySelector('.top-nav');
+            const wineSelector = document.querySelector('.mobile-wine-type-selector');
+            const searchBar = document.getElementById('mobileSearchBarContainer');
+            let reservedHeight = 0;
+            if (topNav && window.getComputedStyle(topNav).display !== 'none') {
+                reservedHeight += topNav.offsetHeight;
+            }
+            if (wineSelector && window.getComputedStyle(wineSelector).display !== 'none') {
+                reservedHeight += wineSelector.offsetHeight;
+            }
+            if (searchBar && searchBar.classList.contains('visible')) {
+                reservedHeight += searchBar.offsetHeight;
+            }
+            const mapHeight = Math.max(320, viewportHeight - reservedHeight - 40);
+            mobileWrapper.style.height = `${mapHeight}px`;
+            mobileWrapper.style.minHeight = `${mapHeight}px`;
+            mobileWrapper.style.maxHeight = `${mapHeight}px`;
+            mobileContainer.style.setProperty('--mobile-map-height', `${mapHeight}px`);
+        }
+        let viewportResizeTimer = null;
+        function scheduleViewportRefresh(extraDelay = 0) {
+            if (viewportResizeTimer) {
+                clearTimeout(viewportResizeTimer);
+            }
+            viewportResizeTimer = setTimeout(() => {
+                updateMobileMapHeight();
+                if (mapInstance) {
+                    mapInstance.invalidateSize();
+                }
+                if (window.innerWidth <= 1024) {
+                    if (mobileMapInstance) {
+                        mobileMapInstance.invalidateSize();
+                    } else {
+                        initializeMobileMap();
+                    }
+                }
+            }, 200 + extraDelay);
+        }
+        window.addEventListener('resize', () => scheduleViewportRefresh());
+        window.addEventListener('orientationchange', () => scheduleViewportRefresh(200));
+        
         // Load GeoJSON with error handling and fallback
         fetch('https://raw.githubusercontent.com/openpolis/geojson-italy/master/geojson/limits_IT_regions.geojson')
             .then(response => {
@@ -3078,6 +3127,7 @@ function initInteractiveMap() {
                 console.log('Mobile map container not found');
                 return;
             }
+            updateMobileMapHeight();
             // Wait a bit for container to be ready
             setTimeout(() => {
                 if (mobileMapContainer._leaflet_id) {
@@ -3135,6 +3185,7 @@ function initInteractiveMap() {
                             setTimeout(() => {
                                 mobileMapInstance.invalidateSize();
                             }, 200);
+                            scheduleViewportRefresh();
                         })
                         .catch(error => {
                             console.error('❌ Error loading mobile GeoJSON:', error);
@@ -4464,6 +4515,12 @@ function initInteractiveMap() {
                 clearInterval(checkWineApp);
             }
         }, 500);
+        scheduleViewportRefresh();
+}
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInteractiveMap);
+} else {
+    initInteractiveMap();
 }
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initInteractiveMap);
