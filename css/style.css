@@ -1,4 +1,5 @@
 /* Error notification animations */
+/* Error notification animations */
 @keyframes slideInRight {
     from { 
         transform: translateX(100%); 
@@ -4942,8 +4943,8 @@ body:not(.home-page) .luxury-container {
 @media (max-width: 767px) {
     :root {
         --mobile-nav-height: 70px;
-        --mobile-wine-type-height: 132px;
-        --mobile-search-height: 110px;
+        --mobile-wine-type-height: 124px;
+        --mobile-search-height: 112px;
     }
 
     /* Show mobile buttons, hide desktop sidebar */
@@ -5080,7 +5081,7 @@ body:not(.home-page) .luxury-container {
 
     /* Mobile Search Bar (positioned below nav) */
     .mobile-search-bar-container {
-        position: fixed;
+        position: sticky;
         top: var(--mobile-nav-height);
         left: 0;
         right: 0;
@@ -5089,7 +5090,7 @@ body:not(.home-page) .luxury-container {
         backdrop-filter: blur(10px);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-        padding: 1rem;
+        padding: 1rem 1.25rem;
         display: none;
     }
 
@@ -5171,8 +5172,8 @@ body:not(.home-page) .luxury-container {
 
     /* Mobile Wine Type Selector (below nav) - Apple-like design */
     .mobile-wine-type-selector {
-        position: fixed;
-        top: var(--mobile-nav-height);
+        position: sticky;
+        top: calc(var(--mobile-nav-height));
         left: 0;
         right: 0;
         z-index: 180;
@@ -5184,6 +5185,10 @@ body:not(.home-page) .luxury-container {
         padding: 0.75rem 1.25rem;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+    }
+
+    .mobile-search-bar-container.visible + .mobile-wine-type-selector {
+        top: calc(var(--mobile-nav-height) + var(--mobile-search-height));
     }
 
     .mobile-wine-types-scroll {
@@ -5491,26 +5496,29 @@ body:not(.home-page) .luxury-container {
         line-height: 1.4;
     }
 
-    /* Adjust content wrapper to account for fixed nav and wine type selector */
+    /* Layout spacing adjustments */
+    .main-layout {
+        padding-top: var(--mobile-nav-height);
+    }
+
     .content-wrapper {
-        margin-top: calc(var(--mobile-nav-height) + var(--mobile-wine-type-height)); /* nav height + wine type selector height */
-        transition: margin-top 0.3s ease;
         padding: 0;
+        margin-top: 1rem;
         overflow: hidden;
     }
 
-    .content-wrapper.mobile-search-active {
-        margin-top: calc(var(--mobile-nav-height) + var(--mobile-wine-type-height) + var(--mobile-search-height)); /* nav + search bar + wine type selector when visible */
+    .mobile-search-bar-container.visible + .mobile-wine-type-selector + .content-wrapper {
+        margin-top: 0;
     }
 
-    /* Ensure mobile map container takes full available space */
+    /* Ensure mobile map container takes available space without overlapping selectors */
     .mobile-map-wines-container {
-        height: calc(100vh - (var(--mobile-nav-height) + var(--mobile-wine-type-height)));
-        min-height: 0;
+        flex: 1;
+        min-height: calc(100vh - (var(--mobile-nav-height) + var(--mobile-wine-type-height)));
     }
 
-    .content-wrapper.mobile-search-active .mobile-map-wines-container {
-        height: calc(100vh - (var(--mobile-nav-height) + var(--mobile-wine-type-height) + var(--mobile-search-height)));
+    .mobile-search-bar-container.visible + .mobile-wine-type-selector + .content-wrapper .mobile-map-wines-container {
+        min-height: calc(100vh - (var(--mobile-nav-height) + var(--mobile-wine-type-height) + var(--mobile-search-height)));
     }
 
     .content-wrapper > div:last-child {
