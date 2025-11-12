@@ -2732,7 +2732,7 @@ function initInteractiveMap() {
             if (searchBar && searchBar.classList.contains('visible')) {
                 reservedHeight += searchBar.offsetHeight;
             }
-            const mapHeight = Math.max(320, viewportHeight - reservedHeight - 40);
+        const mapHeight = Math.max(320, viewportHeight - reservedHeight);
             mobileWrapper.style.height = `${mapHeight}px`;
             mobileWrapper.style.minHeight = `${mapHeight}px`;
             mobileWrapper.style.maxHeight = `${mapHeight}px`;
@@ -2751,6 +2751,7 @@ function initInteractiveMap() {
                 if (window.innerWidth <= 1024) {
                     if (mobileMapInstance) {
                         mobileMapInstance.invalidateSize();
+                        recenterMobileMap();
                     } else {
                         initializeMobileMap();
                     }
@@ -2759,6 +2760,27 @@ function initInteractiveMap() {
         }
         window.addEventListener('resize', () => scheduleViewportRefresh());
         window.addEventListener('orientationchange', () => scheduleViewportRefresh(200));
+        
+        function recenterMobileMap() {
+            if (!mobileMapInstance) {
+                return;
+            }
+            if (mobileSelectedRegion && typeof mobileSelectedRegion.getBounds === 'function') {
+                const bounds = mobileSelectedRegion.getBounds();
+                if (bounds.isValid()) {
+                    mobileMapInstance.fitBounds(bounds, { padding: [50, 50] });
+                    return;
+                }
+            }
+            if (mobileGeoJsonLayer) {
+                const bounds = mobileGeoJsonLayer.getBounds();
+                if (bounds.isValid()) {
+                    mobileMapInstance.fitBounds(bounds, { padding: [50, 50] });
+                    return;
+                }
+            }
+            mobileMapInstance.setView([41.9, 12.6], 6);
+        }
         
         // Load GeoJSON with error handling and fallback
         fetch('https://raw.githubusercontent.com/openpolis/geojson-italy/master/geojson/limits_IT_regions.geojson')
@@ -3154,6 +3176,7 @@ function initInteractiveMap() {
                     // Invalidate size after a short delay to ensure proper rendering
                     setTimeout(() => {
                         mobileMapInstance.invalidateSize();
+                        recenterMobileMap();
                     }, 100);
                     fetch('https://raw.githubusercontent.com/openpolis/geojson-italy/master/geojson/limits_IT_regions.geojson')
                         .then(response => {
@@ -3184,6 +3207,7 @@ function initInteractiveMap() {
                             // Invalidate size again after GeoJSON is added
                             setTimeout(() => {
                                 mobileMapInstance.invalidateSize();
+                                recenterMobileMap();
                             }, 200);
                             scheduleViewportRefresh();
                         })
@@ -3281,6 +3305,7 @@ function initInteractiveMap() {
             });
             layer.bringToFront();
             showMobileWinesForRegion(regionName, mobileCurrentWineType);
+            recenterMobileMap();
         }
         // Update Mobile Map Colors
         function updateMobileMapColors(wineType) {
