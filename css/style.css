@@ -3141,7 +3141,11 @@ body:not(.home-page) .luxury-container {
         display: flex !important;
     }
 
-    .interactive-map-main,
+    .interactive-map-main {
+        display: flex !important;
+    }
+    
+    /* Sidebar visibile solo su desktop (>= 1024px) */
     .sidebar {
         display: flex !important;
     }
@@ -3160,8 +3164,13 @@ body:not(.home-page) .luxury-container {
     }
 }
 
-/* Tablet layout refinements */
+/* Tablet layout refinements - sidebar nascosta */
 @media (min-width: 768px) and (max-width: 1023px) {
+    /* Sidebar completamente nascosta su tablet */
+    .sidebar {
+        display: none !important;
+    }
+    
     .main-content-wrapper {
         flex-direction: column;
         gap: 1rem;
@@ -3228,14 +3237,19 @@ body:not(.home-page) .luxury-container {
     }
 }
 
-/* Tutti i dispositivi sotto iPad Pro in portrait - applica stesse impostazioni */
+/* Tutti i dispositivi sotto iPad Pro in portrait - sidebar nascosta, layout ottimizzato */
 @media (max-width: 1023px) and (orientation: portrait) {
-    /* Nascondi la search bar */
+    /* Nascondi la search bar desktop */
     .search-bar-container {
         display: none !important;
     }
+    
+    /* Sidebar completamente nascosta su tablet/mobile */
+    .sidebar {
+        display: none !important;
+    }
 
-    /* Layout principale - sidebar a sinistra, mappa a destra */
+    /* Layout principale - solo mappa, senza sidebar */
     .content-wrapper {
         min-height: calc(100vh - 90px) !important;
         overflow: visible !important;
@@ -3243,36 +3257,22 @@ body:not(.home-page) .luxury-container {
         z-index: 0 !important;
         padding: 0 !important;
         margin: 0 !important;
-        flex-direction: row !important;
+        flex-direction: column !important;
         display: flex !important;
-        align-items: flex-start !important;
-        gap: 1rem !important;
-    }
-
-    /* Sidebar visibile sotto la nav bar */
-    .sidebar {
-        display: flex !important;
-        position: relative !important;
-        z-index: 5 !important;
-        flex-shrink: 0 !important;
-        width: 240px !important;
-        max-width: 240px !important;
-        min-width: 240px !important;
-        height: auto !important;
-        order: 1 !important;
+        align-items: stretch !important;
+        gap: 0 !important;
     }
 
     .main-content-desktop {
         flex: 1 1 auto !important;
         position: relative !important;
         z-index: 0 !important;
-        width: auto !important;
-        max-width: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
         padding: 0.5rem !important;
         margin: 0 !important;
         display: flex !important;
         flex-direction: column !important;
-        order: 2 !important;
     }
 
     /* Mappa completamente visibile e centrata */
@@ -3310,12 +3310,9 @@ body:not(.home-page) .luxury-container {
         min-height: auto !important;
     }
 
+    /* Wine cards sidebar nascosta su tablet/mobile */
     .wine-cards-sidebar {
-        max-height: none !important;
-        flex-shrink: 0 !important;
-        position: relative !important;
-        z-index: 5 !important;
-        margin-bottom: 0 !important;
+        display: none !important;
     }
 
     /* Assicura che la mappa non sia coperta da altri elementi */
@@ -3434,8 +3431,9 @@ body:not(.home-page) .luxury-container {
         gap: 0.5rem;
     }
     
+    /* Wine cards sidebar nascosta su mobile */
     .wine-cards-sidebar {
-        max-height: 200px;
+        display: none !important;
     }
     
     .luxury-wine-card {
@@ -3472,6 +3470,11 @@ body:not(.home-page) .luxury-container {
         display: none !important;
     }
     
+    /* Assicura che sidebar sia nascosta anche nelle altre pagine */
+    .sidebar {
+        display: none !important;
+    }
+    
     .wine-details-container {
         margin-bottom: 0;
         padding-bottom: 2rem;
@@ -3498,6 +3501,8 @@ body:not(.home-page) .luxury-container {
     flex-direction: column;
     height: 100vh;
     width: 100vw;
+    overflow: hidden;
+    position: relative;
 }
 
 /* ==================== TOP NAVIGATION ==================== */
@@ -4638,14 +4643,13 @@ body:not(.home-page) .luxury-container {
         font-size: 0.85rem;
     }
 
+    /* Sidebar già nascosta su mobile tramite regola principale */
     .sidebar {
-        max-height: 150px;
-        padding: 0.875rem 1rem;
+        display: none !important;
     }
-
+    
     .wine-card-sidebar {
-        min-width: 120px;
-        padding: 0.75rem 0.65rem;
+        display: none !important;
     }
 
     .region-info {
