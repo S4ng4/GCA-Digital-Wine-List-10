@@ -3170,17 +3170,40 @@ body:not(.home-page) .luxury-container {
 
     .main-content-desktop {
         flex-direction: column !important;
+        display: flex !important;
+        width: 100% !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
 
     .main-content-desktop .map-wrapper {
+        display: flex !important;
         min-height: 500px !important;
-        max-height: 70vh !important;
+        max-height: 75vh !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        align-items: center !important;
+        justify-content: center !important;
+        position: relative !important;
     }
 
     .main-content-desktop #map {
         min-height: 500px !important;
-        max-height: 70vh !important;
+        max-height: 75vh !important;
         height: 100% !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        display: block !important;
+    }
+
+    .content-wrapper {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     .wine-cards-sidebar {
@@ -3194,10 +3217,98 @@ body:not(.home-page) .luxury-container {
 
     .interactive-map-main {
         min-height: 60vh;
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
     }
 
     .wines-grid-container {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
+    }
+}
+
+/* Tablet Portrait - ottimizzazione per vista verticale */
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+    .content-wrapper {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
+        min-height: calc(100vh - 180px) !important;
+    }
+
+    .main-content-desktop {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin: 0 !important;
+        padding: 1rem !important;
+        flex: 1 1 auto !important;
+    }
+
+    .main-content-desktop .map-wrapper {
+        display: flex !important;
+        min-height: 60vh !important;
+        max-height: 75vh !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        align-items: center !important;
+        justify-content: center !important;
+        position: relative !important;
+        flex: 1 1 auto !important;
+        z-index: 1 !important;
+    }
+
+    .main-content-desktop #map {
+        min-height: 60vh !important;
+        max-height: 75vh !important;
+        height: 100% !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        display: block !important;
+        position: relative !important;
+        z-index: 1 !important;
+    }
+
+    .search-bar-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 1rem !important;
+        flex-shrink: 0 !important;
+    }
+
+    .top-nav {
+        flex-shrink: 0 !important;
+        position: relative !important;
+    }
+
+    .sidebar {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex-shrink: 0 !important;
+    }
+
+    .wine-cards-sidebar {
+        max-height: 200px !important;
+        overflow-x: auto !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Assicura che la mappa non sia coperta da altri elementi */
+    .region-info {
+        z-index: 1000 !important;
+    }
+
+    .leaflet-container {
+        z-index: 1 !important;
     }
 }
 
