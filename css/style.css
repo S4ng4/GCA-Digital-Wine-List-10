@@ -3228,8 +3228,8 @@ body:not(.home-page) .luxury-container {
     }
 }
 
-/* Tablet Portrait - ottimizzazione per vista verticale (iPad Mini) */
-@media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+/* Tutti i dispositivi sotto iPad Pro in portrait - applica stesse impostazioni */
+@media (max-width: 1023px) and (orientation: portrait) {
     /* Nascondi la search bar */
     .search-bar-container {
         display: none !important;
