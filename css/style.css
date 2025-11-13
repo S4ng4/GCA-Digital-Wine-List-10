@@ -3228,56 +3228,84 @@ body:not(.home-page) .luxury-container {
     }
 }
 
-/* Tablet Portrait - ottimizzazione per vista verticale */
+/* Tablet Portrait - ottimizzazione per vista verticale (iPad Mini) */
 @media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
-    /* Solo regole specifiche per portrait - le altre sono ereditate dal blocco tablet generale */
+    /* Layout principale - assicura spazio per la mappa */
     .content-wrapper {
-        min-height: calc(100vh - 180px) !important;
+        min-height: calc(100vh - 200px) !important;
         overflow: visible !important;
         position: relative !important;
         z-index: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
 
     .main-content-desktop {
         flex: 1 1 auto !important;
         position: relative !important;
         z-index: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0.5rem !important;
+        margin: 0 !important;
     }
 
+    /* Mappa completamente visibile e centrata */
     .main-content-desktop .map-wrapper {
-        min-height: 60vh !important;
+        min-height: 65vh !important;
+        max-height: 75vh !important;
         flex: 1 1 auto !important;
         z-index: 10 !important;
         position: relative !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
 
     .main-content-desktop #map {
-        min-height: 60vh !important;
+        min-height: 65vh !important;
+        max-height: 75vh !important;
+        height: 100% !important;
+        width: 100% !important;
         z-index: 10 !important;
         position: relative !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
     }
 
-    /* Assicura che header e search bar non coprano la mappa */
+    /* Header e elementi UI - non devono coprire la mappa */
     .top-nav {
         position: relative !important;
         z-index: 5 !important;
+        flex-shrink: 0 !important;
+        min-height: auto !important;
     }
 
     .search-bar-container {
         position: relative !important;
         z-index: 5 !important;
+        flex-shrink: 0 !important;
+        padding: 0.75rem 1rem !important;
     }
 
     .sidebar {
         position: relative !important;
         z-index: 5 !important;
+        flex-shrink: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
 
     .wine-cards-sidebar {
-        max-height: 200px !important;
+        max-height: 180px !important;
         flex-shrink: 0 !important;
         position: relative !important;
         z-index: 5 !important;
+        margin-bottom: 0.5rem !important;
     }
 
     /* Assicura che la mappa non sia coperta da altri elementi */
@@ -3289,6 +3317,8 @@ body:not(.home-page) .luxury-container {
     .leaflet-container {
         z-index: 10 !important;
         position: relative !important;
+        width: 100% !important;
+        height: 100% !important;
     }
 
     /* Assicura che overlay e popup non coprano la mappa */
@@ -3309,7 +3339,6 @@ body:not(.home-page) .luxury-container {
         visibility: visible !important;
         opacity: 1 !important;
         pointer-events: auto !important;
-        display: flex !important;
     }
 
     /* Assicura che il contenitore principale non nasconda la mappa */
@@ -3317,6 +3346,20 @@ body:not(.home-page) .luxury-container {
         overflow: visible !important;
         position: relative !important;
         z-index: 10 !important;
+        width: 100% !important;
+        flex: 1 1 auto !important;
+    }
+
+    /* Rimuovi padding eccessivo che potrebbe spostare la mappa */
+    .main-content-wrapper {
+        padding: 0.5rem !important;
+        gap: 0.5rem !important;
+    }
+
+    /* Assicura che la mappa sia sempre al centro */
+    .map-wrapper::before,
+    .map-wrapper::after {
+        content: none !important;
     }
 }
 
