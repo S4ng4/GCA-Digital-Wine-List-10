@@ -5824,8 +5824,7 @@ body:not(.home-page) .luxury-container {
     }
 
     .content-wrapper {
-        margin-top: 0 !important;
-        padding: 0 !important;
+        margin-top: 70px;
     }
 }
 
@@ -6004,72 +6003,20 @@ body:not(.home-page) .luxury-container {
     }
 }
 
-/* iPhone and small mobile devices (max-width: 480px) - Full screen map */
+/* Small mobile size (max-width: 480px) - Optimized for small screens */
 @media (max-width: 480px) {
-    /* Assicura che le wine type siano sempre visibili */
-    .mobile-wine-type-selector {
-        z-index: 200 !important;
-        position: sticky !important;
-        display: flex !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-    }
-    
-    /* Content wrapper - full height layout */
-    .content-wrapper {
-        height: 100vh !important;
-        min-height: 100vh !important;
-        display: flex !important;
-        flex-direction: column !important;
-        margin-top: 0 !important;
-        padding: 0 !important;
-        overflow: hidden !important;
-    }
-    
-    /* Mobile map wines container - full height and flex */
-    .mobile-map-wines-container {
-        flex: 1 1 auto !important;
-        display: flex !important;
-        flex-direction: column !important;
-        min-height: 0 !important;
-        overflow: hidden !important;
-        height: 100% !important;
-        z-index: 1 !important;
-    }
-    
-    /* Mobile map view - remove padding for full screen */
-    .mobile-map-view {
-        padding: 0 !important;
-        flex: 1 1 auto !important;
-        height: 100% !important;
-        min-height: 0 !important;
-        display: flex !important;
-        flex-direction: column !important;
-        overflow: hidden !important;
-        z-index: 1 !important;
-    }
-    
-    /* Mobile map container - full screen on iPhone */
+    /* Mobile map container - slightly smaller for small screens */
     .mobile-map-wrapper {
-        flex: 1 1 auto !important;
-        position: relative !important;
-        width: 100% !important;
-        height: 100% !important;
-        min-height: 100% !important;
-        max-height: none !important;
-        border-radius: 0 !important;
-        margin: 30px 0 0 0 !important;
-        padding: 0 !important;
-        overflow: hidden !important;
-        z-index: 1 !important;
+        min-height: 220px;
+        max-height: 30vh;
+        height: 30vh;
+        border-radius: 16px;
     }
     
     #mobileMap {
-        min-height: 100% !important;
-        height: 100% !important;
-        width: 100% !important;
-        border-radius: 0 !important;
-        z-index: 1 !important;
+        min-height: 220px;
+        height: 100%;
+        border-radius: 16px;
     }
     
     /* Wine cards - optimized spacing for small screens */
