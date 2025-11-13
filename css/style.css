@@ -6039,3 +6039,64 @@ body:not(.home-page) .luxury-container {
     }
 }
 
+/* ==================== iOS COMPATIBILITY FIXES ==================== */
+/* Safe areas per iPhone con notch */
+@media (max-width: 768px) {
+    .map-container,
+    .mobile-map-wrapper,
+    .interactive-map-main,
+    .mobile-map-view {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
+    
+    /* Forza visibilità elementi mappa su mobile iOS */
+    .map-wrapper,
+    #map,
+    .leaflet-container,
+    .mobile-map-wrapper,
+    #mobileMap {
+        visibility: visible !important;
+        opacity: 1 !important;
+        background: transparent !important;
+        display: block !important;
+    }
+    
+    /* Assicura che la mappa mobile sia sempre visibile */
+    .mobile-map-view .leaflet-container {
+        background: rgba(26, 26, 26, 0.8) !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}
+
+/* Reset per garantire visualizzazione su iOS */
+.leaflet-container {
+    background: transparent !important;
+}
+
+.mobile-map-view .leaflet-container {
+    background: rgba(26, 26, 26, 0.8) !important;
+}
+
+/* Media query corretto per portrait su mobile */
+@media (max-width: 768px) and (orientation: portrait) {
+    .map-wrapper,
+    #map,
+    .interactive-map-main,
+    .mobile-map-view,
+    #mobileMap {
+        visibility: visible !important;
+        opacity: 1 !important;
+        display: block !important;
+    }
+    
+    .mobile-map-wrapper {
+        visibility: visible !important;
+        opacity: 1 !important;
+        display: flex !important;
+    }
+}
+
