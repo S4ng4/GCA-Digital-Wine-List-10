@@ -3234,35 +3234,89 @@ body:not(.home-page) .luxury-container {
     .content-wrapper {
         min-height: calc(100vh - 180px) !important;
         overflow: visible !important;
+        position: relative !important;
+        z-index: 0 !important;
     }
 
     .main-content-desktop {
         flex: 1 1 auto !important;
+        position: relative !important;
+        z-index: 0 !important;
     }
 
     .main-content-desktop .map-wrapper {
         min-height: 60vh !important;
         flex: 1 1 auto !important;
-        z-index: 1 !important;
+        z-index: 10 !important;
+        position: relative !important;
     }
 
     .main-content-desktop #map {
         min-height: 60vh !important;
-        z-index: 1 !important;
+        z-index: 10 !important;
+        position: relative !important;
+    }
+
+    /* Assicura che header e search bar non coprano la mappa */
+    .top-nav {
+        position: relative !important;
+        z-index: 5 !important;
+    }
+
+    .search-bar-container {
+        position: relative !important;
+        z-index: 5 !important;
+    }
+
+    .sidebar {
+        position: relative !important;
+        z-index: 5 !important;
     }
 
     .wine-cards-sidebar {
         max-height: 200px !important;
         flex-shrink: 0 !important;
+        position: relative !important;
+        z-index: 5 !important;
     }
 
     /* Assicura che la mappa non sia coperta da altri elementi */
     .region-info {
         z-index: 1000 !important;
+        position: relative !important;
     }
 
     .leaflet-container {
-        z-index: 1 !important;
+        z-index: 10 !important;
+        position: relative !important;
+    }
+
+    /* Assicura che overlay e popup non coprano la mappa */
+    .leaflet-popup,
+    .leaflet-control {
+        z-index: 1001 !important;
+    }
+
+    /* Rimuovi eventuali overlay che potrebbero coprire */
+    .mobile-overlay,
+    .mobile-side-menu {
+        z-index: 999 !important;
+    }
+
+    /* Forza la mappa ad essere sempre visibile e non coperta */
+    .main-content-desktop .map-wrapper,
+    .main-content-desktop #map {
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        display: flex !important;
+    }
+
+    /* Assicura che il contenitore principale non nasconda la mappa */
+    .interactive-map-main {
+        overflow: visible !important;
+        position: relative !important;
+        z-index: 10 !important;
     }
 }
 
