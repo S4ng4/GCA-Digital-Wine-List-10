@@ -38,8 +38,8 @@
             <div class="loading-extras">
                 <div class="gold-bokeh"><span></span><span></span><span></span></div>
             </div>
-                </div>
-            </div>
+        </div>
+    </div>
             
     <!-- Mobile Menu Overlay -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
@@ -103,13 +103,6 @@
 
         <!-- Content Wrapper -->
         <div class="content-wrapper">
-            <!-- Mobile Breadcrumb (visible on mobile only) -->
-            <nav class="mobile-breadcrumb" id="mobileBreadcrumb" aria-label="Breadcrumb">
-                <a href="./index.html">Home</a>
-                <span class="breadcrumb-separator">/</span>
-                <span class="breadcrumb-current" id="mobileBreadcrumbCurrent">Wine Collection</span>
-            </nav>
-            
             <!-- Mobile Map and Wines Container (visible on mobile only) -->
             <div class="mobile-map-wines-container" id="mobileMapWinesContainer">
                 <!-- Mobile Map View -->
@@ -184,7 +177,7 @@
                         </div>
                         <div class="wine-card-title">Red Wines</div>
                         <div class="wine-card-subtitle">Bold & Complex</div>
-                        <div class="wine-card-count">Caricamento...</div>
+                        <div class="wine-card-count">Loading...</div>
                     </div>
 
                     <div class="wine-card-sidebar" data-type="BIANCO">
@@ -193,7 +186,7 @@
                         </div>
                         <div class="wine-card-title">White Wines</div>
                         <div class="wine-card-subtitle">Crisp & Refreshing</div>
-                        <div class="wine-card-count">Caricamento...</div>
+                        <div class="wine-card-count">Loading...</div>
                     </div>
 
                     <div class="wine-card-sidebar" data-type="ROSATO">
@@ -202,7 +195,7 @@
                         </div>
                         <div class="wine-card-title">Rosé Wines</div>
                         <div class="wine-card-subtitle">Elegant & Delicate</div>
-                        <div class="wine-card-count">Caricamento...</div>
+                        <div class="wine-card-count">Loading...</div>
                     </div>
 
                     <div class="wine-card-sidebar" data-type="ARANCIONE">
@@ -211,7 +204,7 @@
                         </div>
                         <div class="wine-card-title">Orange Wines</div>
                         <div class="wine-card-subtitle">Skin-Contact Whites</div>
-                        <div class="wine-card-count">Caricamento...</div>
+                        <div class="wine-card-count">Loading...</div>
                     </div>
 
                     <div class="wine-card-sidebar" data-type="BOLLICINE">
@@ -220,7 +213,7 @@
                         </div>
                         <div class="wine-card-title">Sparkling</div>
                         <div class="wine-card-subtitle">Celebratory & Vibrant</div>
-                        <div class="wine-card-count">Caricamento...</div>
+                        <div class="wine-card-count">Loading...</div>
                     </div>
 
                     <div class="wine-card-sidebar" data-type="NON ALCOLICO">
@@ -229,7 +222,7 @@
                         </div>
                         <div class="wine-card-title">Non-Alcoholic</div>
                         <div class="wine-card-subtitle">Zero Alcohol Selection</div>
-                        <div class="wine-card-count">Caricamento...</div>
+                        <div class="wine-card-count">Loading...</div>
                     </div>
                 </div>
             </aside>
@@ -247,13 +240,6 @@
 
             <!-- Main Content -->
             <div style="display: flex; flex-direction: column; flex: 1; overflow: hidden; min-height: 0;" class="main-content-desktop">
-                <!-- Breadcrumb -->
-                <nav class="breadcrumb" id="breadcrumb" aria-label="Breadcrumb">
-                    <a href="./index.html">Home</a>
-                    <span class="breadcrumb-separator">/</span>
-                    <span class="breadcrumb-current" id="breadcrumbCurrent">Wine Collection</span>
-                </nav>
-                
                 <!-- Search Bar -->
                 <div class="search-bar-container">
                     <div class="search-wrapper">
@@ -263,7 +249,7 @@
                         <button class="btn-filter luxury-filter-btn">Filter by Region</button>
                         <button class="btn-filter luxury-filter-btn">Filter by Varietal</button>
                     </div>
-                    </div>
+                </div>
                     
                 <!-- Map Container -->
                 <div class="map-wrapper" id="mapWrapper">
@@ -296,7 +282,7 @@
                         <!-- Wines will be loaded here dynamically -->
                     </div>
                 </div>
-        </div>
+            </div>
 
             <!-- Wines Panel -->
             <aside class="wines-panel" id="winesPanel">
@@ -308,7 +294,7 @@
                     <!-- Wines will be loaded here dynamically -->
                 </div>
             </aside>
-            </div>
+        </div>
     </div>
 
     <!-- Leaflet JS (HTTPS CDN) -->
@@ -317,4 +303,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <!-- Custom JS -->
     <script src="./js/main.js"></script>
+</body>
 </html>
