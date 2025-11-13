@@ -6006,6 +6006,15 @@ body:not(.home-page) .luxury-container {
 
 /* iPhone and small mobile devices (max-width: 480px) - Full screen map */
 @media (max-width: 480px) {
+    /* Assicura che le wine type siano sempre visibili */
+    .mobile-wine-type-selector {
+        z-index: 200 !important;
+        position: sticky !important;
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
     /* Content wrapper - full height layout */
     .content-wrapper {
         height: 100vh !important;
@@ -6025,6 +6034,7 @@ body:not(.home-page) .luxury-container {
         min-height: 0 !important;
         overflow: hidden !important;
         height: 100% !important;
+        z-index: 1 !important;
     }
     
     /* Mobile map view - remove padding for full screen */
@@ -6036,6 +6046,7 @@ body:not(.home-page) .luxury-container {
         display: flex !important;
         flex-direction: column !important;
         overflow: hidden !important;
+        z-index: 1 !important;
     }
     
     /* Mobile map container - full screen on iPhone */
@@ -6047,9 +6058,10 @@ body:not(.home-page) .luxury-container {
         min-height: 100% !important;
         max-height: none !important;
         border-radius: 0 !important;
-        margin: 0 !important;
+        margin: 30px 0 0 0 !important;
         padding: 0 !important;
         overflow: hidden !important;
+        z-index: 1 !important;
     }
     
     #mobileMap {
@@ -6057,6 +6069,7 @@ body:not(.home-page) .luxury-container {
         height: 100% !important;
         width: 100% !important;
         border-radius: 0 !important;
+        z-index: 1 !important;
     }
     
     /* Wine cards - optimized spacing for small screens */
