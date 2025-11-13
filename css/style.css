@@ -3230,30 +3230,55 @@ body:not(.home-page) .luxury-container {
 
 /* Tablet Portrait - ottimizzazione per vista verticale (iPad Mini) */
 @media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
-    /* Layout principale - assicura spazio per la mappa */
+    /* Nascondi la search bar */
+    .search-bar-container {
+        display: none !important;
+    }
+
+    /* Layout principale - sidebar a sinistra, mappa a destra */
     .content-wrapper {
-        min-height: calc(100vh - 200px) !important;
+        min-height: calc(100vh - 90px) !important;
         overflow: visible !important;
         position: relative !important;
         z-index: 0 !important;
         padding: 0 !important;
         margin: 0 !important;
+        flex-direction: row !important;
+        display: flex !important;
+        align-items: flex-start !important;
+        gap: 1rem !important;
+    }
+
+    /* Sidebar visibile sotto la nav bar */
+    .sidebar {
+        display: flex !important;
+        position: relative !important;
+        z-index: 5 !important;
+        flex-shrink: 0 !important;
+        width: 240px !important;
+        max-width: 240px !important;
+        min-width: 240px !important;
+        height: auto !important;
+        order: 1 !important;
     }
 
     .main-content-desktop {
         flex: 1 1 auto !important;
         position: relative !important;
         z-index: 0 !important;
-        width: 100% !important;
-        max-width: 100% !important;
+        width: auto !important;
+        max-width: none !important;
         padding: 0.5rem !important;
         margin: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        order: 2 !important;
     }
 
     /* Mappa completamente visibile e centrata */
     .main-content-desktop .map-wrapper {
-        min-height: 65vh !important;
-        max-height: 75vh !important;
+        min-height: 70vh !important;
+        max-height: 80vh !important;
         flex: 1 1 auto !important;
         z-index: 10 !important;
         position: relative !important;
@@ -3266,8 +3291,8 @@ body:not(.home-page) .luxury-container {
     }
 
     .main-content-desktop #map {
-        min-height: 65vh !important;
-        max-height: 75vh !important;
+        min-height: 70vh !important;
+        max-height: 80vh !important;
         height: 100% !important;
         width: 100% !important;
         z-index: 10 !important;
@@ -3277,7 +3302,7 @@ body:not(.home-page) .luxury-container {
         display: block !important;
     }
 
-    /* Header e elementi UI - non devono coprire la mappa */
+    /* Header - non deve coprire la mappa */
     .top-nav {
         position: relative !important;
         z-index: 5 !important;
@@ -3285,27 +3310,12 @@ body:not(.home-page) .luxury-container {
         min-height: auto !important;
     }
 
-    .search-bar-container {
-        position: relative !important;
-        z-index: 5 !important;
-        flex-shrink: 0 !important;
-        padding: 0.75rem 1rem !important;
-    }
-
-    .sidebar {
-        position: relative !important;
-        z-index: 5 !important;
-        flex-shrink: 0 !important;
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-
     .wine-cards-sidebar {
-        max-height: 180px !important;
+        max-height: none !important;
         flex-shrink: 0 !important;
         position: relative !important;
         z-index: 5 !important;
-        margin-bottom: 0.5rem !important;
+        margin-bottom: 0 !important;
     }
 
     /* Assicura che la mappa non sia coperta da altri elementi */
