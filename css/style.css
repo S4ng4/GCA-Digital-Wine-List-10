@@ -6006,21 +6006,25 @@ body:not(.home-page) .luxury-container {
 
 /* iPhone and small mobile devices (max-width: 480px) - Full screen map */
 @media (max-width: 480px) {
-    /* Mobile map container - full screen on iPhone */
-    .mobile-map-wrapper {
-        min-height: calc(100vh - var(--mobile-nav-height) - var(--mobile-search-height) - var(--mobile-wine-type-height)) !important;
-        max-height: none !important;
-        height: calc(100vh - var(--mobile-nav-height) - var(--mobile-search-height) - var(--mobile-wine-type-height)) !important;
-        border-radius: 0 !important;
-        width: 100% !important;
-        margin: 0 !important;
-        flex: 1 1 auto !important;
+    /* Content wrapper - full height layout */
+    .content-wrapper {
+        height: 100vh !important;
+        min-height: 100vh !important;
+        display: flex !important;
+        flex-direction: column !important;
+        margin-top: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
     }
     
-    #mobileMap {
-        min-height: 100% !important;
+    /* Mobile map wines container - full height and flex */
+    .mobile-map-wines-container {
+        flex: 1 1 auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        min-height: 0 !important;
+        overflow: hidden !important;
         height: 100% !important;
-        border-radius: 0 !important;
     }
     
     /* Mobile map view - remove padding for full screen */
@@ -6031,25 +6035,28 @@ body:not(.home-page) .luxury-container {
         min-height: 0 !important;
         display: flex !important;
         flex-direction: column !important;
+        overflow: hidden !important;
     }
     
-    /* Mobile map wines container - full height */
-    .mobile-map-wines-container {
-        height: calc(100vh - var(--mobile-nav-height) - var(--mobile-search-height) - var(--mobile-wine-type-height)) !important;
-        min-height: calc(100vh - var(--mobile-nav-height) - var(--mobile-search-height) - var(--mobile-wine-type-height)) !important;
+    /* Mobile map container - full screen on iPhone */
+    .mobile-map-wrapper {
         flex: 1 1 auto !important;
-        display: flex !important;
-        flex-direction: column !important;
+        position: relative !important;
+        width: 100% !important;
+        height: 100% !important;
+        min-height: 100% !important;
+        max-height: none !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
     }
     
-    /* Content wrapper - ensure full height */
-    .content-wrapper {
-        height: 100vh !important;
-        min-height: 100vh !important;
-        display: flex !important;
-        flex-direction: column !important;
-        margin-top: 0 !important;
-        padding: 0 !important;
+    #mobileMap {
+        min-height: 100% !important;
+        height: 100% !important;
+        width: 100% !important;
+        border-radius: 0 !important;
     }
     
     /* Wine cards - optimized spacing for small screens */

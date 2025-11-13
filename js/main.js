@@ -2717,6 +2717,23 @@ function initInteractiveMap() {
             if (!mobileContainer || !mobileWrapper) {
                 return;
             }
+            
+            // Check if device is iPhone (max-width: 480px)
+            const isIPhone = window.innerWidth <= 480;
+            
+            if (isIPhone) {
+                // On iPhone, let CSS handle the full screen layout
+                // Remove inline styles to allow CSS to take control
+                mobileWrapper.style.height = '';
+                mobileWrapper.style.minHeight = '';
+                mobileWrapper.style.maxHeight = '';
+                mobileWrapper.style.removeProperty('height');
+                mobileWrapper.style.removeProperty('min-height');
+                mobileWrapper.style.removeProperty('max-height');
+                return;
+            }
+            
+            // For other mobile devices, use the original logic
             const viewport = window.visualViewport;
             const viewportHeight = viewport ? viewport.height : window.innerHeight;
             const topNav = document.querySelector('.top-nav');
