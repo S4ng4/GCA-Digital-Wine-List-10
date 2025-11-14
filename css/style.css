@@ -5959,6 +5959,34 @@ body:not(.home-page) .luxury-container {
     }
 }
 
+/* iPad Air (820px - 1024px) - stesse impostazioni iPad Pro */
+@media (min-width: 820px) and (max-width: 1024px) {
+    .main-content-desktop .map-wrapper {
+        display: flex !important;
+        min-height: 600px !important;
+        max-height: 75vh !important;
+    }
+    
+    .main-content-desktop #map {
+        min-height: 600px !important;
+        max-height: 75vh !important;
+    }
+}
+
+/* iPad Mini (768px - 820px) - stesse impostazioni iPad Pro */
+@media (min-width: 768px) and (max-width: 819px) {
+    .main-content-desktop .map-wrapper {
+        display: flex !important;
+        min-height: 600px !important;
+        max-height: 75vh !important;
+    }
+    
+    .main-content-desktop #map {
+        min-height: 600px !important;
+        max-height: 75vh !important;
+    }
+}
+
 /* Mobile size (max-width: 768px) - Unified mobile styles */
 @media (max-width: 767px) {
     /* Desktop map should be hidden on mobile */
