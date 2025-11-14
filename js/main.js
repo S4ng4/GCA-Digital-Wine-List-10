@@ -1672,38 +1672,50 @@ class WineListApp {
     }
 
     applyIndexSearch() {
-        const wineCards = document.querySelectorAll('.luxury-wine-card');
+        // If we're on the index page with map, filter wines in the current region view
+        const winesListContainer = document.getElementById('winesListContainer');
+        const winesGridContainer = document.getElementById('winesGridContainer');
         
-        wineCards.forEach(card => {
-            const link = card.getAttribute('href');
-            const type = new URLSearchParams(link.split('?')[1]).get('type');
-            
-            if (!this.currentFilters.search) {
-                // Show all cards if no search term
-                card.style.display = 'block';
-                this.updateWineCounts();
-            } else {
-                // Filter wines based on search term
-                const matchingWines = this.wines.filter(wine => 
-                    this.wineMatchesFamily(wine, type) &&
-                    (wine.wine_name.toLowerCase().includes(this.currentFilters.search) ||
-                     wine.region.toLowerCase().includes(this.currentFilters.search) ||
-                     (wine.varietals && wine.varietals.toLowerCase().includes(this.currentFilters.search)))
-                );
+        // If wines list is visible, reload wines with search filter
+        if (winesListContainer && winesListContainer.style.display !== 'none' && winesGridContainer) {
+            const winesListTitle = document.getElementById('winesListTitle');
+            if (winesListTitle) {
+                // Extract region name from title (format: "Region Name Wines")
+                const regionName = winesListTitle.textContent.replace(' Wines', '').trim();
                 
-                if (matchingWines.length > 0) {
-                    card.style.display = 'block';
-                    // Update the count for this card
-                    const countElement = card.querySelector('.wine-count');
-                    if (countElement) {
-                        countElement.textContent = `${matchingWines.length} wines`;
-                    }
-                } else {
-                    // Hide non-matching category card
-                    card.style.display = 'none';
+                // Get current wine type from active sidebar card
+                const activeCard = document.querySelector('.wine-card-sidebar.active');
+                const wineType = activeCard ? activeCard.dataset.type : null;
+                
+                // Reload wines with search filter
+                if (window.loadWinesIntoGrid) {
+                    const searchTerm = this.currentFilters.search || '';
+                    window.loadWinesIntoGrid(regionName, wineType, winesGridContainer, searchTerm);
                 }
             }
-        });
+        }
+        
+        // Also filter regions panel if visible
+        const regionsPanel = document.getElementById('regionsPanel');
+        if (regionsPanel && regionsPanel.classList.contains('active')) {
+            const regionsList = document.getElementById('regionsList');
+            if (regionsList) {
+                const regionItems = regionsList.querySelectorAll('.region-item');
+                const searchTerm = this.currentFilters.search ? this.currentFilters.search.toLowerCase() : '';
+                
+                regionItems.forEach(item => {
+                    const regionName = item.querySelector('.region-item-name')?.textContent || '';
+                    const regionCount = item.querySelector('.region-item-count')?.textContent || '';
+                    
+                    // Show/hide based on search term matching region name
+                    if (!searchTerm || regionName.toLowerCase().includes(searchTerm)) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            }
+        }
     }
 
     clearAllFilters() {
@@ -2696,13 +2708,24 @@ function initInteractiveMap() {
             console.log('Map already initialized, skipping...');
             return;
         }
-        // Initialize map
+        // Initialize map with uniform touch/mouse interactions
         mapInstance = L.map('map', {
             zoomControl: true,
             minZoom: 6,
             maxZoom: 8,
             maxBounds: [[35.5, 5.0], [48.0, 20.0]],
-            maxBoundsViscosity: 1.0
+            maxBoundsViscosity: 0.5, // Reduced for smoother panning
+            tap: true, // Enable tap on touch devices
+            touchZoom: true, // Enable pinch zoom on touch devices
+            doubleClickZoom: true, // Enable double-click zoom
+            scrollWheelZoom: true, // Enable scroll wheel zoom on desktop
+            boxZoom: true, // Enable box zoom
+            dragging: true, // Enable dragging/panning
+            keyboard: true, // Enable keyboard navigation
+            inertia: true, // Enable inertia for smoother panning
+            inertiaDeceleration: 3000, // Deceleration rate for inertia
+            inertiaMaxSpeed: 1500, // Max speed for inertia
+            worldCopyJump: false // Prevent map from jumping when panning
         }).setView([41.9, 12.6], 6);
         
         // Add tile layer with HTTPS tiles
@@ -3140,11 +3163,18 @@ function initInteractiveMap() {
                         minZoom: 5,
                         maxZoom: 8,
                         maxBounds: [[35.5, 5.0], [48.0, 20.0]],
-                        maxBoundsViscosity: 1.0,
-                        tap: true,
-                        touchZoom: true,
-                        doubleClickZoom: true,
-                        scrollWheelZoom: false // Disable scroll zoom on mobile
+                        maxBoundsViscosity: 0.5, // Reduced for smoother panning (matching desktop)
+                        tap: true, // Enable tap on touch devices
+                        touchZoom: true, // Enable pinch zoom on touch devices
+                        doubleClickZoom: true, // Enable double-click zoom
+                        scrollWheelZoom: false, // Disable scroll zoom on mobile
+                        boxZoom: false, // Disable box zoom on mobile
+                        dragging: true, // Enable dragging/panning
+                        keyboard: false, // Disable keyboard on mobile
+                        inertia: true, // Enable inertia for smoother panning
+                        inertiaDeceleration: 3000, // Deceleration rate for inertia (matching desktop)
+                        inertiaMaxSpeed: 1500, // Max speed for inertia (matching desktop)
+                        worldCopyJump: false // Prevent map from jumping when panning
                     }).setView([41.9, 12.6], 6); // Zoom level 6 to show more of Italy
                     // Add tile layer with dark theme
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -3901,12 +3931,16 @@ function initInteractiveMap() {
                 }
             }
             
+            // Get search term from search input
+            const searchInput = document.getElementById('desktopSearchInput');
+            const searchTerm = searchInput ? searchInput.value.trim() : '';
+            
             // Load wines for this region and type
             if (!window.wineApp || !window.wineApp.wines || window.wineApp.wines.length === 0) {
                 winesGridContainer.innerHTML = '<div style="color: rgba(245, 245, 240, 0.5); text-align: center; padding: 2rem;">Loading wines...</div>';
                 waitForWineApp(() => {
                     if (window.wineApp && window.wineApp.wines && window.wineApp.wines.length > 0) {
-                        loadWinesIntoGrid(regionName, wineType, winesGridContainer);
+                        loadWinesIntoGrid(regionName, wineType, winesGridContainer, searchTerm);
                     } else {
                         winesGridContainer.innerHTML = '<div style="color: rgba(245, 245, 240, 0.5); text-align: center; padding: 2rem;">Unable to load wines. Please refresh the page.</div>';
                     }
@@ -3914,11 +3948,11 @@ function initInteractiveMap() {
                 return;
             }
             
-            loadWinesIntoGrid(regionName, wineType, winesGridContainer);
+            loadWinesIntoGrid(regionName, wineType, winesGridContainer, searchTerm);
         }
         
-        function loadWinesIntoGrid(regionName, wineType, container) {
-            console.log('🍷 loadWinesIntoGrid called with:', regionName, wineType);
+        function loadWinesIntoGrid(regionName, wineType, container, searchTerm = '') {
+            console.log('🍷 loadWinesIntoGrid called with:', regionName, wineType, searchTerm);
             
             if (!window.wineApp || !window.wineApp.wines) {
                 console.warn('⚠️ wineApp or wines not available');
@@ -3927,13 +3961,21 @@ function initInteractiveMap() {
             
             console.log('📊 Total wines available:', window.wineApp.wines.length);
             
-            // Filter wines by region and type
+            // Filter wines by region, type, and search term
             const filteredWines = window.wineApp.wines.filter(wine => {
                 const normalizedWineRegion = window.wineApp.normalizeRegionName(wine.region);
                 const normalizedFilterRegion = window.wineApp.normalizeRegionName(regionName);
                 const matchesRegion = normalizedWineRegion === normalizedFilterRegion;
                 const matchesType = !wineType || window.wineApp.wineMatchesFamily(wine, wineType);
-                return matchesRegion && matchesType;
+                
+                // Apply search filter if search term is provided
+                const matchesSearch = !searchTerm || 
+                    wine.wine_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    wine.region.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    (wine.varietals && wine.varietals.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                    (wine.wine_producer && wine.wine_producer.toLowerCase().includes(searchTerm.toLowerCase()));
+                
+                return matchesRegion && matchesType && matchesSearch;
             });
             
             console.log('✅ Filtered wines:', filteredWines.length);
@@ -3943,7 +3985,10 @@ function initInteractiveMap() {
             
             if (filteredWines.length === 0) {
                 console.warn('⚠️ No wines found for region:', regionName, 'type:', wineType);
-                container.innerHTML = '<div style="color: rgba(245, 245, 240, 0.5); text-align: center; padding: 2rem;">No wines found for this region and type</div>';
+                const noResultsMsg = searchTerm 
+                    ? `No wines found matching "${searchTerm}" for this region and type`
+                    : 'No wines found for this region and type';
+                container.innerHTML = `<div style="color: rgba(245, 245, 240, 0.5); text-align: center; padding: 2rem;">${noResultsMsg}</div>`;
                 return;
             }
             
@@ -4014,6 +4059,9 @@ function initInteractiveMap() {
             console.log('🔍 Container children:', container.children.length);
             console.log('🔍 Table visible:', window.getComputedStyle(table).display !== 'none');
         }
+        
+        // Expose loadWinesIntoGrid as global function for search functionality
+        window.loadWinesIntoGrid = loadWinesIntoGrid;
         
         function backToMap() {
             const mapWrapper = document.getElementById('mapWrapper');
@@ -4515,6 +4563,90 @@ function initInteractiveMap() {
                 clearInterval(checkWineApp);
             }
         }, 500);
+        
+        // Function to update active filters badge
+        function updateActiveFiltersBadge() {
+            const badge = document.getElementById('activeFiltersBadge');
+            if (!badge) return;
+            
+            const activeCard = document.querySelector('.wine-card-sidebar.active');
+            const searchInput = document.getElementById('desktopSearchInput');
+            const searchTerm = searchInput ? searchInput.value.trim() : '';
+            
+            const filters = [];
+            if (activeCard) {
+                const wineTypeNames = {
+                    'ROSSO': 'Red',
+                    'BIANCO': 'White',
+                    'ROSATO': 'Rosé',
+                    'ARANCIONE': 'Orange',
+                    'BOLLICINE': 'Sparkling',
+                    'NON ALCOLICO': 'Non-Alc'
+                };
+                const typeName = wineTypeNames[activeCard.dataset.type] || activeCard.dataset.type;
+                filters.push(typeName);
+            }
+            if (searchTerm) {
+                filters.push(`"${searchTerm}"`);
+            }
+            
+            if (filters.length > 0) {
+                badge.textContent = filters.join(' • ');
+                badge.style.display = 'inline-flex';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+        
+        // Add event listener for desktop search input to filter wines in real-time
+        const desktopSearchInput = document.getElementById('desktopSearchInput');
+        if (desktopSearchInput) {
+            desktopSearchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.trim();
+                
+                // Update active filters badge
+                updateActiveFiltersBadge();
+                
+                // If wines list is visible, reload wines with search filter
+                const winesListContainer = document.getElementById('winesListContainer');
+                const winesGridContainer = document.getElementById('winesGridContainer');
+                
+                if (winesListContainer && winesListContainer.style.display !== 'none' && winesGridContainer) {
+                    const winesListTitle = document.getElementById('winesListTitle');
+                    if (winesListTitle) {
+                        // Extract region name from title (format: "Region Name Wines")
+                        const regionName = winesListTitle.textContent.replace(' Wines', '').trim();
+                        
+                        // Get current wine type from active sidebar card
+                        const activeCard = document.querySelector('.wine-card-sidebar.active');
+                        const wineType = activeCard ? activeCard.dataset.type : null;
+                        
+                        // Reload wines with search filter
+                        if (window.loadWinesIntoGrid) {
+                            window.loadWinesIntoGrid(regionName, wineType, winesGridContainer, searchTerm);
+                        }
+                    }
+                }
+                
+                // Also update wineApp filter for consistency
+                if (window.wineApp) {
+                    window.wineApp.currentFilters.search = searchTerm;
+                    window.wineApp.applyIndexSearch();
+                }
+            });
+        }
+        
+        // Update badge when wine type filter changes
+        document.querySelectorAll('.wine-card-sidebar').forEach(card => {
+            const originalClick = card.onclick;
+            card.addEventListener('click', function() {
+                setTimeout(updateActiveFiltersBadge, 100);
+            });
+        });
+        
+        // Initial badge update
+        setTimeout(updateActiveFiltersBadge, 500);
+        
         scheduleViewportRefresh();
 }
 if (document.readyState === 'loading') {

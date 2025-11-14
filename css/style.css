@@ -1,4 +1,5 @@
 /* Error notification animations */
+/* Error notification animations */
 @keyframes slideInRight {
     from { 
         transform: translateX(100%); 
@@ -3169,7 +3170,7 @@ body:not(.home-page) .luxury-container {
     }
 }
 
-/* Tablet layout - unificato con mobile (max-width: 1023px) */
+/* Tablet layout - unificato con mobile (max-width: 1023px) - NOTA: iPad Pro (1024px+) usa layout desktop */
 @media (min-width: 768px) and (max-width: 1023px) {
     /* Usa lo stesso layout mobile - desktop map nascosta */
     .main-content-desktop .map-wrapper {
@@ -3878,6 +3879,9 @@ body:not(.home-page) .luxury-container {
     flex: 1;
     min-width: 320px;
     position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .search-input {
@@ -3902,6 +3906,39 @@ body:not(.home-page) .luxury-container {
 
 .search-input::placeholder {
     color: rgba(245, 245, 240, 0.5);
+}
+
+.active-filters-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.875rem;
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-radius: 6px;
+    color: var(--gold);
+    font-family: 'Cormorant', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    animation: fadeIn 0.3s ease;
+}
+
+.active-filters-badge::before {
+    content: '🔍';
+    font-size: 0.9rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .btn-filter {
@@ -5783,8 +5820,8 @@ body:not(.home-page) .luxury-container {
     }
 }
 
-/* iPad Pro and larger tablets (1024px+) */
-@media (min-width: 1025px) and (max-width: 1366px) {
+/* iPad Pro and larger tablets (1024px+) - Usa layout desktop */
+@media (min-width: 1024px) and (max-width: 1366px) {
     .main-content-desktop .map-wrapper {
         display: flex !important;
         min-height: 600px !important;
@@ -5797,7 +5834,8 @@ body:not(.home-page) .luxury-container {
     }
 }
 
-/* Tutti i dispositivi sotto iPad Pro (max-width: 1023px) - Layout unificato tablet e mobile */
+/* Tutti i dispositivi sotto iPad Pro (max-width: 1023px) - Layout unificato tablet e mobile 
+   NOTA: iPad Pro standard (1024px) e superiori usano layout desktop */
 @media (max-width: 1023px) {
     /* Desktop map nascosta - usa mobile map */
     .main-content-desktop .map-wrapper {
