@@ -3310,7 +3310,10 @@ function initInteractiveMap() {
                 dashArray: '10, 5'
             });
             layer.bringToFront();
-            showMobileWinesForRegion(regionName, mobileCurrentWineType);
+            // Get search term from mobile search input if present
+            const mobileSearchInput = document.getElementById('mobileSearchInput');
+            const searchTerm = mobileSearchInput ? mobileSearchInput.value.trim() : '';
+            showMobileWinesForRegion(regionName, mobileCurrentWineType, searchTerm);
         }
         // Update Mobile Map Colors
         function updateMobileMapColors(wineType) {
@@ -3348,7 +3351,7 @@ function initInteractiveMap() {
             }
         }
         // Show Mobile Wines for Region
-        function showMobileWinesForRegion(regionName, wineType) {
+        function showMobileWinesForRegion(regionName, wineType, searchTerm = '') {
             const mapView = document.getElementById('mobileMapView');
             const winesContainer = document.getElementById('mobileWinesCardsContainer');
             const winesGrid = document.getElementById('mobileWinesCardsGrid');
@@ -3368,11 +3371,22 @@ function initInteractiveMap() {
                     const normalizedFilterRegion = window.wineApp.normalizeRegionName(regionName);
                     const matchesRegion = normalizedWineRegion === normalizedFilterRegion;
                     const matchesType = !wineType || window.wineApp.wineMatchesFamily(wine, wineType);
-                    return matchesRegion && matchesType;
+                    
+                    // Apply search filter if search term is provided
+                    const matchesSearch = !searchTerm || 
+                        wine.wine_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        wine.region.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        (wine.varietals && wine.varietals.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                        (wine.wine_producer && wine.wine_producer.toLowerCase().includes(searchTerm.toLowerCase()));
+                    
+                    return matchesRegion && matchesType && matchesSearch;
                 });
                 winesGrid.innerHTML = '';
                 if (filteredWines.length === 0) {
-                    winesGrid.innerHTML = '<div style="color: rgba(245, 245, 240, 0.5); text-align: center; padding: 2rem;">No wines found for this region and type</div>';
+                    const noResultsMsg = searchTerm 
+                        ? `No wines found matching "${searchTerm}" for this region and type`
+                        : 'No wines found for this region and type';
+                    winesGrid.innerHTML = `<div style="color: rgba(245, 245, 240, 0.5); text-align: center; padding: 2rem;">${noResultsMsg}</div>`;
                     return;
                 }
                 filteredWines.forEach(wine => {
@@ -3472,6 +3486,56 @@ function initInteractiveMap() {
         }
         if (mobileSearchBtn) {
             mobileSearchBtn.addEventListener('click', toggleMobileSearchBar);
+        }
+        
+        // Add event listener for mobile search input to filter wines in real-time
+        const mobileSearchInput = document.getElementById('mobileSearchInput');
+        if (mobileSearchInput) {
+            mobileSearchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.trim();
+                
+                // If wines list is visible, reload wines with search filter
+                const winesContainer = document.getElementById('mobileWinesCardsContainer');
+                const winesGrid = document.getElementById('mobileWinesCardsGrid');
+                
+                if (winesContainer && winesContainer.style.display !== 'none' && winesGrid) {
+                    const winesTitle = document.getElementById('mobileWinesCardsTitle');
+                    if (winesTitle) {
+                        // Extract region name from title (format: "Region Name - Type Name")
+                        const titleText = winesTitle.textContent;
+                        const regionMatch = titleText.match(/^(.+?)\s*-\s*/);
+                        const regionName = regionMatch ? regionMatch[1].trim() : mobileSelectedRegion;
+                        
+                        // Get current wine type from active mobile chip or stored value
+                        const activeChip = document.querySelector('.mobile-wine-type-chip.active');
+                        const wineType = activeChip ? activeChip.dataset.type : mobileCurrentWineType;
+                        
+                        // Reload wines with search filter
+                        if (regionName) {
+                            showMobileWinesForRegion(regionName, wineType, searchTerm);
+                        }
+                    }
+                }
+                
+                // Also filter mobile wines list if visible
+                const mobileWinesList = document.getElementById('mobileWinesList');
+                if (mobileWinesList && mobileWinesList.parentElement.classList.contains('mobile-view-active')) {
+                    const wineCards = mobileWinesList.querySelectorAll('.mobile-wine-card');
+                    wineCards.forEach(card => {
+                        const wineName = card.querySelector('.mobile-wine-name')?.textContent || '';
+                        const wineProducer = card.querySelector('.mobile-wine-producer')?.textContent || '';
+                        const matches = !searchTerm || 
+                            wineName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                            wineProducer.toLowerCase().includes(searchTerm.toLowerCase());
+                        card.style.display = matches ? 'flex' : 'none';
+                    });
+                }
+                
+                // Update wineApp filter for consistency
+                if (window.wineApp) {
+                    window.wineApp.currentFilters.search = searchTerm;
+                }
+            });
         }
         if (mobileBackToCategories) {
             mobileBackToCategories.addEventListener('click', () => {
