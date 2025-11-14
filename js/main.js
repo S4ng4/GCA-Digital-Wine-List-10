@@ -2502,6 +2502,110 @@ document.addEventListener('DOMContentLoaded', () => {
     new ShareWineManager();
 });
 
+/* ==================== WINE TYPE FILTERS INITIALIZATION ==================== */
+// Initialize wine type filter buttons (works independently of map)
+function initWineTypeFilters() {
+    // Wait for DOM to be ready
+    const initFilters = () => {
+        const wineCards = document.querySelectorAll('.wine-card-sidebar');
+        if (wineCards.length === 0) {
+            // Retry if elements not ready yet
+            setTimeout(initFilters, 100);
+            return;
+        }
+        
+        wineCards.forEach(card => {
+            // Remove any existing listeners to avoid duplicates
+            const newCard = card.cloneNode(true);
+            card.parentNode.replaceChild(newCard, card);
+            
+            newCard.addEventListener('click', function() {
+                const wineType = this.dataset.type;
+                console.log('🍷 Wine category card clicked:', wineType);
+                
+                if (wineType) {
+                    // Update active state
+                    document.querySelectorAll('.wine-card-sidebar').forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update map colors if map exists
+                    const mapContainer = document.getElementById('map');
+                    if (mapContainer && typeof updateMapColors === 'function') {
+                        updateMapColors(wineType);
+                        
+                        // Reset selected region
+                        if (typeof selectedRegion !== 'undefined') {
+                            selectedRegion = null;
+                        }
+                        if (typeof geoJsonLayer !== 'undefined' && geoJsonLayer) {
+                            geoJsonLayer.eachLayer(function(l) {
+                                const regionName = l._regionName;
+                                const hasWines = regionName && typeof regionHasWines === 'function' 
+                                    ? regionHasWines(regionName, wineType) 
+                                    : false;
+                                
+                                if (hasWines || !wineType) {
+                                    l.setStyle({
+                                        weight: 1.5,
+                                        fillOpacity: 0.08,
+                                        color: typeof currentColors !== 'undefined' ? currentColors.border : '#D4AF37',
+                                        fillColor: typeof currentColors !== 'undefined' ? currentColors.fill : '#D4AF37',
+                                        opacity: 0.8,
+                                        dashArray: null
+                                    });
+                                } else {
+                                    l.setStyle({
+                                        weight: 1.5,
+                                        fillOpacity: 0.03,
+                                        color: '#666666',
+                                        fillColor: '#666666',
+                                        opacity: 0.5,
+                                        dashArray: '5, 5'
+                                    });
+                                }
+                            });
+                        }
+                    }
+                    
+                    // Hide region info and wines list, show map
+                    const regionInfo = document.getElementById('regionInfo');
+                    if (regionInfo) {
+                        regionInfo.style.display = 'none';
+                    }
+                    
+                    const mapWrapper = document.getElementById('mapWrapper');
+                    const winesListContainer = document.getElementById('winesListContainer');
+                    if (mapWrapper) {
+                        mapWrapper.style.display = 'flex';
+                    }
+                    if (winesListContainer) {
+                        winesListContainer.style.display = 'none';
+                    }
+                    
+                    // Show regions panel and load regions for this wine type
+                    if (typeof showRegionsPanel === 'function') {
+                        showRegionsPanel(wineType);
+                    }
+                    
+                    // Update active filters badge
+                    if (typeof updateActiveFiltersBadge === 'function') {
+                        setTimeout(updateActiveFiltersBadge, 100);
+                    }
+                }
+            });
+        });
+        
+        console.log('✅ Wine type filters initialized:', wineCards.length, 'filters');
+    };
+    
+    // Start initialization
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initFilters);
+    } else {
+        initFilters();
+    }
+}
+
 /* ==================== INDEX PAGE INTERACTIVE MAP ==================== */
 function initInteractiveMap() {
         const mapContainer = document.getElementById('map');
@@ -3557,69 +3661,9 @@ function initInteractiveMap() {
             loadMobileWineTypeChips();
             initializeMobileMap();
         });
-        // Wine card click handlers
-        document.querySelectorAll('.wine-card-sidebar').forEach(card => {
-            card.addEventListener('click', function() {
-                const wineType = this.dataset.type;
-                console.log('🍷 Wine category card clicked:', wineType);
-                
-                if (wineType) {
-                    // Update active state
-                    document.querySelectorAll('.wine-card-sidebar').forEach(c => c.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Update map colors
-                    updateMapColors(wineType);
-                    
-                    // Reset selected region
-                    selectedRegion = null;
-                    if (geoJsonLayer) {
-                        geoJsonLayer.eachLayer(function(l) {
-                            const regionName = l._regionName;
-                            const hasWines = regionName ? regionHasWines(regionName, wineType) : false;
-                            
-                            if (hasWines || !wineType) {
-                                l.setStyle({
-                                    weight: 1.5,
-                                    fillOpacity: 0.08,
-                                    color: currentColors.border,
-                                    fillColor: currentColors.fill,
-                                    opacity: 0.8,
-                                    dashArray: null
-                                });
-                            } else {
-                                l.setStyle({
-                                    weight: 1.5,
-                                    fillOpacity: 0.03,
-                                    color: '#666666',
-                                    fillColor: '#666666',
-                                    opacity: 0.5,
-                                    dashArray: '5, 5'
-                                });
-                            }
-                        });
-                    }
-                    
-                    // Hide region info and wines list, show map
-                    const regionInfo = document.getElementById('regionInfo');
-                    if (regionInfo) {
-                        regionInfo.style.display = 'none';
-                    }
-                    
-                    const mapWrapper = document.getElementById('mapWrapper');
-                    const winesListContainer = document.getElementById('winesListContainer');
-                    if (mapWrapper) {
-                        mapWrapper.style.display = 'flex';
-                    }
-                    if (winesListContainer) {
-                        winesListContainer.style.display = 'none';
-                    }
-                    
-                    // Show regions panel and load regions for this wine type
-                    showRegionsPanel(wineType);
-                }
-            });
-        });
+        
+        // Initialize wine type filters (separate from map initialization)
+        initWineTypeFilters();
         // Back to map button
         const backToMapBtn = document.getElementById('backToMapBtn');
         if (backToMapBtn) {
@@ -4700,24 +4744,24 @@ function initInteractiveMap() {
             });
         }
         
-        // Update badge when wine type filter changes
-        document.querySelectorAll('.wine-card-sidebar').forEach(card => {
-            const originalClick = card.onclick;
-            card.addEventListener('click', function() {
-                setTimeout(updateActiveFiltersBadge, 100);
-            });
-        });
-        
         // Initial badge update
-        setTimeout(updateActiveFiltersBadge, 500);
+        setTimeout(() => {
+            if (typeof updateActiveFiltersBadge === 'function') {
+                updateActiveFiltersBadge();
+            }
+        }, 500);
         
         scheduleViewportRefresh();
 }
+
+// Initialize wine type filters on page load (independent of map)
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initInteractiveMap);
+    document.addEventListener('DOMContentLoaded', initWineTypeFilters);
 } else {
-    initInteractiveMap();
+    initWineTypeFilters();
 }
+
+// Initialize interactive map if on index page
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initInteractiveMap);
 } else {
