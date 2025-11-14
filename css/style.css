@@ -3169,211 +3169,49 @@ body:not(.home-page) .luxury-container {
     }
 }
 
-/* Tablet layout refinements - sidebar nascosta */
+/* Tablet layout - unificato con mobile (max-width: 1023px) */
 @media (min-width: 768px) and (max-width: 1023px) {
+    /* Usa lo stesso layout mobile - desktop map nascosta */
+    .main-content-desktop .map-wrapper {
+        display: none !important;
+    }
+    
     /* Sidebar completamente nascosta su tablet */
     .sidebar {
         display: none !important;
     }
     
-    .main-content-wrapper {
-        flex-direction: column;
-        gap: 1rem;
-        padding: 1rem;
-    }
-
-    .main-content-desktop {
-        flex-direction: column !important;
-        display: flex !important;
-        width: 100% !important;
-        align-items: center !important;
-        justify-content: center !important;
-    }
-
-    .main-content-desktop .map-wrapper {
-        display: flex !important;
-        min-height: 500px !important;
-        max-height: 75vh !important;
-        width: 100% !important;
-        margin: 0 auto !important;
-        align-items: center !important;
-        justify-content: center !important;
-        position: relative !important;
-    }
-
-    .main-content-desktop #map {
-        min-height: 500px !important;
-        max-height: 75vh !important;
-        height: 100% !important;
-        width: 100% !important;
-        margin: 0 auto !important;
-        display: block !important;
-    }
-
-    .content-wrapper {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: flex-start !important;
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    .wine-cards-sidebar {
-        flex: 0 0 auto;
-        max-height: 250px;
-        flex-direction: row;
-        overflow-x: auto;
-        overflow-y: hidden;
-        gap: 0.75rem;
-    }
-
-    .interactive-map-main {
-        min-height: 60vh;
-        width: 100% !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-    }
-
-    .wines-grid-container {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
-    }
-}
-
-/* Tutti i dispositivi sotto iPad Pro in portrait - sidebar nascosta, layout ottimizzato */
-@media (max-width: 1023px) and (orientation: portrait) {
-    /* Nascondi la search bar desktop */
+    /* Search bar desktop nascosta */
     .search-bar-container {
         display: none !important;
     }
     
-    /* Sidebar completamente nascosta su tablet/mobile */
-    .sidebar {
+    /* Mobile map container unificato */
+    .mobile-map-wines-container {
+        display: flex !important;
+    }
+    
+    /* Mobile map wrapper unificato */
+    .mobile-map-wrapper {
+        min-height: 250px;
+        max-height: 35vh;
+        height: 35vh;
+        border-radius: 20px;
+    }
+    
+    #mobileMap {
+        min-height: 250px;
+        height: 100%;
+        border-radius: 20px;
+    }
+    
+    /* Desktop wines grid nascosto */
+    .wines-grid-container {
         display: none !important;
-    }
-
-    /* Layout principale - solo mappa, senza sidebar */
-    .content-wrapper {
-        min-height: calc(100vh - 90px) !important;
-        overflow: visible !important;
-        position: relative !important;
-        z-index: 0 !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        flex-direction: column !important;
-        display: flex !important;
-        align-items: stretch !important;
-        gap: 0 !important;
-    }
-
-    .main-content-desktop {
-        flex: 1 1 auto !important;
-        position: relative !important;
-        z-index: 0 !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        padding: 0.5rem !important;
-        margin: 0 !important;
-        display: flex !important;
-        flex-direction: column !important;
-    }
-
-    /* Mappa completamente visibile e centrata */
-    .main-content-desktop .map-wrapper {
-        min-height: 70vh !important;
-        max-height: 80vh !important;
-        flex: 1 1 auto !important;
-        z-index: 10 !important;
-        position: relative !important;
-        width: 100% !important;
-        margin: 0 auto !important;
-        padding: 0 !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-    }
-
-    .main-content-desktop #map {
-        min-height: 70vh !important;
-        max-height: 80vh !important;
-        height: 100% !important;
-        width: 100% !important;
-        z-index: 10 !important;
-        position: relative !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        display: block !important;
-    }
-
-    /* Header - non deve coprire la mappa */
-    .top-nav {
-        position: relative !important;
-        z-index: 5 !important;
-        flex-shrink: 0 !important;
-        min-height: auto !important;
-    }
-
-    /* Wine cards sidebar nascosta su tablet/mobile */
-    .wine-cards-sidebar {
-        display: none !important;
-    }
-
-    /* Assicura che la mappa non sia coperta da altri elementi */
-    .region-info {
-        z-index: 1000 !important;
-        position: relative !important;
-    }
-
-    .leaflet-container {
-        z-index: 10 !important;
-        position: relative !important;
-        width: 100% !important;
-        height: 100% !important;
-    }
-
-    /* Assicura che overlay e popup non coprano la mappa */
-    .leaflet-popup,
-    .leaflet-control {
-        z-index: 1001 !important;
-    }
-
-    /* Rimuovi eventuali overlay che potrebbero coprire */
-    .mobile-overlay,
-    .mobile-side-menu {
-        z-index: 999 !important;
-    }
-
-    /* Forza la mappa ad essere sempre visibile e non coperta */
-    .main-content-desktop .map-wrapper,
-    .main-content-desktop #map {
-        visibility: visible !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
-    }
-
-    /* Assicura che il contenitore principale non nasconda la mappa */
-    .interactive-map-main {
-        overflow: visible !important;
-        position: relative !important;
-        z-index: 10 !important;
-        width: 100% !important;
-        flex: 1 1 auto !important;
-    }
-
-    /* Rimuovi padding eccessivo che potrebbe spostare la mappa */
-    .main-content-wrapper {
-        padding: 0.5rem !important;
-        gap: 0.5rem !important;
-    }
-
-    /* Assicura che la mappa sia sempre al centro */
-    .map-wrapper::before,
-    .map-wrapper::after {
-        content: none !important;
     }
 }
+
+/* Tutti i dispositivi sotto iPad Pro - layout unificato (già gestito da @media (max-width: 1023px)) */
 
 /* Leaflet Zoom Controls - Position bottom left */
 .leaflet-control-zoom {
@@ -5959,42 +5797,14 @@ body:not(.home-page) .luxury-container {
     }
 }
 
-/* iPad Air (820px - 1024px) - stesse impostazioni iPad Pro */
-@media (min-width: 820px) and (max-width: 1024px) {
-    .main-content-desktop .map-wrapper {
-        display: flex !important;
-        min-height: 600px !important;
-        max-height: 75vh !important;
-    }
-    
-    .main-content-desktop #map {
-        min-height: 600px !important;
-        max-height: 75vh !important;
-    }
-}
-
-/* iPad Mini (768px - 820px) - stesse impostazioni iPad Pro */
-@media (min-width: 768px) and (max-width: 819px) {
-    .main-content-desktop .map-wrapper {
-        display: flex !important;
-        min-height: 600px !important;
-        max-height: 75vh !important;
-    }
-    
-    .main-content-desktop #map {
-        min-height: 600px !important;
-        max-height: 75vh !important;
-    }
-}
-
-/* Mobile size (max-width: 768px) - Unified mobile styles */
-@media (max-width: 767px) {
-    /* Desktop map should be hidden on mobile */
+/* Tutti i dispositivi sotto iPad Pro (max-width: 1023px) - Layout unificato tablet e mobile */
+@media (max-width: 1023px) {
+    /* Desktop map nascosta - usa mobile map */
     .main-content-desktop .map-wrapper {
         display: none !important;
     }
     
-    /* Mobile map container - ridotta altezza per vedere le card */
+    /* Mobile map container unificato per tablet e mobile */
     .mobile-map-wrapper {
         min-height: 250px;
         max-height: 35vh;
@@ -6008,29 +5818,25 @@ body:not(.home-page) .luxury-container {
         border-radius: 20px;
     }
     
-    /* Mobile wine cards grid - single column for better readability */
+    /* Mobile wine cards grid - single column */
     .mobile-wines-cards-grid {
         grid-template-columns: 1fr;
         gap: 1.25rem;
         padding: 1.25rem 1rem;
     }
     
-    /* Ensure wine cards are properly spaced and visible */
-    .mobile-wine-card-grid {
-        min-height: auto;
-        width: 100%;
-    }
-    
-    /* Desktop wines grid hidden on mobile */
+    /* Desktop wines grid nascosto */
     .wines-grid-container {
         display: none !important;
     }
     
-    /* Improve mobile map view container */
+    /* Mobile map view container */
     .mobile-map-view {
         padding: 1rem 1.25rem;
     }
 }
+
+/* Mobile size (max-width: 767px) - Layout già unificato con tablet in @media (max-width: 1023px) */
 
 /* Small mobile size (max-width: 480px) - Optimized for small screens */
 @media (max-width: 480px) {
