@@ -3107,8 +3107,8 @@ body:not(.home-page) .luxury-container {
     line-height: 1.3;
 }
 
-/* Tablet & desktop layout – ensure desktop elements are visible */
-@media (min-width: 768px) {
+/* Desktop layout (>= 1024px) - iPad Pro e superiori */
+@media (min-width: 1024px) {
     /* Hide mobile elements */
     .mobile-menu-btn,
     .mobile-search-btn,
