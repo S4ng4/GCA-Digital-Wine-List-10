@@ -5921,22 +5921,52 @@ body:not(.home-page) .luxury-container {
     background: #0A0A0A !important;
 }
 
-/* Media query corretto per portrait su mobile */
-@media (max-width: 768px) and (orientation: portrait) {
-    .map-wrapper,
-    #map,
-    .interactive-map-main,
-    .mobile-map-view,
-    #mobileMap {
-        visibility: visible !important;
-        opacity: 1 !important;
-        display: block !important;
+/* =========================================================
+   OTTIMIZZAZIONI PORTRAIT vs LANDSCAPE
+   Regole specifiche per orientamento verticale e orizzontale
+   ========================================================= */
+
+/* PORTRAIT (verticale) - schermo alto e stretto */
+@media (max-width: 1023px) and (orientation: portrait) {
+    /* Mappa più alta in portrait per sfruttare lo spazio verticale */
+    .mobile-map-wrapper {
+        height: 40vh !important;
+        min-height: 280px !important;
+        max-height: 40vh !important;
     }
     
+    #mobileMap {
+        min-height: 280px !important;
+    }
+    
+    /* Container query per schermi molto alti in portrait */
+    @container (min-height: 800px) {
+        .mobile-map-wrapper {
+            height: 45vh !important;
+            min-height: 320px !important;
+        }
+    }
+}
+
+/* LANDSCAPE (orizzontale) - schermo largo e basso */
+@media (max-width: 1023px) and (orientation: landscape) {
+    /* Mappa più bassa in landscape per dare spazio ai vini */
     .mobile-map-wrapper {
-        visibility: visible !important;
-        opacity: 1 !important;
-        display: flex !important;
+        height: 30vh !important;
+        min-height: 220px !important;
+        max-height: 30vh !important;
+    }
+    
+    #mobileMap {
+        min-height: 220px !important;
+    }
+    
+    /* Container query per schermi molto larghi in landscape */
+    @container (min-width: 800px) {
+        .mobile-map-wrapper {
+            height: 35vh !important;
+            min-height: 250px !important;
+        }
     }
 }
 
