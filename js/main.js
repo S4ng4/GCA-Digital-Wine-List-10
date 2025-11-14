@@ -4709,11 +4709,21 @@ function initInteractiveMap() {
         // Add event listener for desktop search input to filter wines in real-time
         const desktopSearchInput = document.getElementById('desktopSearchInput');
         if (desktopSearchInput) {
+            // Add visual feedback class when typing
             desktopSearchInput.addEventListener('input', function(e) {
                 const searchTerm = e.target.value.trim();
                 
+                // Add/remove active class for visual feedback
+                if (searchTerm) {
+                    this.classList.add('search-active');
+                } else {
+                    this.classList.remove('search-active');
+                }
+                
                 // Update active filters badge
-                updateActiveFiltersBadge();
+                if (typeof updateActiveFiltersBadge === 'function') {
+                    updateActiveFiltersBadge();
+                }
                 
                 // If wines list is visible, reload wines with search filter
                 const winesListContainer = document.getElementById('winesListContainer');
@@ -4736,10 +4746,50 @@ function initInteractiveMap() {
                     }
                 }
                 
+                // Filter regions in regions panel if visible
+                const regionsPanel = document.getElementById('regionsPanel');
+                const regionsList = document.getElementById('regionsList');
+                if (regionsPanel && regionsList) {
+                    const regionItems = regionsList.querySelectorAll('.region-item');
+                    let visibleCount = 0;
+                    
+                    regionItems.forEach(item => {
+                        const regionName = item.querySelector('.region-item-name')?.textContent || '';
+                        const matches = !searchTerm || 
+                            regionName.toLowerCase().includes(searchTerm.toLowerCase());
+                        
+                        if (matches) {
+                            item.style.display = 'flex';
+                            visibleCount++;
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                    
+                    // Update regions panel subtitle with search feedback
+                    const regionsSubtitle = document.getElementById('regionsPanelSubtitle');
+                    if (regionsSubtitle) {
+                        if (searchTerm) {
+                            regionsSubtitle.textContent = `${visibleCount} region${visibleCount !== 1 ? 's' : ''} found`;
+                        } else {
+                            regionsSubtitle.textContent = 'Select a region';
+                        }
+                    }
+                }
+                
                 // Also update wineApp filter for consistency
                 if (window.wineApp) {
                     window.wineApp.currentFilters.search = searchTerm;
                     window.wineApp.applyIndexSearch();
+                }
+            });
+            
+            // Clear search on Escape key
+            desktopSearchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    this.value = '';
+                    this.classList.remove('search-active');
+                    this.dispatchEvent(new Event('input'));
                 }
             });
         }

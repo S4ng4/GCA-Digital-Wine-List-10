@@ -3904,6 +3904,27 @@ body:not(.home-page) .luxury-container {
     background: rgba(26, 26, 26, 0.95);
 }
 
+.search-input:not(:placeholder-shown) {
+    border-color: rgba(212, 175, 55, 0.5);
+    background: rgba(26, 26, 26, 0.9);
+}
+
+.search-input:not(:placeholder-shown):focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+.search-input.search-active {
+    border-color: rgba(212, 175, 55, 0.6);
+    background: rgba(26, 26, 26, 0.95);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+}
+
+.search-input.search-active:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
+}
+
 .search-input::placeholder {
     color: rgba(245, 245, 240, 0.5);
 }
