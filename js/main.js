@@ -4745,13 +4745,18 @@ function initInteractiveMap() {
                     const key = `wine:${wine.wine_name}`;
                     if (!seen.has(key)) {
                         seen.add(key);
-                        const count = window.wineApp.wines.filter(w => w.wine_name === wine.wine_name).length;
+                        const matchingWines = window.wineApp.wines.filter(w => w.wine_name === wine.wine_name);
+                        const count = matchingWines.length;
+                        // Get the first wine's ID for direct navigation
+                        const firstWine = matchingWines[0];
                         suggestions.push({
                             type: 'wine',
                             text: wine.wine_name,
                             icon: '🍷',
                             count: count,
-                            subtitle: wine.wine_producer || ''
+                            subtitle: wine.wine_producer || '',
+                            wineNumber: firstWine ? firstWine.wine_number : null,
+                            wineId: firstWine ? firstWine.wine_number : null
                         });
                     }
                 }
@@ -4840,7 +4845,12 @@ function initInteractiveMap() {
             }
             
             suggestionsContainer.innerHTML = suggestions.map((suggestion, index) => `
-                <div class="autocomplete-suggestion" data-suggestion-type="${suggestion.type}" data-suggestion-text="${suggestion.text}" data-index="${index}">
+                <div class="autocomplete-suggestion" 
+                     data-suggestion-type="${suggestion.type}" 
+                     data-suggestion-text="${suggestion.text}" 
+                     data-index="${index}"
+                     ${suggestion.wineNumber ? `data-wine-number="${suggestion.wineNumber}"` : ''}
+                     ${suggestion.wineId ? `data-wine-id="${suggestion.wineId}"` : ''}>
                     <div class="autocomplete-suggestion-icon">${suggestion.icon}</div>
                     <div class="autocomplete-suggestion-content">
                         <div class="autocomplete-suggestion-main">${highlightMatch(suggestion.text, searchTerm)}</div>
@@ -4853,9 +4863,21 @@ function initInteractiveMap() {
             dropdown.style.display = 'block';
             
             // Add click handlers
-            suggestionsContainer.querySelectorAll('.autocomplete-suggestion').forEach(suggestion => {
-                suggestion.addEventListener('click', function() {
+            suggestionsContainer.querySelectorAll('.autocomplete-suggestion').forEach(suggestionEl => {
+                suggestionEl.addEventListener('click', function() {
+                    const suggestionType = this.dataset.suggestionType;
+                    const wineNumber = this.dataset.wineNumber || this.dataset.wineId;
                     const text = this.dataset.suggestionText;
+                    
+                    // If it's a wine suggestion and we have a wine number, navigate directly to the wine page
+                    if (suggestionType === 'wine' && wineNumber) {
+                        // Navigate to wine details page
+                        const wineDetailsUrl = `wine-details.html?id=${wineNumber}&from=search`;
+                        window.location.href = wineDetailsUrl;
+                        return;
+                    }
+                    
+                    // For other types (producer, varietal, region), perform search
                     const searchInput = document.getElementById('desktopSearchInput') || document.getElementById('mobileSearchInput');
                     if (searchInput) {
                         searchInput.value = text;
@@ -5037,7 +5059,19 @@ function initInteractiveMap() {
                     updateSuggestionSelection(suggestions, selectedSuggestionIndex);
                 } else if (e.key === 'Enter' && selectedSuggestionIndex >= 0 && suggestions[selectedSuggestionIndex]) {
                     e.preventDefault();
-                    suggestions[selectedSuggestionIndex].click();
+                    const selectedSuggestion = suggestions[selectedSuggestionIndex];
+                    const suggestionType = selectedSuggestion.dataset.suggestionType;
+                    const wineNumber = selectedSuggestion.dataset.wineNumber || selectedSuggestion.dataset.wineId;
+                    
+                    // If it's a wine suggestion, navigate directly
+                    if (suggestionType === 'wine' && wineNumber) {
+                        const wineDetailsUrl = `wine-details.html?id=${wineNumber}&from=search`;
+                        window.location.href = wineDetailsUrl;
+                        return;
+                    }
+                    
+                    // Otherwise, click the suggestion (which will trigger search)
+                    selectedSuggestion.click();
                 } else if (e.key === 'Escape') {
                     this.value = '';
                     this.classList.remove('search-active');
