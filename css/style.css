@@ -3880,8 +3880,13 @@ body:not(.home-page) .luxury-container {
     min-width: 320px;
     position: relative;
     display: flex;
+    flex-direction: row;
     align-items: center;
     gap: 0.5rem;
+}
+
+.search-input-wrapper > input {
+    flex: 1;
 }
 
 .search-input {
@@ -3927,6 +3932,267 @@ body:not(.home-page) .luxury-container {
 
 .search-input::placeholder {
     color: rgba(245, 245, 240, 0.5);
+}
+
+/* Autocomplete Dropdown Styles */
+.search-autocomplete-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 0.5rem;
+    background: linear-gradient(180deg, rgba(26, 26, 26, 0.98) 0%, rgba(10, 10, 10, 0.98) 100%);
+    border: 1.5px solid rgba(212, 175, 55, 0.3);
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(212, 175, 55, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 1000;
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.autocomplete-suggestions {
+    padding: 0.5rem 0;
+}
+
+.autocomplete-suggestion {
+    padding: 0.875rem 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.autocomplete-suggestion:last-child {
+    border-bottom: none;
+}
+
+.autocomplete-suggestion:hover,
+.autocomplete-suggestion.selected {
+    background: rgba(212, 175, 55, 0.15);
+    border-left: 3px solid var(--gold);
+    padding-left: calc(1.25rem - 3px);
+}
+
+.autocomplete-suggestion-icon {
+    color: var(--gold);
+    font-size: 1rem;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.autocomplete-suggestion-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.autocomplete-suggestion-main {
+    color: var(--light);
+    font-family: 'Cormorant', serif;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+.autocomplete-suggestion-sub {
+    color: rgba(245, 245, 240, 0.6);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.2px;
+}
+
+.autocomplete-suggestion-count {
+    color: var(--gold);
+    font-family: 'Cormorant', serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.autocomplete-suggestions-empty {
+    padding: 2rem 1.25rem;
+    text-align: center;
+    color: rgba(245, 245, 240, 0.5);
+    font-family: 'Cormorant', serif;
+    font-size: 0.95rem;
+}
+
+/* Mobile autocomplete */
+.mobile-autocomplete {
+    position: fixed;
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 50vh;
+    border-radius: 20px 20px 0 0;
+    margin-top: 0;
+    border-top: 2px solid rgba(212, 175, 55, 0.4);
+}
+
+/* Scrollbar for autocomplete */
+.search-autocomplete-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+.search-autocomplete-dropdown::-webkit-scrollbar-track {
+    background: rgba(26, 26, 26, 0.5);
+    border-radius: 3px;
+}
+
+.search-autocomplete-dropdown::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.4);
+    border-radius: 3px;
+}
+
+.search-autocomplete-dropdown::-webkit-scrollbar-thumb:hover {
+    background: rgba(212, 175, 55, 0.6);
+}
+
+/* Search Results Table Styles */
+.wines-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background: rgba(26, 26, 26, 0.5);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.wines-table thead {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.wines-table th {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    color: var(--gold);
+    font-family: 'Cormorant', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+}
+
+.wines-table tbody tr {
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.wines-table tbody tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+    transform: translateX(4px);
+}
+
+.wines-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.wines-table td {
+    padding: 1rem 1.25rem;
+    color: var(--light);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    vertical-align: middle;
+}
+
+.wine-table-name {
+    font-family: 'Cormorant', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--light);
+}
+
+.wine-table-producer {
+    color: rgba(245, 245, 240, 0.8);
+}
+
+.wine-table-region {
+    color: rgba(245, 245, 240, 0.7);
+    font-size: 0.9rem;
+}
+
+.wine-table-varietal {
+    color: rgba(245, 245, 240, 0.7);
+    font-size: 0.9rem;
+}
+
+.wine-table-price {
+    color: var(--gold);
+    font-family: 'Cormorant', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: right;
+}
+
+/* Mobile search results cards */
+.mobile-wine-card {
+    background: rgba(26, 26, 26, 0.6);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.mobile-wine-card:active {
+    transform: scale(0.98);
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.mobile-wine-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.mobile-wine-card-name {
+    font-family: 'Cormorant', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--light);
+    margin: 0;
+}
+
+.mobile-wine-card-price {
+    font-family: 'Cormorant', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--gold);
+}
+
+.mobile-wine-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.mobile-wine-card-info p {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: rgba(245, 245, 240, 0.8);
+}
+
+.mobile-wine-card-info strong {
+    color: var(--gold);
+    font-weight: 600;
 }
 
 .active-filters-badge {

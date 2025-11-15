@@ -85,7 +85,11 @@
             <div class="mobile-search-wrapper">
                 <div class="mobile-search-input-wrapper">
                     <i class="fas fa-search mobile-search-icon"></i>
-                    <input type="text" id="mobileSearchInput" name="search" class="mobile-search-input" placeholder="Search wines by name, region, or varietal...">
+                    <input type="text" id="mobileSearchInput" name="search" class="mobile-search-input" placeholder="Search wines by name, producer, varietal, or region..." autocomplete="off">
+                    <!-- Mobile Autocomplete Dropdown -->
+                    <div class="search-autocomplete-dropdown mobile-autocomplete" id="mobileSearchAutocompleteDropdown" style="display: none;">
+                        <div class="autocomplete-suggestions" id="mobileAutocompleteSuggestions"></div>
+                    </div>
                 </div>
                 <div class="mobile-filter-buttons">
                     <button class="mobile-filter-btn" id="mobileFilterRegionBtn">Region</button>
@@ -244,8 +248,12 @@
                 <div class="search-bar-container">
                     <div class="search-wrapper">
                         <div class="search-input-wrapper">
-                            <input type="text" id="desktopSearchInput" name="search" class="search-input luxury-search-input" placeholder="Search wines by name, region, or varietal...">
+                            <input type="text" id="desktopSearchInput" name="search" class="search-input luxury-search-input" placeholder="Search wines by name, producer, varietal, or region..." autocomplete="off">
                             <span class="active-filters-badge" id="activeFiltersBadge" style="display: none;"></span>
+                            <!-- Autocomplete Dropdown -->
+                            <div class="search-autocomplete-dropdown" id="searchAutocompleteDropdown" style="display: none;">
+                                <div class="autocomplete-suggestions" id="autocompleteSuggestions"></div>
+                            </div>
                         </div>
                         <button class="btn-filter luxury-filter-btn">Filter by Region</button>
                         <button class="btn-filter luxury-filter-btn">Filter by Varietal</button>
