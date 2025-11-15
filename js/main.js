@@ -2509,24 +2509,48 @@ function initWineTypeFilters() {
     const initFilters = () => {
         const wineCards = document.querySelectorAll('.wine-card-sidebar');
         if (wineCards.length === 0) {
-            // Retry if elements not ready yet
-            setTimeout(initFilters, 100);
+            // Retry if elements not ready yet (max 10 attempts = 1 second)
+            if (typeof initFilters.retryCount === 'undefined') {
+                initFilters.retryCount = 0;
+            }
+            initFilters.retryCount++;
+            if (initFilters.retryCount < 10) {
+                setTimeout(initFilters, 100);
+            } else {
+                console.warn('⚠️ Wine type filter cards not found after 10 retries');
+            }
             return;
         }
         
-        wineCards.forEach(card => {
-            // Remove any existing listeners to avoid duplicates
-            const newCard = card.cloneNode(true);
-            card.parentNode.replaceChild(newCard, card);
+        console.log('🔍 Initializing wine type filters, found', wineCards.length, 'cards');
+        
+        wineCards.forEach((card, index) => {
+            // Check if card already has event listener (avoid duplicates)
+            if (card.dataset.filterInitialized === 'true') {
+                console.log('⏭️ Card', index, 'already initialized, skipping');
+                return;
+            }
             
-            newCard.addEventListener('click', function() {
+            // Mark as initialized
+            card.dataset.filterInitialized = 'true';
+            
+            card.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
                 const wineType = this.dataset.type;
-                console.log('🍷 Wine category card clicked:', wineType);
+                console.log('🍷 Wine category card clicked:', wineType, 'Card index:', index);
                 
                 if (wineType) {
-                    // Update active state
-                    document.querySelectorAll('.wine-card-sidebar').forEach(c => c.classList.remove('active'));
+                    // Update active state with visual feedback
+                    document.querySelectorAll('.wine-card-sidebar').forEach(c => {
+                        c.classList.remove('active');
+                        c.style.opacity = '0.7';
+                    });
                     this.classList.add('active');
+                    this.style.opacity = '1';
+                    
+                    console.log('✅ Active state updated for wine type:', wineType);
                     
                     // Update map colors if map exists
                     const mapContainer = document.getElementById('map');
@@ -2584,18 +2608,26 @@ function initWineTypeFilters() {
                     
                     // Show regions panel and load regions for this wine type
                     if (typeof showRegionsPanel === 'function') {
+                        console.log('📋 Calling showRegionsPanel for type:', wineType);
                         showRegionsPanel(wineType);
+                    } else {
+                        console.warn('⚠️ showRegionsPanel function not available');
                     }
                     
                     // Update active filters badge
                     if (typeof updateActiveFiltersBadge === 'function') {
                         setTimeout(updateActiveFiltersBadge, 100);
                     }
+                    
+                    // Force a visual update to ensure changes are visible
+                    this.offsetHeight; // Trigger reflow
+                } else {
+                    console.warn('⚠️ No wineType found in card dataset');
                 }
             });
         });
         
-        console.log('✅ Wine type filters initialized:', wineCards.length, 'filters');
+        console.log('✅ Wine type filters initialized successfully:', wineCards.length, 'filters');
     };
     
     // Start initialization
@@ -3662,8 +3694,8 @@ function initInteractiveMap() {
             initializeMobileMap();
         });
         
-        // Initialize wine type filters (separate from map initialization)
-        initWineTypeFilters();
+        // Note: initWineTypeFilters() is called globally at the end of the file
+        // No need to call it here to avoid duplicate initialization
         // Back to map button
         const backToMapBtn = document.getElementById('backToMapBtn');
         if (backToMapBtn) {
