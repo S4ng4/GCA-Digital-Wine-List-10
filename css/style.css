@@ -6423,7 +6423,7 @@ body:not(.home-page) .luxury-container {
     }
     
     .leaflet-tile-pane {
-        display: block !important;
+        display: none !important;
     }
 
     /* 2. Safe-area iOS */
