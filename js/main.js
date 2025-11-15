@@ -2638,29 +2638,435 @@ function initWineTypeFilters() {
     }
 }
 
+/* ==================== GLOBAL VARIABLES FOR MAP FUNCTIONALITY ==================== */
+// Global variables for map functionality (must be declared before functions that use them)
+let geoJsonLayer = null;
+let selectedRegion = null;
+let currentColors = { border: '#D4AF37', fill: '#D4AF37' };
+let mapInstance = null;
+let currentWineType = null;
+let currentSelectedRegion = null;
+
+// Mobile map variables
+let mobileMapInstance = null;
+let mobileGeoJsonLayer = null;
+let mobileSelectedRegion = null;
+let mobileCurrentWineType = null;
+
+/* ==================== GLOBAL HELPER FUNCTIONS ==================== */
+// Helper function to wait for wineApp to be ready
+function waitForWineApp(callback, maxWait = 10000) {
+    if (window.wineApp && window.wineApp.wines && window.wineApp.wines.length > 0) {
+        callback();
+        return;
+    }
+    
+    let resolved = false;
+    const timeout = setTimeout(() => {
+        if (!resolved) {
+            resolved = true;
+            console.error('WineApp not available after timeout');
+            if (window.wineApp && window.wineApp.wines) {
+                callback();
+            } else {
+                callback(); // Call anyway to show error message
+            }
+        }
+    }, maxWait);
+    
+    const handler = () => {
+        if (!resolved && window.wineApp && window.wineApp.wines && window.wineApp.wines.length > 0) {
+            resolved = true;
+            clearTimeout(timeout);
+            window.removeEventListener('wineAppReady', handler);
+            callback();
+        }
+    };
+    
+    window.addEventListener('wineAppReady', handler);
+}
+
+// Helper function to map normalized region names to map region names
+function getMapRegionName(normalizedRegionName) {
+    // Map normalized region names to map region names (from regionData)
+    const regionMap = {
+        'FRIULI-VENEZIA GIULIA': 'Friuli-Venezia Giulia',
+        'LE MARCHE': 'Marche',
+        'TRENTINO ALTO-ADIGE': 'Trentino-Alto Adige',
+        'VALLE D\'AOSTA': 'Valle d\'Aosta',
+        'TOSCANA': 'Toscana',
+        'SICILIA': 'Sicilia',
+        'PIEMONTE': 'Piemonte',
+        'VENETO': 'Veneto',
+        'LOMBARDIA': 'Lombardia',
+        'EMILIA-ROMAGNA': 'Emilia-Romagna',
+        'LAZIO': 'Lazio',
+        'CAMPANIA': 'Campania',
+        'PUGLIA': 'Puglia',
+        'CALABRIA': 'Calabria',
+        'BASILICATA': 'Basilicata',
+        'MOLISE': 'Molise',
+        'ABRUZZO': 'Abruzzo',
+        'UMBRIA': 'Umbria',
+        'SARDEGNA': 'Sardegna',
+        'LIGURIA': 'Liguria'
+    };
+    return regionMap[normalizedRegionName] || normalizedRegionName;
+}
+
+// Helper function to check if a region has wines of the current type
+function regionHasWines(regionName, wineType) {
+    if (!window.wineApp || !window.wineApp.wines || !window.wineApp.wines.length) {
+        return false;
+    }
+    
+    const filteredWines = window.wineApp.wines.filter(wine => {
+        if (!wine.region) return false;
+        const normalizedWineRegion = window.wineApp.normalizeRegionName(wine.region);
+        const normalizedFilterRegion = window.wineApp.normalizeRegionName(regionName);
+        const matchesRegion = normalizedWineRegion === normalizedFilterRegion;
+        
+        if (!wineType) {
+            // If no wine type selected, just check region
+            return matchesRegion;
+        }
+        
+        const matchesType = window.wineApp.wineMatchesFamily(wine, wineType);
+        return matchesRegion && matchesType;
+    });
+    
+    return filteredWines.length > 0;
+}
+
+// Helper function to get wine type colors (used by both mobile and desktop)
+function getWineTypeColors(wineType) {
+    const wineColors = {
+        'ROSSO': { border: '#8B0000', fill: '#8B0000' },
+        'BIANCO': { border: '#F0E68C', fill: '#F0E68C' },
+        'ROSATO': { border: '#FFB6C1', fill: '#FFB6C1' },
+        'ARANCIONE': { border: '#FF8C00', fill: '#FF8C00' },
+        'BOLLICINE': { border: '#E0D5B7', fill: '#E0D5B7' },
+        'NON ALCOLICO': { border: '#90EE90', fill: '#90EE90' }
+    };
+    if (wineType && wineColors[wineType]) {
+        return wineColors[wineType];
+    }
+    // Default to gold if no type or type not found
+    return { border: '#D4AF37', fill: '#D4AF37' };
+}
+
+// Update map colors with animation and highlight regions with wines
+function updateMapColors(wineType) {
+    // Use getWineTypeColors for consistency
+    const colors = getWineTypeColors(wineType);
+    currentColors = colors;
+    currentWineType = wineType;
+    
+    const mapElement = document.getElementById('map');
+    if (mapElement) {
+        mapElement.classList.remove('map-animated');
+        void mapElement.offsetWidth;
+        mapElement.classList.add('map-animated');
+    }
+    
+    if (geoJsonLayer) {
+        geoJsonLayer.eachLayer(function(layer) {
+            const regionName = layer._regionName;
+            const hasWines = regionName ? regionHasWines(regionName, wineType) : false;
+            const isSelected = layer === selectedRegion;
+            
+            if (hasWines || !wineType) {
+                // Region has wines - use normal colors
+                layer.setStyle({
+                    color: colors.border,
+                    fillColor: colors.fill,
+                    weight: isSelected ? 4 : 1.5,
+                    fillOpacity: isSelected ? 0.5 : 0.08,
+                    opacity: isSelected ? 1 : 0.8,
+                    dashArray: isSelected ? '10, 5' : null,
+                    lineCap: 'round',
+                    lineJoin: 'round'
+                });
+                // Re-enable interactions
+                layer.options.interactive = true;
+            } else {
+                // Region has no wines - show disabled state
+                layer.setStyle({
+                    color: '#666',
+                    fillColor: '#333',
+                    weight: 1.5,
+                    fillOpacity: 0.05,
+                    opacity: 0.5,
+                    lineCap: 'round',
+                    lineJoin: 'round',
+                    dashArray: '5, 5'
+                });
+                // Disable interactions for regions without wines
+                layer.options.interactive = false;
+            }
+        });
+    }
+}
+
+// Dashboard functionality - show regions panel
+function showRegionsPanel(wineType) {
+    currentWineType = wineType;
+    const panel = document.getElementById('regionsPanel');
+    const title = document.getElementById('regionsPanelTitle');
+    const subtitle = document.getElementById('regionsPanelSubtitle');
+    const list = document.getElementById('regionsList');
+    
+    if (!panel) return;
+    
+    // Get wine type name
+    const wineTypeNames = {
+        'ROSSO': 'Red Wines',
+        'BIANCO': 'White Wines',
+        'ROSATO': 'Rosé Wines',
+        'ARANCIONE': 'Orange Wines',
+        'BOLLICINE': 'Sparkling',
+        'NON ALCOLICO': 'Non-Alcoholic'
+    };
+    
+    title.textContent = wineTypeNames[wineType] || 'Regions';
+    subtitle.textContent = 'Select a region';
+    
+    // Load regions using wineApp if available
+    if (window.wineApp && window.wineApp.wines && window.wineApp.wines.length > 0) {
+        loadRegionsForWineType(wineType, list);
+    } else {
+        waitForWineApp(() => {
+            if (window.wineApp && window.wineApp.wines && window.wineApp.wines.length > 0) {
+                loadRegionsForWineType(wineType, list);
+            }
+        });
+    }
+    
+    panel.classList.add('active');
+    
+    // Close wines panel when opening regions
+    const winesPanel = document.getElementById('winesPanel');
+    if (winesPanel) {
+        winesPanel.classList.remove('active');
+    }
+}
+
+// Load regions for a specific wine type
+function loadRegionsForWineType(wineType, listContainer) {
+    if (!window.wineApp || !window.wineApp.wines) return;
+    
+    // Filter wines by type
+    const filteredWines = window.wineApp.wines.filter(wine => {
+        return window.wineApp.wineMatchesFamily(wine, wineType);
+    });
+    
+    // Get unique regions
+    const regionSet = new Set();
+    filteredWines.forEach(wine => {
+        if (wine.region && wine.region.trim() !== '') {
+            const normalizedRegion = window.wineApp.normalizeRegionName(wine.region);
+            regionSet.add(normalizedRegion);
+        }
+    });
+    
+    const regions = Array.from(regionSet).sort();
+    
+    // Clear and populate list
+    listContainer.innerHTML = '';
+    
+    if (regions.length === 0) {
+        listContainer.innerHTML = '<div style="color: rgba(245, 245, 240, 0.5); text-align: center; padding: 2rem;">No regions found</div>';
+        return;
+    }
+    
+    regions.forEach(region => {
+        // Count wines in this region and type
+        const count = filteredWines.filter(wine => {
+            const normalizedWineRegion = window.wineApp.normalizeRegionName(wine.region);
+            return normalizedWineRegion === region;
+        }).length;
+        
+        const regionItem = document.createElement('div');
+        regionItem.className = 'region-item';
+        regionItem.innerHTML = `
+            <div class="region-item-name">${region}</div>
+            <div class="region-item-count">${count} wines</div>
+        `;
+        
+        // Store region name for hover effect
+        regionItem.dataset.regionName = region;
+        
+        // Add hover effect to highlight region on map
+        regionItem.addEventListener('mouseenter', function() {
+            if (geoJsonLayer) {
+                // Convert normalized region name to map region name
+                const mapRegionName = getMapRegionName(region);
+                
+                geoJsonLayer.eachLayer(function(layer) {
+                    const mapRegion = layer.feature && layer.feature.properties.reg_name;
+                    // Match both normalized and map region names
+                    if (mapRegion === mapRegionName || mapRegion === region) {
+                        // Use currentWineType from global scope
+                        const hasWines = currentWineType ? regionHasWines(region, currentWineType) : true;
+                        if (hasWines || !currentWineType) {
+                            layer.setStyle({
+                                weight: 3,
+                                fillOpacity: 0.35,
+                                fillColor: currentColors.fill,
+                                color: currentColors.border,
+                                opacity: 1,
+                                dashArray: null
+                            });
+                            layer.bringToFront();
+                            
+                            // Show tooltip for sidebar hover
+                            const tooltip = document.getElementById('regionTooltip');
+                            if (tooltip && mapInstance) {
+                                tooltip.textContent = mapRegionName;
+                                tooltip.style.display = 'block';
+                                // Position tooltip near the region center
+                                const bounds = layer.getBounds();
+                                const center = bounds.getCenter();
+                                const containerPoint = mapInstance.latLngToContainerPoint(center);
+                                const mapWrapper = document.getElementById('mapWrapper');
+                                if (mapWrapper) {
+                                    const rect = mapWrapper.getBoundingClientRect();
+                                    tooltip.style.left = (containerPoint.x) + 'px';
+                                    tooltip.style.top = (containerPoint.y - tooltip.offsetHeight - 15) + 'px';
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+        
+        regionItem.addEventListener('mouseleave', function() {
+            // Hide tooltip
+            const tooltip = document.getElementById('regionTooltip');
+            if (tooltip) tooltip.style.display = 'none';
+            
+            if (geoJsonLayer) {
+                // Convert normalized region name to map region name
+                const mapRegionName = getMapRegionName(region);
+                
+                geoJsonLayer.eachLayer(function(layer) {
+                    const mapRegion = layer.feature && layer.feature.properties.reg_name;
+                    // Match both normalized and map region names
+                    if ((mapRegion === mapRegionName || mapRegion === region) && layer !== selectedRegion) {
+                        // Use currentWineType from global scope
+                        const hasWines = currentWineType ? regionHasWines(region, currentWineType) : true;
+                        if (hasWines || !currentWineType) {
+                            layer.setStyle({
+                                weight: 1.5,
+                                fillOpacity: 0.08,
+                                fillColor: currentColors.fill,
+                                color: currentColors.border,
+                                opacity: 0.8,
+                                dashArray: null
+                            });
+                        } else {
+                            layer.setStyle({
+                                weight: 1.5,
+                                fillOpacity: 0.03,
+                                color: '#666666',
+                                fillColor: '#666666',
+                                opacity: 0.5,
+                                dashArray: '5, 5'
+                            });
+                        }
+                    }
+                });
+            }
+        });
+        
+        regionItem.addEventListener('click', function(e) {
+            // Prevent event from bubbling up to parent elements that might interfere
+            if (e) {
+                e.stopPropagation();
+                e.preventDefault();
+            }
+            
+            // Get the actual region-item element (in case click was on a child)
+            const clickedItem = e && e.currentTarget ? e.currentTarget : this;
+            
+            // Get region name from the clicked item or from closure
+            const regionName = clickedItem.dataset.regionName || region;
+            
+            // Remove active class from all items
+            document.querySelectorAll('.region-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            clickedItem.classList.add('active');
+            
+            // Show wines list instead of map
+            console.log('🔵 Region item clicked:', regionName, 'wineType:', wineType);
+            if (typeof showWinesListForRegion === 'function') {
+                showWinesListForRegion(regionName, wineType);
+            } else {
+                console.error('❌ showWinesListForRegion is not a function');
+            }
+            
+            // Also highlight the region on the map if it exists
+            if (geoJsonLayer) {
+                const mapRegionName = getMapRegionName(region);
+                geoJsonLayer.eachLayer(function(layer) {
+                    const mapRegion = layer.feature && layer.feature.properties.reg_name;
+                    if (mapRegion === mapRegionName || mapRegion === region) {
+                        selectedRegion = layer;
+                        const regName = layer._regionName;
+                        
+                        // Reset all regions first
+                        geoJsonLayer.eachLayer(function(l) {
+                            const rName = l._regionName;
+                            const hasWines = rName ? regionHasWines(rName, wineType) : false;
+                            
+                            if (hasWines || !wineType) {
+                                l.setStyle({
+                                    weight: 1.5,
+                                    fillOpacity: 0.08,
+                                    color: currentColors.border,
+                                    fillColor: currentColors.fill,
+                                    opacity: 0.8,
+                                    dashArray: null
+                                });
+                            } else {
+                                l.setStyle({
+                                    weight: 1.5,
+                                    fillOpacity: 0.03,
+                                    color: '#666666',
+                                    fillColor: '#666666',
+                                    opacity: 0.5,
+                                    dashArray: '5, 5'
+                                });
+                            }
+                        });
+                        
+                        // Highlight selected region
+                        layer.setStyle({
+                            weight: 2.5,
+                            color: currentColors.border,
+                            fillColor: currentColors.fill,
+                            fillOpacity: 0.25,
+                            opacity: 1,
+                            dashArray: null
+                        });
+                    }
+                });
+            }
+        });
+        
+        listContainer.appendChild(regionItem);
+    });
+}
+
 /* ==================== INDEX PAGE INTERACTIVE MAP ==================== */
 function initInteractiveMap() {
         const mapContainer = document.getElementById('map');
         if (!mapContainer) {
             return;
         }
-        // Wine color palette
-        const wineColors = {
-            'ROSSO': { border: '#8B0000', fill: '#8B0000' },
-            'BIANCO': { border: '#F0E68C', fill: '#F0E68C' },
-            'ROSATO': { border: '#FFB6C1', fill: '#FFB6C1' },
-            'ARANCIONE': { border: '#FF8C00', fill: '#FF8C00' },
-            'BOLLICINE': { border: '#E0D5B7', fill: '#E0D5B7' },
-            'NON ALCOLICO': { border: '#90EE90', fill: '#90EE90' }
-        };
-        // Helper function to get wine type colors (used by both mobile and desktop)
-        function getWineTypeColors(wineType) {
-            if (wineType && wineColors[wineType]) {
-                return wineColors[wineType];
-            }
-            // Default to gold if no type or type not found
-            return { border: '#D4AF37', fill: '#D4AF37' };
-        }
+        // getWineTypeColors is now a global function (defined above)
         
         // Region data with detailed information
         const regionData = {
@@ -2805,20 +3211,7 @@ function initInteractiveMap() {
                 wineFacts: "Famous for Amarone della Valpolicella, Prosecco, Soave, and Valpolicella."
             }
         };
-        let geoJsonLayer;
-        let selectedRegion = null;
-        let currentColors = { border: '#D4AF37', fill: '#D4AF37' };
-        let mapInstance = null;
-        
-        // Mobile map variables
-        let mobileMapInstance = null;
-        let mobileGeoJsonLayer = null;
-        let mobileSelectedRegion = null;
-        let mobileCurrentWineType = null;
-        
-        // Dashboard functionality variables (must be declared before use)
-        let currentWineType = null;
-        let currentSelectedRegion = null;
+        // Use global variables declared above (geoJsonLayer, selectedRegion, currentColors, mapInstance, currentWineType, etc.)
         // Check URL parameters for region and type
         const urlParams = new URLSearchParams(window.location.search);
         const urlRegion = urlParams.get('region');
@@ -3656,56 +4049,7 @@ function initInteractiveMap() {
                 backToMap();
             });
         }
-        // Helper function to map normalized region names to map region names
-        function getMapRegionName(normalizedRegionName) {
-            // Map normalized region names to map region names (from regionData)
-            const regionMap = {
-                'FRIULI-VENEZIA GIULIA': 'Friuli-Venezia Giulia',
-                'LE MARCHE': 'Marche',
-                'TRENTINO ALTO-ADIGE': 'Trentino-Alto Adige',
-                'VALLE D\'AOSTA': 'Valle d\'Aosta',
-                'TOSCANA': 'Toscana',
-                'SICILIA': 'Sicilia',
-                'PIEMONTE': 'Piemonte',
-                'VENETO': 'Veneto',
-                'LOMBARDIA': 'Lombardia',
-                'EMILIA-ROMAGNA': 'Emilia-Romagna',
-                'LAZIO': 'Lazio',
-                'CAMPANIA': 'Campania',
-                'PUGLIA': 'Puglia',
-                'CALABRIA': 'Calabria',
-                'BASILICATA': 'Basilicata',
-                'MOLISE': 'Molise',
-                'ABRUZZO': 'Abruzzo',
-                'UMBRIA': 'Umbria',
-                'SARDEGNA': 'Sardegna',
-                'LIGURIA': 'Liguria'
-            };
-            return regionMap[normalizedRegionName] || normalizedRegionName;
-        }
-        // Helper function to check if a region has wines of the current type
-        function regionHasWines(regionName, wineType) {
-            if (!window.wineApp || !window.wineApp.wines || !window.wineApp.wines.length) {
-                return false;
-            }
-            
-            const filteredWines = window.wineApp.wines.filter(wine => {
-                if (!wine.region) return false;
-                const normalizedWineRegion = window.wineApp.normalizeRegionName(wine.region);
-                const normalizedFilterRegion = window.wineApp.normalizeRegionName(regionName);
-                const matchesRegion = normalizedWineRegion === normalizedFilterRegion;
-                
-                if (!wineType) {
-                    // If no wine type selected, just check region
-                    return matchesRegion;
-                }
-                
-                const matchesType = window.wineApp.wineMatchesFamily(wine, wineType);
-                return matchesRegion && matchesType;
-            });
-            
-            return filteredWines.length > 0;
-        }
+        // getMapRegionName and regionHasWines are now global functions (defined above)
         // Helper function to get region data by name (handles variations)
         function getRegionData(regionName) {
             if (!regionName) return null;
@@ -3871,37 +4215,7 @@ function initInteractiveMap() {
             showRegionInfo(regionName);
         }
         
-        // Helper function to wait for wineApp to be ready
-        function waitForWineApp(callback, maxWait = 10000) {
-            if (window.wineApp && window.wineApp.wines && window.wineApp.wines.length > 0) {
-                callback();
-                return;
-            }
-            
-            let resolved = false;
-            const timeout = setTimeout(() => {
-                if (!resolved) {
-                    resolved = true;
-                    console.error('WineApp not available after timeout');
-                    if (window.wineApp && window.wineApp.wines) {
-                        callback();
-                    } else {
-                        callback(); // Call anyway to show error message
-                    }
-                }
-            }, maxWait);
-            
-            const handler = () => {
-                if (!resolved && window.wineApp && window.wineApp.wines && window.wineApp.wines.length > 0) {
-                    resolved = true;
-                    clearTimeout(timeout);
-                    window.removeEventListener('wineAppReady', handler);
-                    callback();
-                }
-            };
-            
-            window.addEventListener('wineAppReady', handler);
-        }
+        // waitForWineApp is now a global function (defined above)
         
         function showWinesListForRegion(regionName, wineType) {
             console.log('🍷 showWinesListForRegion called with:', regionName, wineType);
@@ -4259,306 +4573,7 @@ function initInteractiveMap() {
                 tooltip.style.display = 'none';
             }
         }
-        // Update map colors with animation and highlight regions with wines
-        function updateMapColors(wineType) {
-            // Use getWineTypeColors like mobile version for consistency
-            const colors = getWineTypeColors(wineType);
-            currentColors = colors;
-            currentWineType = wineType;
-            
-            const mapElement = document.getElementById('map');
-            if (mapElement) {
-                mapElement.classList.remove('map-animated');
-                void mapElement.offsetWidth;
-                mapElement.classList.add('map-animated');
-            }
-            
-            if (geoJsonLayer) {
-                geoJsonLayer.eachLayer(function(layer) {
-                    const regionName = layer._regionName;
-                    const hasWines = regionName ? regionHasWines(regionName, wineType) : false;
-                    const isSelected = layer === selectedRegion;
-                    
-                    if (hasWines || !wineType) {
-                        // Region has wines - use normal colors (like mobile)
-                        layer.setStyle({
-                            color: colors.border,
-                            fillColor: colors.fill,
-                            weight: isSelected ? 4 : 1.5,
-                            fillOpacity: isSelected ? 0.5 : 0.08,
-                            opacity: isSelected ? 1 : 0.8,
-                            dashArray: isSelected ? '10, 5' : null,
-                            lineCap: 'round',
-                            lineJoin: 'round'
-                        });
-                        // Re-enable interactions
-                        layer.options.interactive = true;
-                    } else {
-                        // Region has no wines - show disabled state (like mobile)
-                        layer.setStyle({
-                            color: '#666',
-                            fillColor: '#333',
-                            weight: 1.5,
-                            fillOpacity: 0.05,
-                            opacity: 0.5,
-                            lineCap: 'round',
-                            lineJoin: 'round',
-                            dashArray: '5, 5'
-                        });
-                        // Disable interactions for regions without wines
-                        layer.options.interactive = false;
-                    }
-                });
-            }
-        }
-        // Dashboard functionality (variables already declared above)
-        function showRegionsPanel(wineType) {
-            currentWineType = wineType;
-            const panel = document.getElementById('regionsPanel');
-            const title = document.getElementById('regionsPanelTitle');
-            const subtitle = document.getElementById('regionsPanelSubtitle');
-            const list = document.getElementById('regionsList');
-            
-            if (!panel) return;
-            
-            // Get wine type name
-            const wineTypeNames = {
-                'ROSSO': 'Red Wines',
-                'BIANCO': 'White Wines',
-                'ROSATO': 'Rosé Wines',
-                'ARANCIONE': 'Orange Wines',
-                'BOLLICINE': 'Sparkling',
-                'NON ALCOLICO': 'Non-Alcoholic'
-            };
-            
-            title.textContent = wineTypeNames[wineType] || 'Regions';
-            subtitle.textContent = 'Select a region';
-            
-            // Load regions using wineApp if available
-            if (window.wineApp && window.wineApp.wines && window.wineApp.wines.length > 0) {
-                loadRegionsForWineType(wineType, list);
-            } else {
-                waitForWineApp(() => {
-                    if (window.wineApp && window.wineApp.wines && window.wineApp.wines.length > 0) {
-                        loadRegionsForWineType(wineType, list);
-                    }
-                });
-            }
-            
-            panel.classList.add('active');
-            
-            // Close wines panel when opening regions
-            const winesPanel = document.getElementById('winesPanel');
-            if (winesPanel) {
-                winesPanel.classList.remove('active');
-            }
-        }
-        function loadRegionsForWineType(wineType, listContainer) {
-            if (!window.wineApp || !window.wineApp.wines) return;
-            
-            // Filter wines by type
-            const filteredWines = window.wineApp.wines.filter(wine => {
-                return window.wineApp.wineMatchesFamily(wine, wineType);
-            });
-            
-            // Get unique regions
-            const regionSet = new Set();
-            filteredWines.forEach(wine => {
-                if (wine.region && wine.region.trim() !== '') {
-                    const normalizedRegion = window.wineApp.normalizeRegionName(wine.region);
-                    regionSet.add(normalizedRegion);
-                }
-            });
-            
-            const regions = Array.from(regionSet).sort();
-            
-            // Clear and populate list
-            listContainer.innerHTML = '';
-            
-            if (regions.length === 0) {
-                listContainer.innerHTML = '<div style="color: rgba(245, 245, 240, 0.5); text-align: center; padding: 2rem;">No regions found</div>';
-                return;
-            }
-            
-            regions.forEach(region => {
-                // Count wines in this region and type
-                const count = filteredWines.filter(wine => {
-                    const normalizedWineRegion = window.wineApp.normalizeRegionName(wine.region);
-                    return normalizedWineRegion === region;
-                }).length;
-                
-                const regionItem = document.createElement('div');
-                regionItem.className = 'region-item';
-                regionItem.innerHTML = `
-                    <div class="region-item-name">${region}</div>
-                    <div class="region-item-count">${count} wines</div>
-                `;
-                
-                // Store region name for hover effect
-                regionItem.dataset.regionName = region;
-                
-                // Add hover effect to highlight region on map
-                regionItem.addEventListener('mouseenter', function() {
-                    if (geoJsonLayer) {
-                        // Convert normalized region name to map region name
-                        const mapRegionName = getMapRegionName(region);
-                        
-                        geoJsonLayer.eachLayer(function(layer) {
-                            const mapRegion = layer.feature && layer.feature.properties.reg_name;
-                            // Match both normalized and map region names
-                            if (mapRegion === mapRegionName || mapRegion === region) {
-                                // Use currentWineType from global scope
-                                const hasWines = currentWineType ? regionHasWines(region, currentWineType) : true;
-                                if (hasWines || !currentWineType) {
-                                    layer.setStyle({
-                                        weight: 3,
-                                        fillOpacity: 0.35,
-                                        fillColor: currentColors.fill,
-                                        color: currentColors.border,
-                                        opacity: 1,
-                                        dashArray: null
-                                    });
-                                    layer.bringToFront();
-                                    
-                                    // Show tooltip for sidebar hover
-                                    const tooltip = document.getElementById('regionTooltip');
-                                    if (tooltip && mapInstance) {
-                                        tooltip.textContent = mapRegionName;
-                                        tooltip.style.display = 'block';
-                                        // Position tooltip near the region center
-                                        const bounds = layer.getBounds();
-                                        const center = bounds.getCenter();
-                                        const containerPoint = mapInstance.latLngToContainerPoint(center);
-                                        const mapWrapper = document.getElementById('mapWrapper');
-                                        if (mapWrapper) {
-                                            const rect = mapWrapper.getBoundingClientRect();
-                                            tooltip.style.left = (containerPoint.x) + 'px';
-                                            tooltip.style.top = (containerPoint.y - tooltip.offsetHeight - 15) + 'px';
-                                        }
-                                    }
-                                }
-                            }
-                        });
-                    }
-                });
-                
-                regionItem.addEventListener('mouseleave', function() {
-                    // Hide tooltip
-                    hideRegionTooltip();
-                    
-                    if (geoJsonLayer) {
-                        // Convert normalized region name to map region name
-                        const mapRegionName = getMapRegionName(region);
-                        
-                        geoJsonLayer.eachLayer(function(layer) {
-                            const mapRegion = layer.feature && layer.feature.properties.reg_name;
-                            // Match both normalized and map region names
-                            if ((mapRegion === mapRegionName || mapRegion === region) && layer !== selectedRegion) {
-                                // Use currentWineType from global scope
-                                const hasWines = currentWineType ? regionHasWines(region, currentWineType) : true;
-                                if (hasWines || !currentWineType) {
-                                    layer.setStyle({
-                                        weight: 1.5,
-                                        fillOpacity: 0.08,
-                                        fillColor: currentColors.fill,
-                                        color: currentColors.border,
-                                        opacity: 0.8,
-                                        dashArray: null
-                                    });
-                                } else {
-                                    layer.setStyle({
-                                        weight: 1.5,
-                                        fillOpacity: 0.03,
-                                        color: '#666666',
-                                        fillColor: '#666666',
-                                        opacity: 0.5,
-                                        dashArray: '5, 5'
-                                    });
-                                }
-                            }
-                        });
-                    }
-                });
-                
-                regionItem.addEventListener('click', function(e) {
-                    // Prevent event from bubbling up to parent elements that might interfere
-                    if (e) {
-                        e.stopPropagation();
-                        e.preventDefault();
-                    }
-                    
-                    // Get the actual region-item element (in case click was on a child)
-                    const clickedItem = e && e.currentTarget ? e.currentTarget : this;
-                    
-                    // Get region name from the clicked item or from closure
-                    const regionName = clickedItem.dataset.regionName || region;
-                    
-                    // Remove active class from all items
-                    document.querySelectorAll('.region-item').forEach(item => {
-                        item.classList.remove('active');
-                    });
-                    clickedItem.classList.add('active');
-                    
-                    // Show wines list instead of map
-                    console.log('🔵 Region item clicked:', regionName, 'wineType:', wineType);
-                    if (typeof showWinesListForRegion === 'function') {
-                        showWinesListForRegion(regionName, wineType);
-                    } else {
-                        console.error('❌ showWinesListForRegion is not a function');
-                    }
-                    
-                    // Also highlight the region on the map if it exists
-                    if (geoJsonLayer) {
-                        const mapRegionName = getMapRegionName(region);
-                        geoJsonLayer.eachLayer(function(layer) {
-                            const mapRegion = layer.feature && layer.feature.properties.reg_name;
-                            if (mapRegion === mapRegionName || mapRegion === region) {
-                                selectedRegion = layer;
-                                const regName = layer._regionName;
-                                
-                                // Reset all regions first
-                                geoJsonLayer.eachLayer(function(l) {
-                                    const rName = l._regionName;
-                                    const hasWines = rName ? regionHasWines(rName, wineType) : false;
-                                    
-                                    if (hasWines || !wineType) {
-                                        l.setStyle({
-                                            weight: 1.5,
-                                            fillOpacity: 0.08,
-                                            color: currentColors.border,
-                                            fillColor: currentColors.fill,
-                                            opacity: 0.8,
-                                            dashArray: null
-                                        });
-                                    } else {
-                                        l.setStyle({
-                                            weight: 1.5,
-                                            fillOpacity: 0.03,
-                                            color: '#666666',
-                                            fillColor: '#666666',
-                                            opacity: 0.5,
-                                            dashArray: '5, 5'
-                                        });
-                                    }
-                                });
-                                
-                                // Highlight selected region
-                                layer.setStyle({
-                                    weight: 2.5,
-                                    color: currentColors.border,
-                                    fillColor: currentColors.fill,
-                                    fillOpacity: 0.25,
-                                    opacity: 1,
-                                    dashArray: null
-                                });
-                            }
-                        });
-                    }
-                });
-                
-                listContainer.appendChild(regionItem);
-            });
-        }
+        // updateMapColors, showRegionsPanel, and loadRegionsForWineType are now global functions (defined above)
         function showWinesPanel(region, wineType) {
             currentSelectedRegion = region;
             const panel = document.getElementById('winesPanel');
@@ -5111,6 +5126,9 @@ function initInteractiveMap() {
         }, 500);
         
         scheduleViewportRefresh();
+        
+        // Expose showWinesListForRegion as global function so it can be called from loadRegionsForWineType
+        window.showWinesListForRegion = showWinesListForRegion;
 }
 
 // Initialize wine type filters on page load (independent of map)
