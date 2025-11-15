@@ -2555,40 +2555,16 @@ function initWineTypeFilters() {
                     // Update map colors if map exists
                     const mapContainer = document.getElementById('map');
                     if (mapContainer && typeof updateMapColors === 'function') {
+                        console.log('🎨 Updating map colors for wine type:', wineType);
                         updateMapColors(wineType);
                         
                         // Reset selected region
                         if (typeof selectedRegion !== 'undefined') {
                             selectedRegion = null;
                         }
-                        if (typeof geoJsonLayer !== 'undefined' && geoJsonLayer) {
-                            geoJsonLayer.eachLayer(function(l) {
-                                const regionName = l._regionName;
-                                const hasWines = regionName && typeof regionHasWines === 'function' 
-                                    ? regionHasWines(regionName, wineType) 
-                                    : false;
-                                
-                                if (hasWines || !wineType) {
-                                    l.setStyle({
-                                        weight: 1.5,
-                                        fillOpacity: 0.08,
-                                        color: typeof currentColors !== 'undefined' ? currentColors.border : '#D4AF37',
-                                        fillColor: typeof currentColors !== 'undefined' ? currentColors.fill : '#D4AF37',
-                                        opacity: 0.8,
-                                        dashArray: null
-                                    });
-                                } else {
-                                    l.setStyle({
-                                        weight: 1.5,
-                                        fillOpacity: 0.03,
-                                        color: '#666666',
-                                        fillColor: '#666666',
-                                        opacity: 0.5,
-                                        dashArray: '5, 5'
-                                    });
-                                }
-                            });
-                        }
+                        // Note: updateMapColors already handles all layer styling, no need to do it manually here
+                    } else {
+                        console.warn('⚠️ Map container or updateMapColors function not available');
                     }
                     
                     // Hide region info and wines list, show map
@@ -2757,10 +2733,15 @@ function getWineTypeColors(wineType) {
 
 // Update map colors with animation and highlight regions with wines
 function updateMapColors(wineType) {
+    console.log('🎨 updateMapColors called with wineType:', wineType);
+    console.log('🗺️ geoJsonLayer exists:', !!geoJsonLayer);
+    
     // Use getWineTypeColors for consistency
     const colors = getWineTypeColors(wineType);
     currentColors = colors;
     currentWineType = wineType;
+    
+    console.log('🎨 Colors set to:', colors);
     
     const mapElement = document.getElementById('map');
     if (mapElement) {
@@ -2770,6 +2751,7 @@ function updateMapColors(wineType) {
     }
     
     if (geoJsonLayer) {
+        console.log('✅ Updating geoJsonLayer with', geoJsonLayer.getLayers().length, 'layers');
         geoJsonLayer.eachLayer(function(layer) {
             const regionName = layer._regionName;
             const hasWines = regionName ? regionHasWines(regionName, wineType) : false;
@@ -2805,6 +2787,13 @@ function updateMapColors(wineType) {
                 layer.options.interactive = false;
             }
         });
+    } else {
+        console.warn('⚠️ geoJsonLayer is null, map may not be initialized yet');
+        // Try to wait for map initialization
+        const mapElement = document.getElementById('map');
+        if (mapElement && !mapElement._leaflet_id) {
+            console.log('⏳ Map not initialized yet, will retry after map loads');
+        }
     }
 }
 
@@ -4749,15 +4738,21 @@ function initInteractiveMap() {
                         const count = matchingWines.length;
                         // Get the first wine's ID for direct navigation
                         const firstWine = matchingWines[0];
-                        suggestions.push({
-                            type: 'wine',
-                            text: wine.wine_name,
-                            icon: '🍷',
-                            count: count,
-                            subtitle: wine.wine_producer || '',
-                            wineNumber: firstWine ? firstWine.wine_number : null,
-                            wineId: firstWine ? firstWine.wine_number : null
-                        });
+                        const wineNumber = firstWine ? (firstWine.wine_number || firstWine.id || null) : null;
+                        
+                        if (wineNumber) {
+                            suggestions.push({
+                                type: 'wine',
+                                text: wine.wine_name,
+                                icon: '🍷',
+                                count: count,
+                                subtitle: wine.wine_producer || '',
+                                wineNumber: wineNumber,
+                                wineId: wineNumber
+                            });
+                        } else {
+                            console.warn('⚠️ Wine number not found for wine:', wine.wine_name, firstWine);
+                        }
                     }
                 }
                 
@@ -4864,13 +4859,19 @@ function initInteractiveMap() {
             
             // Add click handlers
             suggestionsContainer.querySelectorAll('.autocomplete-suggestion').forEach(suggestionEl => {
-                suggestionEl.addEventListener('click', function() {
+                suggestionEl.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
                     const suggestionType = this.dataset.suggestionType;
                     const wineNumber = this.dataset.wineNumber || this.dataset.wineId;
                     const text = this.dataset.suggestionText;
                     
+                    console.log('🔍 Suggestion clicked:', { suggestionType, wineNumber, text });
+                    
                     // If it's a wine suggestion and we have a wine number, navigate directly to the wine page
                     if (suggestionType === 'wine' && wineNumber) {
+                        console.log('🍷 Navigating to wine:', wineNumber);
                         // Navigate to wine details page
                         const wineDetailsUrl = `wine-details.html?id=${wineNumber}&from=search`;
                         window.location.href = wineDetailsUrl;
