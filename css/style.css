@@ -3193,8 +3193,82 @@ body:not(.home-page) .luxury-container {
     }
 }
 
-/* Tablet layout - unificato con mobile (max-width: 1023px) - NOTA: iPad Pro (1024px+) usa layout desktop */
-@media (min-width: 768px) and (max-width: 1023px) {
+/* Tablet portrait 820px-1023px - Usa layout desktop come 1024x1366 */
+@media (min-width: 820px) and (max-width: 1023px) {
+    /* Usa layout desktop invece di mobile */
+    .mobile-menu-btn,
+    .mobile-search-btn,
+    .mobile-search-bar-container,
+    .mobile-map-wines-container,
+    .mobile-views-container {
+        display: none !important;
+    }
+    
+    /* Hide mobile-specific UI */
+    .mobile-wine-type-selector {
+        display: none !important;
+    }
+
+    /* Hide mobile breadcrumb */
+    .breadcrumb,
+    .mobile-breadcrumb {
+        display: none !important;
+    }
+    
+    /* Show desktop elements */
+    .main-content-desktop {
+        display: flex !important;
+        margin-left: 0 !important;
+    }
+    
+    /* Reset content wrapper margin */
+    .content-wrapper {
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+        flex-direction: row !important;
+    }
+    
+    .map-wrapper {
+        display: flex !important;
+        min-height: 600px !important;
+        max-height: 75vh !important;
+    }
+    
+    #map {
+        min-height: 600px !important;
+        max-height: 75vh !important;
+    }
+
+    .interactive-map-main {
+        display: flex !important;
+    }
+    
+    /* Sidebar visibile */
+    .sidebar {
+        display: flex !important;
+    }
+    
+    .search-bar-container {
+        display: block !important;
+    }
+
+    .top-nav {
+        position: relative !important;
+        box-shadow: none !important;
+    }
+
+    .logo {
+        display: block !important;
+    }
+    
+    /* Desktop wines grid visibile */
+    .wines-grid-container {
+        display: grid !important;
+    }
+}
+
+/* Tablet layout - solo per schermi 768px-819px - unificato con mobile */
+@media (min-width: 768px) and (max-width: 819px) {
     /* Usa lo stesso layout mobile - desktop map nascosta */
     .main-content-desktop .map-wrapper {
         display: none !important;
@@ -6061,7 +6135,7 @@ body:not(.home-page) .luxury-container {
 }
 
 /* Tablet UI Improvements - Apple-like design */
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 819px) {
     /* Improved spacing for tablet */
     .top-nav {
         padding: 1.25rem 1.5rem;
@@ -6190,9 +6264,9 @@ body:not(.home-page) .luxury-container {
     }
 }
 
-/* Tutti i dispositivi sotto iPad Pro (max-width: 1023px) - Layout unificato tablet e mobile 
-   NOTA: iPad Pro standard (1024px) e superiori usano layout desktop */
-@media (max-width: 1023px) {
+/* Tutti i dispositivi sotto 820px (max-width: 819px) - Layout unificato tablet e mobile 
+   NOTA: 820px-1023px usa layout desktop, iPad Pro standard (1024px) e superiori usano layout desktop */
+@media (max-width: 819px) {
     /* Desktop map nascosta - usa mobile map */
     .main-content-desktop .map-wrapper {
         display: none !important;
@@ -6360,7 +6434,7 @@ body:not(.home-page) .luxury-container {
    ========================================================= */
 
 /* PORTRAIT (verticale) - schermo alto e stretto */
-@media (max-width: 1023px) and (orientation: portrait) {
+@media (max-width: 819px) and (orientation: portrait) {
     /* Mappa più alta in portrait per sfruttare lo spazio verticale */
     .mobile-map-wrapper {
         height: 40vh !important;
@@ -6382,7 +6456,7 @@ body:not(.home-page) .luxury-container {
 }
 
 /* LANDSCAPE (orizzontale) - schermo largo e basso */
-@media (max-width: 1023px) and (orientation: landscape) {
+@media (max-width: 819px) and (orientation: landscape) {
     /* Mappa più bassa in landscape per dare spazio ai vini */
     .mobile-map-wrapper {
         height: 30vh !important;
@@ -6409,12 +6483,30 @@ body:not(.home-page) .luxury-container {
    ========================================================= */
 
 /* --------------- MOBILE & TABLET 2025 FIXES --------------- */
-@media (max-width: 1023px) {
+/* Solo per dispositivi mobile/tablet piccoli (max-width: 819px) */
+@media (max-width: 819px) {
     /* 1. Forza mappa sempre visibile */
     .map-wrapper,
     #map,
     #mobileMap,
     .mobile-map-wrapper,
+    .leaflet-container {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        background: #0A0A0A !important;
+    }
+    
+    .leaflet-tile-pane {
+        display: none !important;
+    }
+}
+
+/* Fix tecnici anche per 820px-1023px (ma senza nascondere elementi desktop) */
+@media (min-width: 820px) and (max-width: 1023px) {
+    /* 1. Forza mappa sempre visibile */
+    .map-wrapper,
+    #map,
     .leaflet-container {
         display: block !important;
         visibility: visible !important;
