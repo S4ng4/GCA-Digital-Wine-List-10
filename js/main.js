@@ -3279,6 +3279,39 @@ function initInteractiveMap() {
             mobileWrapper.style.maxHeight = `${mapHeight}px`;
             mobileContainer.style.setProperty('--mobile-map-height', `${mapHeight}px`);
         }
+        
+        // Update mobile wines cards container height for iPhone Safari
+        function updateMobileWinesCardsHeight() {
+            const winesContainer = document.getElementById('mobileWinesCardsContainer');
+            const winesHeader = document.querySelector('.mobile-wines-cards-header');
+            if (!winesContainer || window.getComputedStyle(winesContainer).display === 'none') {
+                return;
+            }
+            const viewport = window.visualViewport;
+            const viewportHeight = viewport ? viewport.height : window.innerHeight;
+            const topNav = document.querySelector('.top-nav');
+            const wineSelector = document.querySelector('.mobile-wine-type-selector');
+            const searchBar = document.getElementById('mobileSearchBarContainer');
+            let reservedHeight = 0;
+            if (topNav && window.getComputedStyle(topNav).display !== 'none') {
+                reservedHeight += topNav.offsetHeight;
+            }
+            if (wineSelector && window.getComputedStyle(wineSelector).display !== 'none') {
+                reservedHeight += wineSelector.offsetHeight;
+            }
+            if (searchBar && searchBar.classList.contains('visible')) {
+                reservedHeight += searchBar.offsetHeight;
+            }
+            if (winesHeader) {
+                reservedHeight += winesHeader.offsetHeight;
+            }
+            // Use actual viewport height minus reserved space
+            const availableHeight = viewportHeight - reservedHeight;
+            winesContainer.style.height = `${availableHeight}px`;
+            winesContainer.style.maxHeight = `${availableHeight}px`;
+            winesContainer.style.minHeight = `${availableHeight}px`;
+        }
+        
         let viewportResizeTimer = null;
         function scheduleViewportRefresh(extraDelay = 0) {
             if (viewportResizeTimer) {
@@ -3286,6 +3319,7 @@ function initInteractiveMap() {
             }
             viewportResizeTimer = setTimeout(() => {
                 updateMobileMapHeight();
+                updateMobileWinesCardsHeight();
                 if (mapInstance) {
                     mapInstance.invalidateSize();
                 }
@@ -3300,6 +3334,16 @@ function initInteractiveMap() {
         }
         window.addEventListener('resize', () => scheduleViewportRefresh());
         window.addEventListener('orientationchange', () => scheduleViewportRefresh(200));
+        
+        // Listen for visualViewport changes (iPhone Safari address bar show/hide)
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', () => {
+                scheduleViewportRefresh();
+            });
+            window.visualViewport.addEventListener('scroll', () => {
+                scheduleViewportRefresh();
+            });
+        }
         
         // Load GeoJSON with error handling and fallback
         fetch('https://raw.githubusercontent.com/openpolis/geojson-italy/master/geojson/limits_IT_regions.geojson')
@@ -3881,6 +3925,10 @@ function initInteractiveMap() {
                 if (!window.wineApp || !window.wineApp.wines) return;
                 mapView.style.display = 'none';
                 winesContainer.style.display = 'flex';
+                // Update height for iPhone Safari
+                setTimeout(() => {
+                    updateMobileWinesCardsHeight();
+                }, 100);
                 if (winesTitle) {
                     const typeName = wineType ? getWineTypeName(wineType) : 'All';
                     winesTitle.textContent = `${regionName} - ${typeName}`;
@@ -3938,6 +3986,14 @@ function initInteractiveMap() {
                     backBtn.onclick = () => {
                         mapView.style.display = 'flex';
                         winesContainer.style.display = 'none';
+                        // Reset height when going back to map
+                        winesContainer.style.height = '';
+                        winesContainer.style.maxHeight = '';
+                        winesContainer.style.minHeight = '';
+                        // Update map height
+                        setTimeout(() => {
+                            updateMobileMapHeight();
+                        }, 100);
                     };
                 }
             });
@@ -5221,6 +5277,11 @@ function initInteractiveMap() {
         }, 500);
         
         scheduleViewportRefresh();
+        
+        // Initial update for wines cards height if container is visible
+        setTimeout(() => {
+            updateMobileWinesCardsHeight();
+        }, 500);
         
         // Expose showWinesListForRegion as global function so it can be called from loadRegionsForWineType
         window.showWinesListForRegion = showWinesListForRegion;

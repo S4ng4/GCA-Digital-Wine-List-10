@@ -202,10 +202,15 @@ body {
 /* Disable scrolling only for home page - ottimizzato per mobile */
 body.home-page {
     max-height: 100vh;
+    max-height: 100dvh; /* Dynamic viewport height for iOS Safari */
     overflow-y: hidden;
     height: 100vh;
+    height: 100dvh; /* Dynamic viewport height for iOS Safari */
     position: fixed;
     width: 100%;
+    /* Support for iPhone notch */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* Reset per altre pagine - permette scroll normale */
@@ -6049,6 +6054,10 @@ body:not(.home-page) .luxury-container {
         overflow: hidden;
         background: linear-gradient(180deg, rgba(30, 30, 28, 0.85), rgba(12, 12, 12, 0.8));
         transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        /* Fix for iPhone Safari - height will be set by JavaScript */
+        height: auto;
+        min-height: 0;
+        max-height: none;
     }
     
     /* Smooth transition when switching between map and cards */
