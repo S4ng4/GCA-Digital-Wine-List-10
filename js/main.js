@@ -2563,7 +2563,7 @@ function initWineTypeFilters() {
                             selectedRegion = null;
                         }
                         // Note: updateMapColors already handles all layer styling, no need to do it manually here
-                    } else {
+                                } else {
                         console.warn('⚠️ Map container or updateMapColors function not available');
                     }
                     
@@ -2634,8 +2634,8 @@ let mobileCurrentWineType = null;
 function waitForWineApp(callback, maxWait = 10000) {
     if (window.wineApp && window.wineApp.wines && window.wineApp.wines.length > 0) {
         callback();
-        return;
-    }
+            return;
+        }
     
     let resolved = false;
     const timeout = setTimeout(() => {
@@ -2716,20 +2716,20 @@ function regionHasWines(regionName, wineType) {
 
 // Helper function to get wine type colors (used by both mobile and desktop)
 function getWineTypeColors(wineType) {
-    const wineColors = {
-        'ROSSO': { border: '#8B0000', fill: '#8B0000' },
-        'BIANCO': { border: '#F0E68C', fill: '#F0E68C' },
-        'ROSATO': { border: '#FFB6C1', fill: '#FFB6C1' },
-        'ARANCIONE': { border: '#FF8C00', fill: '#FF8C00' },
-        'BOLLICINE': { border: '#E0D5B7', fill: '#E0D5B7' },
-        'NON ALCOLICO': { border: '#90EE90', fill: '#90EE90' }
-    };
-    if (wineType && wineColors[wineType]) {
-        return wineColors[wineType];
-    }
-    // Default to gold if no type or type not found
-    return { border: '#D4AF37', fill: '#D4AF37' };
-}
+        const wineColors = {
+            'ROSSO': { border: '#8B0000', fill: '#8B0000' },
+            'BIANCO': { border: '#F0E68C', fill: '#F0E68C' },
+            'ROSATO': { border: '#FFB6C1', fill: '#FFB6C1' },
+            'ARANCIONE': { border: '#FF8C00', fill: '#FF8C00' },
+            'BOLLICINE': { border: '#E0D5B7', fill: '#E0D5B7' },
+            'NON ALCOLICO': { border: '#90EE90', fill: '#90EE90' }
+        };
+            if (wineType && wineColors[wineType]) {
+                return wineColors[wineType];
+            }
+            // Default to gold if no type or type not found
+            return { border: '#D4AF37', fill: '#D4AF37' };
+        }
 
 // Update map colors with animation and highlight regions with wines
 function updateMapColors(wineType) {
@@ -2988,10 +2988,10 @@ function loadRegionsForWineType(wineType, listContainer) {
             });
             clickedItem.classList.add('active');
             
-            // Show wines list instead of map
-            console.log('🔵 Region item clicked:', regionName, 'wineType:', wineType);
+            // Show wines list instead of map - show ALL wine types (pass null)
+            console.log('🔵 Region item clicked:', regionName, 'showing ALL wine types');
             if (typeof showWinesListForRegion === 'function') {
-                showWinesListForRegion(regionName, wineType);
+                showWinesListForRegion(regionName, null); // null = all wine types
             } else {
                 console.error('❌ showWinesListForRegion is not a function');
             }
@@ -4183,9 +4183,9 @@ function initInteractiveMap() {
             });
             layer.bringToFront();
             
-            // Always show wines list when region is clicked (with or without wine type)
-            console.log('✅ Region selected, showing wines list...');
-            showWinesListForRegion(regionName, currentWineType);
+            // Always show wines list when region is clicked - show ALL wine types
+            console.log('✅ Region selected, showing wines list (all types)...');
+            showWinesListForRegion(regionName, null); // null = all wine types
             
             // Also highlight the region in the regions panel if it's open
             const regionsList = document.getElementById('regionsList');
@@ -4311,19 +4311,22 @@ function initInteractiveMap() {
                 winesListTitle.textContent = `${regionName} Wines`;
             }
             if (winesListSubtitle) {
-                if (wineType) {
-                    const wineTypeNames = {
-                        'ROSSO': 'Red Wines',
-                        'BIANCO': 'White Wines',
-                        'ROSATO': 'Rosé Wines',
-                        'ARANCIONE': 'Orange Wines',
-                        'BOLLICINE': 'Sparkling',
-                        'NON ALCOLICO': 'Non-Alcoholic'
-                    };
-                    winesListSubtitle.textContent = wineTypeNames[wineType] || 'Wines';
-                } else {
-                    winesListSubtitle.textContent = 'All Wines';
-                }
+                winesListSubtitle.textContent = 'All Wine Types - Use filters below to filter by type';
+            }
+            
+            // Show wine type filters and reset to "All"
+            const winesListFilters = document.getElementById('winesListFilters');
+            if (winesListFilters) {
+                winesListFilters.style.display = 'flex';
+                // Reset filter buttons to "All"
+                const filterButtons = winesListFilters.querySelectorAll('.wine-type-filter-btn');
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.wineType === 'all') {
+                        btn.classList.add('active');
+                    }
+                });
+                currentWineTypeFilter = 'all';
             }
             
             // Get search term from search input
@@ -4346,8 +4349,16 @@ function initInteractiveMap() {
             loadWinesIntoGrid(regionName, wineType, winesGridContainer, searchTerm);
         }
         
+        // Store current region and filter state
+        let currentRegionForFilter = null;
+        let currentWineTypeFilter = 'all';
+        
         function loadWinesIntoGrid(regionName, wineType, container, searchTerm = '') {
             console.log('🍷 loadWinesIntoGrid called with:', regionName, wineType, searchTerm);
+            
+            // Store current region for filter updates
+            currentRegionForFilter = regionName;
+            currentWineTypeFilter = wineType || 'all';
             
             if (!window.wineApp || !window.wineApp.wines) {
                 console.warn('⚠️ wineApp or wines not available');
@@ -4361,7 +4372,12 @@ function initInteractiveMap() {
                 const normalizedWineRegion = window.wineApp.normalizeRegionName(wine.region);
                 const normalizedFilterRegion = window.wineApp.normalizeRegionName(regionName);
                 const matchesRegion = normalizedWineRegion === normalizedFilterRegion;
-                const matchesType = !wineType || window.wineApp.wineMatchesFamily(wine, wineType);
+                
+                // Apply wine type filter (if not 'all')
+                let matchesType = true;
+                if (currentWineTypeFilter && currentWineTypeFilter !== 'all') {
+                    matchesType = window.wineApp.wineMatchesFamily(wine, currentWineTypeFilter);
+                }
                 
                 // Apply search filter if search term is provided
                 const matchesSearch = !searchTerm || 
@@ -4395,6 +4411,7 @@ function initInteractiveMap() {
             const thead = document.createElement('thead');
             thead.innerHTML = `
                 <tr>
+                    <th>Tipo</th>
                     <th>Nome</th>
                     <th>Produttore</th>
                     <th>Denominazione</th>
@@ -4410,11 +4427,24 @@ function initInteractiveMap() {
                 const row = document.createElement('tr');
                 row.className = 'wine-table-row';
                 row.dataset.wineId = wine.wine_number;
+                row.dataset.wineType = wine.wine_type || '';
                 
                 const price = wine.wine_price || wine.wine_price_bottle || wine.wine_price_glass || 'N/A';
                 const denomination = wine.wine_vintage || 'N/A';
                 
+                // Get wine type display name
+                const wineTypeNames = {
+                    'ROSSO': 'Red',
+                    'BIANCO': 'White',
+                    'ROSATO': 'Rosé',
+                    'ARANCIONE': 'Orange',
+                    'BOLLICINE': 'Sparkling',
+                    'NON ALCOLICO': 'Non-Alc'
+                };
+                const wineTypeDisplay = wineTypeNames[wine.wine_type] || wine.wine_type || 'N/A';
+                
                 row.innerHTML = `
+                    <td class="wine-table-type">${wineTypeDisplay}</td>
                     <td class="wine-table-name">${wine.wine_name || 'Unknown Wine'}</td>
                     <td class="wine-table-producer">${wine.wine_producer || 'Unknown Producer'}</td>
                     <td class="wine-table-denomination">${denomination}</td>
@@ -4453,6 +4483,34 @@ function initInteractiveMap() {
             console.log('📊 Table element:', table);
             console.log('🔍 Container children:', container.children.length);
             console.log('🔍 Table visible:', window.getComputedStyle(table).display !== 'none');
+            
+            // Setup wine type filter buttons
+            setupWineTypeFilters(container);
+        }
+        
+        // Setup wine type filter buttons
+        function setupWineTypeFilters(container) {
+            const filterButtons = document.querySelectorAll('.wine-type-filter-btn');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active state
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Get selected wine type
+                    const selectedType = this.dataset.wineType;
+                    currentWineTypeFilter = selectedType;
+                    
+                    console.log('🍷 Filter changed to:', selectedType);
+                    
+                    // Reload wines with new filter
+                    if (currentRegionForFilter) {
+                        const searchInput = document.getElementById('desktopSearchInput');
+                        const searchTerm = searchInput ? searchInput.value.trim() : '';
+                        loadWinesIntoGrid(currentRegionForFilter, selectedType === 'all' ? null : selectedType, container, searchTerm);
+                    }
+                });
+            });
         }
         
         // Expose loadWinesIntoGrid as global function for search functionality
@@ -4741,15 +4799,15 @@ function initInteractiveMap() {
                         const wineNumber = firstWine ? (firstWine.wine_number || firstWine.id || null) : null;
                         
                         if (wineNumber) {
-                            suggestions.push({
-                                type: 'wine',
-                                text: wine.wine_name,
-                                icon: '🍷',
-                                count: count,
+                        suggestions.push({
+                            type: 'wine',
+                            text: wine.wine_name,
+                            icon: '🍷',
+                            count: count,
                                 subtitle: wine.wine_producer || '',
                                 wineNumber: wineNumber,
                                 wineId: wineNumber
-                            });
+                        });
                         } else {
                             console.warn('⚠️ Wine number not found for wine:', wine.wine_name, firstWine);
                         }
