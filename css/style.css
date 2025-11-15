@@ -3193,7 +3193,8 @@ body:not(.home-page) .luxury-container {
     }
 }
 
-/* Tablet portrait 820px-1023px - Usa layout desktop come 1024x1366 */
+/* Tablet 820x1180 - Usa layout desktop come 1024x1366 */
+/* Gestisce portrait (820x1180) - width 820px-1023px */
 @media (min-width: 820px) and (max-width: 1023px) {
     /* Usa layout desktop invece di mobile */
     .mobile-menu-btn,
@@ -3237,6 +3238,80 @@ body:not(.home-page) .luxury-container {
     #map {
         min-height: 600px !important;
         max-height: 75vh !important;
+    }
+
+    .interactive-map-main {
+        display: flex !important;
+    }
+    
+    /* Sidebar visibile */
+    .sidebar {
+        display: flex !important;
+    }
+    
+    .search-bar-container {
+        display: block !important;
+    }
+
+    .top-nav {
+        position: relative !important;
+        box-shadow: none !important;
+    }
+
+    .logo {
+        display: block !important;
+    }
+    
+    /* Desktop wines grid visibile */
+    .wines-grid-container {
+        display: grid !important;
+    }
+}
+
+/* Tablet 820x1180 ruotato in landscape (1180x820) - width > 1023px ma height = 820px */
+@media (min-width: 1024px) and (max-width: 1366px) and (min-height: 700px) and (max-height: 900px) {
+    /* Usa layout desktop invece di mobile anche in landscape */
+    .mobile-menu-btn,
+    .mobile-search-btn,
+    .mobile-search-bar-container,
+    .mobile-map-wines-container,
+    .mobile-views-container {
+        display: none !important;
+    }
+    
+    /* Hide mobile-specific UI */
+    .mobile-wine-type-selector {
+        display: none !important;
+    }
+
+    /* Hide mobile breadcrumb */
+    .breadcrumb,
+    .mobile-breadcrumb {
+        display: none !important;
+    }
+    
+    /* Show desktop elements */
+    .main-content-desktop {
+        display: flex !important;
+        margin-left: 0 !important;
+    }
+    
+    /* Reset content wrapper margin */
+    .content-wrapper {
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+        flex-direction: row !important;
+    }
+    
+    .map-wrapper {
+        display: flex !important;
+        min-height: 500px !important;
+        max-height: 70vh !important;
+    }
+    
+    #map {
+        min-height: 500px !important;
+        max-height: 70vh !important;
     }
 
     .interactive-map-main {
