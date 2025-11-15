@@ -3249,8 +3249,23 @@ body:not(.home-page) .luxury-container {
         display: flex !important;
     }
     
+    /* Search bar container ridotta quando wine list è attiva */
     .search-bar-container {
         display: block !important;
+        padding: 1rem 1.5rem;
+    }
+    
+    .search-wrapper {
+        max-width: 100%;
+    }
+    
+    .search-input-wrapper {
+        min-width: 250px;
+    }
+    
+    .search-input {
+        padding: 0.75rem 1.125rem;
+        font-size: 0.9rem;
     }
 
     .top-nav {
@@ -3265,6 +3280,19 @@ body:not(.home-page) .luxury-container {
     /* Desktop wines grid visibile */
     .wines-grid-container {
         display: grid !important;
+    }
+    
+    /* Sidebar wine cards ridotta per tablet */
+    .wine-cards-sidebar {
+        flex: 0 0 240px;
+        padding: 1.25rem;
+        max-height: calc(100vh - 200px);
+    }
+    
+    .sidebar-title {
+        font-size: 1.1rem;
+        margin-bottom: 0.875rem;
+        padding-bottom: 0.625rem;
     }
 }
 
@@ -3323,8 +3351,23 @@ body:not(.home-page) .luxury-container {
         display: flex !important;
     }
     
+    /* Search bar container ridotta quando wine list è attiva in landscape */
     .search-bar-container {
         display: block !important;
+        padding: 0.875rem 1.25rem;
+    }
+    
+    .search-wrapper {
+        max-width: 100%;
+    }
+    
+    .search-input-wrapper {
+        min-width: 220px;
+    }
+    
+    .search-input {
+        padding: 0.625rem 1rem;
+        font-size: 0.875rem;
     }
 
     .top-nav {
@@ -3339,6 +3382,19 @@ body:not(.home-page) .luxury-container {
     /* Desktop wines grid visibile */
     .wines-grid-container {
         display: grid !important;
+    }
+    
+    /* Sidebar wine cards ridotta per tablet landscape */
+    .wine-cards-sidebar {
+        flex: 0 0 220px;
+        padding: 1rem;
+        max-height: calc(100vh - 180px);
+    }
+    
+    .sidebar-title {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.5rem;
     }
 }
 
