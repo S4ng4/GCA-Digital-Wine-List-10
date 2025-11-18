@@ -1,5 +1,4 @@
 /* Error notification animations */
-/* Error notification animations */
 @keyframes slideInRight {
     from { 
         transform: translateX(100%); 
@@ -6255,44 +6254,12 @@ body:not(.home-page) .luxury-container {
         line-height: 1.4;
     }
 
-<<<<<<< HEAD
-    /* Adjust content wrapper to account for fixed nav and wine type selector */
-    .content-wrapper {
-        margin-top: calc(var(--mobile-nav-height) + var(--mobile-wine-type-height) + constant(safe-area-inset-top)); /* iOS 11.0-11.2 */
-        margin-top: calc(var(--mobile-nav-height) + var(--mobile-wine-type-height) + env(safe-area-inset-top)); /* iOS 11.2+ */
-        transition: margin-top 0.3s ease;
-        padding: 0;
-        padding-bottom: constant(safe-area-inset-bottom); /* iOS 11.0-11.2 */
-        padding-bottom: env(safe-area-inset-bottom); /* iOS 11.2+ */
-        overflow: hidden;
-    }
-
-    .content-wrapper.mobile-search-active {
-        margin-top: calc(var(--mobile-nav-height) + var(--mobile-wine-type-height) + var(--mobile-search-height) + constant(safe-area-inset-top)); /* iOS 11.0-11.2 */
-        margin-top: calc(var(--mobile-nav-height) + var(--mobile-wine-type-height) + var(--mobile-search-height) + env(safe-area-inset-top)); /* iOS 11.2+ */
-    }
-
-    /* Ensure mobile map container takes full available space */
-    .mobile-map-wines-container {
-        height: calc(100vh - (var(--mobile-nav-height) + var(--mobile-wine-type-height)) - constant(safe-area-inset-top) - constant(safe-area-inset-bottom)); /* iOS 11.0-11.2 */
-        height: calc(100vh - (var(--mobile-nav-height) + var(--mobile-wine-type-height)) - env(safe-area-inset-top) - env(safe-area-inset-bottom)); /* iOS 11.2+ */
-        min-height: 0;
-    }
-
-    .content-wrapper.mobile-search-active .mobile-map-wines-container {
-        height: calc(100vh - (var(--mobile-nav-height) + var(--mobile-wine-type-height) + var(--mobile-search-height)) - constant(safe-area-inset-top) - constant(safe-area-inset-bottom)); /* iOS 11.0-11.2 */
-        height: calc(100vh - (var(--mobile-nav-height) + var(--mobile-wine-type-height) + var(--mobile-search-height)) - env(safe-area-inset-top) - env(safe-area-inset-bottom)); /* iOS 11.2+ */
-    }
-
-    .content-wrapper > div:last-child {
-        margin-top: 0;
-    }
-
     /* Layout spacing adjustments - unified and optimized */
     .main-layout {
         padding-top: 0;
     }
 
+    /* Adjust content wrapper to account for fixed nav and wine type selector */
     .content-wrapper {
         padding: 0;
         margin-top: calc(var(--mobile-nav-height) + var(--mobile-wine-type-height) + constant(safe-area-inset-top)); /* iOS 11.0-11.2 */
@@ -6533,20 +6500,6 @@ body:not(.home-page) .luxury-container {
         display: none !important;
     }
     
-<<<<<<< HEAD
-    /* Mobile map container sizing - dynamic height */
-    .mobile-map-wrapper {
-        min-height: 320px;
-        height: var(--mobile-map-height, 100vh);
-        max-height: none;
-    }
-    
-    #mobileMap {
-        min-height: 320px;
-        height: 100%;
-        max-height: none;
-    }
-    
     /* Mobile map container unificato per tablet e mobile */
     .mobile-map-wrapper {
         min-height: 250px;
@@ -6559,7 +6512,6 @@ body:not(.home-page) .luxury-container {
         min-height: 250px;
         height: 100%;
         border-radius: 20px;
->>>>>>> 7fef7cf53024a6e7b7b92d27210a7835118af699
     }
     
     /* Mobile wine cards grid - single column */
@@ -6584,16 +6536,6 @@ body:not(.home-page) .luxury-container {
 
 /* Small mobile size (max-width: 480px) - Optimized for small screens */
 @media (max-width: 480px) {
-<<<<<<< HEAD
-    /* Mobile map container sizing for small screens */
-    .mobile-map-wrapper {
-        min-height: 280px;
-    }
-    
-    #mobileMap {
-        min-height: 280px;
-    }
-    
     /* Mobile map container - slightly smaller for small screens */
     .mobile-map-wrapper {
         min-height: 220px;
@@ -6669,7 +6611,6 @@ body:not(.home-page) .luxury-container {
     
     .table-region-name {
         font-size: 0.95rem;
->>>>>>> 7fef7cf53024a6e7b7b92d27210a7835118af699
     }
 }
 
