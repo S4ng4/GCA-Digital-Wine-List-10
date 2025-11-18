@@ -5062,6 +5062,8 @@ body:not(.home-page) .luxury-container {
         z-index: 200;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         min-height: var(--mobile-nav-height);
+        padding-top: constant(safe-area-inset-top); /* iOS 11.0-11.2 */
+        padding-top: env(safe-area-inset-top); /* iOS 11.2+ */
     }
 
     .nav-title-section {
@@ -5076,7 +5078,8 @@ body:not(.home-page) .luxury-container {
     /* Mobile Search Bar (positioned below nav) */
     .mobile-search-bar-container {
         position: fixed;
-        top: var(--mobile-nav-height);
+        top: calc(var(--mobile-nav-height) + constant(safe-area-inset-top)); /* iOS 11.0-11.2 */
+        top: calc(var(--mobile-nav-height) + env(safe-area-inset-top)); /* iOS 11.2+ */
         left: 0;
         right: 0;
         z-index: 190;
@@ -5085,6 +5088,10 @@ body:not(.home-page) .luxury-container {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         padding: 1rem;
+        padding-left: calc(1rem + constant(safe-area-inset-left)); /* iOS 11.0-11.2 */
+        padding-left: calc(1rem + env(safe-area-inset-left)); /* iOS 11.2+ */
+        padding-right: calc(1rem + constant(safe-area-inset-right)); /* iOS 11.0-11.2 */
+        padding-right: calc(1rem + env(safe-area-inset-right)); /* iOS 11.2+ */
         display: none;
     }
 
@@ -5167,7 +5174,8 @@ body:not(.home-page) .luxury-container {
     /* Mobile Wine Type Selector (below nav) - Apple-like design */
     .mobile-wine-type-selector {
         position: fixed;
-        top: var(--mobile-nav-height);
+        top: calc(var(--mobile-nav-height) + constant(safe-area-inset-top)); /* iOS 11.0-11.2 */
+        top: calc(var(--mobile-nav-height) + env(safe-area-inset-top)); /* iOS 11.2+ */
         left: 0;
         right: 0;
         z-index: 180;
@@ -5177,6 +5185,10 @@ body:not(.home-page) .luxury-container {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         border-bottom: 0.5px solid rgba(212, 175, 55, 0.1);
         padding: 0.75rem 1.25rem;
+        padding-left: calc(1.25rem + constant(safe-area-inset-left)); /* iOS 11.0-11.2 */
+        padding-left: calc(1.25rem + env(safe-area-inset-left)); /* iOS 11.2+ */
+        padding-right: calc(1.25rem + constant(safe-area-inset-right)); /* iOS 11.0-11.2 */
+        padding-right: calc(1.25rem + env(safe-area-inset-right)); /* iOS 11.2+ */
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
@@ -5487,24 +5499,30 @@ body:not(.home-page) .luxury-container {
 
     /* Adjust content wrapper to account for fixed nav and wine type selector */
     .content-wrapper {
-        margin-top: calc(var(--mobile-nav-height) + var(--mobile-wine-type-height)); /* nav height + wine type selector height */
+        margin-top: calc(var(--mobile-nav-height) + var(--mobile-wine-type-height) + constant(safe-area-inset-top)); /* iOS 11.0-11.2 */
+        margin-top: calc(var(--mobile-nav-height) + var(--mobile-wine-type-height) + env(safe-area-inset-top)); /* iOS 11.2+ */
         transition: margin-top 0.3s ease;
         padding: 0;
+        padding-bottom: constant(safe-area-inset-bottom); /* iOS 11.0-11.2 */
+        padding-bottom: env(safe-area-inset-bottom); /* iOS 11.2+ */
         overflow: hidden;
     }
 
     .content-wrapper.mobile-search-active {
-        margin-top: calc(var(--mobile-nav-height) + var(--mobile-wine-type-height) + var(--mobile-search-height)); /* nav + search bar + wine type selector when visible */
+        margin-top: calc(var(--mobile-nav-height) + var(--mobile-wine-type-height) + var(--mobile-search-height) + constant(safe-area-inset-top)); /* iOS 11.0-11.2 */
+        margin-top: calc(var(--mobile-nav-height) + var(--mobile-wine-type-height) + var(--mobile-search-height) + env(safe-area-inset-top)); /* iOS 11.2+ */
     }
 
     /* Ensure mobile map container takes full available space */
     .mobile-map-wines-container {
-        height: calc(100vh - (var(--mobile-nav-height) + var(--mobile-wine-type-height)));
+        height: calc(100vh - (var(--mobile-nav-height) + var(--mobile-wine-type-height)) - constant(safe-area-inset-top) - constant(safe-area-inset-bottom)); /* iOS 11.0-11.2 */
+        height: calc(100vh - (var(--mobile-nav-height) + var(--mobile-wine-type-height)) - env(safe-area-inset-top) - env(safe-area-inset-bottom)); /* iOS 11.2+ */
         min-height: 0;
     }
 
     .content-wrapper.mobile-search-active .mobile-map-wines-container {
-        height: calc(100vh - (var(--mobile-nav-height) + var(--mobile-wine-type-height) + var(--mobile-search-height)));
+        height: calc(100vh - (var(--mobile-nav-height) + var(--mobile-wine-type-height) + var(--mobile-search-height)) - constant(safe-area-inset-top) - constant(safe-area-inset-bottom)); /* iOS 11.0-11.2 */
+        height: calc(100vh - (var(--mobile-nav-height) + var(--mobile-wine-type-height) + var(--mobile-search-height)) - env(safe-area-inset-top) - env(safe-area-inset-bottom)); /* iOS 11.2+ */
     }
 
     .content-wrapper > div:last-child {
