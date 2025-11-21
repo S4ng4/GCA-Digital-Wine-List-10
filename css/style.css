@@ -6130,7 +6130,7 @@ body:not(.home-page) .luxury-container {
         grid-template-columns: 1fr;
         grid-auto-rows: auto;
         /* Fix per iOS Safari vecchi - usa margin invece di gap */
-        gap: 1rem;
+        gap: 1.5rem;
         min-height: 0;
         align-content: start;
         /* Fix per iPhone - assicura che le card non vengano tagliate */
@@ -6159,7 +6159,7 @@ body:not(.home-page) .luxury-container {
         display: flex;
         flex-direction: column;
         /* Fix per iOS Safari vecchi - usa margin invece di gap */
-        gap: 1.25rem;
+        gap: 1.75rem;
         cursor: pointer;
         transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7),
@@ -6648,9 +6648,9 @@ body:not(.home-page) .luxury-container {
 /* Safe areas per iPhone con notch */
 @media (max-width: 768px) {
     /* Fallback per iOS Safari che non supporta gap in grid (solo iOS) */
-    @supports not (gap: 1rem) {
+    @supports not (gap: 1.5rem) {
         .mobile-wines-cards-grid > .mobile-wine-card-grid {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
         
         .mobile-wines-cards-grid > .mobile-wine-card-grid:last-child {
@@ -6659,9 +6659,9 @@ body:not(.home-page) .luxury-container {
     }
     
     /* Fallback per iOS Safari che non supporta gap in flex (solo iOS) */
-    @supports not (gap: 1.25rem) {
+    @supports not (gap: 1.75rem) {
         .mobile-wine-card-grid > * {
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.75rem;
         }
         
         .mobile-wine-card-grid > *:last-child {
