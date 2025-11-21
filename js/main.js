@@ -3306,10 +3306,22 @@ function initInteractiveMap() {
                 reservedHeight += winesHeader.offsetHeight;
             }
             // Use actual viewport height minus reserved space
-            const availableHeight = viewportHeight - reservedHeight;
+            // Add safe area insets for iPhone
+            const safeAreaTop = parseInt(getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-top)') || '0', 10) || 0;
+            const safeAreaBottom = parseInt(getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-bottom)') || '0', 10) || 0;
+            const availableHeight = viewportHeight - reservedHeight - safeAreaTop - safeAreaBottom;
+            
+            // Set height but allow flex to work properly
             winesContainer.style.height = `${availableHeight}px`;
             winesContainer.style.maxHeight = `${availableHeight}px`;
             winesContainer.style.minHeight = `${availableHeight}px`;
+            
+            // Ensure grid container can scroll properly
+            const winesGrid = document.getElementById('mobileWinesCardsGrid');
+            if (winesGrid) {
+                winesGrid.style.height = 'auto';
+                winesGrid.style.maxHeight = 'none';
+            }
         }
         
         let viewportResizeTimer = null;
