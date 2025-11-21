@@ -6066,6 +6066,9 @@ body:not(.home-page) .luxury-container {
         height: auto;
         min-height: 0;
         max-height: none;
+        /* Assicura che il container prenda tutta l'altezza disponibile su iPhone */
+        position: relative;
+        -webkit-overflow-scrolling: touch;
     }
     
     /* Smooth transition when switching between map and cards */
@@ -6118,6 +6121,8 @@ body:not(.home-page) .luxury-container {
         overflow-y: auto;
         overflow-x: hidden;
         padding: 1rem;
+        padding-top: max(1rem, env(safe-area-inset-top, 0px));
+        padding-bottom: max(1rem, env(safe-area-inset-bottom, 0px));
         -webkit-overflow-scrolling: touch;
         display: grid;
         grid-template-columns: 1fr;
@@ -6125,6 +6130,8 @@ body:not(.home-page) .luxury-container {
         gap: 1rem;
         min-height: 0;
         align-content: start;
+        /* Fix per iPhone - assicura che le card non vengano tagliate */
+        box-sizing: border-box;
     }
 
     .mobile-wines-cards-grid::-webkit-scrollbar {
@@ -6674,6 +6681,22 @@ body:not(.home-page) .luxury-container {
         /* Assicura che il container non collassi su iOS */
         min-height: 0;
         height: auto;
+        /* Padding per safe area su iPhone */
+        padding-top: max(1rem, constant(safe-area-inset-top)); /* iOS 11.0-11.2 */
+        padding-top: max(1rem, env(safe-area-inset-top)); /* iOS 11.2+ */
+        padding-bottom: max(1rem, constant(safe-area-inset-bottom)); /* iOS 11.0-11.2 */
+        padding-bottom: max(1rem, env(safe-area-inset-bottom)); /* iOS 11.2+ */
+    }
+    
+    /* Fix per il container principale su iOS */
+    .mobile-wines-cards-container {
+        /* Assicura altezza corretta su iPhone */
+        min-height: 100vh;
+        min-height: 100dvh; /* Dynamic viewport height per iOS Safari */
+        /* Assicura che il container prenda tutta l'altezza disponibile */
+        display: flex;
+        flex-direction: column;
+        position: relative;
     }
     
     /* Fix aggiuntivi per elementi interni delle card su iOS */
