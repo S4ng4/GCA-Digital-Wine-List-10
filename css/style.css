@@ -6135,14 +6135,6 @@ body:not(.home-page) .luxury-container {
         box-sizing: border-box;
     }
     
-    /* Fallback per iOS Safari che non supporta gap in grid */
-    .mobile-wines-cards-grid > .mobile-wine-card-grid {
-        margin-bottom: 1rem;
-    }
-    
-    .mobile-wines-cards-grid > .mobile-wine-card-grid:last-child {
-        margin-bottom: 0;
-    }
 
     .mobile-wines-cards-grid::-webkit-scrollbar {
         width: 4px;
@@ -6185,14 +6177,6 @@ body:not(.home-page) .luxury-container {
         -moz-osx-font-smoothing: grayscale;
     }
     
-    /* Fallback per iOS Safari che non supporta gap in flex */
-    .mobile-wine-card-grid > * {
-        margin-bottom: 1.25rem;
-    }
-    
-    .mobile-wine-card-grid > *:last-child {
-        margin-bottom: 0;
-    }
 
     .mobile-wine-card-grid::before {
         content: '';
@@ -6661,6 +6645,27 @@ body:not(.home-page) .luxury-container {
 /* ==================== iOS COMPATIBILITY FIXES ==================== */
 /* Safe areas per iPhone con notch */
 @media (max-width: 768px) {
+    /* Fallback per iOS Safari che non supporta gap in grid (solo iOS) */
+    @supports not (gap: 1rem) {
+        .mobile-wines-cards-grid > .mobile-wine-card-grid {
+            margin-bottom: 1rem;
+        }
+        
+        .mobile-wines-cards-grid > .mobile-wine-card-grid:last-child {
+            margin-bottom: 0;
+        }
+    }
+    
+    /* Fallback per iOS Safari che non supporta gap in flex (solo iOS) */
+    @supports not (gap: 1.25rem) {
+        .mobile-wine-card-grid > * {
+            margin-bottom: 1.25rem;
+        }
+        
+        .mobile-wine-card-grid > *:last-child {
+            margin-bottom: 0;
+        }
+    }
     /* Solo mobile-map-view mantiene padding-top 155px */
     .mobile-map-view {
         padding-top: calc(155px + constant(safe-area-inset-top)); /* iOS 11.0-11.2 */
