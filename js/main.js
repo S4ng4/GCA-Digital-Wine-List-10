@@ -3309,18 +3309,28 @@ function initInteractiveMap() {
             // Add safe area insets for iPhone
             const safeAreaTop = parseInt(getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-top)') || '0', 10) || 0;
             const safeAreaBottom = parseInt(getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-bottom)') || '0', 10) || 0;
-            const availableHeight = viewportHeight - reservedHeight - safeAreaTop - safeAreaBottom;
             
-            // Set height but allow flex to work properly
-            winesContainer.style.height = `${availableHeight}px`;
-            winesContainer.style.maxHeight = `${availableHeight}px`;
+            // Calculate available height more accurately
+            // Use 100vh or 100dvh for better iOS Safari support
+            const fullHeight = window.innerHeight || document.documentElement.clientHeight;
+            const availableHeight = fullHeight - reservedHeight;
+            
+            // Set min-height instead of fixed height to allow flex to work
+            // This prevents compression while still ensuring minimum space
             winesContainer.style.minHeight = `${availableHeight}px`;
+            winesContainer.style.height = 'auto';
+            winesContainer.style.maxHeight = 'none';
             
-            // Ensure grid container can scroll properly
+            // Ensure grid container can scroll properly and doesn't collapse
             const winesGrid = document.getElementById('mobileWinesCardsGrid');
             if (winesGrid) {
                 winesGrid.style.height = 'auto';
                 winesGrid.style.maxHeight = 'none';
+                winesGrid.style.minHeight = '0';
+                // Force recalculation of grid layout
+                winesGrid.style.display = 'none';
+                winesGrid.offsetHeight; // Trigger reflow
+                winesGrid.style.display = 'grid';
             }
         }
         
