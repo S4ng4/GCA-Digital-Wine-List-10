@@ -3499,43 +3499,31 @@ function initInteractiveMap() {
         }
         function loadMobileMenuCategories() {
             const menuCategories = document.getElementById('mobileMenuCategories');
-            if (!menuCategories || !window.wineApp) return;
-            waitForWineApp(() => {
-                if (!window.wineApp || !window.wineApp.wines) return;
-                menuCategories.innerHTML = '';
-                const wineTypes = ['ROSSO', 'BIANCO', 'ROSATO', 'ARANCIONE', 'BOLLICINE', 'NON ALCOLICO'];
-                const wineTypeNames = {
-                    'ROSSO': 'Red Wines',
-                    'BIANCO': 'White Wines',
-                    'ROSATO': 'Rosé Wines',
-                    'ARANCIONE': 'Orange Wines',
-                    'BOLLICINE': 'Sparkling',
-                    'NON ALCOLICO': 'Non-Alcoholic'
-                };
-                wineTypes.forEach(type => {
-                    const count = window.wineApp.wines.filter(wine => 
-                        window.wineApp.wineMatchesFamily(wine, type)
-                    ).length;
-                    if (count > 0) {
-                        const categoryItem = document.createElement('div');
-                        categoryItem.className = 'mobile-menu-category';
-                        categoryItem.dataset.type = type;
-                        categoryItem.innerHTML = `
-                            <span class="mobile-menu-category-name">${wineTypeNames[type]}</span>
-                            <div>
-                                <span class="mobile-menu-category-count">${count} wines</span>
-                                <i class="fas fa-chevron-right" style="color: var(--gold);"></i>
-                            </div>
-                        `;
-                        categoryItem.addEventListener('click', () => {
-                            currentMobileWineType = type;
-                            loadMobileRegions(type);
-                            closeMobileMenu();
-                            showMobileView('regions');
-                        });
-                        menuCategories.appendChild(categoryItem);
-                    }
-                });
+            if (!menuCategories) return;
+            menuCategories.innerHTML = '';
+            
+            // Placeholder invece dei filtri
+            const placeholders = [
+                { name: 'Riccardo Wine Cellar', action: null },
+                { name: 'Ala Carte Menu', action: null }
+            ];
+            
+            placeholders.forEach(placeholder => {
+                const categoryItem = document.createElement('div');
+                categoryItem.className = 'mobile-menu-category';
+                categoryItem.innerHTML = `
+                    <span class="mobile-menu-category-name">${placeholder.name}</span>
+                    <div>
+                        <i class="fas fa-chevron-right" style="color: var(--gold);"></i>
+                    </div>
+                `;
+                if (placeholder.action) {
+                    categoryItem.addEventListener('click', placeholder.action);
+                } else {
+                    categoryItem.style.cursor = 'default';
+                    categoryItem.style.opacity = '0.7';
+                }
+                menuCategories.appendChild(categoryItem);
             });
         }
         function loadMobileRegions(wineType) {
@@ -4004,6 +3992,14 @@ function initInteractiveMap() {
                     });
                     winesGrid.appendChild(wineCard);
                 });
+                // Force reflow per prevenire sovrapposizione delle card
+                winesGrid.offsetHeight; // Trigger reflow
+                // Force grid layout recalculation
+                setTimeout(() => {
+                    winesGrid.style.display = 'none';
+                    winesGrid.offsetHeight; // Trigger reflow
+                    winesGrid.style.display = 'grid';
+                }, 10);
                 if (backBtn) {
                     backBtn.onclick = () => {
                         mapView.style.display = 'flex';

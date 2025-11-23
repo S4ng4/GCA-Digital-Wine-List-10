@@ -181,12 +181,12 @@
     --ivory: #F5F5F0;
     --cream: #F8F8F0;
     
-    /* Wine Type Colors - Red (Default) */
-    --wine-primary: #8B0000; /* Burgundy */
-    --wine-secondary: #722F37; /* Wine Red */
-    --wine-accent: #A52A2A; /* Slightly lighter burgundy */
-    --wine-border: rgba(139, 0, 0, 0.3);
-    --wine-highlight: rgba(139, 0, 0, 0.1);
+    /* Wine Type Colors - Red (Default) - Colore più acceso per migliore contrasto */
+    --wine-primary: #DC143C; /* Crimson - Rosso più acceso */
+    --wine-secondary: #B22222; /* Firebrick - Rosso acceso */
+    --wine-accent: #FF1744; /* Rosso acceso brillante */
+    --wine-border: rgba(220, 20, 60, 0.3);
+    --wine-highlight: rgba(220, 20, 60, 0.1);
 }
 
 body {
@@ -1837,7 +1837,7 @@ body:not(.home-page) .luxury-container {
     grid-column: 1 / -1;
     text-align: center;
     padding: 2rem;
-    background: linear-gradient(145deg, rgba(212, 175, 55, 0.05), rgba(139, 0, 0, 0.05));
+    background: linear-gradient(145deg, rgba(212, 175, 55, 0.05), rgba(220, 20, 60, 0.05));
     border: 1px solid rgba(212, 175, 55, 0.2);
     border-radius: 8px;
     margin: 1rem 0;
@@ -1958,7 +1958,7 @@ body:not(.home-page) .luxury-container {
 
 /* Wine type specific indicators */
 .wine-family-rosso {
-    background: linear-gradient(135deg, #8B0000, #A52A2A);
+    background: linear-gradient(135deg, #DC143C, #FF1744);
     color: var(--ivory);
 }
 
