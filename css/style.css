@@ -6128,13 +6128,15 @@ body:not(.home-page) .luxury-container {
         -webkit-overflow-scrolling: touch;
         display: grid;
         grid-template-columns: 1fr;
-        grid-auto-rows: auto;
+        grid-auto-rows: minmax(min-content, auto);
         /* Fix per iOS Safari vecchi - usa margin invece di gap */
         gap: 1.5rem;
         min-height: 0;
         align-content: start;
         /* Fix per iPhone - assicura che le card non vengano tagliate */
         box-sizing: border-box;
+        /* Previene sovrapposizione delle card */
+        contain: layout;
     }
     
 
@@ -6169,8 +6171,11 @@ body:not(.home-page) .luxury-container {
         position: relative;
         overflow: hidden;
         width: 100%;
-        min-height: auto;
+        min-height: min-content;
+        height: auto;
         flex-shrink: 0;
+        /* Previene sovrapposizione - assicura che ogni card occupi il suo spazio */
+        box-sizing: border-box;
         /* iOS fixes */
         -webkit-transform: translateZ(0);
         transform: translateZ(0);
@@ -6473,6 +6478,11 @@ body:not(.home-page) .luxury-container {
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
                     0 2px 8px rgba(0, 0, 0, 0.2);
     }
+    
+    /* Rimuovi gap 155px nella mobile view map solo per tablet */
+    .mobile-map-view {
+        padding: 1rem 1.25rem !important;
+    }
 }
 
 /* ==================== DESKTOP RESPONSIVE FIXES ==================== */
@@ -6541,10 +6551,11 @@ body:not(.home-page) .luxury-container {
     /* Mobile wine cards grid - single column */
     .mobile-wines-cards-grid {
         grid-template-columns: 1fr;
-        grid-auto-rows: auto;
+        grid-auto-rows: minmax(min-content, auto);
         gap: 1.25rem;
         padding: 1.25rem 1rem;
         align-content: start;
+        contain: layout;
     }
     
     /* Desktop wines grid nascosto */
@@ -6596,17 +6607,21 @@ body:not(.home-page) .luxury-container {
     
     /* Improve spacing for small screens */
     .mobile-wines-cards-grid {
-        grid-auto-rows: auto;
+        grid-auto-rows: minmax(min-content, auto);
         gap: 1rem;
         padding: 1rem 0.875rem;
         align-content: start;
+        contain: layout;
     }
     
     /* Improved readability for wine cards on small screens */
     .mobile-wine-card-grid {
         padding: 1.5rem 1.25rem;
         width: 100%;
+        min-height: min-content;
+        height: auto;
         flex-shrink: 0;
+        box-sizing: border-box;
     }
     
     .mobile-wine-card-grid-name {
@@ -6696,6 +6711,12 @@ body:not(.home-page) .luxury-container {
         /* Assicura dimensioni corrette */
         max-width: 100%;
         min-width: 0;
+        /* Previene sovrapposizione - assicura che ogni card occupi il suo spazio */
+        min-height: min-content;
+        height: auto;
+        /* Assicura che le card non si sovrappongano */
+        position: relative;
+        z-index: 1;
     }
     
     /* Fix per il container delle card su iOS */
@@ -6708,6 +6729,9 @@ body:not(.home-page) .luxury-container {
         /* Assicura che il container non collassi su iOS */
         min-height: 0;
         height: auto;
+        /* Previene sovrapposizione delle card */
+        grid-auto-rows: minmax(min-content, auto);
+        contain: layout;
         /* Padding per safe area su iPhone */
         padding-top: max(1rem, constant(safe-area-inset-top)); /* iOS 11.0-11.2 */
         padding-top: max(1rem, env(safe-area-inset-top)); /* iOS 11.2+ */
