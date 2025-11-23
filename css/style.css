@@ -6485,6 +6485,14 @@ body:not(.home-page) .luxury-container {
     }
 }
 
+/* Schermi 1920x1200 (aspect ratio 16:10) - Rimuovi gap 155px nella mobile view map */
+@media (width: 1920px) and (height: 1200px),
+       (aspect-ratio: 16/10) and (min-width: 1920px) {
+    .mobile-map-view {
+        padding: 1rem 1.25rem !important;
+    }
+}
+
 /* ==================== DESKTOP RESPONSIVE FIXES ==================== */
 /* Desktop map - ensure proper visibility (solo >= 1024px) */
 @media (min-width: 1024px) {
