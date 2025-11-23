@@ -6493,6 +6493,16 @@ body:not(.home-page) .luxury-container {
     }
 }
 
+/* Lenovo Tab P11 Gen 2 (TL11 Gen 2) - 2000x1200 (aspect ratio 5:3) - Rimuovi gap 155px nella mobile view map */
+@media (width: 2000px) and (height: 1200px),
+       (min-width: 1900px) and (max-width: 2100px) and (min-height: 1100px) and (max-height: 1300px),
+       (aspect-ratio: 5/3) and (min-width: 1900px) {
+    .mobile-map-view {
+        padding: 1rem 1.25rem !important;
+        padding-top: 1rem !important;
+    }
+}
+
 /* ==================== DESKTOP RESPONSIVE FIXES ==================== */
 /* Desktop map - ensure proper visibility (solo >= 1024px) */
 @media (min-width: 1024px) {
@@ -6517,6 +6527,12 @@ body:not(.home-page) .luxury-container {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
         gap: 1.5rem;
+    }
+    
+    /* Rimuovi gap 155px nella mobile view map per tablet grandi (>= 1024px) */
+    .mobile-map-view {
+        padding: 1rem 1.25rem !important;
+        padding-top: 1rem !important;
     }
 }
 
