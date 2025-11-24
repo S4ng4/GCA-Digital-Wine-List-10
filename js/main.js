@@ -4407,11 +4407,14 @@ function initInteractiveMap() {
                 const isSmall = (bounds.getNorth() - bounds.getSouth()) < 0.5; // Small regions
                 
                 // Predefined positions for specific regions to avoid known conflicts
+                // Include name variations to match GeoJSON properties
                 const regionSpecificPositions = {
                     'Valle d\'Aosta': { lat: bounds.getNorth() + offset * 0.5, lng: center.lng, priority: 0 },
+                    'Valle d\'Aosta/Vallée d\'Aoste': { lat: bounds.getNorth() + offset * 0.5, lng: center.lng, priority: 0 },
                     'Piemonte': { lat: bounds.getNorth() + offset * 0.6, lng: bounds.getWest() - offset * 0.5, priority: 0 },
                     'Lombardia': { lat: bounds.getNorth() + offset * 0.8, lng: bounds.getEast() + offset * 0.5, priority: 0 },
                     'Trentino-Alto Adige': { lat: bounds.getNorth() + offset * 0.5, lng: center.lng, priority: 0 },
+                    'Trentino-Alto Adige/Südtirol': { lat: bounds.getNorth() + offset * 0.5, lng: center.lng, priority: 0 },
                     'Veneto': { lat: bounds.getEast() + offset * 0.6, lng: center.lat, priority: 0 },
                     'Friuli-Venezia Giulia': { lat: bounds.getEast() + offset * 0.7, lng: center.lat, priority: 0 },
                     'Liguria': { lat: center.lat, lng: bounds.getWest() - offset * 0.6, priority: 0 },
@@ -4419,6 +4422,7 @@ function initInteractiveMap() {
                     'Toscana': { lat: bounds.getWest() - offset * 0.5, lng: center.lat, priority: 0 },
                     'Umbria': { lat: bounds.getSouth() - offset * 0.5, lng: center.lng, priority: 0 },
                     'Marche': { lat: bounds.getEast() + offset * 0.6, lng: center.lat, priority: 0 },
+                    'Le Marche': { lat: bounds.getEast() + offset * 0.6, lng: center.lat, priority: 0 },
                     'Lazio': { lat: bounds.getSouth() - offset * 0.6, lng: bounds.getWest() - offset * 0.3, priority: 0 },
                     'Abruzzo': { lat: bounds.getEast() + offset * 0.6, lng: center.lat, priority: 0 },
                     'Molise': { lat: bounds.getEast() + offset * 0.5, lng: center.lat, priority: 0 },
@@ -4431,11 +4435,21 @@ function initInteractiveMap() {
                 };
                 
                 // Check if there's a predefined position for this region
+                // Try multiple name variations to match region names
                 const normalizedName = regionName.trim();
-                if (regionSpecificPositions[normalizedName]) {
-                    const predefined = regionSpecificPositions[normalizedName];
-                    if (!checkCollision(predefined.lat, predefined.lng, labelWidth)) {
-                        return predefined;
+                const nameVariations = [
+                    normalizedName,
+                    normalizedName.replace(/\/.*$/, ''), // Remove "/Südtirol" from "Trentino-Alto Adige/Südtirol"
+                    normalizedName.replace(/\/.*$/, '').replace(/\/.*$/, ''), // Remove "/Vallée d'Aoste" from "Valle d'Aosta/Vallée d'Aoste"
+                    normalizedName.replace(/^Le /, ''), // Remove "Le " from "Le Marche"
+                ];
+                
+                for (const nameVar of nameVariations) {
+                    if (regionSpecificPositions[nameVar]) {
+                        const predefined = regionSpecificPositions[nameVar];
+                        if (!checkCollision(predefined.lat, predefined.lng, labelWidth)) {
+                            return predefined;
+                        }
                     }
                 }
                 
@@ -4751,7 +4765,12 @@ function initInteractiveMap() {
                 // Get all wines for this varietal
                 const varietalWines = window.wineApp.wines.filter(wine => {
                     if (!wine.varietals) return false;
-                    return wine.varietals.toLowerCase().trim() === varietalName.toLowerCase().trim();
+                    // Use includes() to match varietals even when they have percentages
+                    // e.g., "Sangiovese 80%, Merlot 20%" will match "Sangiovese"
+                    const wineVarietals = wine.varietals.toLowerCase();
+                    const searchVarietal = varietalName.toLowerCase().trim();
+                    // Check if the varietal name appears in the wine's varietals string
+                    return wineVarietals.includes(searchVarietal);
                 });
                 
                 // Extract unique wine types present for this varietal
@@ -4872,7 +4891,12 @@ function initInteractiveMap() {
                 // Get all wines for this varietal
                 const varietalWines = window.wineApp.wines.filter(wine => {
                     if (!wine.varietals) return false;
-                    return wine.varietals.toLowerCase().trim() === varietalName.toLowerCase().trim();
+                    // Use includes() to match varietals even when they have percentages
+                    // e.g., "Sangiovese 80%, Merlot 20%" will match "Sangiovese"
+                    const wineVarietals = wine.varietals.toLowerCase();
+                    const searchVarietal = varietalName.toLowerCase().trim();
+                    // Check if the varietal name appears in the wine's varietals string
+                    return wineVarietals.includes(searchVarietal);
                 });
                 
                 // Extract unique wine types present for this varietal
