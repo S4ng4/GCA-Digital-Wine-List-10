@@ -3476,6 +3476,7 @@ function initInteractiveMap() {
             if (menu && overlay) {
                 menu.classList.add('open');
                 overlay.classList.add('visible');
+                document.body.classList.add('mobile-menu-open');
                 document.body.style.overflow = 'hidden';
             }
         }
@@ -3485,7 +3486,16 @@ function initInteractiveMap() {
             if (menu && overlay) {
                 menu.classList.remove('open');
                 overlay.classList.remove('visible');
+                document.body.classList.remove('mobile-menu-open');
                 document.body.style.overflow = '';
+            }
+        }
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileSideMenu');
+            if (menu && menu.classList.contains('open')) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
             }
         }
         function showMobileView(viewName) {
@@ -4165,7 +4175,7 @@ function initInteractiveMap() {
         const mobileBackToRegions = document.getElementById('mobileBackToRegions');
         const mobileSearchBtn = document.getElementById('mobileSearchBtn');
         if (mobileMenuBtn) {
-            mobileMenuBtn.addEventListener('click', openMobileMenu);
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
         }
         if (mobileMenuClose) {
             mobileMenuClose.addEventListener('click', closeMobileMenu);
@@ -4173,6 +4183,15 @@ function initInteractiveMap() {
         if (mobileOverlay) {
             mobileOverlay.addEventListener('click', closeMobileMenu);
         }
+        // Close menu with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const menu = document.getElementById('mobileSideMenu');
+                if (menu && menu.classList.contains('open')) {
+                    closeMobileMenu();
+                }
+            }
+        });
         if (mobileSearchBtn) {
             mobileSearchBtn.addEventListener('click', toggleMobileSearchBar);
         }
