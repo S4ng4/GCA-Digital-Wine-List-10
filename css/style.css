@@ -2112,17 +2112,19 @@ body:not(.home-page) .luxury-container {
 
 .gca-food-pairing-badge {
     position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
+    top: 0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
     background: var(--gold);
     color: var(--black);
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
     font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     z-index: 1;
+    white-space: nowrap;
 }
 
 .pairing-item {
@@ -6226,7 +6228,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         align-items: center;
         gap: 0.5rem;
         padding: 0.875rem 1rem;
-        background: rgba(26, 26, 26, 0.6);
+        background: transparent;
         border: 0.5px solid rgba(212, 175, 55, 0.2);
         border-radius: 16px;
         cursor: pointer;
@@ -6241,7 +6243,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     
     .mobile-wine-type-chip:active {
         transform: scale(0.96);
-        background: rgba(26, 26, 26, 0.8);
+        background: transparent;
     }
 
     .mobile-wine-type-chip::before {
@@ -6279,7 +6281,8 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     .mobile-wine-type-icon img {
         width: 100%;
         height: 100%;
-        object-fit: contain;
+        object-fit: cover;
+        border-radius: 8px;
         filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.3));
     }
 
@@ -7702,6 +7705,18 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 }
 
 :root[data-theme="day"] .map-wrapper {
+    border: none !important;
+}
+
+:root[data-theme="day"] #map-container {
+    border: none !important;
+}
+
+:root[data-theme="day"] #map {
+    border: none !important;
+}
+
+:root[data-theme="day"] .leaflet-container {
     border: none !important;
 }
 
