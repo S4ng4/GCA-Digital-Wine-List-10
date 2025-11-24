@@ -4129,16 +4129,8 @@ function initInteractiveMap() {
                     varietalItem.addEventListener('click', () => {
                         // Close popup
                         closeMobileWineTypePopup();
-                        // Filter wines by varietal
-                        // This will trigger a search/filter action
-                        const mobileSearchInput = document.getElementById('mobileSearchInput');
-                        if (mobileSearchInput) {
-                            mobileSearchInput.value = varietal;
-                            // Trigger search if there's a search handler
-                            if (mobileSearchInput.dispatchEvent) {
-                                mobileSearchInput.dispatchEvent(new Event('input', { bubbles: true }));
-                            }
-                        }
+                        // Show wines filtered by varietal
+                        showMobileWinesForVarietal(varietal);
                     });
                     
                     popupVarietals.appendChild(varietalItem);
@@ -4242,6 +4234,10 @@ function initInteractiveMap() {
                                 onEachFeature: onEachMobileFeature
                             }).addTo(mobileMapInstance);
                             console.log('✅ Mobile geoJsonLayer created and added to map');
+                            
+                            // Add region labels with connecting lines
+                            addMobileRegionLabels(geojson);
+                            
                             // Fit bounds with more padding to show all regions better
                             mobileMapInstance.fitBounds(mobileGeoJsonLayer.getBounds(), { padding: [50, 50] });
                             
@@ -4349,6 +4345,59 @@ function initInteractiveMap() {
             const searchTerm = mobileSearchInput ? mobileSearchInput.value.trim() : '';
             showMobileWinesForRegion(regionName, mobileCurrentWineType, searchTerm);
         }
+        
+        // Add region labels with connecting lines to mobile map
+        function addMobileRegionLabels(geojson) {
+            if (!mobileMapInstance || !geojson) return;
+            
+            // Store labels layer
+            if (!window.mobileRegionLabelsLayer) {
+                window.mobileRegionLabelsLayer = L.layerGroup().addTo(mobileMapInstance);
+            }
+            
+            geojson.features.forEach(feature => {
+                const regionName = feature.properties.reg_name || feature.properties.NAME || feature.properties.name || 'Unknown';
+                const layer = L.geoJSON(feature);
+                const bounds = layer.getBounds();
+                const center = bounds.getCenter();
+                
+                // Calculate label position (outside the region, to the right)
+                const labelLat = center.lat;
+                const labelLng = bounds.getEast() + 0.3; // Position to the right of the region
+                
+                // Create custom icon for label
+                const labelIcon = L.divIcon({
+                    className: 'mobile-region-label',
+                    html: `<div class="mobile-region-label-text">${regionName}</div>`,
+                    iconSize: [120, 30],
+                    iconAnchor: [0, 15]
+                });
+                
+                // Create marker for label
+                const labelMarker = L.marker([labelLat, labelLng], {
+                    icon: labelIcon,
+                    interactive: false,
+                    zIndexOffset: 1000
+                });
+                
+                // Create line connecting center to label
+                const connectingLine = L.polyline([
+                    [center.lat, center.lng],
+                    [labelLat, labelLng]
+                ], {
+                    color: 'rgba(212, 175, 55, 0.4)',
+                    weight: 1,
+                    opacity: 0.6,
+                    dashArray: '3, 3',
+                    interactive: false
+                });
+                
+                // Add to labels layer
+                window.mobileRegionLabelsLayer.addLayer(labelMarker);
+                window.mobileRegionLabelsLayer.addLayer(connectingLine);
+            });
+        }
+        
         // Update Mobile Map Colors
         function updateMobileMapColors(wineType) {
             const colors = getWineTypeColors(wineType);
@@ -4482,10 +4531,13 @@ function initInteractiveMap() {
                     const producer = wine.wine_producer || 'Unknown Producer';
                     wineCard.innerHTML = `
                         <div class="mobile-wine-card-grid-header">
-                            <div class="mobile-wine-card-grid-name">${wine.wine_name || 'Unknown Wine'} <span class="mobile-wine-card-grid-producer-inline">- ${producer}</span></div>
+                            <div class="mobile-wine-card-grid-name">${wine.wine_name || 'Unknown Wine'}</div>
                             <div class="mobile-wine-card-grid-price">$${price}</div>
                         </div>
-                        ${vintage !== 'N/A' ? `<div class="mobile-wine-card-grid-vintage">${vintage}</div>` : ''}
+                        <div class="mobile-wine-card-grid-info">
+                            <div class="mobile-wine-card-grid-producer">${producer}</div>
+                            ${vintage !== 'N/A' ? `<div class="mobile-wine-card-grid-vintage">${vintage}</div>` : ''}
+                        </div>
                     `;
                     wineCard.addEventListener('click', () => {
                         const params = new URLSearchParams();
@@ -4522,6 +4574,259 @@ function initInteractiveMap() {
                 }
             });
         }
+        
+        // Show Mobile Wines Filtered by Varietal
+        function showMobileWinesForVarietal(varietalName) {
+            const mapView = document.getElementById('mobileMapView');
+            const winesContainer = document.getElementById('mobileWinesCardsContainer');
+            const winesGrid = document.getElementById('mobileWinesCardsGrid');
+            const winesTitle = document.getElementById('mobileWinesCardsTitle');
+            const backBtn = document.getElementById('mobileBackToMapBtn');
+            const typeFiltersContainer = document.getElementById('mobileWinesCardsTypeFilters');
+            if (!mapView || !winesContainer || !winesGrid || !window.wineApp) return;
+            waitForWineApp(() => {
+                if (!window.wineApp || !window.wineApp.wines) return;
+                mapView.style.display = 'none';
+                winesContainer.style.display = 'flex';
+                // Update height for iPhone Safari
+                setTimeout(() => {
+                    updateMobileWinesCardsHeight();
+                }, 100);
+                if (winesTitle) {
+                    winesTitle.textContent = varietalName;
+                }
+                
+                // Get all wines for this varietal
+                const varietalWines = window.wineApp.wines.filter(wine => {
+                    if (!wine.varietals) return false;
+                    return wine.varietals.toLowerCase().trim() === varietalName.toLowerCase().trim();
+                });
+                
+                // Extract unique wine types present for this varietal
+                const wineTypes = ['ROSSO', 'BIANCO', 'ROSATO', 'ARANCIONE', 'BOLLICINE', 'NON ALCOLICO'];
+                const availableTypes = wineTypes.filter(type => {
+                    return varietalWines.some(wine => window.wineApp.wineMatchesFamily(wine, type));
+                });
+                
+                // Create type filter buttons
+                if (typeFiltersContainer) {
+                    typeFiltersContainer.innerHTML = '';
+                    
+                    // Add "All" button
+                    const allButton = document.createElement('button');
+                    allButton.className = 'mobile-wine-type-filter-btn';
+                    allButton.textContent = 'All';
+                    allButton.dataset.wineType = 'all';
+                    allButton.classList.add('active');
+                    allButton.addEventListener('click', () => {
+                        showMobileWinesForVarietal(varietalName);
+                    });
+                    typeFiltersContainer.appendChild(allButton);
+                    
+                    // Add buttons for each available type
+                    availableTypes.forEach(type => {
+                        const button = document.createElement('button');
+                        button.className = 'mobile-wine-type-filter-btn';
+                        button.textContent = getWineTypeName(type);
+                        button.dataset.wineType = type;
+                        button.addEventListener('click', () => {
+                            showMobileWinesForVarietalWithType(varietalName, type);
+                        });
+                        typeFiltersContainer.appendChild(button);
+                    });
+                }
+                
+                winesGrid.innerHTML = '';
+                if (varietalWines.length === 0) {
+                    winesGrid.innerHTML = `<div style="color: rgba(245, 245, 240, 0.5); text-align: center; padding: 2rem;">No wines found for ${varietalName}</div>`;
+                    return;
+                }
+                
+                varietalWines.forEach(wine => {
+                    const wineCard = document.createElement('div');
+                    wineCard.className = 'mobile-wine-card-grid';
+                    wineCard.dataset.wineId = wine.wine_number;
+                    
+                    const price = wine.wine_price || wine.wine_price_bottle || wine.wine_price_glass || 'N/A';
+                    const vintage = wine.wine_vintage ? wine.wine_vintage.match(/\b(19|20)\d{2}\b/)?.[0] || 'N/A' : 'N/A';
+                    const producer = wine.wine_producer || 'Unknown Producer';
+                    wineCard.innerHTML = `
+                        <div class="mobile-wine-card-grid-header">
+                            <div class="mobile-wine-card-grid-name">${wine.wine_name || 'Unknown Wine'}</div>
+                            <div class="mobile-wine-card-grid-price">$${price}</div>
+                        </div>
+                        <div class="mobile-wine-card-grid-info">
+                            <div class="mobile-wine-card-grid-producer">${producer}</div>
+                            ${vintage !== 'N/A' ? `<div class="mobile-wine-card-grid-vintage">${vintage}</div>` : ''}
+                        </div>
+                    `;
+                    wineCard.addEventListener('click', () => {
+                        const params = new URLSearchParams();
+                        params.set('id', wine.wine_number);
+                        params.set('from', 'index');
+                        window.location.href = `wine-details.html?${params.toString()}`;
+                    });
+                    winesGrid.appendChild(wineCard);
+                });
+                
+                // Force reflow per prevenire sovrapposizione delle card
+                winesGrid.offsetHeight; // Trigger reflow
+                // Force grid layout recalculation
+                setTimeout(() => {
+                    winesGrid.style.display = 'none';
+                    winesGrid.offsetHeight; // Trigger reflow
+                    winesGrid.style.display = 'grid';
+                }, 10);
+                
+                if (backBtn) {
+                    backBtn.onclick = () => {
+                        mapView.style.display = 'flex';
+                        winesContainer.style.display = 'none';
+                        // Reset height when going back to map
+                        winesContainer.style.height = '';
+                        winesContainer.style.maxHeight = '';
+                        winesContainer.style.minHeight = '';
+                        // Update map height
+                        setTimeout(() => {
+                            updateMobileMapHeight();
+                        }, 100);
+                    };
+                }
+            });
+        }
+        
+        // Show Mobile Wines Filtered by Varietal and Type
+        function showMobileWinesForVarietalWithType(varietalName, wineType) {
+            const mapView = document.getElementById('mobileMapView');
+            const winesContainer = document.getElementById('mobileWinesCardsContainer');
+            const winesGrid = document.getElementById('mobileWinesCardsGrid');
+            const winesTitle = document.getElementById('mobileWinesCardsTitle');
+            const backBtn = document.getElementById('mobileBackToMapBtn');
+            const typeFiltersContainer = document.getElementById('mobileWinesCardsTypeFilters');
+            if (!mapView || !winesContainer || !winesGrid || !window.wineApp) return;
+            waitForWineApp(() => {
+                if (!window.wineApp || !window.wineApp.wines) return;
+                mapView.style.display = 'none';
+                winesContainer.style.display = 'flex';
+                // Update height for iPhone Safari
+                setTimeout(() => {
+                    updateMobileWinesCardsHeight();
+                }, 100);
+                if (winesTitle) {
+                    const typeName = getWineTypeName(wineType);
+                    winesTitle.textContent = `${varietalName} - ${typeName}`;
+                }
+                
+                // Get all wines for this varietal
+                const varietalWines = window.wineApp.wines.filter(wine => {
+                    if (!wine.varietals) return false;
+                    return wine.varietals.toLowerCase().trim() === varietalName.toLowerCase().trim();
+                });
+                
+                // Extract unique wine types present for this varietal
+                const wineTypes = ['ROSSO', 'BIANCO', 'ROSATO', 'ARANCIONE', 'BOLLICINE', 'NON ALCOLICO'];
+                const availableTypes = wineTypes.filter(type => {
+                    return varietalWines.some(wine => window.wineApp.wineMatchesFamily(wine, type));
+                });
+                
+                // Create type filter buttons
+                if (typeFiltersContainer) {
+                    typeFiltersContainer.innerHTML = '';
+                    
+                    // Add "All" button
+                    const allButton = document.createElement('button');
+                    allButton.className = 'mobile-wine-type-filter-btn';
+                    allButton.textContent = 'All';
+                    allButton.dataset.wineType = 'all';
+                    allButton.addEventListener('click', () => {
+                        showMobileWinesForVarietal(varietalName);
+                    });
+                    if (!wineType) {
+                        allButton.classList.add('active');
+                    }
+                    typeFiltersContainer.appendChild(allButton);
+                    
+                    // Add buttons for each available type
+                    availableTypes.forEach(type => {
+                        const button = document.createElement('button');
+                        button.className = 'mobile-wine-type-filter-btn';
+                        button.textContent = getWineTypeName(type);
+                        button.dataset.wineType = type;
+                        if (wineType === type) {
+                            button.classList.add('active');
+                        }
+                        button.addEventListener('click', () => {
+                            showMobileWinesForVarietalWithType(varietalName, type);
+                        });
+                        typeFiltersContainer.appendChild(button);
+                    });
+                }
+                
+                // Filter by type
+                const filteredWines = varietalWines.filter(wine => {
+                    return window.wineApp.wineMatchesFamily(wine, wineType);
+                });
+                
+                winesGrid.innerHTML = '';
+                if (filteredWines.length === 0) {
+                    winesGrid.innerHTML = `<div style="color: rgba(245, 245, 240, 0.5); text-align: center; padding: 2rem;">No wines found for ${varietalName} - ${getWineTypeName(wineType)}</div>`;
+                    return;
+                }
+                
+                filteredWines.forEach(wine => {
+                    const wineCard = document.createElement('div');
+                    wineCard.className = 'mobile-wine-card-grid';
+                    wineCard.dataset.wineId = wine.wine_number;
+                    
+                    const price = wine.wine_price || wine.wine_price_bottle || wine.wine_price_glass || 'N/A';
+                    const vintage = wine.wine_vintage ? wine.wine_vintage.match(/\b(19|20)\d{2}\b/)?.[0] || 'N/A' : 'N/A';
+                    const producer = wine.wine_producer || 'Unknown Producer';
+                    wineCard.innerHTML = `
+                        <div class="mobile-wine-card-grid-header">
+                            <div class="mobile-wine-card-grid-name">${wine.wine_name || 'Unknown Wine'}</div>
+                            <div class="mobile-wine-card-grid-price">$${price}</div>
+                        </div>
+                        <div class="mobile-wine-card-grid-info">
+                            <div class="mobile-wine-card-grid-producer">${producer}</div>
+                            ${vintage !== 'N/A' ? `<div class="mobile-wine-card-grid-vintage">${vintage}</div>` : ''}
+                        </div>
+                    `;
+                    wineCard.addEventListener('click', () => {
+                        const params = new URLSearchParams();
+                        params.set('id', wine.wine_number);
+                        params.set('type', wineType);
+                        params.set('from', 'index');
+                        window.location.href = `wine-details.html?${params.toString()}`;
+                    });
+                    winesGrid.appendChild(wineCard);
+                });
+                
+                // Force reflow per prevenire sovrapposizione delle card
+                winesGrid.offsetHeight; // Trigger reflow
+                // Force grid layout recalculation
+                setTimeout(() => {
+                    winesGrid.style.display = 'none';
+                    winesGrid.offsetHeight; // Trigger reflow
+                    winesGrid.style.display = 'grid';
+                }, 10);
+                
+                if (backBtn) {
+                    backBtn.onclick = () => {
+                        mapView.style.display = 'flex';
+                        winesContainer.style.display = 'none';
+                        // Reset height when going back to map
+                        winesContainer.style.height = '';
+                        winesContainer.style.maxHeight = '';
+                        winesContainer.style.minHeight = '';
+                        // Update map height
+                        setTimeout(() => {
+                            updateMobileMapHeight();
+                        }, 100);
+                    };
+                }
+            });
+        }
+        
         // Get Wine Type Name
         function getWineTypeName(type) {
             const names = {
@@ -4593,9 +4898,10 @@ function initInteractiveMap() {
                 }
             }
         });
-        if (mobileSearchBtn) {
-            mobileSearchBtn.addEventListener('click', toggleMobileSearchBar);
-        }
+        // Mobile search button is now hidden and disabled
+        // if (mobileSearchBtn) {
+        //     mobileSearchBtn.addEventListener('click', toggleMobileSearchBar);
+        // }
         
         // Mobile search is now handled by setupSearchInput function above
         if (mobileBackToCategories) {

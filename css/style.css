@@ -5963,7 +5963,9 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         display: flex;
     }
     .mobile-search-btn {
-        display: block;
+        display: none !important;
+        pointer-events: none;
+        opacity: 0;
     }
 
     .sidebar {
@@ -6544,6 +6546,108 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         margin-top: 0.25rem;
     }
 
+    /* Day mode styles for mobile wine type popup */
+    :root[data-theme="day"] .mobile-wine-type-popup {
+        background: linear-gradient(180deg, rgba(253, 251, 247, 1) 0%, rgba(248, 246, 240, 1) 100%);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        border-bottom: 0.5px solid rgba(139, 105, 20, 0.3);
+    }
+
+    :root[data-theme="day"] .mobile-wine-type-popup-overlay {
+        background: rgba(255, 255, 255, 0.95);
+    }
+
+    :root[data-theme="day"] .mobile-wine-type-popup-header {
+        border-bottom: 0.5px solid rgba(139, 105, 20, 0.2);
+    }
+
+    :root[data-theme="day"] .mobile-wine-type-popup-title {
+        color: var(--gold, #8B6914);
+    }
+
+    :root[data-theme="day"] .mobile-wine-type-popup-close {
+        border: 0.5px solid rgba(139, 105, 20, 0.4);
+        color: var(--gold, #8B6914);
+    }
+
+    :root[data-theme="day"] .mobile-wine-type-popup-close:active {
+        background: rgba(139, 105, 20, 0.1);
+    }
+
+    :root[data-theme="day"] .mobile-wine-type-popup-tabs {
+        border-bottom: 0.5px solid rgba(139, 105, 20, 0.2);
+        background: rgba(255, 255, 255, 0.5);
+    }
+
+    :root[data-theme="day"] .mobile-wine-type-popup-tab {
+        border: 0.5px solid rgba(139, 105, 20, 0.3);
+        color: var(--text-secondary, #1A1A1A);
+    }
+
+    :root[data-theme="day"] .mobile-wine-type-popup-tab.active {
+        background: rgba(139, 105, 20, 0.15);
+        border-color: rgba(139, 105, 20, 0.5);
+        color: var(--gold, #8B6914);
+    }
+
+    :root[data-theme="day"] .mobile-wine-type-popup-content {
+        background: rgba(255, 255, 255, 0.6);
+    }
+
+    :root[data-theme="day"] .mobile-wine-type-popup-region,
+    :root[data-theme="day"] .mobile-wine-type-popup-varietal {
+        background: rgba(255, 255, 255, 0.8) !important;
+        border: 0.5px solid rgba(139, 105, 20, 0.25) !important;
+        box-shadow: 0 2px 8px rgba(139, 105, 20, 0.08);
+    }
+
+    :root[data-theme="day"] .mobile-wine-type-popup-region:active,
+    :root[data-theme="day"] .mobile-wine-type-popup-varietal:active {
+        background: rgba(248, 246, 240, 0.95) !important;
+        border-color: rgba(139, 105, 20, 0.4) !important;
+        box-shadow: 0 2px 12px rgba(139, 105, 20, 0.12);
+    }
+
+    :root[data-theme="day"] .mobile-wine-type-popup-region-name,
+    :root[data-theme="day"] .mobile-wine-type-popup-varietal-name {
+        color: #8B6914 !important;
+    }
+
+    :root[data-theme="day"] .mobile-wine-type-popup-region-count,
+    :root[data-theme="day"] .mobile-wine-type-popup-varietal-count {
+        color: #5A4A2A !important;
+        opacity: 0.8;
+    }
+
+    /* Mobile Region Labels */
+    .mobile-region-label {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    .mobile-region-label-text {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--gold, #D4AF37);
+        font-family: 'Inter', sans-serif;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5),
+                     0 0 4px rgba(0, 0, 0, 0.3);
+        white-space: nowrap;
+        background: rgba(0, 0, 0, 0.4);
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+    }
+
+    :root[data-theme="day"] .mobile-region-label-text {
+        color: var(--gold, #8B6914);
+        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8),
+                     0 0 4px rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.8);
+    }
+
     /* Mobile Map View - Apple-like design with smooth transitions */
     .mobile-map-view {
         flex: 1;
@@ -6876,11 +6980,19 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         font-family: 'Cormorant', serif;
     }
     
+    .mobile-wine-card-grid-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 0.75rem;
+    }
+    
     .mobile-wine-card-grid-vintage {
         font-size: 0.9rem;
         color: rgba(245, 245, 240, 0.7);
         font-weight: 400;
-        margin-top: 0.5rem;
+        white-space: nowrap;
     }
 
     .mobile-wine-card-grid-price {
@@ -6895,11 +7007,11 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     .mobile-wine-card-grid-producer {
         font-size: 1rem;
         color: rgba(212, 175, 55, 0.9);
-        font-weight: 600;
-        line-height: 1.5;
-        margin-bottom: 0.5rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+        font-weight: 500;
+        font-style: italic;
+        font-family: 'Cormorant', serif;
+        flex: 1;
+        line-height: 1.4;
     }
     
     /* Additional wine card info for better UX */
