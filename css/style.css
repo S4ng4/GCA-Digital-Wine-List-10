@@ -5250,8 +5250,8 @@ body:not(.home-page) .luxury-container {
     top: 0;
     left: 0;
     bottom: 0;
-    width: 85%;
-    max-width: 350px;
+    width: 28%;
+    max-width: 250px;
     background: var(--bg-secondary, linear-gradient(180deg, rgba(26, 26, 26, 0.98) 0%, rgba(10, 10, 10, 1) 100%));
     border-right: 2px solid var(--border-color, var(--gold));
     z-index: 95;
@@ -5265,12 +5265,14 @@ body:not(.home-page) .luxury-container {
 }
 
 .mobile-side-menu.open {
-    /* Effetto vetro opaco - permette di vedere le wine card sotto */
-    background: linear-gradient(180deg, rgba(26, 26, 26, 0.45) 0%, rgba(10, 10, 10, 0.5) 100%);
-    backdrop-filter: blur(30px) saturate(180%);
-    -webkit-backdrop-filter: blur(30px) saturate(180%);
-    border-right: 1px solid rgba(212, 175, 55, 0.3);
-    box-shadow: 5px 0 35px rgba(212, 175, 55, 0.2), inset 0 0 60px rgba(212, 175, 55, 0.03);
+    /* Effetto vetro opaco migliorato - permette di vedere le wine card sotto */
+    background: linear-gradient(180deg, rgba(26, 26, 26, 0.35) 0%, rgba(10, 10, 10, 0.4) 100%);
+    backdrop-filter: blur(40px) saturate(200%) brightness(0.9);
+    -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(0.9);
+    border-right: 1px solid rgba(212, 175, 55, 0.25);
+    box-shadow: 5px 0 40px rgba(212, 175, 55, 0.15), 
+                inset 0 0 80px rgba(212, 175, 55, 0.02),
+                inset -1px 0 0 rgba(255, 255, 255, 0.05);
 }
 
 /* Rendi le wine card opache quando il menu è aperto - effetto vetro opaco */
@@ -5310,12 +5312,14 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 }
 
 :root[data-theme="day"] .mobile-side-menu.open {
-    /* Effetto vetro opaco per day mode */
-    background: rgba(245, 245, 240, 0.5);
-    backdrop-filter: blur(30px) saturate(180%);
-    -webkit-backdrop-filter: blur(30px) saturate(180%);
-    border-right: 1px solid rgba(212, 175, 55, 0.25);
-    box-shadow: 5px 0 35px rgba(0, 0, 0, 0.1), inset 0 0 60px rgba(212, 175, 55, 0.02);
+    /* Effetto vetro opaco migliorato per day mode */
+    background: rgba(245, 245, 240, 0.4);
+    backdrop-filter: blur(40px) saturate(200%) brightness(1.1);
+    -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(1.1);
+    border-right: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 5px 0 40px rgba(0, 0, 0, 0.08), 
+                inset 0 0 80px rgba(212, 175, 55, 0.015),
+                inset -1px 0 0 rgba(0, 0, 0, 0.05);
 }
 
 .mobile-side-menu::-webkit-scrollbar {
