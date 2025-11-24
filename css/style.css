@@ -5265,14 +5265,14 @@ body:not(.home-page) .luxury-container {
 }
 
 .mobile-side-menu.open {
-    /* Effetto vetro opaco migliorato - permette di vedere le wine card sotto */
-    background: linear-gradient(180deg, rgba(26, 26, 26, 0.35) 0%, rgba(10, 10, 10, 0.4) 100%);
-    backdrop-filter: blur(40px) saturate(200%) brightness(0.9);
-    -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(0.9);
-    border-right: 1px solid rgba(212, 175, 55, 0.25);
-    box-shadow: 5px 0 40px rgba(212, 175, 55, 0.15), 
-                inset 0 0 80px rgba(212, 175, 55, 0.02),
-                inset -1px 0 0 rgba(255, 255, 255, 0.05);
+    /* Effetto vetro opaco - testo leggibile ma permette di vedere le wine card sotto */
+    background: linear-gradient(180deg, rgba(26, 26, 26, 0.75) 0%, rgba(10, 10, 10, 0.8) 100%);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border-right: 1px solid rgba(212, 175, 55, 0.4);
+    box-shadow: 5px 0 40px rgba(212, 175, 55, 0.25), 
+                inset 0 0 80px rgba(212, 175, 55, 0.05),
+                inset -1px 0 0 rgba(255, 255, 255, 0.08);
 }
 
 /* Rendi le wine card opache quando il menu è aperto - effetto vetro opaco */
@@ -5280,9 +5280,9 @@ body:not(.home-page) .luxury-container {
 .mobile-overlay.visible ~ * .mobile-wine-card,
 .mobile-overlay.visible ~ * .mobile-wine-card-grid,
 .mobile-overlay.visible ~ * .mobile-wines-cards-grid .mobile-wine-card-grid {
-    opacity: 0.5;
+    opacity: 0.4;
     transition: opacity 0.3s ease;
-    filter: blur(1px);
+    filter: blur(2px);
 }
 
 /* Quando il menu è aperto, le wine card sono visibili ma opache */
@@ -5312,14 +5312,14 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 }
 
 :root[data-theme="day"] .mobile-side-menu.open {
-    /* Effetto vetro opaco migliorato per day mode */
-    background: rgba(245, 245, 240, 0.4);
-    backdrop-filter: blur(40px) saturate(200%) brightness(1.1);
-    -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(1.1);
-    border-right: 1px solid rgba(212, 175, 55, 0.2);
-    box-shadow: 5px 0 40px rgba(0, 0, 0, 0.08), 
-                inset 0 0 80px rgba(212, 175, 55, 0.015),
-                inset -1px 0 0 rgba(0, 0, 0, 0.05);
+    /* Effetto vetro opaco per day mode - testo leggibile */
+    background: rgba(245, 245, 240, 0.75);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border-right: 1px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 5px 0 40px rgba(0, 0, 0, 0.15), 
+                inset 0 0 80px rgba(212, 175, 55, 0.03),
+                inset -1px 0 0 rgba(0, 0, 0, 0.08);
 }
 
 .mobile-side-menu::-webkit-scrollbar {
@@ -5369,8 +5369,9 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     font-size: 1.4rem;
     color: var(--gold);
     letter-spacing: 2px;
-    text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.6), 0 2px 4px rgba(0, 0, 0, 0.5);
     margin: 0;
+    font-weight: 600;
 }
 
 .mobile-menu-categories {
@@ -5400,10 +5401,11 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     align-items: center;
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    color: var(--text-primary, rgba(245, 245, 240, 0.9));
+    color: var(--text-primary, rgba(245, 245, 240, 0.95));
     font-size: 1.1rem;
     position: relative;
     overflow: hidden;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .mobile-menu-category::before {
@@ -5429,6 +5431,8 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 
 .mobile-menu-category-name {
     font-weight: 500;
+    color: var(--text-primary, rgba(245, 245, 240, 0.95));
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .mobile-menu-category-count {
