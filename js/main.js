@@ -4201,7 +4201,7 @@ function initInteractiveMap() {
                         inertiaDeceleration: 3000, // Deceleration rate for inertia (matching desktop)
                         inertiaMaxSpeed: 1500, // Max speed for inertia (matching desktop)
                         worldCopyJump: false // Prevent map from jumping when panning
-                    }).setView([41.9, 12.6], 6); // Zoom level 6 to show more of Italy
+                    }).setView([42.5, 12.5], 5.8); // Slightly different angle and zoom for better view
                     // Add tile layer with dark theme
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                         attribution: '© OpenStreetMap contributors',
@@ -4223,10 +4223,10 @@ function initInteractiveMap() {
                             mobileGeoJsonLayer = L.geoJSON(geojson, {
                                 style: function(feature) {
                                     return {
-                                        color: currentColors.border,
+                                        color: '#4A4A4A', // Dark grey borders
                                         weight: 1.5,
-                                        fillOpacity: 0.08,
-                                        fillColor: currentColors.fill,
+                                        fillOpacity: 0.15,
+                                        fillColor: '#F5F5DC', // Beige background
                                         lineCap: 'round',
                                         lineJoin: 'round'
                                     };
@@ -4238,8 +4238,13 @@ function initInteractiveMap() {
                             // Add region labels with connecting lines
                             addMobileRegionLabels(geojson);
                             
-                            // Fit bounds with more padding to show all regions better
-                            mobileMapInstance.fitBounds(mobileGeoJsonLayer.getBounds(), { padding: [50, 50] });
+                            // Fit bounds with more padding to show all regions better, with slight rotation
+                            const bounds = mobileGeoJsonLayer.getBounds();
+                            mobileMapInstance.fitBounds(bounds, { padding: [50, 50] });
+                            // Slight adjustment for better angle
+                            setTimeout(() => {
+                                mobileMapInstance.setView([42.5, 12.5], 5.8);
+                            }, 100);
                             
                             // Invalidate size again after GeoJSON is added
                             setTimeout(() => {
@@ -4576,10 +4581,10 @@ function initInteractiveMap() {
                     
                     if (hasWines || !wineType) {
                         layer.setStyle({
-                            color: colors.border,
-                            fillColor: colors.fill,
-                            weight: isSelected ? 4 : 1.5,
-                            fillOpacity: isSelected ? 0.5 : 0.08,
+                            color: isSelected ? '#2A2A2A' : '#4A4A4A', // Dark grey borders
+                            fillColor: isSelected ? '#E8E8D8' : '#F5F5DC', // Beige background
+                            weight: isSelected ? 3 : 1.5,
+                            fillOpacity: isSelected ? 0.3 : 0.15,
                             opacity: isSelected ? 1 : 0.8,
                             dashArray: isSelected ? '10, 5' : null
                         });
@@ -4696,13 +4701,11 @@ function initInteractiveMap() {
                     const vintage = wine.wine_vintage ? wine.wine_vintage.match(/\b(19|20)\d{2}\b/)?.[0] || 'N/A' : 'N/A';
                     const producer = wine.wine_producer || 'Unknown Producer';
                     wineCard.innerHTML = `
-                        <div class="mobile-wine-card-grid-header">
+                        <div class="mobile-wine-card-grid-single-row">
                             <div class="mobile-wine-card-grid-name">${wine.wine_name || 'Unknown Wine'}</div>
-                            <div class="mobile-wine-card-grid-price">$${price}</div>
-                        </div>
-                        <div class="mobile-wine-card-grid-info">
                             <div class="mobile-wine-card-grid-producer">${producer}</div>
-                        ${vintage !== 'N/A' ? `<div class="mobile-wine-card-grid-vintage">${vintage}</div>` : ''}
+                            ${vintage !== 'N/A' ? `<div class="mobile-wine-card-grid-vintage">${vintage}</div>` : '<div class="mobile-wine-card-grid-vintage"></div>'}
+                            <div class="mobile-wine-card-grid-price">$${price}</div>
                         </div>
                     `;
                     wineCard.addEventListener('click', () => {

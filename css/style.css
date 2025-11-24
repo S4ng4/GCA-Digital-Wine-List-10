@@ -6694,7 +6694,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 
     /* Leaflet map container adjustments for mobile */
     .mobile-map-wrapper .leaflet-container {
-        background: #0A0A0A !important;
+        background: #F5F5DC !important; /* Beige background like in the photo */
     }
 
     .mobile-region-info {
@@ -6896,26 +6896,22 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         background: linear-gradient(145deg, rgba(26, 26, 26, 0.98), rgba(15, 15, 15, 1));
         backdrop-filter: blur(15px);
         -webkit-backdrop-filter: blur(15px);
-        padding: 1.75rem 1.5rem;
+        padding: 0.875rem 1rem; /* Reduced by half */
         display: flex;
         flex-direction: column;
-        /* Fix per iOS Safari vecchi - usa margin invece di gap */
-        gap: 1.75rem;
         cursor: pointer;
         transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7),
                     0 2px 8px rgba(0, 0, 0, 0.4);
         border: 1px solid rgba(212, 175, 55, 0.3);
-        border-radius: 16px;
+        border-radius: 12px;
         position: relative;
         overflow: hidden;
         width: 100%;
         min-height: min-content;
         height: auto;
         flex-shrink: 0;
-        /* Previene sovrapposizione - assicura che ogni card occupi il suo spazio */
         box-sizing: border-box;
-        /* iOS fixes */
         -webkit-transform: translateZ(0);
         transform: translateZ(0);
         will-change: transform;
@@ -6952,6 +6948,13 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         left: 100%;
     }
 
+    .mobile-wine-card-grid-single-row {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        width: 100%;
+    }
+
     .mobile-wine-card-grid-header {
         display: flex;
         justify-content: space-between;
@@ -6961,19 +6964,23 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     }
 
     .mobile-wine-card-grid-name {
-        font-size: 1.35rem;
+        font-size: 1rem;
         color: var(--gold-light);
         font-weight: 700;
-        line-height: 1.4;
-        letter-spacing: 0.3px;
+        line-height: 1.2;
+        letter-spacing: 0.2px;
         flex: 1;
+        min-width: 0;
         font-family: 'Cinzel', serif;
         word-wrap: break-word;
         overflow-wrap: break-word;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     
     .mobile-wine-card-grid-producer-inline {
-        font-size: 1rem;
+        font-size: 0.85rem;
         color: rgba(212, 175, 55, 0.9);
         font-weight: 500;
         font-style: italic;
@@ -6989,29 +6996,36 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     }
     
     .mobile-wine-card-grid-vintage {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         color: rgba(245, 245, 240, 0.7);
         font-weight: 400;
         white-space: nowrap;
+        min-width: 3rem;
+        text-align: center;
     }
 
     .mobile-wine-card-grid-price {
-        font-size: 1.5rem;
+        font-size: 1.1rem;
         color: var(--gold);
         font-weight: 700;
         text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
         white-space: nowrap;
         font-family: 'Cinzel', serif;
+        flex-shrink: 0;
     }
 
     .mobile-wine-card-grid-producer {
-        font-size: 1rem;
+        font-size: 0.85rem;
         color: rgba(212, 175, 55, 0.9);
         font-weight: 500;
         font-style: italic;
         font-family: 'Cormorant', serif;
         flex: 1;
-        line-height: 1.4;
+        min-width: 0;
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     
     /* Additional wine card info for better UX */
@@ -7139,6 +7153,34 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 }
 
 /* Tablet UI Improvements - Apple-like design */
+@media (min-width: 768px) and (max-width: 1024px) {
+    /* Optimized for tablet TLC */
+    .mobile-wine-card-grid {
+        padding: 0.75rem 1rem;
+    }
+    
+    .mobile-wine-card-grid-single-row {
+        gap: 0.5rem;
+    }
+    
+    .mobile-wine-card-grid-name {
+        font-size: 0.9rem;
+    }
+    
+    .mobile-wine-card-grid-producer {
+        font-size: 0.75rem;
+    }
+    
+    .mobile-wine-card-grid-vintage {
+        font-size: 0.7rem;
+        min-width: 2.5rem;
+    }
+    
+    .mobile-wine-card-grid-price {
+        font-size: 1rem;
+    }
+}
+
 @media (min-width: 768px) and (max-width: 819px) {
     /* Improved spacing for tablet */
     .top-nav {
@@ -7516,20 +7558,24 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     
     /* Wine cards - optimized spacing for small screens */
     .mobile-wine-card-grid {
-        padding: 1.25rem 1rem;
-        border-radius: 14px;
+        padding: 0.875rem 1rem; /* Reduced by half */
+        border-radius: 12px;
     }
     
     .mobile-wine-card-grid-name {
-        font-size: 1.1rem;
+        font-size: 0.95rem;
     }
     
     .mobile-wine-card-grid-price {
-        font-size: 1.3rem;
+        font-size: 1rem;
     }
     
     .mobile-wine-card-grid-producer {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
+    }
+    
+    .mobile-wine-card-grid-vintage {
+        font-size: 0.75rem;
     }
     
     /* Improve spacing for small screens */
