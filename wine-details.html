@@ -533,6 +533,35 @@
             color: var(--ivory);
             margin: 0;
             font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        :root[data-theme="night"] .pairing-name {
+            color: var(--ivory);
+        }
+
+        :root[data-theme="day"] .pairing-name {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .personalized-pairing {
+            border-color: var(--gold) !important;
+            background: rgba(212, 175, 55, 0.15) !important;
+        }
+
+        :root[data-theme="day"] .personalized-pairing {
+            background: rgba(139, 105, 20, 0.15) !important;
+            border-color: var(--gold) !important;
+        }
+
+        .pairing-score {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--gold);
+            font-weight: 600;
+            margin-top: 0.25rem;
+            letter-spacing: 0.5px;
         }
 
         /* Producer Info */

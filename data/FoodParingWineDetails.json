@@ -1,0 +1,338 @@
+[
+  {
+    "dish": "Carbonara with Guanciale Gelato",
+    "region": "Lazio",
+    "wines": [
+      {
+        "name": "Frascati – Pallavicini 2024",
+        "region": "Lazio",
+        "GCA score": 96,
+        "reason": "Lazio white with bright acidity that melts guanciale fat and egg yolk; citrus-almond notes echo the savoury gelato."
+      },
+      {
+        "name": "Bellone – Castello di Torre in Pietra 2023",
+        "region": "Lazio",
+        "GCA score": 93,
+        "reason": "Native grape giving soft tropical hints that blend with egg cream and gastronomic gelato."
+      },
+      {
+        "name": "Cesanese del Piglio – Corte dei Papi 2023",
+        "region": "Lazio",
+        "GCA score": 90,
+        "reason": "Light, fragrant red: cherry & black-pepper mirror the guanciale; soft tannins avoid masking the gelato."
+      }
+    ]
+  },
+  {
+    "dish": "Agnolotti with Truffle & Truffle Gelato",
+    "region": "Piedmonte",
+    "wines": [
+      {
+        "name": "Barolo – Paesi Tuoi 2019",
+        "region": "Piedmonte",
+        "GCA score": 99,
+        "reason": "Alba Nebbiolo feature forest-floor, rose and silky tannins balance butter and gelato."
+      },
+      {
+        "name": "Barbera d’Asti – Ratti 2023",
+        "region": "Piedmonte",
+        "GCA score": 95,
+        "reason": "Vibrant acidity cleans butter fat; cherry & spice echo truffle flavours."
+      },
+      {
+        "name": "Arneis – Montebertotto 2023",
+        "region": "Piedmonte",
+        "GCA score": 92,
+        "reason": "Aromatic white with almond & floral notes for an elegant contrast."
+      }
+    ]
+  },
+  {
+    "dish": "Bolzano Sausage with Mustard Gelato",
+    "region": "Trentino-Alto Adige",
+    "wines": [
+      {
+        "name": "Lagrein – Cantina Terlano 2022",
+        "region": "Trentino-Alto Adige",
+        "GCA score": 97,
+        "reason": "Alto-Adige red: forest spices & dark cherry perfectly match sweet mustard and sausage fat."
+      },
+      {
+        "name": "Schiava – Elena Walch 2023",
+        "region": "Trentino-Alto Adige",
+        "GCA score": 93,
+        "reason": "Light, juicy acidity cleans palate from sausage & gelato; alpine freshness."
+      },
+      {
+        "name": "Kerner – Abbazia di Novacella 2022",
+        "region": "Trentino-Alto Adige",
+        "GCA score": 90,
+        "reason": "Aromatic white with grapefruit & herbs, cuts through mustard sweetness."
+      }
+    ]
+  },
+  {
+    "dish": "Torta Granchio with Roasted-Pepper Gelato",
+    "region": "Sicilia",
+    "wines": [
+      {
+        "name": "Grillo – Gorghi Tondi 2023",
+        "region": "Sicilia",
+        "GCA score": 96,
+        "reason": "Mediterranean white: tropical & salty notes balance pepper sweetness and crab meat."
+      },
+      {
+        "name": "Etna Bianco – Benanti 2023",
+        "region": "Sicilia",
+        "GCA score": 93,
+        "reason": "Volcanic Carricante: lava & salinity mirror the sea and roasted pepper."
+      },
+      {
+        "name": "Frappato – San Tresa 2023",
+        "region": "Sicilia",
+        "GCA score": 88,
+        "reason": "Light red for red-white contrast: strawberry & ash notes echo the gelato."
+      }
+    ]
+  },
+  {
+    "dish": "Tagliolini with Caviale",
+    "region": "Lombardia",
+    "wines": [
+      {
+        "name": "Franciacorta Satèn – Vigna Dorata",
+        "region": "Lombardia",
+        "GCA score": 99,
+        "reason": "Creamy, 24-month sur-lie Chardonnay mirrors butter & caviar; fine bubbles cleanse palate."
+      },
+      {
+        "name": "Franciacorta Brut – Berlucchi",
+        "region": "Lombardia",
+        "GCA score": 95,
+        "reason": "Classic method: bright acidity & toasted bread notes match caviar salinity."
+      },
+      {
+        "name": "Lugana – Allegrini 2024",
+        "region": "Lombardia (Lake Garda)",
+        "GCA score": 91,
+        "reason": "Creamy Turbiana with lemon & almond harmony for egg pasta and sturgeon eggs."
+      }
+    ]
+  },
+  {
+    "dish": "Branzino",
+    "region": "Liguria",
+    "wines": [
+      {
+        "name": "Vermentino – Pagliatura 2022",
+        "region": "Liguria",
+        "GCA score": 97,
+        "reason": "Mediterranean herbs & lemon zest, same aromatics used on Ligurian sea bass."
+      },
+      {
+        "name": "Cinque Terre – Possa 2023",
+        "region": "Liguria",
+        "GCA score": 94,
+        "reason": "Terraced blend: salt, white flowers & slate, born for coastal roast fish."
+      },
+      {
+        "name": "Pigato – Bruna 2024",
+        "region": "Liguria",
+        "GCA score": 91,
+        "reason": "Apricot & rosemary, medium body that never overpowers the fillet."
+      }
+    ]
+  },
+  {
+    "dish": "Vitello Saltimbocca",
+    "region": "Lazio",
+    "wines": [
+      {
+        "name": "Cesanese del Piglio – Corte dei Papi 2023",
+        "region": "Lazio",
+        "GCA score": 96,
+        "reason": "Only Lazio DOCG red: cherry, sage & pepper mirror the dish; soft tannins cut prosciutto fat."
+      },
+      {
+        "name": "Frascati Superiore – Pallavicini 2024",
+        "region": "Lazio",
+        "GCA score": 93,
+        "reason": "White with almond & sage notes, bright acidity against butter and prosciutto."
+      },
+      {
+        "name": "Bellone – Castello di Torre in Pietra 2023",
+        "region": "Lazio",
+        "GCA score": 90,
+        "reason": "Creamy, floral white that melts into veal and grated cheese."
+      }
+    ]
+  },
+  {
+    "dish": "Pappardelle al Ragù Aquilano",
+    "region": "Abruzzo",
+    "wines": [
+      {
+        "name": "Montepulciano d’Abruzzo Riserva – Emidio Pepe 2015",
+        "region": "Abruzzo",
+        "GCA score": 99,
+        "reason": "Meet Abruzzo king: blackberry, underbrush, silky tannins perfect for long cooking."
+      },
+      {
+        "name": "Cerasuolo d’Abruzzo – Cirelli 2022",
+        "region": "Abruzzo",
+        "GCA score": 95,
+        "reason": "Structured rosé catching meat without heaviness; cherry & pepper echo the sauce."
+      },
+      {
+        "name": "Trebbiano d’Abruzzo – Cataldi Madonna 2022",
+        "region": "Abruzzo",
+        "GCA score": 90,
+        "reason": "Minerally white with lively acidity for a creamy-savory contrast."
+      }
+    ]
+  },
+  {
+    "dish": "Cozze alla Tarantina",
+    "region": "Puglia",
+    "wines": [
+      {
+        "name": "Verdeca – Leone de Castris 2021",
+        "region": "Puglia",
+        "GCA score": 96,
+        "reason": "Salento white with bergamot & sea-salt, born for tomato-sea broth."
+      },
+      {
+        "name": "Gravina – Botromagno 2023",
+        "region": "Puglia",
+        "GCA score": 93,
+        "reason": "Greco-Malvasia blend: tufa & citrus acidity sprint against mussel broth."
+      },
+      {
+        "name": "Negroamaro Rosato – Librandi 2024",
+        "region": "Puglia",
+        "GCA score": 90,
+        "reason": "Cherry & rosemary, light tannin that cleans tomato and pepper."
+      }
+    ]
+  },
+  {
+    "dish": "Bufala Caviale",
+    "region": "Campania",
+    "wines": [
+      {
+        "name": "Falanghina – Fontanavecchia 2023",
+        "region": "Campania",
+        "GCA score": 97,
+        "reason": "Benevento grapefruit & white flowers, perfect salinity for buffalo milk and sturgeon eggs."
+      },
+      {
+        "name": "Greco di Tufo – Feudi di San Gregorio 2022",
+        "region": "Campania",
+        "GCA score": 94,
+        "reason": "Volcanic tufa, lemon zest & minerality echo sea and caviar."
+      },
+      {
+        "name": "Lacryma Christi Bianco – Casa Setaro 2024",
+        "region": "Campania",
+        "GCA score": 91,
+        "reason": "Vesuvius pumice & salt, harmony with mozzarella and roe."
+      }
+    ]
+  },
+  {
+    "dish": "Risotto ai Funghi Porcini",
+    "region": "Lombardia",
+    "wines": [
+      {
+        "name": "Pinot Nero – Nino Negri 2021",
+        "region": "Lombardia",
+        "GCA score": 96,
+        "reason": "Elegant red with earthy notes that complement porcini mushrooms; silky texture matches creamy risotto."
+      },
+      {
+        "name": "Chardonnay – Ca' del Bosco 2022",
+        "region": "Lombardia",
+        "GCA score": 94,
+        "reason": "Buttery richness mirrors risotto creaminess; oak notes enhance mushroom umami."
+      },
+      {
+        "name": "Franciacorta Satèn – Bellavista 2020",
+        "region": "Lombardia",
+        "GCA score": 92,
+        "reason": "Creamy bubbles cleanse palate between bites; fine mousse enhances risotto texture."
+      }
+    ]
+  },
+  {
+    "dish": "Osso Buco alla Milanese",
+    "region": "Lombardia",
+    "wines": [
+      {
+        "name": "Barolo – Giacomo Conterno 2019",
+        "region": "Piedmonte",
+        "GCA score": 98,
+        "reason": "Robust Nebbiolo with structured tannins cuts through veal richness; spice notes match saffron gremolata."
+      },
+      {
+        "name": "Barbaresco – Gaja 2020",
+        "region": "Piedmonte",
+        "GCA score": 95,
+        "reason": "Refined tannins complement braised meat; rose and tar notes balance the dish."
+      },
+      {
+        "name": "Valpolicella Ripasso – Allegrini 2022",
+        "region": "Veneto",
+        "GCA score": 93,
+        "reason": "Rich body stands up to veal shank; cherry and spice notes enhance osso buco flavors."
+      }
+    ]
+  },
+  {
+    "dish": "Tiramisù",
+    "region": "Veneto",
+    "wines": [
+      {
+        "name": "Vin Santo – Fattoria di Felsina 2017",
+        "region": "Tuscany",
+        "GCA score": 97,
+        "reason": "Sweet, nutty flavors complement coffee and cocoa; honey notes match mascarpone creaminess."
+      },
+      {
+        "name": "Moscato d'Asti – G.D. Vajra 2023",
+        "region": "Piedmonte",
+        "GCA score": 94,
+        "reason": "Light bubbles and peach notes provide refreshing contrast to rich dessert."
+      },
+      {
+        "name": "Recioto della Valpolicella – Tedeschi 2019",
+        "region": "Veneto",
+        "GCA score": 92,
+        "reason": "Rich sweetness balances coffee bitterness; dark fruit echoes cocoa powder."
+      }
+    ]
+  },
+  {
+    "dish": "Bistecca alla Fiorentina",
+    "region": "Tuscany",
+    "wines": [
+      {
+        "name": "Chianti Classico Riserva – Castello di Brolio 2019",
+        "region": "Tuscany",
+        "GCA score": 99,
+        "reason": "Classic pairing: Sangiovese tannins cut through meat fat; cherry and herbs match T-bone flavors."
+      },
+      {
+        "name": "Brunello di Montalcino – Biondi-Santi 2018",
+        "region": "Tuscany",
+        "GCA score": 97,
+        "reason": "Powerful structure handles charred steak; forest floor notes complement grilled meat."
+      },
+      {
+        "name": "Morellino di Scansano – Le Pupille 2021",
+        "region": "Tuscany",
+        "GCA score": 94,
+        "reason": "Robust Sangiovese with good acidity balances steak richness; spice notes enhance char."
+      }
+    ]
+  }
+]

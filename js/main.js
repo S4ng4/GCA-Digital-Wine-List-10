@@ -45,6 +45,7 @@ class WineListApp {
         this.wines = [];
         this.filteredWines = [];
         this.currentView = 'grid';
+        this.foodPairingsData = null;
         this.currentFilters = {
             type: null,
             region: null,
@@ -117,6 +118,9 @@ class WineListApp {
         // Load wine images mapping
         await this.loadWineImages();
         
+        // Load food pairings data
+        await this.loadFoodPairingsData();
+        
         // Debug: Log wine family distribution
         this.logWineFamilyDistribution();
         
@@ -153,6 +157,22 @@ class WineListApp {
             "BRUNELLO DI MONTALCINO": "https://www.agraria.org/vini/brunello-di-montalcino.jpg"
         };
         console.log(`Loaded ${Object.keys(this.wineImages).length} wine images`);
+    }
+
+    async loadFoodPairingsData() {
+        try {
+            const pairingsPath = getPath('./data/FoodParingWineDetails.json');
+            const response = await fetch(pairingsPath + '?v=' + Date.now());
+            if (!response.ok) {
+                console.warn('Food pairings data not available');
+                return;
+            }
+            this.foodPairingsData = await response.json();
+            console.log(`Loaded ${this.foodPairingsData.length} dish pairings from Gran Caffè`);
+        } catch (error) {
+            console.warn('Error loading food pairings data:', error);
+            this.foodPairingsData = null;
+        }
     }
 
     setupEventListeners() {
@@ -1195,19 +1215,52 @@ class WineListApp {
     updateFoodPairings(wine) {
         const pairingList = document.getElementById('pairingList');
         if (pairingList) {
-            // Generate food pairings based on wine type
+            // Generate food pairings based on wine type or personalized recommendations
             const pairings = this.getFoodPairings(wine);
             pairingList.innerHTML = pairings.map(pairing => `
-                <div class="pairing-item">
+                <div class="pairing-item ${pairing.isPersonalized ? 'personalized-pairing' : ''}" 
+                     ${pairing.reason ? `title="${pairing.reason}"` : ''}>
                     <i class="${pairing.icon} pairing-icon"></i>
                     <h3 class="pairing-name">${pairing.name}</h3>
+                    ${pairing.gcaScore ? `<span class="pairing-score">GCA ${pairing.gcaScore}</span>` : ''}
                 </div>
             `).join('');
         }
     }
 
     getFoodPairings(wine) {
-        const pairings = {
+        const personalizedPairings = [];
+        
+        // Check for personalized pairings from Gran Caffè dishes
+        if (this.foodPairingsData && wine && wine.wine_name) {
+            const wineNameNormalized = wine.wine_name.toLowerCase().trim();
+            
+            // Find dishes that recommend this wine
+            this.foodPairingsData.forEach(dish => {
+                if (dish.wines && Array.isArray(dish.wines)) {
+                    const matchingWine = dish.wines.find(rec => {
+                        const recNameNormalized = rec.name.toLowerCase().trim();
+                        // Check for exact match or partial match (e.g., "Frascati" in "Frascati – Pallavicini 2024")
+                        return recNameNormalized.includes(wineNameNormalized) || 
+                               wineNameNormalized.includes(recNameNormalized.split('–')[0].trim()) ||
+                               wineNameNormalized.includes(recNameNormalized.split('–')[0].trim().split(' ')[0]);
+                    });
+                    
+                    if (matchingWine) {
+                        personalizedPairings.push({
+                            name: dish.dish,
+                            icon: 'fas fa-utensils',
+                            isPersonalized: true,
+                            gcaScore: matchingWine['GCA score'],
+                            reason: matchingWine.reason
+                        });
+                    }
+                }
+            });
+        }
+        
+        // Get generic pairings as fallback/supplement
+        const genericPairings = {
             'ROSSO': [
                 { name: 'Roasted Meats', icon: 'fas fa-drumstick-bite' },
                 { name: 'Aged Cheeses', icon: 'fas fa-cheese' },
@@ -1245,7 +1298,15 @@ class WineListApp {
                 { name: 'Desserts', icon: 'fas fa-ice-cream' }
             ]
         };
-        return pairings[wine.wine_type] || pairings['ROSSO'];
+        
+        // Prioritize personalized pairings, show up to 4 recommendations
+        // If we have personalized pairings, show them first (up to 4)
+        // Otherwise, show generic pairings
+        if (personalizedPairings.length > 0) {
+            return personalizedPairings.slice(0, 4);
+        }
+        
+        return genericPairings[wine.wine_type] || genericPairings['ROSSO'];
     }
 
     updateProducerInfo(wine) {
