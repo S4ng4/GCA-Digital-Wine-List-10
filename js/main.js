@@ -4035,6 +4035,7 @@ function initInteractiveMap() {
             const winesGrid = document.getElementById('mobileWinesCardsGrid');
             const winesTitle = document.getElementById('mobileWinesCardsTitle');
             const backBtn = document.getElementById('mobileBackToMapBtn');
+            const typeFiltersContainer = document.getElementById('mobileWinesCardsTypeFilters');
             if (!mapView || !winesContainer || !winesGrid || !window.wineApp) return;
             waitForWineApp(() => {
                 if (!window.wineApp || !window.wineApp.wines) return;
@@ -4048,10 +4049,54 @@ function initInteractiveMap() {
                     const typeName = wineType ? getWineTypeName(wineType) : 'All';
                     winesTitle.textContent = `${regionName} - ${typeName}`;
                 }
-                const filteredWines = window.wineApp.wines.filter(wine => {
+                
+                // Get all wines for this region
+                const regionWines = window.wineApp.wines.filter(wine => {
                     const normalizedWineRegion = window.wineApp.normalizeRegionName(wine.region);
                     const normalizedFilterRegion = window.wineApp.normalizeRegionName(regionName);
-                    const matchesRegion = normalizedWineRegion === normalizedFilterRegion;
+                    return normalizedWineRegion === normalizedFilterRegion;
+                });
+                
+                // Extract unique wine types present in this region
+                const wineTypes = ['ROSSO', 'BIANCO', 'ROSATO', 'ARANCIONE', 'BOLLICINE', 'NON ALCOLICO'];
+                const availableTypes = wineTypes.filter(type => {
+                    return regionWines.some(wine => window.wineApp.wineMatchesFamily(wine, type));
+                });
+                
+                // Create type filter buttons
+                if (typeFiltersContainer) {
+                    typeFiltersContainer.innerHTML = '';
+                    
+                    // Add "All" button
+                    const allButton = document.createElement('button');
+                    allButton.className = 'mobile-wine-type-filter-btn';
+                    allButton.textContent = 'All';
+                    allButton.dataset.wineType = 'all';
+                    if (!wineType) {
+                        allButton.classList.add('active');
+                    }
+                    allButton.addEventListener('click', () => {
+                        showMobileWinesForRegion(regionName, null, searchTerm);
+                    });
+                    typeFiltersContainer.appendChild(allButton);
+                    
+                    // Add buttons for each available type
+                    availableTypes.forEach(type => {
+                        const button = document.createElement('button');
+                        button.className = 'mobile-wine-type-filter-btn';
+                        button.textContent = getWineTypeName(type);
+                        button.dataset.wineType = type;
+                        if (wineType === type) {
+                            button.classList.add('active');
+                        }
+                        button.addEventListener('click', () => {
+                            showMobileWinesForRegion(regionName, type, searchTerm);
+                        });
+                        typeFiltersContainer.appendChild(button);
+                    });
+                }
+                
+                const filteredWines = regionWines.filter(wine => {
                     const matchesType = !wineType || window.wineApp.wineMatchesFamily(wine, wineType);
                     
                     // Apply search filter if search term is provided
@@ -4061,7 +4106,7 @@ function initInteractiveMap() {
                         (wine.varietals && wine.varietals.toLowerCase().includes(searchTerm.toLowerCase())) ||
                         (wine.wine_producer && wine.wine_producer.toLowerCase().includes(searchTerm.toLowerCase()));
                     
-                    return matchesRegion && matchesType && matchesSearch;
+                    return matchesType && matchesSearch;
                 });
                 winesGrid.innerHTML = '';
                 if (filteredWines.length === 0) {

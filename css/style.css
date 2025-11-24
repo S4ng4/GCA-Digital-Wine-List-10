@@ -6354,6 +6354,73 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     .mobile-wines-cards-header {
         padding: 1.25rem 1rem;
         flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .mobile-wines-cards-header-top {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .mobile-wines-cards-type-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+    }
+
+    .mobile-wine-type-filter-btn {
+        background: rgba(26, 26, 26, 0.6);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: 20px;
+        color: rgba(245, 245, 240, 0.8);
+        padding: 0.5rem 1rem;
+        font-family: 'Cormorant', serif;
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+        letter-spacing: 0.3px;
+    }
+
+    .mobile-wine-type-filter-btn:hover {
+        background: rgba(212, 175, 55, 0.15);
+        border-color: rgba(212, 175, 55, 0.5);
+        color: var(--gold);
+    }
+
+    .mobile-wine-type-filter-btn.active {
+        background: rgba(212, 175, 55, 0.25);
+        border-color: var(--gold);
+        color: var(--gold);
+        font-weight: 600;
+    }
+
+    .mobile-wine-type-filter-btn:active {
+        transform: scale(0.95);
+    }
+
+    /* Day theme styles for filter buttons */
+    :root[data-theme="day"] .mobile-wine-type-filter-btn {
+        background: rgba(245, 245, 240, 0.6);
+        border-color: rgba(212, 175, 55, 0.3);
+        color: rgba(26, 26, 26, 0.8);
+    }
+
+    :root[data-theme="day"] .mobile-wine-type-filter-btn:hover {
+        background: rgba(212, 175, 55, 0.15);
+        border-color: rgba(212, 175, 55, 0.5);
+        color: var(--brand-red);
+    }
+
+    :root[data-theme="day"] .mobile-wine-type-filter-btn.active {
+        background: rgba(212, 175, 55, 0.2);
+        border-color: var(--gold);
+        color: var(--brand-red);
     }
 
     .mobile-back-to-map-btn {
@@ -6365,12 +6432,12 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        margin-bottom: 1rem;
         padding: 0.5rem 0.75rem;
         border-radius: 10px;
         transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         font-family: 'Cinzel', serif;
         font-weight: 500;
+        flex-shrink: 0;
     }
 
     .mobile-back-to-map-btn:active {
@@ -6389,6 +6456,10 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         color: var(--gold);
         margin: 0;
         letter-spacing: 1.5px;
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .mobile-wines-cards-grid {
