@@ -16,12 +16,58 @@
             --font-body: 'Cormorant', serif;
         }
 
+        /* Day/Night Theme Support */
+        :root[data-theme="night"] {
+            --bg-paper: #1a1a1a;
+            --text-dark: #F5F5F0;
+            --brand-red: #C5A059;
+            --gold: #D4AF37;
+        }
+
+        :root[data-theme="night"] body {
+            background-color: #0a0a0a;
+        }
+
+        :root[data-theme="night"] .menu-sheet {
+            background-color: var(--bg-paper);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        :root[data-theme="night"] .menu-sheet::before {
+            border-color: var(--gold);
+        }
+
+        :root[data-theme="night"] h1,
+        :root[data-theme="night"] .cat-title,
+        :root[data-theme="night"] .focus-title,
+        :root[data-theme="night"] .footer-col h3 {
+            color: var(--gold);
+        }
+
+        :root[data-theme="night"] .subhead,
+        :root[data-theme="night"] .d-desc,
+        :root[data-theme="night"] .focus-desc,
+        :root[data-theme="night"] .drink-item {
+            color: rgba(245, 245, 240, 0.8);
+        }
+
+        :root[data-theme="night"] .footer-grid {
+            background-color: rgba(26, 26, 26, 0.5);
+            border-top-color: rgba(212, 175, 55, 0.3);
+        }
+
+        :root[data-theme="night"] .focus-section {
+            background-color: rgba(197, 160, 89, 0.15);
+            border-color: var(--gold);
+        }
+
         body {
             background-color: #e0e0e0;
             font-family: var(--font-body);
             margin: 0;
             padding: 20px;
             color: var(--text-dark);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .menu-sheet {
@@ -70,24 +116,21 @@
             font-weight: 400;
         }
 
-        /* Wine List Button */
+        /* Wine List Button - Wine Card Style */
         .wine-list-button {
             display: inline-block;
-            margin-top: 25px;
-            padding: 14px 32px;
-            background: linear-gradient(135deg, var(--brand-red) 0%, #6B0000 100%);
-            color: #fff;
+            padding: 1.25rem 2rem;
+            background: linear-gradient(145deg, rgba(26, 26, 26, 0.7), rgba(10, 10, 10, 0.9));
+            color: var(--gold);
             text-decoration: none;
             font-family: 'Cinzel', serif;
-            font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+            font-size: clamp(0.95rem, 1.3vw, 1.1rem);
             font-weight: 600;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
             text-transform: uppercase;
-            border: 2px solid var(--gold);
-            border-radius: 4px;
-            box-shadow: 0 4px 12px rgba(139, 0, 0, 0.3),
-                        0 2px 4px rgba(0, 0, 0, 0.2),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
@@ -100,17 +143,15 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
+            background: linear-gradient(135deg, transparent, rgba(212, 175, 55, 0.05), transparent);
+            transition: left 0.6s ease;
         }
 
         .wine-list-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(139, 0, 0, 0.4),
-                        0 4px 8px rgba(0, 0, 0, 0.3),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
             border-color: var(--gold);
-            background: linear-gradient(135deg, #9B0000 0%, #7B0000 100%);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+            background: linear-gradient(145deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
         }
 
         .wine-list-button:hover::before {
@@ -118,9 +159,21 @@
         }
 
         .wine-list-button:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 8px rgba(139, 0, 0, 0.3),
-                        0 1px 2px rgba(0, 0, 0, 0.2);
+            transform: translateX(3px);
+        }
+
+        /* Day theme button style */
+        :root[data-theme="day"] .wine-list-button {
+            background: linear-gradient(145deg, rgba(245, 245, 240, 0.9), rgba(250, 250, 245, 0.95));
+            border-color: rgba(212, 175, 55, 0.3);
+            color: var(--brand-red);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        :root[data-theme="day"] .wine-list-button:hover {
+            background: linear-gradient(145deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+            border-color: var(--gold);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
         }
 
         /* --- SEZIONE FOCUS (USP) --- */
@@ -300,7 +353,6 @@
         <header>
             <h1>Gran Caffè L'Aquila</h1>
             <div class="subhead">Ristorante • Torrefazione • Gelateria • Cultura</div>
-            <a href="./index.html" class="wine-list-button">Esplora la Wine List</a>
         </header>
 
         <div class="focus-section">
@@ -554,7 +606,13 @@
                     </div>
                 </div>
 
-            </div> </div> <div class="footer-grid">
+            </div> </div> 
+            
+            <div style="text-align: center; margin: 40px 0 30px 0;">
+                <a href="./index.html" class="wine-list-button">Esplora la Wine List</a>
+            </div>
+            
+            <div class="footer-grid">
 
             <div class="footer-col">
                 <h3>Torrefazione & Cornetti</h3>
@@ -606,6 +664,14 @@
         </div>
 
     </div>
+
+    <script>
+        // Sincronizza il tema day/night dal localStorage
+        (function() {
+            const dayMode = localStorage.getItem('dayMode') === 'true';
+            document.documentElement.setAttribute('data-theme', dayMode ? 'day' : 'night');
+        })();
+    </script>
 
 </body>
 </html>
