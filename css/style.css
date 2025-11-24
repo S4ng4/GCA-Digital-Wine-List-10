@@ -7576,6 +7576,15 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     box-shadow: 0 2px 4px var(--shadow-color) !important;
 }
 
+/* Day theme - Bordo trasparente per il container della mappa */
+:root[data-theme="day"] .interactive-map-main {
+    border: 2px solid transparent !important;
+}
+
+:root[data-theme="day"] .map-wrapper {
+    border: none !important;
+}
+
 :root[data-theme="day"] #mobileMap {
     background: var(--bg-primary) !important;
 }
