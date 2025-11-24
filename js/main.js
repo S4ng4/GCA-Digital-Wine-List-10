@@ -1002,8 +1002,10 @@ class WineListApp {
         // Update wine information
         this.updateWineInformation(wine);
 
-        // Update food pairings
-        this.updateFoodPairings(wine);
+        // Update food pairings (async, but don't block)
+        this.updateFoodPairings(wine).catch(err => {
+            console.error('Error updating food pairings:', err);
+        });
 
         // Update producer information
         this.updateProducerInfo(wine);
@@ -1212,19 +1214,43 @@ class WineListApp {
         }
     }
 
-    updateFoodPairings(wine) {
+    async updateFoodPairings(wine) {
         const pairingList = document.getElementById('pairingList');
         if (pairingList) {
-            // Generate food pairings based on wine type or personalized recommendations
-            const pairings = this.getFoodPairings(wine);
-            pairingList.innerHTML = pairings.map(pairing => `
-                <div class="pairing-item ${pairing.isPersonalized ? 'personalized-pairing' : ''}" 
+            // Ensure food pairings data is loaded
+            if (!this.foodPairingsData) {
+                console.log('📥 Loading food pairings data...');
+                await this.loadFoodPairingsData();
+            }
+            
+            // Generate food pairings: generic first, then GCA personalized
+            const allPairings = this.getFoodPairings(wine);
+            const genericPairings = allPairings.filter(p => !p.isPersonalized);
+            const gcaPairings = allPairings.filter(p => p.isPersonalized);
+            
+            // Build HTML: generic pairings first
+            let html = genericPairings.map(pairing => `
+                <div class="pairing-item" 
                      ${pairing.reason ? `title="${pairing.reason}"` : ''}>
                     <i class="${pairing.icon} pairing-icon"></i>
                     <h3 class="pairing-name">${pairing.name}</h3>
-                    ${pairing.gcaScore ? `<span class="pairing-score">GCA ${pairing.gcaScore}</span>` : ''}
                 </div>
             `).join('');
+            
+            // Then add GCA pairings with label
+            if (gcaPairings.length > 0) {
+                html += gcaPairings.map(pairing => `
+                    <div class="pairing-item personalized-pairing" 
+                         ${pairing.reason ? `title="${pairing.reason}"` : ''}>
+                        <span class="gca-food-pairing-badge">GCA Food Pairing</span>
+                        <i class="${pairing.icon} pairing-icon"></i>
+                        <h3 class="pairing-name">${pairing.name}</h3>
+                        ${pairing.gcaScore ? `<span class="pairing-score">GCA Score ${pairing.gcaScore}</span>` : ''}
+                    </div>
+                `).join('');
+            }
+            
+            pairingList.innerHTML = html;
         }
     }
 
@@ -1234,16 +1260,44 @@ class WineListApp {
         // Check for personalized pairings from Gran Caffè dishes
         if (this.foodPairingsData && wine && wine.wine_name) {
             const wineNameNormalized = wine.wine_name.toLowerCase().trim();
+            const wineProducerNormalized = wine.wine_producer ? wine.wine_producer.toLowerCase().trim() : '';
+            
+            console.log('🔍 Searching pairings for:', {
+                wineName: wine.wine_name,
+                producer: wine.wine_producer,
+                normalizedName: wineNameNormalized,
+                normalizedProducer: wineProducerNormalized
+            });
             
             // Find dishes that recommend this wine
             this.foodPairingsData.forEach(dish => {
                 if (dish.wines && Array.isArray(dish.wines)) {
                     const matchingWine = dish.wines.find(rec => {
                         const recNameNormalized = rec.name.toLowerCase().trim();
-                        // Check for exact match or partial match (e.g., "Frascati" in "Frascati – Pallavicini 2024")
-                        return recNameNormalized.includes(wineNameNormalized) || 
-                               wineNameNormalized.includes(recNameNormalized.split('–')[0].trim()) ||
-                               wineNameNormalized.includes(recNameNormalized.split('–')[0].trim().split(' ')[0]);
+                        
+                        // Simple check: does the recommendation contain the wine name?
+                        const nameInRec = recNameNormalized.includes(wineNameNormalized);
+                        const recInName = wineNameNormalized.includes(recNameNormalized.split('–')[0].trim().split(' ')[0]);
+                        
+                        // Check producer match if both exist
+                        let producerInRec = false;
+                        if (wineProducerNormalized) {
+                            producerInRec = recNameNormalized.includes(wineProducerNormalized);
+                        }
+                        
+                        // Match if: name is found in recommendation OR (name matches AND producer matches if available)
+                        const matches = nameInRec || recInName || (nameInRec && producerInRec);
+                        
+                        if (matches) {
+                            console.log('✅ Match found!', {
+                                recommendation: rec.name,
+                                dish: dish.dish,
+                                wineName: wine.wine_name,
+                                producer: wine.wine_producer
+                            });
+                        }
+                        
+                        return matches;
                     });
                     
                     if (matchingWine) {
@@ -1256,6 +1310,14 @@ class WineListApp {
                         });
                     }
                 }
+            });
+            
+            console.log('🍽️ Found personalized pairings:', personalizedPairings.length, personalizedPairings);
+        } else {
+            console.warn('⚠️ Cannot search pairings:', {
+                hasData: !!this.foodPairingsData,
+                hasWine: !!wine,
+                hasWineName: !!(wine && wine.wine_name)
             });
         }
         
@@ -1299,14 +1361,14 @@ class WineListApp {
             ]
         };
         
-        // Prioritize personalized pairings, show up to 4 recommendations
-        // If we have personalized pairings, show them first (up to 4)
-        // Otherwise, show generic pairings
-        if (personalizedPairings.length > 0) {
-            return personalizedPairings.slice(0, 4);
-        }
+        // Get generic pairings first
+        const genericList = genericPairings[wine.wine_type] || genericPairings['ROSSO'];
         
-        return genericPairings[wine.wine_type] || genericPairings['ROSSO'];
+        // Then add personalized GCA pairings below (up to 4)
+        const gcaPairings = personalizedPairings.slice(0, 4);
+        
+        // Combine: generic first, then GCA pairings
+        return [...genericList, ...gcaPairings];
     }
 
     updateProducerInfo(wine) {

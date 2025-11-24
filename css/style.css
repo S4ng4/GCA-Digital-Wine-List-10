@@ -2053,6 +2053,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .pairing-item {
+    position: relative;
     background: linear-gradient(135deg, rgba(26, 26, 26, 0.8) 0%, rgba(10, 10, 10, 0.95) 100%);
     border: 2px solid rgba(212, 175, 55, 0.3);
     border-radius: 15px;
@@ -2107,6 +2108,25 @@ body:not(.home-page) .luxury-container {
     font-weight: 600;
     margin-top: 0.25rem;
     letter-spacing: 0.5px;
+}
+
+.gca-food-pairing-badge {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: var(--gold);
+    color: var(--black);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    z-index: 1;
+}
+
+.pairing-item {
+    position: relative;
 }
 
 /* Producer Info */
