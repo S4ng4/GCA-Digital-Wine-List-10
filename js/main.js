@@ -3961,9 +3961,12 @@ function initInteractiveMap() {
             const popup = document.getElementById('mobileWineTypePopup');
             const popupTitle = document.getElementById('mobileWineTypePopupTitle');
             const popupRegions = document.getElementById('mobileWineTypePopupRegions');
+            const popupVarietals = document.getElementById('mobileWineTypePopupVarietals');
             const popupClose = document.getElementById('mobileWineTypePopupClose');
+            const tabRegions = document.getElementById('mobileWineTypePopupTabRegions');
+            const tabVarietals = document.getElementById('mobileWineTypePopupTabVarietals');
             
-            if (!popup || !popupTitle || !popupRegions) return;
+            if (!popup || !popupTitle || !popupRegions || !popupVarietals) return;
             
             // Get wine type name
             const wineTypeNames = {
@@ -3975,15 +3978,21 @@ function initInteractiveMap() {
                 'NON ALCOLICO': 'Non-Alcoholic'
             };
             
-            // Check if there are regions with wines of this type
+            // Setup tab switching
+            if (tabRegions && tabVarietals) {
+                tabRegions.onclick = () => switchPopupTab('regions');
+                tabVarietals.onclick = () => switchPopupTab('varietals');
+            }
+            
+            // Check if there are regions or varietals with wines of this type
             if (!window.wineApp || !window.wineApp.wines) {
                 waitForWineApp(() => {
                     if (window.wineApp && window.wineApp.wines) {
-                        checkAndOpenPopup(wineType, wineTypeNames, popup, popupTitle, popupRegions);
+                        checkAndOpenPopup(wineType, wineTypeNames, popup, popupTitle, popupRegions, popupVarietals);
                     }
                 });
             } else {
-                checkAndOpenPopup(wineType, wineTypeNames, popup, popupTitle, popupRegions);
+                checkAndOpenPopup(wineType, wineTypeNames, popup, popupTitle, popupRegions, popupVarietals);
             }
             
             // Close button handler
@@ -3992,7 +4001,27 @@ function initInteractiveMap() {
             }
         }
         
-        function checkAndOpenPopup(wineType, wineTypeNames, popup, popupTitle, popupRegions) {
+        // Switch between regions and varietals tabs
+        function switchPopupTab(tab) {
+            const tabRegions = document.getElementById('mobileWineTypePopupTabRegions');
+            const tabVarietals = document.getElementById('mobileWineTypePopupTabVarietals');
+            const sectionRegions = document.getElementById('mobileWineTypePopupRegions');
+            const sectionVarietals = document.getElementById('mobileWineTypePopupVarietals');
+            
+            if (tab === 'regions') {
+                if (tabRegions) tabRegions.classList.add('active');
+                if (tabVarietals) tabVarietals.classList.remove('active');
+                if (sectionRegions) sectionRegions.classList.add('active');
+                if (sectionVarietals) sectionVarietals.classList.remove('active');
+            } else {
+                if (tabRegions) tabRegions.classList.remove('active');
+                if (tabVarietals) tabVarietals.classList.add('active');
+                if (sectionRegions) sectionRegions.classList.remove('active');
+                if (sectionVarietals) sectionVarietals.classList.add('active');
+            }
+        }
+        
+        function checkAndOpenPopup(wineType, wineTypeNames, popup, popupTitle, popupRegions, popupVarietals) {
             // Filter wines by type
             const filteredWines = window.wineApp.wines.filter(wine => {
                 return window.wineApp.wineMatchesFamily(wine, wineType);
@@ -4009,53 +4038,114 @@ function initInteractiveMap() {
             
             const regions = Array.from(regionSet).sort();
             
-            // If no regions found, don't open popup
-            if (regions.length === 0) {
+            // Get unique varietals
+            const varietalSet = new Set();
+            filteredWines.forEach(wine => {
+                if (wine.varietals && wine.varietals.trim() !== '') {
+                    // Split varietals by comma and add each one
+                    const varietals = wine.varietals.split(',').map(v => v.trim()).filter(v => v);
+                    varietals.forEach(varietal => {
+                        varietalSet.add(varietal);
+                    });
+                }
+            });
+            
+            const varietals = Array.from(varietalSet).sort();
+            
+            // If no regions and no varietals found, don't open popup
+            if (regions.length === 0 && varietals.length === 0) {
                 closeMobileWineTypePopup();
                 return;
             }
             
             // Update popup title
-            popupTitle.textContent = wineTypeNames[wineType] || 'Select Region';
+            popupTitle.textContent = wineTypeNames[wineType] || 'Select Filter';
+            
+            // Reset to regions tab
+            switchPopupTab('regions');
             
             // Clear and populate regions
             popupRegions.innerHTML = '';
             
-            regions.forEach(region => {
-                // Count wines in this region and type
-                const count = filteredWines.filter(wine => {
-                    const normalizedWineRegion = window.wineApp.normalizeRegionName(wine.region);
-                    return normalizedWineRegion === region;
-                }).length;
-                
-                const regionItem = document.createElement('div');
-                regionItem.className = 'mobile-wine-type-popup-region';
-                regionItem.innerHTML = `
-                    <div class="mobile-wine-type-popup-region-name">${region}</div>
-                    <div class="mobile-wine-type-popup-region-count">${count} wine${count !== 1 ? 's' : ''}</div>
-                `;
-                
-                regionItem.addEventListener('click', () => {
-                    // Close popup
-                    closeMobileWineTypePopup();
-                    // Select region on map
-                    if (mobileGeoJsonLayer) {
-                        // Convert normalized region name to map region name
-                        const mapRegionName = getMapRegionName(region);
-                        mobileGeoJsonLayer.eachLayer(function(layer) {
-                            // Check both normalized and map region names
-                            if (layer._regionName === region || layer._regionName === mapRegionName) {
-                                // Trigger click on the region layer
-                                if (layer.fire) {
-                                    layer.fire('click');
+            if (regions.length > 0) {
+                regions.forEach(region => {
+                    // Count wines in this region and type
+                    const count = filteredWines.filter(wine => {
+                        const normalizedWineRegion = window.wineApp.normalizeRegionName(wine.region);
+                        return normalizedWineRegion === region;
+                    }).length;
+                    
+                    const regionItem = document.createElement('div');
+                    regionItem.className = 'mobile-wine-type-popup-region';
+                    regionItem.innerHTML = `
+                        <div class="mobile-wine-type-popup-region-name">${region}</div>
+                        <div class="mobile-wine-type-popup-region-count">${count} wine${count !== 1 ? 's' : ''}</div>
+                    `;
+                    
+                    regionItem.addEventListener('click', () => {
+                        // Close popup
+                        closeMobileWineTypePopup();
+                        // Select region on map
+                        if (mobileGeoJsonLayer) {
+                            // Convert normalized region name to map region name
+                            const mapRegionName = getMapRegionName(region);
+                            mobileGeoJsonLayer.eachLayer(function(layer) {
+                                // Check both normalized and map region names
+                                if (layer._regionName === region || layer._regionName === mapRegionName) {
+                                    // Trigger click on the region layer
+                                    if (layer.fire) {
+                                        layer.fire('click');
+                                    }
                                 }
-                            }
-                        });
-                    }
+                            });
+                        }
+                    });
+                    
+                    popupRegions.appendChild(regionItem);
                 });
-                
-                popupRegions.appendChild(regionItem);
-            });
+            } else {
+                popupRegions.innerHTML = '<div style="color: rgba(245, 245, 240, 0.5); text-align: center; padding: 2rem;">No regions available</div>';
+            }
+            
+            // Clear and populate varietals
+            popupVarietals.innerHTML = '';
+            
+            if (varietals.length > 0) {
+                varietals.forEach(varietal => {
+                    // Count wines with this varietal and type
+                    const count = filteredWines.filter(wine => {
+                        if (!wine.varietals) return false;
+                        const wineVarietals = wine.varietals.split(',').map(v => v.trim());
+                        return wineVarietals.includes(varietal);
+                    }).length;
+                    
+                    const varietalItem = document.createElement('div');
+                    varietalItem.className = 'mobile-wine-type-popup-varietal';
+                    varietalItem.innerHTML = `
+                        <div class="mobile-wine-type-popup-varietal-name">${varietal}</div>
+                        <div class="mobile-wine-type-popup-varietal-count">${count} wine${count !== 1 ? 's' : ''}</div>
+                    `;
+                    
+                    varietalItem.addEventListener('click', () => {
+                        // Close popup
+                        closeMobileWineTypePopup();
+                        // Filter wines by varietal
+                        // This will trigger a search/filter action
+                        const mobileSearchInput = document.getElementById('mobileSearchInput');
+                        if (mobileSearchInput) {
+                            mobileSearchInput.value = varietal;
+                            // Trigger search if there's a search handler
+                            if (mobileSearchInput.dispatchEvent) {
+                                mobileSearchInput.dispatchEvent(new Event('input', { bubbles: true }));
+                            }
+                        }
+                    });
+                    
+                    popupVarietals.appendChild(varietalItem);
+                });
+            } else {
+                popupVarietals.innerHTML = '<div style="color: rgba(245, 245, 240, 0.5); text-align: center; padding: 2rem;">No varietals available</div>';
+            }
             
             // Show popup
             popup.style.display = 'flex';

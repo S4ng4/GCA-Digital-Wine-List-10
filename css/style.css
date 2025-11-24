@@ -6325,10 +6325,10 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         left: 0;
         right: 0;
         z-index: 175;
-        background: linear-gradient(180deg, rgba(10, 10, 10, 0.98) 0%, rgba(26, 26, 26, 0.95) 100%);
-        backdrop-filter: blur(30px);
-        -webkit-backdrop-filter: blur(30px);
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(180deg, rgba(10, 10, 10, 1) 0%, rgba(26, 26, 26, 1) 100%);
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
         border-bottom: 0.5px solid rgba(212, 175, 55, 0.2);
         max-height: 50vh;
         display: flex;
@@ -6338,6 +6338,16 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
                     opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         overflow: hidden;
+    }
+    
+    .mobile-wine-type-popup-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: -1;
     }
 
     .mobile-wine-type-popup.show {
@@ -6394,6 +6404,49 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         font-size: 0.875rem;
     }
 
+    .mobile-wine-type-popup-tabs {
+        display: flex;
+        gap: 0.5rem;
+        padding: 0.75rem 1.25rem;
+        padding-left: calc(1.25rem + constant(safe-area-inset-left)); /* iOS 11.0-11.2 */
+        padding-left: calc(1.25rem + env(safe-area-inset-left)); /* iOS 11.2+ */
+        padding-right: calc(1.25rem + constant(safe-area-inset-right)); /* iOS 11.0-11.2 */
+        padding-right: calc(1.25rem + env(safe-area-inset-right)); /* iOS 11.2+ */
+        border-bottom: 0.5px solid rgba(212, 175, 55, 0.1);
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    .mobile-wine-type-popup-tab {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        background: transparent;
+        border: 0.5px solid rgba(212, 175, 55, 0.2);
+        border-radius: 10px;
+        color: var(--gold-dark);
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .mobile-wine-type-popup-tab i {
+        font-size: 0.875rem;
+    }
+
+    .mobile-wine-type-popup-tab.active {
+        background: rgba(212, 175, 55, 0.15);
+        border-color: rgba(212, 175, 55, 0.4);
+        color: var(--gold);
+    }
+
+    .mobile-wine-type-popup-tab:active {
+        transform: scale(0.98);
+    }
+
     .mobile-wine-type-popup-content {
         flex: 1;
         overflow-y: auto;
@@ -6403,9 +6456,25 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         padding-left: calc(1.25rem + env(safe-area-inset-left)); /* iOS 11.2+ */
         padding-right: calc(1.25rem + constant(safe-area-inset-right)); /* iOS 11.0-11.2 */
         padding-right: calc(1.25rem + env(safe-area-inset-right)); /* iOS 11.2+ */
+        position: relative;
+        background: rgba(0, 0, 0, 0.4);
+    }
+
+    .mobile-wine-type-popup-section {
+        display: none;
+    }
+
+    .mobile-wine-type-popup-section.active {
+        display: block;
     }
 
     .mobile-wine-type-popup-regions {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 0.75rem;
+    }
+    
+    .mobile-wine-type-popup-varietals {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
         gap: 0.75rem;
@@ -6438,6 +6507,38 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     }
 
     .mobile-wine-type-popup-region-count {
+        font-size: 0.7rem;
+        color: var(--gold-dark);
+        margin-top: 0.25rem;
+    }
+
+    .mobile-wine-type-popup-varietal {
+        padding: 1rem;
+        background: rgba(212, 175, 55, 0.08);
+        border: 0.5px solid rgba(212, 175, 55, 0.2);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        text-align: center;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    .mobile-wine-type-popup-varietal:active {
+        transform: scale(0.96);
+        background: rgba(212, 175, 55, 0.15);
+        border-color: rgba(212, 175, 55, 0.4);
+    }
+
+    .mobile-wine-type-popup-varietal-name {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--gold);
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .mobile-wine-type-popup-varietal-count {
         font-size: 0.7rem;
         color: var(--gold-dark);
         margin-top: 0.25rem;

@@ -109,15 +109,29 @@
 
         <!-- Mobile Wine Type Regions Popup -->
         <div class="mobile-wine-type-popup" id="mobileWineTypePopup" style="display: none;">
+            <div class="mobile-wine-type-popup-overlay"></div>
             <div class="mobile-wine-type-popup-header">
-                <h3 class="mobile-wine-type-popup-title" id="mobileWineTypePopupTitle">Select Region</h3>
+                <h3 class="mobile-wine-type-popup-title" id="mobileWineTypePopupTitle">Select Filter</h3>
                 <button class="mobile-wine-type-popup-close" id="mobileWineTypePopupClose" aria-label="Close">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
+            <div class="mobile-wine-type-popup-tabs">
+                <button class="mobile-wine-type-popup-tab active" data-tab="regions" id="mobileWineTypePopupTabRegions">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Regions</span>
+                </button>
+                <button class="mobile-wine-type-popup-tab" data-tab="varietals" id="mobileWineTypePopupTabVarietals">
+                    <i class="fas fa-wine-bottle"></i>
+                    <span>Varietals</span>
+                </button>
+            </div>
             <div class="mobile-wine-type-popup-content">
-                <div class="mobile-wine-type-popup-regions" id="mobileWineTypePopupRegions">
+                <div class="mobile-wine-type-popup-section active" id="mobileWineTypePopupRegions">
                     <!-- Regions will be populated dynamically -->
+                </div>
+                <div class="mobile-wine-type-popup-section" id="mobileWineTypePopupVarietals">
+                    <!-- Varietals will be populated dynamically -->
                 </div>
             </div>
         </div>
