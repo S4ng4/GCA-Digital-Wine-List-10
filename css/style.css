@@ -189,13 +189,52 @@
     --wine-highlight: rgba(220, 20, 60, 0.1);
 }
 
+/* Night Mode (default) */
+:root[data-theme="night"] {
+    --bg-primary: #0A0A0A;
+    --bg-secondary: #1A1A1A;
+    --text-primary: #F5F5F0;
+    --text-secondary: rgba(245, 245, 240, 0.8);
+    --border-color: rgba(212, 175, 55, 0.3);
+    --shadow-color: rgba(0, 0, 0, 0.8);
+    --overlay-color: rgba(0, 0, 0, 0.85);
+}
+
+/* Day Mode - Ottimizzato per E-Paper */
+:root[data-theme="day"] {
+    --bg-primary: #FDFBF7; /* Carta bianca per e-paper */
+    --bg-secondary: #F8F6F0; /* Leggermente più scuro */
+    --text-primary: #000000; /* Nero puro per massimo contrasto */
+    --text-secondary: #1A1A1A; /* Nero più morbido */
+    --gold: #8B6914; /* Oro più scuro per e-paper */
+    --gold-light: #A67C00;
+    --dark-gold: #5C4409;
+    --border-color: #000000; /* Nero per contrasto */
+    --shadow-color: rgba(0, 0, 0, 0.2); /* Ombre leggere */
+    --overlay-color: rgba(255, 255, 255, 0.95);
+    
+    /* Wine Type Colors - più scuri per e-paper */
+    --wine-primary: #8B0000; /* Rosso molto scuro */
+    --wine-secondary: #6B0000;
+    --wine-accent: #A00000;
+    --wine-border: rgba(0, 0, 0, 0.5);
+    --wine-highlight: rgba(0, 0, 0, 0.1);
+    
+    --ivory: #FFFFFF;
+    --cream: #FDFBF7;
+    --charcoal: #F8F6F0;
+    --black: #FDFBF7;
+    --dark: #F8F6F0;
+}
+
 body {
     font-family: 'Cormorant', serif;
-    background-color: var(--black);
-    color: var(--ivory);
+    background-color: var(--bg-primary, var(--black));
+    color: var(--text-primary, var(--ivory));
     line-height: 1.6;
     min-height: 100vh;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Disable scrolling only for home page - ottimizzato per mobile */
@@ -225,10 +264,19 @@ body:not(.home-page) {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background: var(--bg-primary, var(--black));
+    position: relative;
+    transition: background 0.3s ease;
+}
+
+:root[data-theme="night"] .luxury-container {
     background: 
         radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
         linear-gradient(var(--black) 0%, var(--charcoal) 100%);
-    position: relative;
+}
+
+:root[data-theme="day"] .luxury-container {
+    background: var(--bg-primary);
 }
 
 /* Enable scrolling for wine-details page and other non-home pages */
@@ -5178,11 +5226,11 @@ body:not(.home-page) .luxury-container {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.85);
+    background: var(--overlay-color, rgba(0, 0, 0, 0.85));
     z-index: 90;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease, background 0.3s ease;
 }
 
 .mobile-overlay.visible {
@@ -5198,16 +5246,25 @@ body:not(.home-page) .luxury-container {
     bottom: 0;
     width: 85%;
     max-width: 350px;
-    background: linear-gradient(180deg, rgba(26, 26, 26, 0.98) 0%, rgba(10, 10, 10, 1) 100%);
-    border-right: 2px solid var(--gold);
+    background: var(--bg-secondary, linear-gradient(180deg, rgba(26, 26, 26, 0.98) 0%, rgba(10, 10, 10, 1) 100%));
+    border-right: 2px solid var(--border-color, var(--gold));
     z-index: 95;
     transform: translateX(-100%);
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 5px 0 25px rgba(212, 175, 55, 0.4);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease, border-color 0.3s ease;
+    box-shadow: 5px 0 25px var(--shadow-color, rgba(212, 175, 55, 0.4));
     display: flex;
     flex-direction: column;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+}
+
+:root[data-theme="night"] .mobile-side-menu {
+    background: linear-gradient(180deg, rgba(26, 26, 26, 0.98) 0%, rgba(10, 10, 10, 1) 100%);
+}
+
+:root[data-theme="day"] .mobile-side-menu {
+    background: var(--bg-primary);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .mobile-side-menu::-webkit-scrollbar {
@@ -5269,13 +5326,13 @@ body:not(.home-page) .luxury-container {
 
 .mobile-menu-category {
     padding: 1.375rem 1.5rem;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    border-bottom: 1px solid var(--border-color, rgba(212, 175, 55, 0.2));
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    color: rgba(245, 245, 240, 0.9);
+    color: var(--text-primary, rgba(245, 245, 240, 0.9));
     font-size: 1.1rem;
     position: relative;
     overflow: hidden;
@@ -5310,6 +5367,53 @@ body:not(.home-page) .luxury-container {
     color: var(--gold-dark);
     font-size: 0.9rem;
     margin-right: 0.5rem;
+}
+
+/* Day/Night Mode Switch */
+.day-night-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+}
+
+.day-night-switch-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.day-night-switch-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(212, 175, 55, 0.3);
+    transition: 0.3s;
+    border-radius: 26px;
+}
+
+.day-night-switch-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: var(--gold);
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+.day-night-switch-input:checked + .day-night-switch-slider {
+    background-color: var(--gold);
+}
+
+.day-night-switch-input:checked + .day-night-switch-slider:before {
+    transform: translateX(24px);
+    background-color: #FFFFFF;
 }
 
 /* Mobile Views Container */
@@ -7050,4 +7154,74 @@ body:not(.home-page) .luxury-container {
         box-shadow: none !important;
         text-shadow: none !important;
     }
+}
+
+/* ==================== DAY MODE - E-PAPER OPTIMIZED ==================== */
+/* Ottimizzato per e-reader e dispositivi e-paper con alto contrasto */
+
+:root[data-theme="day"] .top-nav {
+    background: var(--bg-primary) !important;
+    border-bottom: 2px solid var(--border-color) !important;
+    box-shadow: 0 2px 4px var(--shadow-color) !important;
+}
+
+:root[data-theme="day"] .nav-title,
+:root[data-theme="day"] .nav-subtitle {
+    color: var(--text-primary) !important;
+    text-shadow: none !important;
+}
+
+:root[data-theme="day"] .mobile-menu-btn,
+:root[data-theme="day"] .mobile-search-btn {
+    color: var(--text-primary) !important;
+}
+
+:root[data-theme="day"] .wine-card,
+:root[data-theme="day"] .wine-card-sidebar,
+:root[data-theme="day"] .mobile-wine-card {
+    background: var(--bg-primary) !important;
+    border: 2px solid var(--border-color) !important;
+    box-shadow: 0 2px 4px var(--shadow-color) !important;
+    color: var(--text-primary) !important;
+}
+
+:root[data-theme="day"] .wine-card-title,
+:root[data-theme="day"] .wine-card-subtitle {
+    color: var(--text-primary) !important;
+}
+
+:root[data-theme="day"] * {
+    /* Rimuovi gradienti complessi per e-paper */
+    background-image: none !important;
+}
+
+:root[data-theme="day"] .luxury-container::before,
+:root[data-theme="day"] .luxury-container::after {
+    display: none !important;
+}
+
+/* Mantieni alcuni gradienti semplici solo se necessari */
+:root[data-theme="day"] .wine-family-rosso {
+    background: var(--wine-primary) !important;
+}
+
+/* Rimuovi backdrop-filter per e-paper */
+:root[data-theme="day"] * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* Ottimizza contrasto per testo */
+:root[data-theme="day"] p,
+:root[data-theme="day"] span,
+:root[data-theme="day"] div {
+    color: var(--text-primary);
+}
+
+:root[data-theme="day"] .mobile-menu-category-name {
+    color: var(--text-primary) !important;
+}
+
+:root[data-theme="day"] .day-night-switch-slider {
+    background-color: var(--border-color) !important;
 }

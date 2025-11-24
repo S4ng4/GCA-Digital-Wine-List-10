@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gran Caffè L'Aquila - Full Strategic Menu</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap');
+
+        :root {
+            --bg-paper: #FDFBF7;
+            --text-dark: #1a1a1a;
+            --brand-red: #8B0000;
+            --gold: #C5A059;
+            --font-head: 'Playfair Display', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+
+        body {
+            background-color: #e0e0e0;
+            font-family: var(--font-body);
+            margin: 0;
+            padding: 20px;
+            color: var(--text-dark);
+        }
+
+        .menu-sheet {
+            background-color: var(--bg-paper);
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            position: relative;
+        }
+
+        /* Bordo decorativo */
+        .menu-sheet::before {
+            content: "";
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 2px solid var(--brand-red);
+            pointer-events: none;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-family: var(--font-head);
+            color: var(--brand-red);
+            font-size: 3.5rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .subhead {
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        /* --- SEZIONE FOCUS (USP) --- */
+        .focus-section {
+            background-color: rgba(197, 160, 89, 0.1);
+            border: 1px solid var(--gold);
+            padding: 30px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .focus-title {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            color: var(--brand-red);
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .focus-desc {
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+            font-style: italic;
+            color: #444;
+        }
+
+        .focus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            text-align: left;
+        }
+
+        /* Badge Gelato */
+        .gelato-badge {
+            background-color: var(--brand-red);
+            color: #fff;
+            font-size: 0.6rem;
+            padding: 2px 5px;
+            text-transform: uppercase;
+            border-radius: 3px;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        /* --- LAYOUT COLONNE --- */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 2 Colonne bilanciate */
+            gap: 60px;
+        }
+
+        /* Sezioni */
+        .section-group {
+            margin-bottom: 40px;
+        }
+
+        .cat-title {
+            font-family: var(--font-head);
+            font-size: 1.4rem;
+            color: var(--brand-red);
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .cat-subtitle {
+            font-size: 0.7rem;
+            color: #666;
+            text-transform: none;
+            letter-spacing: 0;
+            font-weight: normal;
+        }
+
+        /* Piatti */
+        .dish {
+            margin-bottom: 14px;
+        }
+
+        .d-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1rem;
+            font-family: var(--font-head);
+            color: #222;
+        }
+
+        .d-price {
+            color: var(--brand-red);
+            white-space: nowrap;
+            margin-left: 10px;
+        }
+
+        .d-desc {
+            font-size: 0.85rem;
+            color: #555;
+            line-height: 1.3;
+            margin-top: 2px;
+        }
+
+        /* Anchor Items (High Price) */
+        .anchor {
+            background-color: #fffcf5;
+            padding: 5px;
+            border-left: 3px solid var(--gold);
+        }
+        .anchor .d-header { color: #8B4513; }
+
+        /* Box Piccoli (Panini/Sides) */
+        .small-section-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        /* Footer Area (Caffè & Drinks) */
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+            background-color: #f9f9f9;
+            padding: 20px;
+        }
+
+        .footer-col h3 {
+            font-family: var(--font-head);
+            color: var(--brand-red);
+            font-size: 1.2rem;
+            margin-top: 0;
+        }
+
+        .drink-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+            border-bottom: 1px dotted #ddd;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-grid, .footer-grid { grid-template-columns: 1fr; }
+            .menu-sheet { padding: 20px; }
+            h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu-sheet">
+        <header>
+            <h1>Gran Caffè L'Aquila</h1>
+            <div class="subhead">Ristorante • Torrefazione • Gelateria • Cultura</div>
+        </header>
+
+        <div class="focus-section">
+            <div class="focus-title">The Gastronomic Experience</div>
+            <div class="focus-desc">
+                Featuring our World Champion Gelato Maker Stefano Biasini.
+                Unique savory pairings to enhance texture and temperature contrast.
+            </div>
+
+            <div class="focus-grid">
+                <div class="dish">
+                    <div class="d-header">
+                        <span>Carbonara <span class="gelato-badge">Guanciale Gelato</span></span>
+                        <span class="d-price">25.5</span>
+                    </div>
+                    <div class="d-desc">Spaghetti, pecorino romano, egg, guanciale, black pepper, topped with gastronomic guanciale gelato.</div>
+                </div>
+
+                <div class="dish">
+                    <div class="d-header">
+                        <span>Agnolotti <span class="gelato-badge">Truffle Gelato</span></span>
+                        <span class="d-price">26.5</span>
+                    </div>
+                    <div class="d-desc">Veal & pork ravioli, butter sage sauce, topped with black & white truffle gelato.</div>
+                </div>
+
+                <div class="dish">
+                    <div class="d-header">
+                        <span>Arrosticini Biasini <span class="gelato-badge">Pepper Gelato</span></span>
+                        <span class="d-price">22.5</span>
+                    </div>
+                    <div class="d-desc">Abruzzo lamb-bacon skewers, served with Italian long hot pepper gelato.</div>
+                </div>
+
+                <div class="dish">
+                    <div class="d-header">
+                        <span>Salsiccia Bolzanese <span class="gelato-badge">Mustard Gelato</span></span>
+                        <span class="d-price">18.5</span>
+                    </div>
+                    <div class="d-desc">Grilled sweet & spicy sausage, sauerkraut, spicy grain mustard gelato.</div>
+                </div>
+
+                 <div class="dish">
+                    <div class="d-header">
+                        <span>Torta Granchio <span class="gelato-badge">Red Pepper Gelato</span></span>
+                        <span class="d-price">18.9</span>
+                    </div>
+                    <div class="d-desc">Crab cake (crab & shrimp), mascarpone, cucumber fresco, roasted red pepper gelato.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-grid">
+
+            <div class="col-left">
+
+                <div class="section-group">
+                    <div class="cat-title">Salumi & Formaggi <span class="cat-subtitle">Served with accompaniments</span></div>
+
+                    <div class="dish">
+                        <div class="d-header"><span>Salumi Misti</span> <span class="d-price">21.9</span></div>
+                        <div class="d-desc">Prosciutto di Parma, Mortadella Bologna IGP, Ventricina, Bresaola & Parmigiano.</div>
+                    </div>
+                     <div class="dish">
+                        <div class="d-header"><span>Formaggi Tasting</span> <span class="d-price">21.9</span></div>
+                        <div class="d-desc">Nord e Sud. Selection of 6 cheeses: Capra, Caciocavallo, Pecorino, Parmigiano, Fontina, Gorgonzola.</div>
+                    </div>
+                    <div class="dish" style="font-size: 0.85rem; color: #666; font-style: italic;">
+                        Available à la carte ($11.9 - $14.9): Parma, Speck, Bresaola, Mortadella, Ventricina.
+                    </div>
+                </div>
+
+                <div class="section-group">
+                    <div class="cat-title">Mozzarella Bar <span class="cat-subtitle">Bufala (Campania) or Burrata (Puglia)</span></div>
+
+                    <div class="dish anchor">
+                        <div class="d-header"><span>Bufala Caviale</span> <span class="d-price">36.9</span></div>
+                        <div class="d-desc">Imported Mozzarella di Bufala served with 10g of Italian Sturgeon Caviar.</div>
+                    </div>
+                    <div class="dish">
+                        <div class="d-header"><span>Tomato Basil Caprese</span> <span class="d-price">16.9</span></div>
+                    </div>
+                    <div class="dish">
+                        <div class="d-header"><span>Caponata Pairing</span> <span class="d-price">18.5</span></div>
+                        <div class="d-desc">Choice of Roast Pepper, Roast Cauliflower, or Eggplant Caponata.</div>
+                    </div>
+                </div>
+
+                <div class="section-group">
+                    <div class="cat-title">Antipasti</div>
+
+                    <div class="dish">
+                        <div class="d-header"><span>Carpaccio di Gambero Rosso</span> <span class="d-price">18.9</span></div>
+                        <div class="d-desc">Red shrimp of Mazara, DOP Bari EVOO, sea salt, micro greens.</div>
+                    </div>
+                    <div class="dish">
+                        <div class="d-header"><span>Fritto Misto</span> <span class="d-price">18.9</span></div>
+                        <div class="d-desc">Semolina crusted calamari, shrimp, zucchini.</div>
+                    </div>
+                     <div class="dish">
+                        <div class="d-header"><span>Polipo</span> <span class="d-price">18.9</span></div>
+                        <div class="d-desc">Citrus grilled Puglian octopus.</div>
+                    </div>
+                     <div class="dish">
+                        <div class="d-header"><span>Cozze Tarantina</span> <span class="d-price">17.9</span></div>
+                        <div class="d-desc">Mussels, tomato, garlic, pepperoncino.</div>
+                    </div>
+                    <div class="dish">
+                        <div class="d-header"><span>Melanzana Parmigiana</span> <span class="d-price">15.9</span></div>
+                    </div>
+                    <div class="dish">
+                        <div class="d-header"><span>Arancini (3)</span> <span class="d-price">14.9</span></div>
+                        <div class="d-desc">Sicilian rice balls, veal & pork ragu, peas, mozzarella.</div>
+                    </div>
+                     <div class="dish">
+                        <div class="d-header"><span>Carciofi Fritti</span> <span class="d-price">14.9</span></div>
+                    </div>
+                </div>
+
+                <div class="section-group small-section-grid">
+                    <div>
+                        <div class="cat-title" style="font-size:1.1rem">Insalate</div>
+                        <div class="dish"><div class="d-header"><span>Insalata di Mare</span> <span class="d-price">18.9</span></div></div>
+                        <div class="dish"><div class="d-header"><span>Cesarina</span> <span class="d-price">14.9</span></div></div>
+                        <div class="dish"><div class="d-header"><span>Pera</span> <span class="d-price">16.9</span></div></div>
+                        <div class="dish"><div class="d-header"><span>Panzanella</span> <span class="d-price">14.9</span></div></div>
+                    </div>
+                    <div>
+                        <div class="cat-title" style="font-size:1.1rem">Bruschetta</div>
+                        <div class="dish"><div class="d-header"><span>'Nduja Spicy</span> <span class="d-price">13.9</span></div></div>
+                        <div class="dish"><div class="d-header"><span>Caponata</span> <span class="d-price">12.9</span></div></div>
+                        <div class="dish"><div class="d-header"><span>Tomato Basil</span> <span class="d-price">10.9</span></div></div>
+                    </div>
+                </div>
+
+                <div class="section-group">
+                    <div class="cat-title">Panini <span class="cat-subtitle">Italian Baguette</span></div>
+                    <div class="dish"><div class="d-header"><span>Parma</span> <span class="d-price">14.9</span></div></div>
+                    <div class="dish"><div class="d-header"><span>Mortadella Bologna</span> <span class="d-price">14.9</span></div></div>
+                    <div class="dish"><div class="d-header"><span>Abruzzo (Spicy)</span> <span class="d-price">14.9</span></div></div>
+                </div>
+
+            </div>
+
+            <div class="col-right">
+
+                <div class="section-group">
+                    <div class="cat-title">Pasta</div>
+
+                    <div class="dish anchor">
+                        <div class="d-header"><span>Tagliolini al Caviale</span> <span class="d-price">36.9</span></div>
+                        <div class="d-desc">Egg ribbon pasta, Grana Padano butter, 10g Premium Sturgeon Caviar.</div>
+                    </div>
+
+                    <div class="dish">
+                        <div class="d-header"><span>Sugo Della Domenica</span> <span class="d-price">27.9</span></div>
+                        <div class="d-desc">Longo family Sunday sauce. Slow cooked tomato, wild boar meatballs, veal braciola, sausage & lamb. Fusilli.</div>
+                    </div>
+
+                    <div class="dish">
+                        <div class="d-header"><span>Pappardelle al Ragu</span> <span class="d-price">26.9</span></div>
+                        <div class="d-desc">Ribbon pasta, slow cooked pork, veal, lamb & chicken ragu.</div>
+                    </div>
+
+                    <div class="dish">
+                        <div class="d-header"><span>Tagliatelle alla Panna</span> <span class="d-price">23.9</span></div>
+                        <div class="d-desc">Northern Italian cream sauce, speck, peas, parmigiano.</div>
+                    </div>
+
+                    <div class="dish">
+                        <div class="d-header"><span>Gnocchi alla Bava</span> <span class="d-price">22.9</span></div>
+                        <div class="d-desc">Hand rolled potato & ricotta, fontina cream, wild mushrooms.</div>
+                    </div>
+                     <div class="dish">
+                        <div class="d-header"><span>Paccheri Datterini Gialli</span> <span class="d-price">19.9</span></div>
+                        <div class="d-desc">Jumbo rigatoni, yellow tomato, garlic, parmigiano.</div>
+                    </div>
+                    <div class="dish">
+                        <div class="d-header"><span>Chitarra</span> <span class="d-price">19.9</span></div>
+                        <div class="d-desc">Guitar pasta, tomato, Guanciale, onion, pecorino.</div>
+                    </div>
+                </div>
+
+                <div class="section-group">
+                    <div class="cat-title">Carne <span class="cat-subtitle">Meat</span></div>
+
+                    <div class="dish">
+                        <div class="d-header"><span>Vitello Saltimbocca</span> <span class="d-price">35.9</span></div>
+                        <div class="d-desc">Veal, prosciutto, sage, white wine sauce, potato, asparagus.</div>
+                    </div>
+
+                    <div class="dish">
+                        <div class="d-header"><span>Braciole</span> <span class="d-price">33.5</span></div>
+                        <div class="d-desc">Veal braciole, tagliatelle, tomato sugo.</div>
+                    </div>
+
+                    <div class="dish">
+                        <div class="d-header"><span>Pollo Mattone</span> <span class="d-price">24.9</span></div>
+                        <div class="d-desc">Free range 1/2 chicken, roasted under terracotta brick, asparagus, potato.</div>
+                    </div>
+
+                     <div class="dish">
+                        <div class="d-header"><span>Cinghiale</span> <span class="d-price">15.9</span></div>
+                        <div class="d-desc">Wild boar & long hot pepper meatballs, tomato sugo.</div>
+                    </div>
+                </div>
+
+                <div class="section-group">
+                    <div class="cat-title">Pesce <span class="cat-subtitle">Fish</span></div>
+
+                    <div class="dish anchor">
+                        <div class="d-header"><span>Branzino</span> <span class="d-price">37.9</span></div>
+                        <div class="d-desc">Fire roasted, EVOO, garlic, herbs, lemon, fennel & potato.</div>
+                    </div>
+
+                    <div class="dish">
+                        <div class="d-header"><span>Salmone in Placca</span> <span class="d-price">30.9</span></div>
+                        <div class="d-desc">Fire grilled salmon, herb crust, on cedar plank, asparagus.</div>
+                    </div>
+
+                    <div class="dish">
+                        <div class="d-header"><span>Zuppa di Pesce</span> <span class="d-price">29.9</span></div>
+                        <div class="d-desc">Clams, mussels, calamari, salmon, monkfish, brothy tomato, tagliolini.</div>
+                    </div>
+
+                    <div class="dish">
+                        <div class="d-header"><span>Pescatrice Puttanesca</span> <span class="d-price">27.5</span></div>
+                        <div class="d-desc">Monk fish, tomato, garlic, olive, anchovy, capers, chitarra pasta.</div>
+                    </div>
+
+                    <div class="dish">
+                        <div class="d-header"><span>Cannelloni di Pesce</span> <span class="d-price">26.9</span></div>
+                        <div class="d-desc">Shrimp, crab, branzino, scallops, ricotta, tomato-besciamella.</div>
+                    </div>
+
+                    <div class="dish">
+                        <div class="d-header"><span>Spaghetti Vongole</span> <span class="d-price">26.9</span></div>
+                        <div class="d-desc">Fresh wild clams, EVOO, garlic, parsley.</div>
+                    </div>
+                </div>
+
+                <div class="section-group">
+                    <div class="cat-title">Verdura <span class="cat-subtitle">Sides</span></div>
+                    <div class="small-section-grid">
+                         <div class="dish"><div class="d-header"><span>Sauteed Broccoli Rabe</span> <span class="d-price">12.9</span></div></div>
+                         <div class="dish"><div class="d-header"><span>Tambo (Spicy Longhots)</span> <span class="d-price">10.9</span></div></div>
+                         <div class="dish"><div class="d-header"><span>Truffled Patatine Fritte</span> <span class="d-price">8.9</span></div></div>
+                         <div class="dish"><div class="d-header"><span>Funghi (Mushrooms)</span> <span class="d-price">8.9</span></div></div>
+                         <div class="dish"><div class="d-header"><span>Rosemary Potatoes</span> <span class="d-price">8.9</span></div></div>
+                         <div class="dish"><div class="d-header"><span>Grilled Asparagus</span> <span class="d-price">8.9</span></div></div>
+                    </div>
+                </div>
+
+            </div> </div> <div class="footer-grid">
+
+            <div class="footer-col">
+                <h3>Torrefazione & Cornetti</h3>
+                <div class="drink-item"><span>Espresso</span> <span>3.5</span></div>
+                <div class="drink-item"><span>Cappuccino</span> <span>4.39</span></div>
+                <div class="drink-item"><span>Espresso Doppio</span> <span>4.9</span></div>
+                <div class="drink-item"><span>Espresso Sambuca</span> <span>7.5</span></div>
+                <div class="drink-item"><span>Shakerato</span> <span>5.9</span></div>
+                <div class="drink-item"><span>Italian Hot Chocolate</span> <span>6.99</span></div>
+                <div style="margin-top:10px; font-style:italic; font-size:0.8rem;">
+                    Cornetto Plain (3.9), Nutella/Pistacchio (4.6), Salato (6.79), Bomboloni (3.7)
+                </div>
+                <div style="margin-top:10px;">
+                     <strong>Coffee Beans:</strong> Parma, Napoli, Roma, L'Aquila, Torino blends available.
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3>Gelato & Dolci</h3>
+                <div class="drink-item"><span>Gelato Small</span> <span>6.6</span></div>
+                <div class="drink-item"><span>Gelato Med / Large</span> <span>7.9 / 9.9</span></div>
+                <div class="drink-item"><span>Gelato Pint</span> <span>13.9</span></div>
+                <br>
+                <div class="drink-item"><span>Tiramisu (Classic/Berry)</span> <span>9.9</span></div>
+                <div class="drink-item"><span>Budino di Pane</span> <span>9.9</span></div>
+                <div class="drink-item"><span>Cannolo</span> <span>7.9</span></div>
+                <div class="drink-item"><span>Mousse al Cioccolato</span> <span>9.9</span></div>
+                <div class="drink-item"><span>Gran Panna Cotta</span> <span>8.9</span></div>
+            </div>
+
+            <div class="footer-col">
+                <h3>Cocktails & Vino</h3>
+                <div class="drink-item"><span>Aperol Spritz</span> <span>12.9</span></div>
+                <div class="drink-item"><span>Negroni (24 Hour Aged)</span> <span>14.9</span></div>
+                <div class="drink-item"><span>Gran Caffe Martini</span> <span>13.9</span></div>
+                <div class="drink-item"><span>Phony Negroni (N/A)</span> <span>7.5</span></div>
+                <br>
+                <strong>Vino al Calice (Highlights)</strong>
+                <div class="drink-item"><span>Prosecco La Villa</span> <span>11.5</span></div>
+                <div class="drink-item"><span>Montepulciano Passofino</span> <span>12.7</span></div>
+                <div class="drink-item"><span>Chianti Classico</span> <span>13.9</span></div>
+                <div class="drink-item"><span>Barolo Paesi Tuoi</span> <span>19.9</span></div>
+                <div class="drink-item"><span>Brunello Argiano (Btl)</span> <span>199</span></div>
+            </div>
+        </div>
+
+        <div style="text-align:center; margin-top:30px; font-size:0.7rem; color:#999;">
+             * Consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness.
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -34,6 +34,12 @@ const BASE_PATH = getBasePath();
 console.log('📍 Base Path:', BASE_PATH || '(root)');
 console.log('📍 Wines JSON Path:', getPath('./data/wines.json'));
 
+// Inizializza il tema day/night mode all'avvio
+(function initTheme() {
+    const dayMode = localStorage.getItem('dayMode') === 'true';
+    document.documentElement.setAttribute('data-theme', dayMode ? 'day' : 'night');
+})();
+
 class WineListApp {
     constructor() {
         this.wines = [];
@@ -3507,8 +3513,18 @@ function initInteractiveMap() {
             
             // Placeholder invece dei filtri
             const placeholders = [
-                { name: 'Riccardo Wine Cellar', action: null },
-                { name: 'Ala Carte Menu', action: null }
+                { 
+                    name: 'Riccardo Wine Cellar', 
+                    action: null,
+                    href: null
+                },
+                { 
+                    name: 'Ala Carte Menu', 
+                    action: () => {
+                        window.location.href = './Ala Carte 11-23-25.html';
+                    },
+                    href: './Ala Carte 11-23-25.html'
+                }
             ];
             
             placeholders.forEach((placeholder, index) => {
@@ -3522,6 +3538,7 @@ function initInteractiveMap() {
                 `;
                 if (placeholder.action) {
                     categoryItem.addEventListener('click', placeholder.action);
+                    categoryItem.style.cursor = 'pointer';
                 } else {
                     categoryItem.style.cursor = 'default';
                     categoryItem.style.opacity = '0.7';
@@ -3529,7 +3546,62 @@ function initInteractiveMap() {
                 menuCategories.appendChild(categoryItem);
                 console.log(`Added menu item ${index + 1}: ${placeholder.name}`);
             });
+            
+            // Aggiungi switch day/night mode
+            addDayNightModeSwitch(menuCategories);
         }
+        
+        function addDayNightModeSwitch(container) {
+            // Crea il separatore
+            const separator = document.createElement('div');
+            separator.style.cssText = 'height: 1px; background: rgba(212, 175, 55, 0.2); margin: 1rem 1.5rem;';
+            container.appendChild(separator);
+            
+            // Crea il container dello switch
+            const switchContainer = document.createElement('div');
+            switchContainer.className = 'mobile-menu-category';
+            switchContainer.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: 1.375rem 1.5rem;';
+            
+            const label = document.createElement('span');
+            label.className = 'mobile-menu-category-name';
+            label.textContent = 'Day Mode';
+            label.style.cssText = 'font-weight: 500; color: rgba(245, 245, 240, 0.9);';
+            
+            // Crea lo switch
+            const switchToggle = document.createElement('label');
+            switchToggle.className = 'day-night-switch';
+            switchToggle.style.cssText = 'position: relative; display: inline-block; width: 50px; height: 26px; cursor: pointer;';
+            
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            input.className = 'day-night-switch-input';
+            input.checked = localStorage.getItem('dayMode') === 'true';
+            
+            const slider = document.createElement('span');
+            slider.className = 'day-night-switch-slider';
+            
+            switchToggle.appendChild(input);
+            switchToggle.appendChild(slider);
+            
+            switchContainer.appendChild(label);
+            switchContainer.appendChild(switchToggle);
+            container.appendChild(switchContainer);
+            
+            // Applica lo stato iniziale
+            if (input.checked) {
+                document.documentElement.setAttribute('data-theme', 'day');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'night');
+            }
+            
+            // Gestisci il cambio di tema
+            input.addEventListener('change', function() {
+                const isDayMode = this.checked;
+                localStorage.setItem('dayMode', isDayMode);
+                document.documentElement.setAttribute('data-theme', isDayMode ? 'day' : 'night');
+            });
+        }
+        
         function loadMobileRegions(wineType) {
             const regionsList = document.getElementById('mobileRegionsList');
             const regionsTitle = document.getElementById('mobileRegionsTitle');
