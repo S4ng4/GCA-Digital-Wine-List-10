@@ -5369,12 +5369,14 @@ body:not(.home-page) .luxury-container {
     margin-right: 0.5rem;
 }
 
-/* Day/Night Mode Switch */
+/* Day/Night Mode Switch - Visibile su mobile e tablet */
 .day-night-switch {
     position: relative;
     display: inline-block;
     width: 50px;
     height: 26px;
+    flex-shrink: 0;
+    z-index: 1;
 }
 
 .day-night-switch-input {
@@ -6691,9 +6693,9 @@ body:not(.home-page) .luxury-container {
         display: none !important;
     }
     
-    /* Mobile map view container */
+    /* Mobile map view container - Rimuovi gap 155px per dispositivi non iPhone */
     .mobile-map-view {
-        padding: 155px 1.25rem 1rem 1.25rem;
+        padding: 1rem 1.25rem !important;
     }
 }
 
@@ -6811,7 +6813,8 @@ body:not(.home-page) .luxury-container {
             margin-bottom: 0;
         }
     }
-    /* Solo mobile-map-view mantiene padding-top 155px */
+    /* Solo mobile-map-view mantiene padding-top 155px per iPhone iOS */
+    /* Questa regola si applica solo a dispositivi iOS grazie a constant() e env() */
     .mobile-map-view {
         padding-top: calc(155px + constant(safe-area-inset-top)); /* iOS 11.0-11.2 */
         padding-top: calc(155px + env(safe-area-inset-top)); /* iOS 11.2+ */
@@ -6821,6 +6824,13 @@ body:not(.home-page) .luxury-container {
         padding-left: env(safe-area-inset-left); /* iOS 11.2+ */
         padding-right: constant(safe-area-inset-right); /* iOS 11.0-11.2 */
         padding-right: env(safe-area-inset-right); /* iOS 11.2+ */
+    }
+    
+    /* Per dispositivi non iOS, rimuovi il padding-top 155px */
+    @supports not (padding-top: env(safe-area-inset-top)) {
+        .mobile-map-view {
+            padding-top: 1rem !important;
+        }
     }
     
     /* iOS fixes per mobile-wine-card-grid */
@@ -7224,4 +7234,33 @@ body:not(.home-page) .luxury-container {
 
 :root[data-theme="day"] .day-night-switch-slider {
     background-color: var(--border-color) !important;
+}
+
+/* Assicura che lo switch sia visibile su mobile e tablet */
+@media (max-width: 1023px) {
+    .day-night-switch {
+        display: inline-block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
+    .mobile-menu-category:has(.day-night-switch) {
+        display: flex !important;
+        visibility: visible !important;
+    }
+}
+
+/* Day mode per mobile map view */
+:root[data-theme="day"] .mobile-map-view {
+    background: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+:root[data-theme="day"] .mobile-map-wrapper {
+    border: 2px solid var(--border-color) !important;
+    box-shadow: 0 2px 4px var(--shadow-color) !important;
+}
+
+:root[data-theme="day"] #mobileMap {
+    background: var(--bg-primary) !important;
 }

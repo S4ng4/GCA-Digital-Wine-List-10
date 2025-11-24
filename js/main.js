@@ -3565,7 +3565,7 @@ function initInteractiveMap() {
             const label = document.createElement('span');
             label.className = 'mobile-menu-category-name';
             label.textContent = 'Day Mode';
-            label.style.cssText = 'font-weight: 500; color: rgba(245, 245, 240, 0.9);';
+            label.style.cssText = 'font-weight: 500; color: var(--text-primary, rgba(245, 245, 240, 0.9));';
             
             // Crea lo switch
             const switchToggle = document.createElement('label');
