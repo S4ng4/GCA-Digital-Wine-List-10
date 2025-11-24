@@ -4355,26 +4355,178 @@ function initInteractiveMap() {
                 window.mobileRegionLabelsLayer = L.layerGroup().addTo(mobileMapInstance);
             }
             
-            geojson.features.forEach(feature => {
-                const regionName = feature.properties.reg_name || feature.properties.NAME || feature.properties.name || 'Unknown';
+            // Clear existing labels
+            window.mobileRegionLabelsLayer.clearLayers();
+            
+            // Store placed labels for collision detection
+            const placedLabels = [];
+            
+            // Calculate label width based on text length (approximate)
+            const getLabelWidth = (text) => {
+                // Approximate: ~8px per character + padding
+                return Math.max(80, text.length * 8 + 20);
+            };
+            
+            // Check if a position collides with existing labels
+            const checkCollision = (lat, lng, width, height = 30) => {
+                // More accurate padding: account for label size
+                // At Italy's latitude (~42-47°), 1 degree ≈ 78-111km
+                // Label width in pixels, convert to approximate degrees
+                // Assuming zoom level gives us ~1000px per degree longitude
+                const paddingLat = 0.12; // Minimum vertical distance in degrees
+                const paddingLng = 0.15; // Minimum horizontal distance in degrees
+                
+                // Convert pixel width to degrees (rough estimate: 100px ≈ 0.1 degrees at typical zoom)
+                const widthDeg = (width / 1000) * 0.15; // More conservative estimate
+                
+                for (const placed of placedLabels) {
+                    const latDiff = Math.abs(lat - placed.lat);
+                    const lngDiff = Math.abs(lng - placed.lng);
+                    
+                    // Check if labels overlap (considering both dimensions)
+                    // Labels overlap if they're close in both lat and lng
+                    if (latDiff < paddingLat && lngDiff < (widthDeg + paddingLng)) {
+                        return true; // Collision detected
+                    }
+                    
+                    // Also check if too close even if not overlapping (for readability)
+                    const distance = Math.sqrt(latDiff * latDiff + lngDiff * lngDiff);
+                    if (distance < 0.1) { // Very close labels
+                        return true;
+                    }
+                }
+                return false;
+            };
+            
+            // Get optimal label position avoiding collisions
+            const getOptimalPosition = (bounds, center, regionName) => {
+                const labelWidth = getLabelWidth(regionName);
+                const offset = 0.25; // Base offset in degrees
+                const largeOffset = 0.5; // Larger offset for crowded areas
+                const isNorth = center.lat > 43; // Regions in northern Italy
+                const isSmall = (bounds.getNorth() - bounds.getSouth()) < 0.5; // Small regions
+                
+                // Predefined positions for specific regions to avoid known conflicts
+                const regionSpecificPositions = {
+                    'Valle d\'Aosta': { lat: bounds.getNorth() + offset * 0.5, lng: center.lng, priority: 0 },
+                    'Piemonte': { lat: bounds.getNorth() + offset * 0.6, lng: bounds.getWest() - offset * 0.5, priority: 0 },
+                    'Lombardia': { lat: bounds.getNorth() + offset * 0.8, lng: bounds.getEast() + offset * 0.5, priority: 0 },
+                    'Trentino-Alto Adige': { lat: bounds.getNorth() + offset * 0.5, lng: center.lng, priority: 0 },
+                    'Veneto': { lat: bounds.getEast() + offset * 0.6, lng: center.lat, priority: 0 },
+                    'Friuli-Venezia Giulia': { lat: bounds.getEast() + offset * 0.7, lng: center.lat, priority: 0 },
+                    'Liguria': { lat: center.lat, lng: bounds.getWest() - offset * 0.6, priority: 0 },
+                    'Emilia-Romagna': { lat: bounds.getNorth() + offset * 0.7, lng: center.lng, priority: 0 },
+                    'Toscana': { lat: bounds.getWest() - offset * 0.5, lng: center.lat, priority: 0 },
+                    'Umbria': { lat: bounds.getSouth() - offset * 0.5, lng: center.lng, priority: 0 },
+                    'Marche': { lat: bounds.getEast() + offset * 0.6, lng: center.lat, priority: 0 },
+                    'Lazio': { lat: bounds.getSouth() - offset * 0.6, lng: bounds.getWest() - offset * 0.3, priority: 0 },
+                    'Abruzzo': { lat: bounds.getEast() + offset * 0.6, lng: center.lat, priority: 0 },
+                    'Molise': { lat: bounds.getEast() + offset * 0.5, lng: center.lat, priority: 0 },
+                    'Campania': { lat: bounds.getSouth() - offset * 0.6, lng: center.lng, priority: 0 },
+                    'Puglia': { lat: center.lat, lng: bounds.getEast() + offset * 0.7, priority: 0 },
+                    'Basilicata': { lat: bounds.getSouth() - offset * 0.5, lng: center.lng, priority: 0 },
+                    'Calabria': { lat: bounds.getSouth() - offset * 0.6, lng: center.lng, priority: 0 },
+                    'Sicilia': { lat: bounds.getSouth() - offset * 0.8, lng: center.lng, priority: 0 },
+                    'Sardegna': { lat: bounds.getNorth() + offset * 0.6, lng: center.lng, priority: 0 },
+                };
+                
+                // Check if there's a predefined position for this region
+                const normalizedName = regionName.trim();
+                if (regionSpecificPositions[normalizedName]) {
+                    const predefined = regionSpecificPositions[normalizedName];
+                    if (!checkCollision(predefined.lat, predefined.lng, labelWidth)) {
+                        return predefined;
+                    }
+                }
+                
+                // Generate candidate positions based on region location
+                const candidates = [];
+                
+                // For northern regions, prefer top positions
+                if (isNorth) {
+                    candidates.push(
+                        { lat: bounds.getNorth() + offset, lng: center.lng, priority: 1 },
+                        { lat: bounds.getNorth() + offset * 0.7, lng: bounds.getEast() + offset * 0.7, priority: 2 },
+                        { lat: bounds.getNorth() + offset * 0.7, lng: bounds.getWest() - offset * 0.7, priority: 3 },
+                        { lat: center.lat, lng: bounds.getEast() + offset, priority: 4 },
+                        { lat: center.lat, lng: bounds.getWest() - offset, priority: 5 }
+                    );
+                } else {
+                    // For southern regions, prefer bottom or side positions
+                    candidates.push(
+                        { lat: center.lat, lng: bounds.getEast() + offset, priority: 1 },
+                        { lat: bounds.getSouth() - offset, lng: center.lng, priority: 2 },
+                        { lat: center.lat, lng: bounds.getWest() - offset, priority: 3 },
+                        { lat: bounds.getNorth() + offset, lng: center.lng, priority: 4 }
+                    );
+                }
+                
+                // Add diagonal positions
+                candidates.push(
+                    { lat: bounds.getNorth() + offset * 0.7, lng: bounds.getEast() + offset * 0.7, priority: 6 },
+                    { lat: bounds.getNorth() + offset * 0.7, lng: bounds.getWest() - offset * 0.7, priority: 7 },
+                    { lat: bounds.getSouth() - offset * 0.7, lng: bounds.getEast() + offset * 0.7, priority: 8 },
+                    { lat: bounds.getSouth() - offset * 0.7, lng: bounds.getWest() - offset * 0.7, priority: 9 }
+                );
+                
+                // Add far positions for crowded areas
+                candidates.push(
+                    { lat: center.lat, lng: bounds.getEast() + largeOffset, priority: 10 },
+                    { lat: center.lat, lng: bounds.getWest() - largeOffset, priority: 11 },
+                    { lat: bounds.getNorth() + largeOffset, lng: center.lng, priority: 12 },
+                    { lat: bounds.getSouth() - largeOffset, lng: center.lng, priority: 13 }
+                );
+                
+                // Sort by priority
+                candidates.sort((a, b) => a.priority - b.priority);
+                
+                // Find first non-colliding position
+                for (const candidate of candidates) {
+                    if (!checkCollision(candidate.lat, candidate.lng, labelWidth)) {
+                        return candidate;
+                    }
+                }
+                
+                // If all positions collide, use the one with lowest priority (furthest)
+                return candidates[candidates.length - 1];
+            };
+            
+            // Process regions in order (smaller regions first to avoid blocking larger ones)
+            const regions = geojson.features.map(feature => {
                 const layer = L.geoJSON(feature);
                 const bounds = layer.getBounds();
+                const area = bounds.getNorth() - bounds.getSouth() + bounds.getEast() - bounds.getWest();
+                return { feature, layer, bounds, area };
+            }).sort((a, b) => a.area - b.area);
+            
+            regions.forEach(({ feature, layer, bounds }) => {
+                const regionName = feature.properties.reg_name || feature.properties.NAME || feature.properties.name || 'Unknown';
                 const center = bounds.getCenter();
                 
-                // Calculate label position (outside the region, to the right)
-                const labelLat = center.lat;
-                const labelLng = bounds.getEast() + 0.3; // Position to the right of the region
+                // Get optimal position
+                const position = getOptimalPosition(bounds, center, regionName);
+                
+                // Record this label position
+                placedLabels.push({
+                    lat: position.lat,
+                    lng: position.lng,
+                    name: regionName
+                });
+                
+                // Calculate icon size based on text length
+                const labelWidth = getLabelWidth(regionName);
+                const iconSize = [labelWidth, 30];
                 
                 // Create custom icon for label
                 const labelIcon = L.divIcon({
                     className: 'mobile-region-label',
                     html: `<div class="mobile-region-label-text">${regionName}</div>`,
-                    iconSize: [120, 30],
-                    iconAnchor: [0, 15]
+                    iconSize: iconSize,
+                    iconAnchor: [iconSize[0] / 2, iconSize[1] / 2]
                 });
                 
                 // Create marker for label
-                const labelMarker = L.marker([labelLat, labelLng], {
+                const labelMarker = L.marker([position.lat, position.lng], {
                     icon: labelIcon,
                     interactive: false,
                     zIndexOffset: 1000
@@ -4383,7 +4535,7 @@ function initInteractiveMap() {
                 // Create line connecting center to label
                 const connectingLine = L.polyline([
                     [center.lat, center.lng],
-                    [labelLat, labelLng]
+                    [position.lat, position.lng]
                 ], {
                     color: 'rgba(212, 175, 55, 0.4)',
                     weight: 1,
@@ -4536,7 +4688,7 @@ function initInteractiveMap() {
                         </div>
                         <div class="mobile-wine-card-grid-info">
                             <div class="mobile-wine-card-grid-producer">${producer}</div>
-                            ${vintage !== 'N/A' ? `<div class="mobile-wine-card-grid-vintage">${vintage}</div>` : ''}
+                        ${vintage !== 'N/A' ? `<div class="mobile-wine-card-grid-vintage">${vintage}</div>` : ''}
                         </div>
                     `;
                     wineCard.addEventListener('click', () => {
