@@ -3499,7 +3499,10 @@ function initInteractiveMap() {
         }
         function loadMobileMenuCategories() {
             const menuCategories = document.getElementById('mobileMenuCategories');
-            if (!menuCategories) return;
+            if (!menuCategories) {
+                console.warn('mobileMenuCategories element not found');
+                return;
+            }
             menuCategories.innerHTML = '';
             
             // Placeholder invece dei filtri
@@ -3508,7 +3511,7 @@ function initInteractiveMap() {
                 { name: 'Ala Carte Menu', action: null }
             ];
             
-            placeholders.forEach(placeholder => {
+            placeholders.forEach((placeholder, index) => {
                 const categoryItem = document.createElement('div');
                 categoryItem.className = 'mobile-menu-category';
                 categoryItem.innerHTML = `
@@ -3524,6 +3527,7 @@ function initInteractiveMap() {
                     categoryItem.style.opacity = '0.7';
                 }
                 menuCategories.appendChild(categoryItem);
+                console.log(`Added menu item ${index + 1}: ${placeholder.name}`);
             });
         }
         function loadMobileRegions(wineType) {
