@@ -8126,5 +8126,9 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 }
 
 :root[data-theme="day"] #mobileMap {
-    background: var(--bg-primary) !important;
+    background: #F5F5DC !important; /* Beige background */
+}
+
+:root[data-theme="day"] .mobile-map-wrapper .leaflet-container {
+    background: #F5F5DC !important; /* Beige background */
 }
