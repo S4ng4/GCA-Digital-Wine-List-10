@@ -11,6 +11,7 @@
     <!-- Google Fonts (HTTPS) -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
+        /* Night Mode (default) */
         :root {
             --gold: #D4AF37;
             --gold-light: #F4CF67;
@@ -19,6 +20,29 @@
             --charcoal: #1A1A1A;
             --ivory: #F5F5F0;
             --cream: #F8F8F0;
+            --bg-primary: #0A0A0A;
+            --bg-secondary: #1A1A1A;
+            --text-primary: #F5F5F0;
+            --text-secondary: rgba(245, 245, 240, 0.8);
+            --border-color: rgba(212, 175, 55, 0.3);
+            --shadow-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Day Mode - Ottimizzato per E-Paper */
+        :root[data-theme="day"] {
+            --bg-primary: #FDFBF7;
+            --bg-secondary: #F8F6F0;
+            --text-primary: #000000;
+            --text-secondary: #1A1A1A;
+            --gold: #8B6914;
+            --gold-light: #A67C00;
+            --dark-gold: #5C4409;
+            --border-color: #000000;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --black: #FDFBF7;
+            --charcoal: #F8F6F0;
+            --ivory: #FFFFFF;
+            --cream: #FDFBF7;
         }
 
         * {
@@ -31,15 +55,35 @@
             height: 100%;
             overflow: visible;
             font-family: 'Cormorant', serif;
+            background: var(--bg-primary, var(--black));
+            color: var(--text-primary, var(--ivory));
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        :root[data-theme="night"] body {
             background: var(--black);
             color: var(--ivory);
+        }
+
+        :root[data-theme="day"] body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
         }
 
         .luxury-container {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            background: var(--bg-primary, linear-gradient(135deg, var(--charcoal) 0%, var(--black) 100%));
+            transition: background 0.3s ease;
+        }
+
+        :root[data-theme="night"] .luxury-container {
             background: linear-gradient(135deg, var(--charcoal) 0%, var(--black) 100%);
+        }
+
+        :root[data-theme="day"] .luxury-container {
+            background: var(--bg-primary);
         }
 
         /* Top Bar */
@@ -48,9 +92,20 @@
             align-items: center;
             justify-content: space-between;
             padding: 12px 20px;
+            background: var(--bg-secondary, rgba(26, 26, 26, 0.95));
+            border-bottom: 1px solid var(--border-color, rgba(212, 175, 55, 0.1));
+            flex-shrink: 0;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        :root[data-theme="night"] .wine-details-top-bar {
             background: rgba(26, 26, 26, 0.95);
             border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-            flex-shrink: 0;
+        }
+
+        :root[data-theme="day"] .wine-details-top-bar {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .wine-details-back-btn {
@@ -139,10 +194,23 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background: var(--bg-secondary, rgba(245, 245, 240, 0.05));
+            border: 2px solid var(--border-color, rgba(212, 175, 55, 0.3));
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow-color, rgba(0, 0, 0, 0.3));
+            transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        :root[data-theme="night"] .wine-image {
             background: rgba(245, 245, 240, 0.05);
             border: 2px solid rgba(212, 175, 55, 0.3);
-            border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        :root[data-theme="day"] .wine-image {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            box-shadow: 0 4px 12px var(--shadow-color);
         }
 
         .wine-bottle {
@@ -180,10 +248,19 @@
         }
 
         .info-item {
-            background: rgba(245, 245, 240, 0.05);
+            background: var(--bg-secondary, rgba(245, 245, 240, 0.05));
             padding: 10px 12px;
             border-left: 3px solid var(--gold);
             border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        :root[data-theme="night"] .info-item {
+            background: rgba(245, 245, 240, 0.05);
+        }
+
+        :root[data-theme="day"] .info-item {
+            background: var(--bg-secondary);
         }
 
         .info-head {
@@ -209,9 +286,18 @@
         }
 
         .info-value {
-            color: var(--ivory);
+            color: var(--text-primary, var(--ivory));
             font-size: 1rem;
             font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        :root[data-theme="night"] .info-value {
+            color: var(--ivory);
+        }
+
+        :root[data-theme="day"] .info-value {
+            color: var(--text-primary);
         }
 
         /* Wine Info Section */
@@ -235,12 +321,23 @@
         .wine-description {
             font-size: 1rem;
             line-height: 1.7;
-            color: var(--ivory);
-            background: rgba(245, 245, 240, 0.05);
+            color: var(--text-primary, var(--ivory));
+            background: var(--bg-secondary, rgba(245, 245, 240, 0.05));
             padding: 1rem;
             border-left: 3px solid var(--gold);
             border-radius: 4px;
             margin-bottom: 0.5rem;
+            transition: color 0.3s ease, background 0.3s ease;
+        }
+
+        :root[data-theme="night"] .wine-description {
+            color: var(--ivory);
+            background: rgba(245, 245, 240, 0.05);
+        }
+
+        :root[data-theme="day"] .wine-description {
+            color: var(--text-primary);
+            background: var(--bg-secondary);
         }
 
         .wine-meta {
@@ -249,9 +346,18 @@
             gap: 0.75rem;
             font-size: 1rem;
             padding: 1rem;
-            background: rgba(245, 245, 240, 0.03);
+            background: var(--bg-secondary, rgba(245, 245, 240, 0.03));
             border-radius: 6px;
             margin-bottom: 0.5rem;
+            transition: background 0.3s ease;
+        }
+
+        :root[data-theme="night"] .wine-meta {
+            background: rgba(245, 245, 240, 0.03);
+        }
+
+        :root[data-theme="day"] .wine-meta {
+            background: var(--bg-secondary);
         }
 
         .meta-item {
@@ -268,9 +374,18 @@
         }
 
         .meta-value {
-            color: var(--ivory);
+            color: var(--text-primary, var(--ivory));
             font-size: 1rem;
             font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        :root[data-theme="night"] .meta-value {
+            color: var(--ivory);
+        }
+
+        :root[data-theme="day"] .meta-value {
+            color: var(--text-primary);
         }
 
         /* Tasting Notes */
@@ -285,14 +400,26 @@
         }
 
         .tasting-note {
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            background: var(--bg-secondary, rgba(212, 175, 55, 0.1));
+            border: 1px solid var(--border-color, rgba(212, 175, 55, 0.2));
             padding: 0.75rem;
             border-radius: 6px;
             text-align: center;
             font-size: 0.9rem;
-            color: var(--ivory);
+            color: var(--text-primary, var(--ivory));
             transition: all 0.3s;
+        }
+
+        :root[data-theme="night"] .tasting-note {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            color: var(--ivory);
+        }
+
+        :root[data-theme="day"] .tasting-note {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
         }
 
         .tasting-note:hover {
@@ -329,9 +456,18 @@
         }
 
         .tasting-value {
-            color: var(--ivory);
+            color: var(--text-primary, var(--ivory));
             font-size: 0.9rem;
             line-height: 1.4;
+            transition: color 0.3s ease;
+        }
+
+        :root[data-theme="night"] .tasting-value {
+            color: var(--ivory);
+        }
+
+        :root[data-theme="day"] .tasting-value {
+            color: var(--text-primary);
         }
 
         .elegant-message {
@@ -360,17 +496,30 @@
         }
 
         .pairing-item {
-            background: rgba(245, 245, 240, 0.05);
-            border: 1px solid rgba(212, 175, 55, 0.15);
+            background: var(--bg-secondary, rgba(245, 245, 240, 0.05));
+            border: 1px solid var(--border-color, rgba(212, 175, 55, 0.15));
             padding: 0.75rem;
             border-radius: 6px;
             text-align: center;
             font-size: 0.9rem;
-            color: var(--ivory);
+            color: var(--text-primary, var(--ivory));
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        :root[data-theme="night"] .pairing-item {
+            background: rgba(245, 245, 240, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            color: var(--ivory);
+        }
+
+        :root[data-theme="day"] .pairing-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
         }
 
         .pairing-icon {
@@ -450,14 +599,25 @@
         }
 
         .share-modal-content {
-            background: var(--charcoal);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            background: var(--bg-secondary, var(--charcoal));
+            border: 1px solid var(--border-color, rgba(212, 175, 55, 0.2));
             border-radius: 8px;
             padding: 25px;
             width: 90%;
             max-width: 400px;
             max-height: 80vh;
             overflow-y: auto;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        :root[data-theme="night"] .share-modal-content {
+            background: var(--charcoal);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        :root[data-theme="day"] .share-modal-content {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
         }
 
         .share-modal-header {
@@ -559,11 +719,22 @@
 
         /* Footer */
         .luxury-footer {
-            background: rgba(10, 10, 10, 0.8);
-            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            background: var(--bg-primary, rgba(10, 10, 10, 0.8));
+            border-top: 1px solid var(--border-color, rgba(212, 175, 55, 0.1));
             padding: 15px 20px;
             flex-shrink: 0;
             font-size: 10px;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        :root[data-theme="night"] .luxury-footer {
+            background: rgba(10, 10, 10, 0.8);
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        :root[data-theme="day"] .luxury-footer {
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border-color);
         }
 
         .footer-content {

@@ -3511,6 +3511,12 @@ function initInteractiveMap() {
             }
             menuCategories.innerHTML = '';
             
+            // Rimuovi eventuale switch esistente per evitare duplicati
+            const existingSwitch = document.getElementById('mobileMenuSwitchContainer');
+            if (existingSwitch) {
+                existingSwitch.remove();
+            }
+            
             // Placeholder invece dei filtri
             const placeholders = [
                 { 
@@ -3547,8 +3553,21 @@ function initInteractiveMap() {
                 console.log(`Added menu item ${index + 1}: ${placeholder.name}`);
             });
             
-            // Aggiungi switch day/night mode
-            addDayNightModeSwitch(menuCategories);
+            // Crea un container separato per lo switch day/night in fondo
+            const switchContainer = document.createElement('div');
+            switchContainer.id = 'mobileMenuSwitchContainer';
+            
+            // Aggiungi switch day/night mode in fondo
+            addDayNightModeSwitch(switchContainer);
+            
+            // Aggiungi il container al menu principale (dopo le categorie)
+            const mobileSideMenu = document.getElementById('mobileSideMenu');
+            if (mobileSideMenu) {
+                mobileSideMenu.appendChild(switchContainer);
+            } else {
+                // Fallback: aggiungi al container delle categorie se il menu principale non esiste
+                menuCategories.appendChild(switchContainer);
+            }
         }
         
         function addDayNightModeSwitch(container) {
@@ -3559,8 +3578,8 @@ function initInteractiveMap() {
             
             // Crea il container dello switch
             const switchContainer = document.createElement('div');
-            switchContainer.className = 'mobile-menu-category';
-            switchContainer.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: 1.375rem 1.5rem;';
+            switchContainer.className = 'mobile-menu-category mobile-menu-switch-container';
+            switchContainer.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: 1.375rem 1.5rem; margin-top: auto;';
             
             const label = document.createElement('span');
             label.className = 'mobile-menu-category-name';
