@@ -3249,6 +3249,10 @@ body:not(.home-page) .luxury-container {
     .mobile-wine-type-selector {
         display: none !important;
     }
+    
+    .mobile-wine-type-popup {
+        display: none !important;
+    }
 
     /* Hide mobile breadcrumb */
     .breadcrumb,
@@ -3310,6 +3314,10 @@ body:not(.home-page) .luxury-container {
     
     /* Hide mobile-specific UI */
     .mobile-wine-type-selector {
+        display: none !important;
+    }
+    
+    .mobile-wine-type-popup {
         display: none !important;
     }
 
@@ -3412,6 +3420,10 @@ body:not(.home-page) .luxury-container {
     
     /* Hide mobile-specific UI */
     .mobile-wine-type-selector {
+        display: none !important;
+    }
+    
+    .mobile-wine-type-popup {
         display: none !important;
     }
 
@@ -6305,6 +6317,132 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         font-weight: 400;
     }
 
+    /* Mobile Wine Type Popup */
+    .mobile-wine-type-popup {
+        position: fixed;
+        top: calc(var(--mobile-nav-height) + var(--mobile-wine-type-height) + constant(safe-area-inset-top)); /* iOS 11.0-11.2 */
+        top: calc(var(--mobile-nav-height) + var(--mobile-wine-type-height) + env(safe-area-inset-top)); /* iOS 11.2+ */
+        left: 0;
+        right: 0;
+        z-index: 175;
+        background: linear-gradient(180deg, rgba(10, 10, 10, 0.98) 0%, rgba(26, 26, 26, 0.95) 100%);
+        backdrop-filter: blur(30px);
+        -webkit-backdrop-filter: blur(30px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        border-bottom: 0.5px solid rgba(212, 175, 55, 0.2);
+        max-height: 50vh;
+        display: flex;
+        flex-direction: column;
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
+    }
+
+    .mobile-wine-type-popup.show {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .mobile-search-bar-container.visible ~ .mobile-wine-type-popup {
+        top: calc(var(--mobile-nav-height) + var(--mobile-search-height) + var(--mobile-wine-type-height) + constant(safe-area-inset-top)); /* iOS 11.0-11.2 */
+        top: calc(var(--mobile-nav-height) + var(--mobile-search-height) + var(--mobile-wine-type-height) + env(safe-area-inset-top)); /* iOS 11.2+ */
+    }
+
+    .mobile-wine-type-popup-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1.25rem;
+        padding-left: calc(1.25rem + constant(safe-area-inset-left)); /* iOS 11.0-11.2 */
+        padding-left: calc(1.25rem + env(safe-area-inset-left)); /* iOS 11.2+ */
+        padding-right: calc(1.25rem + constant(safe-area-inset-right)); /* iOS 11.0-11.2 */
+        padding-right: calc(1.25rem + env(safe-area-inset-right)); /* iOS 11.2+ */
+        border-bottom: 0.5px solid rgba(212, 175, 55, 0.1);
+    }
+
+    .mobile-wine-type-popup-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--gold);
+        font-family: 'Cinzel', serif;
+        margin: 0;
+    }
+
+    .mobile-wine-type-popup-close {
+        background: transparent;
+        border: 0.5px solid rgba(212, 175, 55, 0.3);
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: var(--gold);
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        padding: 0;
+    }
+
+    .mobile-wine-type-popup-close:active {
+        transform: scale(0.9);
+        background: rgba(212, 175, 55, 0.1);
+    }
+
+    .mobile-wine-type-popup-close i {
+        font-size: 0.875rem;
+    }
+
+    .mobile-wine-type-popup-content {
+        flex: 1;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 0.75rem 1.25rem;
+        padding-left: calc(1.25rem + constant(safe-area-inset-left)); /* iOS 11.0-11.2 */
+        padding-left: calc(1.25rem + env(safe-area-inset-left)); /* iOS 11.2+ */
+        padding-right: calc(1.25rem + constant(safe-area-inset-right)); /* iOS 11.0-11.2 */
+        padding-right: calc(1.25rem + env(safe-area-inset-right)); /* iOS 11.2+ */
+    }
+
+    .mobile-wine-type-popup-regions {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .mobile-wine-type-popup-region {
+        padding: 1rem;
+        background: rgba(212, 175, 55, 0.08);
+        border: 0.5px solid rgba(212, 175, 55, 0.2);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        text-align: center;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    .mobile-wine-type-popup-region:active {
+        transform: scale(0.96);
+        background: rgba(212, 175, 55, 0.15);
+        border-color: rgba(212, 175, 55, 0.4);
+    }
+
+    .mobile-wine-type-popup-region-name {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--gold);
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .mobile-wine-type-popup-region-count {
+        font-size: 0.7rem;
+        color: var(--gold-dark);
+        margin-top: 0.25rem;
+    }
+
     /* Mobile Map View - Apple-like design with smooth transitions */
     .mobile-map-view {
         flex: 1;
@@ -6994,6 +7132,10 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         display: none !important;
     }
     
+    .mobile-wine-type-popup {
+        display: none !important;
+    }
+    
     .main-content-desktop {
         display: flex !important;
     }
@@ -7090,6 +7232,10 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     .mobile-map-wines-container,
     .mobile-views-container,
     .mobile-wine-type-selector {
+        display: none !important;
+    }
+    
+    .mobile-wine-type-popup {
         display: none !important;
     }
 }
