@@ -4403,111 +4403,121 @@ function initInteractiveMap() {
                 return false;
             };
             
-            // Get optimal label position avoiding collisions
+            // Get optimal label position inside the region, avoiding collisions
             const getOptimalPosition = (bounds, center, regionName) => {
                 const labelWidth = getLabelWidth(regionName);
-                const offset = 0.25; // Base offset in degrees
-                const largeOffset = 0.5; // Larger offset for crowded areas
                 const isNorth = center.lat > 43; // Regions in northern Italy
                 const isSmall = (bounds.getNorth() - bounds.getSouth()) < 0.5; // Small regions
                 
-                // Predefined positions for specific regions to avoid known conflicts
-                // Include name variations to match GeoJSON properties
+                // Calculate region dimensions
+                const latRange = bounds.getNorth() - bounds.getSouth();
+                const lngRange = bounds.getEast() - bounds.getWest();
+                
+                // Use small offset to position labels inside the region (not on the border)
+                const innerOffset = Math.min(latRange * 0.15, lngRange * 0.15, 0.1); // 15% of region size or max 0.1 degrees
+                
+                // Predefined positions for specific regions (all inside the region)
                 const regionSpecificPositions = {
-                    'Valle d\'Aosta': { lat: bounds.getNorth() + offset * 0.5, lng: center.lng, priority: 0 },
-                    'Valle d\'Aosta/Vallée d\'Aoste': { lat: bounds.getNorth() + offset * 0.5, lng: center.lng, priority: 0 },
-                    'Piemonte': { lat: bounds.getNorth() + offset * 0.6, lng: bounds.getWest() - offset * 0.5, priority: 0 },
-                    'Lombardia': { lat: bounds.getNorth() + offset * 0.8, lng: bounds.getEast() + offset * 0.5, priority: 0 },
-                    'Trentino-Alto Adige': { lat: bounds.getNorth() + offset * 0.5, lng: center.lng, priority: 0 },
-                    'Trentino-Alto Adige/Südtirol': { lat: bounds.getNorth() + offset * 0.5, lng: center.lng, priority: 0 },
-                    'Veneto': { lat: bounds.getEast() + offset * 0.6, lng: center.lat, priority: 0 },
-                    'Friuli-Venezia Giulia': { lat: bounds.getEast() + offset * 0.7, lng: center.lat, priority: 0 },
-                    'Liguria': { lat: center.lat, lng: bounds.getWest() - offset * 0.6, priority: 0 },
-                    'Emilia-Romagna': { lat: bounds.getNorth() + offset * 0.7, lng: center.lng, priority: 0 },
-                    'Toscana': { lat: bounds.getWest() - offset * 0.5, lng: center.lat, priority: 0 },
-                    'Umbria': { lat: bounds.getSouth() - offset * 0.5, lng: center.lng, priority: 0 },
-                    'Marche': { lat: bounds.getEast() + offset * 0.6, lng: center.lat, priority: 0 },
-                    'Le Marche': { lat: bounds.getEast() + offset * 0.6, lng: center.lat, priority: 0 },
-                    'Lazio': { lat: bounds.getSouth() - offset * 0.6, lng: bounds.getWest() - offset * 0.3, priority: 0 },
-                    'Abruzzo': { lat: bounds.getEast() + offset * 0.6, lng: center.lat, priority: 0 },
-                    'Molise': { lat: bounds.getEast() + offset * 0.5, lng: center.lat, priority: 0 },
-                    'Campania': { lat: bounds.getSouth() - offset * 0.6, lng: center.lng, priority: 0 },
-                    'Puglia': { lat: center.lat, lng: bounds.getEast() + offset * 0.7, priority: 0 },
-                    'Basilicata': { lat: bounds.getSouth() - offset * 0.5, lng: center.lng, priority: 0 },
-                    'Calabria': { lat: bounds.getSouth() - offset * 0.6, lng: center.lng, priority: 0 },
-                    'Sicilia': { lat: bounds.getSouth() - offset * 0.8, lng: center.lng, priority: 0 },
-                    'Sardegna': { lat: bounds.getNorth() + offset * 0.6, lng: center.lng, priority: 0 },
+                    'Valle d\'Aosta': { lat: center.lat + innerOffset * 0.3, lng: center.lng, priority: 0 },
+                    'Valle d\'Aosta/Vallée d\'Aoste': { lat: center.lat + innerOffset * 0.3, lng: center.lng, priority: 0 },
+                    'Piemonte': { lat: center.lat - innerOffset * 0.4, lng: center.lng - innerOffset * 0.3, priority: 0 },
+                    'Lombardia': { lat: center.lat - innerOffset * 0.5, lng: center.lng + innerOffset * 0.2, priority: 0 },
+                    'Trentino-Alto Adige': { lat: center.lat - innerOffset * 0.3, lng: center.lng, priority: 0 },
+                    'Trentino-Alto Adige/Südtirol': { lat: center.lat - innerOffset * 0.3, lng: center.lng, priority: 0 },
+                    'Veneto': { lat: center.lat, lng: center.lng + innerOffset * 0.3, priority: 0 },
+                    'Friuli-Venezia Giulia': { lat: center.lat, lng: center.lng + innerOffset * 0.4, priority: 0 },
+                    'Liguria': { lat: center.lat, lng: center.lng - innerOffset * 0.4, priority: 0 },
+                    'Emilia-Romagna': { lat: center.lat - innerOffset * 0.4, lng: center.lng, priority: 0 },
+                    'Toscana': { lat: center.lat, lng: center.lng - innerOffset * 0.3, priority: 0 },
+                    'Umbria': { lat: center.lat + innerOffset * 0.3, lng: center.lng, priority: 0 },
+                    'Marche': { lat: center.lat, lng: center.lng + innerOffset * 0.3, priority: 0 },
+                    'Le Marche': { lat: center.lat, lng: center.lng + innerOffset * 0.3, priority: 0 },
+                    'Lazio': { lat: center.lat + innerOffset * 0.4, lng: center.lng - innerOffset * 0.2, priority: 0 },
+                    'Abruzzo': { lat: center.lat, lng: center.lng + innerOffset * 0.3, priority: 0 },
+                    'Molise': { lat: center.lat, lng: center.lng + innerOffset * 0.25, priority: 0 },
+                    'Campania': { lat: center.lat + innerOffset * 0.4, lng: center.lng, priority: 0 },
+                    'Puglia': { lat: center.lat, lng: center.lng + innerOffset * 0.5, priority: 0 },
+                    'Basilicata': { lat: center.lat + innerOffset * 0.3, lng: center.lng, priority: 0 },
+                    'Calabria': { lat: center.lat + innerOffset * 0.4, lng: center.lng, priority: 0 },
+                    'Sicilia': { lat: center.lat + innerOffset * 0.5, lng: center.lng, priority: 0 },
+                    'Sardegna': { lat: center.lat - innerOffset * 0.4, lng: center.lng, priority: 0 },
                 };
                 
                 // Check if there's a predefined position for this region
-                // Try multiple name variations to match region names
                 const normalizedName = regionName.trim();
                 const nameVariations = [
                     normalizedName,
-                    normalizedName.replace(/\/.*$/, ''), // Remove "/Südtirol" from "Trentino-Alto Adige/Südtirol"
-                    normalizedName.replace(/\/.*$/, '').replace(/\/.*$/, ''), // Remove "/Vallée d'Aoste" from "Valle d'Aosta/Vallée d'Aoste"
-                    normalizedName.replace(/^Le /, ''), // Remove "Le " from "Le Marche"
+                    normalizedName.replace(/\/.*$/, ''),
+                    normalizedName.replace(/\/.*$/, '').replace(/\/.*$/, ''),
+                    normalizedName.replace(/^Le /, ''),
                 ];
                 
                 for (const nameVar of nameVariations) {
                     if (regionSpecificPositions[nameVar]) {
                         const predefined = regionSpecificPositions[nameVar];
-                        if (!checkCollision(predefined.lat, predefined.lng, labelWidth)) {
+                        // Verify position is inside bounds
+                        if (predefined.lat >= bounds.getSouth() && predefined.lat <= bounds.getNorth() &&
+                            predefined.lng >= bounds.getWest() && predefined.lng <= bounds.getEast() &&
+                            !checkCollision(predefined.lat, predefined.lng, labelWidth)) {
                             return predefined;
                         }
                     }
                 }
                 
-                // Generate candidate positions based on region location
+                // Generate candidate positions inside the region
                 const candidates = [];
                 
-                // For northern regions, prefer top positions
+                // Center position (always inside)
+                candidates.push({ lat: center.lat, lng: center.lng, priority: 1 });
+                
+                // Positions slightly offset from center (inside the region)
+                candidates.push(
+                    { lat: center.lat - innerOffset * 0.3, lng: center.lng, priority: 2 },
+                    { lat: center.lat + innerOffset * 0.3, lng: center.lng, priority: 3 },
+                    { lat: center.lat, lng: center.lng - innerOffset * 0.3, priority: 4 },
+                    { lat: center.lat, lng: center.lng + innerOffset * 0.3, priority: 5 },
+                    { lat: center.lat - innerOffset * 0.2, lng: center.lng - innerOffset * 0.2, priority: 6 },
+                    { lat: center.lat - innerOffset * 0.2, lng: center.lng + innerOffset * 0.2, priority: 7 },
+                    { lat: center.lat + innerOffset * 0.2, lng: center.lng - innerOffset * 0.2, priority: 8 },
+                    { lat: center.lat + innerOffset * 0.2, lng: center.lng + innerOffset * 0.2, priority: 9 }
+                );
+                
+                // For northern regions, prefer upper positions
                 if (isNorth) {
+                    const upperLat = bounds.getSouth() + latRange * 0.3;
                     candidates.push(
-                        { lat: bounds.getNorth() + offset, lng: center.lng, priority: 1 },
-                        { lat: bounds.getNorth() + offset * 0.7, lng: bounds.getEast() + offset * 0.7, priority: 2 },
-                        { lat: bounds.getNorth() + offset * 0.7, lng: bounds.getWest() - offset * 0.7, priority: 3 },
-                        { lat: center.lat, lng: bounds.getEast() + offset, priority: 4 },
-                        { lat: center.lat, lng: bounds.getWest() - offset, priority: 5 }
+                        { lat: upperLat, lng: center.lng, priority: 10 },
+                        { lat: upperLat, lng: center.lng - innerOffset * 0.2, priority: 11 },
+                        { lat: upperLat, lng: center.lng + innerOffset * 0.2, priority: 12 }
                     );
                 } else {
-                    // For southern regions, prefer bottom or side positions
+                    // For southern regions, prefer lower positions
+                    const lowerLat = bounds.getNorth() - latRange * 0.3;
                     candidates.push(
-                        { lat: center.lat, lng: bounds.getEast() + offset, priority: 1 },
-                        { lat: bounds.getSouth() - offset, lng: center.lng, priority: 2 },
-                        { lat: center.lat, lng: bounds.getWest() - offset, priority: 3 },
-                        { lat: bounds.getNorth() + offset, lng: center.lng, priority: 4 }
+                        { lat: lowerLat, lng: center.lng, priority: 10 },
+                        { lat: lowerLat, lng: center.lng - innerOffset * 0.2, priority: 11 },
+                        { lat: lowerLat, lng: center.lng + innerOffset * 0.2, priority: 12 }
                     );
                 }
                 
-                // Add diagonal positions
-                candidates.push(
-                    { lat: bounds.getNorth() + offset * 0.7, lng: bounds.getEast() + offset * 0.7, priority: 6 },
-                    { lat: bounds.getNorth() + offset * 0.7, lng: bounds.getWest() - offset * 0.7, priority: 7 },
-                    { lat: bounds.getSouth() - offset * 0.7, lng: bounds.getEast() + offset * 0.7, priority: 8 },
-                    { lat: bounds.getSouth() - offset * 0.7, lng: bounds.getWest() - offset * 0.7, priority: 9 }
-                );
-                
-                // Add far positions for crowded areas
-                candidates.push(
-                    { lat: center.lat, lng: bounds.getEast() + largeOffset, priority: 10 },
-                    { lat: center.lat, lng: bounds.getWest() - largeOffset, priority: 11 },
-                    { lat: bounds.getNorth() + largeOffset, lng: center.lng, priority: 12 },
-                    { lat: bounds.getSouth() - largeOffset, lng: center.lng, priority: 13 }
+                // Filter candidates to ensure they're inside bounds
+                const validCandidates = candidates.filter(c => 
+                    c.lat >= bounds.getSouth() && c.lat <= bounds.getNorth() &&
+                    c.lng >= bounds.getWest() && c.lng <= bounds.getEast()
                 );
                 
                 // Sort by priority
-                candidates.sort((a, b) => a.priority - b.priority);
+                validCandidates.sort((a, b) => a.priority - b.priority);
                 
                 // Find first non-colliding position
-                for (const candidate of candidates) {
+                for (const candidate of validCandidates) {
                     if (!checkCollision(candidate.lat, candidate.lng, labelWidth)) {
                         return candidate;
                     }
                 }
                 
-                // If all positions collide, use the one with lowest priority (furthest)
-                return candidates[candidates.length - 1];
+                // If all positions collide, use center (guaranteed to be inside)
+                return { lat: center.lat, lng: center.lng, priority: 999 };
             };
             
             // Process regions in order (smaller regions first to avoid blocking larger ones)
@@ -4551,21 +4561,8 @@ function initInteractiveMap() {
                     zIndexOffset: 1000
                 });
                 
-                // Create line connecting center to label
-                const connectingLine = L.polyline([
-                    [center.lat, center.lng],
-                    [position.lat, position.lng]
-                ], {
-                    color: 'rgba(212, 175, 55, 0.4)',
-                    weight: 1,
-                    opacity: 0.6,
-                    dashArray: '3, 3',
-                    interactive: false
-                });
-                
-                // Add to labels layer
+                // Add to labels layer (no connecting lines - labels are inside regions)
                 window.mobileRegionLabelsLayer.addLayer(labelMarker);
-                window.mobileRegionLabelsLayer.addLayer(connectingLine);
             });
         }
         
