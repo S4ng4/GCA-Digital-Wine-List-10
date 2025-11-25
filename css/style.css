@@ -6624,6 +6624,8 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         background: transparent !important;
         border: none !important;
         box-shadow: none !important;
+        z-index: 500 !important; /* Above map layers but below overlays */
+        pointer-events: none !important; /* Don't interfere with map interactions */
     }
 
     .mobile-region-label-text {
