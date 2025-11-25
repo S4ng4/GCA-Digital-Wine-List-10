@@ -4226,7 +4226,7 @@ function initInteractiveMap() {
                                         color: '#4A4A4A', // Dark grey borders
                                         weight: 1.5,
                                         fillOpacity: 0.15,
-                                        fillColor: '#F5F5DC', // Beige background
+                                        fillColor: 'transparent', // Transparent background
                                         lineCap: 'round',
                                         lineJoin: 'round'
                                     };
@@ -4579,7 +4579,7 @@ function initInteractiveMap() {
                     if (hasWines || !wineType) {
                         layer.setStyle({
                             color: isSelected ? '#2A2A2A' : '#4A4A4A', // Dark grey borders
-                            fillColor: isSelected ? '#E8E8D8' : '#F5F5DC', // Beige background
+                            fillColor: isSelected ? 'rgba(255, 255, 255, 0.1)' : 'transparent', // Transparent background
                             weight: isSelected ? 3 : 1.5,
                             fillOpacity: isSelected ? 0.3 : 0.15,
                             opacity: isSelected ? 1 : 0.8,
