@@ -1223,23 +1223,13 @@ class WineListApp {
                 await this.loadFoodPairingsData();
             }
             
-            // Generate food pairings: generic first, then GCA personalized
+            // Generate food pairings: only GCA personalized from FoodParingWineDetails.json
             const allPairings = this.getFoodPairings(wine);
-            const genericPairings = allPairings.filter(p => !p.isPersonalized);
-            const gcaPairings = allPairings.filter(p => p.isPersonalized);
             
-            // Build HTML: generic pairings first
-            let html = genericPairings.map(pairing => `
-                <div class="pairing-item" 
-                     ${pairing.reason ? `title="${pairing.reason}"` : ''}>
-                    <i class="${pairing.icon} pairing-icon"></i>
-                    <h3 class="pairing-name">${pairing.name}</h3>
-                </div>
-            `).join('');
-            
-            // Then add GCA pairings with label
-            if (gcaPairings.length > 0) {
-                html += gcaPairings.map(pairing => `
+            // Build HTML: only GCA pairings with label
+            let html = '';
+            if (allPairings.length > 0) {
+                html = allPairings.map(pairing => `
                     <div class="pairing-item personalized-pairing" 
                          ${pairing.reason ? `title="${pairing.reason}"` : ''}>
                         <span class="gca-food-pairing-badge">GCA Food Pairing</span>
@@ -1248,6 +1238,8 @@ class WineListApp {
                         ${pairing.gcaScore ? `<span class="pairing-score">GCA Score ${pairing.gcaScore}</span>` : ''}
                     </div>
                 `).join('');
+            } else {
+                html = '<div class="pairing-item"><p>No GCA food pairings available for this wine.</p></div>';
             }
             
             pairingList.innerHTML = html;
@@ -1321,54 +1313,9 @@ class WineListApp {
             });
         }
         
-        // Get generic pairings as fallback/supplement
-        const genericPairings = {
-            'ROSSO': [
-                { name: 'Roasted Meats', icon: 'fas fa-drumstick-bite' },
-                { name: 'Aged Cheeses', icon: 'fas fa-cheese' },
-                { name: 'Pasta with Red Sauce', icon: 'fas fa-utensils' },
-                { name: 'Dark Chocolate', icon: 'fas fa-cookie-bite' }
-            ],
-            'BIANCO': [
-                { name: 'Seafood', icon: 'fas fa-fish' },
-                { name: 'Light Pasta', icon: 'fas fa-utensils' },
-                { name: 'Fresh Salads', icon: 'fas fa-leaf' },
-                { name: 'Soft Cheeses', icon: 'fas fa-cheese' }
-            ],
-            'ROSATO': [
-                { name: 'Grilled Fish', icon: 'fas fa-fish' },
-                { name: 'Light Appetizers', icon: 'fas fa-cookie-bite' },
-                { name: 'Summer Salads', icon: 'fas fa-leaf' },
-                { name: 'Fresh Fruits', icon: 'fas fa-apple-alt' }
-            ],
-            'ARANCIONE': [
-                { name: 'Aged Cheeses', icon: 'fas fa-cheese' },
-                { name: 'Spiced Dishes', icon: 'fas fa-pepper-hot' },
-                { name: 'Roasted Vegetables', icon: 'fas fa-carrot' },
-                { name: 'Cured Meats', icon: 'fas fa-bacon' }
-            ],
-            'BOLLICINE': [
-                { name: 'Appetizers', icon: 'fas fa-cookie-bite' },
-                { name: 'Celebration Foods', icon: 'fas fa-birthday-cake' },
-                { name: 'Light Desserts', icon: 'fas fa-ice-cream' },
-                { name: 'Fresh Oysters', icon: 'fas fa-fish' }
-            ],
-            'NON ALCOLICO': [
-                { name: 'Fruit Platters', icon: 'fas fa-apple-alt' },
-                { name: 'Light Appetizers', icon: 'fas fa-cookie-bite' },
-                { name: 'Salads', icon: 'fas fa-leaf' },
-                { name: 'Desserts', icon: 'fas fa-ice-cream' }
-            ]
-        };
-        
-        // Get generic pairings first
-        const genericList = genericPairings[wine.wine_type] || genericPairings['ROSSO'];
-        
-        // Then add personalized GCA pairings below (up to 4)
-        const gcaPairings = personalizedPairings.slice(0, 4);
-        
-        // Combine: generic first, then GCA pairings
-        return [...genericList, ...gcaPairings];
+        // Use only GCA food pairings from FoodParingWineDetails.json
+        // Return only personalized pairings (up to 6 to show more options)
+        return personalizedPairings.slice(0, 6);
     }
 
     updateProducerInfo(wine) {
