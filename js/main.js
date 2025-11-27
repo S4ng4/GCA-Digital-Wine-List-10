@@ -3663,6 +3663,13 @@ function initInteractiveMap() {
                         window.location.href = './Ala Carte 11-23-25.html';
                     },
                     href: './Ala Carte 11-23-25.html'
+                },
+                { 
+                    name: 'Wine By The Glass', 
+                    action: () => {
+                        window.location.href = './WineByTheGlass.html';
+                    },
+                    href: './WineByTheGlass.html'
                 }
             ];
             
@@ -4417,11 +4424,37 @@ function initInteractiveMap() {
                 const lngRange = bounds.getEast() - bounds.getWest();
                 const innerOffset = Math.min(latRange * 0.1, lngRange * 0.1, 0.05); // Small offset from center
                 
+                // Identify special regions
+                const normalizedName = regionName.trim().toLowerCase();
+                const isLeftSideRegion = normalizedName.includes('friuli') || 
+                                        normalizedName.includes('veneto') || 
+                                        normalizedName.includes('emilia');
+                const isTrentino = normalizedName.includes('trentino');
+                
                 // Generate candidate positions - PRIORITY: center first, then nearby, then outside
                 const candidates = [];
                 
-                // PRIORITY 1: Center of region (best position)
-                candidates.push({ lat: center.lat, lng: center.lng, priority: 1 });
+                // Special handling for left-side regions (Friuli, Veneto, Emilia-Romagna)
+                if (isLeftSideRegion) {
+                    // PRIORITY 1: Left edge of map (bordo sinistro della mappa)
+                    candidates.push({ lat: center.lat, lng: bounds.getWest() - offset * 0.8, priority: 1 });
+                    candidates.push({ lat: center.lat, lng: bounds.getWest() - offset * 1.2, priority: 2 });
+                    // Fallback to center if left edge collides
+                    candidates.push({ lat: center.lat, lng: center.lng, priority: 3 });
+                }
+                // Special handling for Trentino
+                else if (isTrentino) {
+                    // PRIORITY 1: Above the region (sopra la mappa)
+                    candidates.push({ lat: bounds.getNorth() + offset * 0.6, lng: center.lng, priority: 1 });
+                    candidates.push({ lat: bounds.getNorth() + offset * 0.8, lng: center.lng, priority: 2 });
+                    // Fallback to center if above collides
+                    candidates.push({ lat: center.lat, lng: center.lng, priority: 3 });
+                }
+                // Default: center first
+                else {
+                    // PRIORITY 1: Center of region (best position)
+                    candidates.push({ lat: center.lat, lng: center.lng, priority: 1 });
+                }
                 
                 // PRIORITY 2: Small offsets from center (still inside region)
                 candidates.push(
