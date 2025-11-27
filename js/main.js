@@ -1223,13 +1223,23 @@ class WineListApp {
                 await this.loadFoodPairingsData();
             }
             
-            // Generate food pairings: only GCA personalized from FoodParingWineDetails.json
+            // Generate food pairings: generic first, then GCA personalized
             const allPairings = this.getFoodPairings(wine);
+            const genericPairings = allPairings.filter(p => !p.isPersonalized);
+            const gcaPairings = allPairings.filter(p => p.isPersonalized);
             
-            // Build HTML: only GCA pairings with label
-            let html = '';
-            if (allPairings.length > 0) {
-                html = allPairings.map(pairing => `
+            // Build HTML: generic pairings first
+            let html = genericPairings.map(pairing => `
+                <div class="pairing-item" 
+                     ${pairing.reason ? `title="${pairing.reason}"` : ''}>
+                    <i class="${pairing.icon} pairing-icon"></i>
+                    <h3 class="pairing-name">${pairing.name}</h3>
+                </div>
+            `).join('');
+            
+            // Then add GCA pairings with label
+            if (gcaPairings.length > 0) {
+                html += gcaPairings.map(pairing => `
                     <div class="pairing-item personalized-pairing" 
                          ${pairing.reason ? `title="${pairing.reason}"` : ''}>
                         <span class="gca-food-pairing-badge">GCA Food Pairing</span>
@@ -1238,8 +1248,6 @@ class WineListApp {
                         ${pairing.gcaScore ? `<span class="pairing-score">GCA Score ${pairing.gcaScore}</span>` : ''}
                     </div>
                 `).join('');
-            } else {
-                html = '<div class="pairing-item"><p>No GCA food pairings available for this wine.</p></div>';
             }
             
             pairingList.innerHTML = html;
@@ -1313,9 +1321,54 @@ class WineListApp {
             });
         }
         
-        // Use only GCA food pairings from FoodParingWineDetails.json
-        // Return only personalized pairings (up to 6 to show more options)
-        return personalizedPairings.slice(0, 6);
+        // Get generic pairings as fallback/supplement
+        const genericPairings = {
+            'ROSSO': [
+                { name: 'Roasted Meats', icon: 'fas fa-drumstick-bite' },
+                { name: 'Aged Cheeses', icon: 'fas fa-cheese' },
+                { name: 'Pasta with Red Sauce', icon: 'fas fa-utensils' },
+                { name: 'Dark Chocolate', icon: 'fas fa-cookie-bite' }
+            ],
+            'BIANCO': [
+                { name: 'Seafood', icon: 'fas fa-fish' },
+                { name: 'Light Pasta', icon: 'fas fa-utensils' },
+                { name: 'Fresh Salads', icon: 'fas fa-leaf' },
+                { name: 'Soft Cheeses', icon: 'fas fa-cheese' }
+            ],
+            'ROSATO': [
+                { name: 'Grilled Fish', icon: 'fas fa-fish' },
+                { name: 'Light Appetizers', icon: 'fas fa-cookie-bite' },
+                { name: 'Summer Salads', icon: 'fas fa-leaf' },
+                { name: 'Fresh Fruits', icon: 'fas fa-apple-alt' }
+            ],
+            'ARANCIONE': [
+                { name: 'Aged Cheeses', icon: 'fas fa-cheese' },
+                { name: 'Spiced Dishes', icon: 'fas fa-pepper-hot' },
+                { name: 'Roasted Vegetables', icon: 'fas fa-carrot' },
+                { name: 'Cured Meats', icon: 'fas fa-bacon' }
+            ],
+            'BOLLICINE': [
+                { name: 'Appetizers', icon: 'fas fa-cookie-bite' },
+                { name: 'Celebration Foods', icon: 'fas fa-birthday-cake' },
+                { name: 'Light Desserts', icon: 'fas fa-ice-cream' },
+                { name: 'Fresh Oysters', icon: 'fas fa-fish' }
+            ],
+            'NON ALCOLICO': [
+                { name: 'Fruit Platters', icon: 'fas fa-apple-alt' },
+                { name: 'Light Appetizers', icon: 'fas fa-cookie-bite' },
+                { name: 'Salads', icon: 'fas fa-leaf' },
+                { name: 'Desserts', icon: 'fas fa-ice-cream' }
+            ]
+        };
+        
+        // Get generic pairings first
+        const genericList = genericPairings[wine.wine_type] || genericPairings['ROSSO'];
+        
+        // Then add personalized GCA pairings below (up to 4)
+        const gcaPairings = personalizedPairings.slice(0, 4);
+        
+        // Combine: generic first, then GCA pairings
+        return [...genericList, ...gcaPairings];
     }
 
     updateProducerInfo(wine) {
@@ -4173,7 +4226,8 @@ function initInteractiveMap() {
                                         color: '#4A4A4A', // Dark grey borders
                                         weight: 1.5,
                                         fillOpacity: 0.15,
-                                        fillColor: 'transparent', // Transparent background
+                                        fillColor: 'transparent', // Transparent fill
+                                        color: '#999', // Light grey borders
                                         lineCap: 'round',
                                         lineJoin: 'round'
                                     };
@@ -4350,44 +4404,39 @@ function initInteractiveMap() {
                 return false;
             };
             
-            // Get optimal label position inside the region, avoiding collisions
+            // Get optimal label position outside the region, avoiding collisions
             const getOptimalPosition = (bounds, center, regionName) => {
                 const labelWidth = getLabelWidth(regionName);
+                const offset = 0.25; // Base offset in degrees (outside the region)
+                const largeOffset = 0.5; // Larger offset for crowded areas
                 const isNorth = center.lat > 43; // Regions in northern Italy
                 const isSmall = (bounds.getNorth() - bounds.getSouth()) < 0.5; // Small regions
                 
-                // Calculate region dimensions
-                const latRange = bounds.getNorth() - bounds.getSouth();
-                const lngRange = bounds.getEast() - bounds.getWest();
-                
-                // Use small offset to position labels inside the region (not on the border)
-                const innerOffset = Math.min(latRange * 0.15, lngRange * 0.15, 0.1); // 15% of region size or max 0.1 degrees
-                
-                // Predefined positions for specific regions (all inside the region)
+                // Predefined positions for specific regions (outside the region, to the right)
                 const regionSpecificPositions = {
-                    'Valle d\'Aosta': { lat: center.lat + innerOffset * 0.3, lng: center.lng, priority: 0 },
-                    'Valle d\'Aosta/Vallée d\'Aoste': { lat: center.lat + innerOffset * 0.3, lng: center.lng, priority: 0 },
-                    'Piemonte': { lat: center.lat - innerOffset * 0.4, lng: center.lng - innerOffset * 0.3, priority: 0 },
-                    'Lombardia': { lat: center.lat - innerOffset * 0.5, lng: center.lng + innerOffset * 0.2, priority: 0 },
-                    'Trentino-Alto Adige': { lat: center.lat - innerOffset * 0.3, lng: center.lng, priority: 0 },
-                    'Trentino-Alto Adige/Südtirol': { lat: center.lat - innerOffset * 0.3, lng: center.lng, priority: 0 },
-                    'Veneto': { lat: center.lat, lng: center.lng + innerOffset * 0.3, priority: 0 },
-                    'Friuli-Venezia Giulia': { lat: center.lat, lng: center.lng + innerOffset * 0.4, priority: 0 },
-                    'Liguria': { lat: center.lat, lng: center.lng - innerOffset * 0.4, priority: 0 },
-                    'Emilia-Romagna': { lat: center.lat - innerOffset * 0.4, lng: center.lng, priority: 0 },
-                    'Toscana': { lat: center.lat, lng: center.lng - innerOffset * 0.3, priority: 0 },
-                    'Umbria': { lat: center.lat + innerOffset * 0.3, lng: center.lng, priority: 0 },
-                    'Marche': { lat: center.lat, lng: center.lng + innerOffset * 0.3, priority: 0 },
-                    'Le Marche': { lat: center.lat, lng: center.lng + innerOffset * 0.3, priority: 0 },
-                    'Lazio': { lat: center.lat + innerOffset * 0.4, lng: center.lng - innerOffset * 0.2, priority: 0 },
-                    'Abruzzo': { lat: center.lat, lng: center.lng + innerOffset * 0.3, priority: 0 },
-                    'Molise': { lat: center.lat, lng: center.lng + innerOffset * 0.25, priority: 0 },
-                    'Campania': { lat: center.lat + innerOffset * 0.4, lng: center.lng, priority: 0 },
-                    'Puglia': { lat: center.lat, lng: center.lng + innerOffset * 0.5, priority: 0 },
-                    'Basilicata': { lat: center.lat + innerOffset * 0.3, lng: center.lng, priority: 0 },
-                    'Calabria': { lat: center.lat + innerOffset * 0.4, lng: center.lng, priority: 0 },
-                    'Sicilia': { lat: center.lat + innerOffset * 0.5, lng: center.lng, priority: 0 },
-                    'Sardegna': { lat: center.lat - innerOffset * 0.4, lng: center.lng, priority: 0 },
+                    'Valle d\'Aosta': { lat: center.lat, lng: bounds.getEast() + offset * 0.5, priority: 0 },
+                    'Valle d\'Aosta/Vallée d\'Aoste': { lat: center.lat, lng: bounds.getEast() + offset * 0.5, priority: 0 },
+                    'Piemonte': { lat: bounds.getNorth() + offset * 0.6, lng: bounds.getWest() - offset * 0.5, priority: 0 },
+                    'Lombardia': { lat: bounds.getNorth() + offset * 0.8, lng: bounds.getEast() + offset * 0.5, priority: 0 },
+                    'Trentino-Alto Adige': { lat: bounds.getNorth() + offset * 0.5, lng: center.lng, priority: 0 },
+                    'Trentino-Alto Adige/Südtirol': { lat: bounds.getNorth() + offset * 0.5, lng: center.lng, priority: 0 },
+                    'Veneto': { lat: bounds.getEast() + offset * 0.6, lng: center.lat, priority: 0 },
+                    'Friuli-Venezia Giulia': { lat: bounds.getEast() + offset * 0.7, lng: center.lat, priority: 0 },
+                    'Liguria': { lat: center.lat, lng: bounds.getWest() - offset * 0.6, priority: 0 },
+                    'Emilia-Romagna': { lat: bounds.getNorth() + offset * 0.7, lng: center.lng, priority: 0 },
+                    'Toscana': { lat: bounds.getWest() - offset * 0.5, lng: center.lat, priority: 0 },
+                    'Umbria': { lat: bounds.getSouth() - offset * 0.5, lng: center.lng, priority: 0 },
+                    'Marche': { lat: bounds.getEast() + offset * 0.6, lng: center.lat, priority: 0 },
+                    'Le Marche': { lat: bounds.getEast() + offset * 0.6, lng: center.lat, priority: 0 },
+                    'Lazio': { lat: bounds.getSouth() - offset * 0.6, lng: bounds.getWest() - offset * 0.3, priority: 0 },
+                    'Abruzzo': { lat: bounds.getEast() + offset * 0.6, lng: center.lat, priority: 0 },
+                    'Molise': { lat: bounds.getEast() + offset * 0.5, lng: center.lat, priority: 0 },
+                    'Campania': { lat: bounds.getSouth() - offset * 0.6, lng: center.lng, priority: 0 },
+                    'Puglia': { lat: center.lat, lng: bounds.getEast() + offset * 0.7, priority: 0 },
+                    'Basilicata': { lat: bounds.getSouth() - offset * 0.5, lng: center.lng, priority: 0 },
+                    'Calabria': { lat: bounds.getSouth() - offset * 0.6, lng: center.lng, priority: 0 },
+                    'Sicilia': { lat: bounds.getSouth() - offset * 0.8, lng: center.lng, priority: 0 },
+                    'Sardegna': { lat: bounds.getNorth() + offset * 0.6, lng: center.lng, priority: 0 },
                 };
                 
                 // Check if there's a predefined position for this region
@@ -4402,69 +4451,62 @@ function initInteractiveMap() {
                 for (const nameVar of nameVariations) {
                     if (regionSpecificPositions[nameVar]) {
                         const predefined = regionSpecificPositions[nameVar];
-                        // Verify position is inside bounds
-                        if (predefined.lat >= bounds.getSouth() && predefined.lat <= bounds.getNorth() &&
-                            predefined.lng >= bounds.getWest() && predefined.lng <= bounds.getEast() &&
-                            !checkCollision(predefined.lat, predefined.lng, labelWidth)) {
+                        if (!checkCollision(predefined.lat, predefined.lng, labelWidth)) {
                             return predefined;
                         }
                     }
                 }
                 
-                // Generate candidate positions inside the region
+                // Generate candidate positions outside the region
                 const candidates = [];
                 
-                // Center position (always inside)
-                candidates.push({ lat: center.lat, lng: center.lng, priority: 1 });
-                
-                // Positions slightly offset from center (inside the region)
-                candidates.push(
-                    { lat: center.lat - innerOffset * 0.3, lng: center.lng, priority: 2 },
-                    { lat: center.lat + innerOffset * 0.3, lng: center.lng, priority: 3 },
-                    { lat: center.lat, lng: center.lng - innerOffset * 0.3, priority: 4 },
-                    { lat: center.lat, lng: center.lng + innerOffset * 0.3, priority: 5 },
-                    { lat: center.lat - innerOffset * 0.2, lng: center.lng - innerOffset * 0.2, priority: 6 },
-                    { lat: center.lat - innerOffset * 0.2, lng: center.lng + innerOffset * 0.2, priority: 7 },
-                    { lat: center.lat + innerOffset * 0.2, lng: center.lng - innerOffset * 0.2, priority: 8 },
-                    { lat: center.lat + innerOffset * 0.2, lng: center.lng + innerOffset * 0.2, priority: 9 }
-                );
-                
-                // For northern regions, prefer upper positions
+                // For northern regions, prefer top positions
                 if (isNorth) {
-                    const upperLat = bounds.getSouth() + latRange * 0.3;
                     candidates.push(
-                        { lat: upperLat, lng: center.lng, priority: 10 },
-                        { lat: upperLat, lng: center.lng - innerOffset * 0.2, priority: 11 },
-                        { lat: upperLat, lng: center.lng + innerOffset * 0.2, priority: 12 }
+                        { lat: bounds.getNorth() + offset, lng: center.lng, priority: 1 },
+                        { lat: bounds.getNorth() + offset * 0.7, lng: bounds.getEast() + offset * 0.7, priority: 2 },
+                        { lat: bounds.getNorth() + offset * 0.7, lng: bounds.getWest() - offset * 0.7, priority: 3 },
+                        { lat: center.lat, lng: bounds.getEast() + offset, priority: 4 },
+                        { lat: center.lat, lng: bounds.getWest() - offset, priority: 5 }
                     );
                 } else {
-                    // For southern regions, prefer lower positions
-                    const lowerLat = bounds.getNorth() - latRange * 0.3;
+                    // For southern regions, prefer bottom or side positions
                     candidates.push(
-                        { lat: lowerLat, lng: center.lng, priority: 10 },
-                        { lat: lowerLat, lng: center.lng - innerOffset * 0.2, priority: 11 },
-                        { lat: lowerLat, lng: center.lng + innerOffset * 0.2, priority: 12 }
+                        { lat: center.lat, lng: bounds.getEast() + offset, priority: 1 },
+                        { lat: bounds.getSouth() - offset, lng: center.lng, priority: 2 },
+                        { lat: center.lat, lng: bounds.getWest() - offset, priority: 3 },
+                        { lat: bounds.getNorth() + offset, lng: center.lng, priority: 4 }
                     );
                 }
                 
-                // Filter candidates to ensure they're inside bounds
-                const validCandidates = candidates.filter(c => 
-                    c.lat >= bounds.getSouth() && c.lat <= bounds.getNorth() &&
-                    c.lng >= bounds.getWest() && c.lng <= bounds.getEast()
+                // Add diagonal positions
+                candidates.push(
+                    { lat: bounds.getNorth() + offset * 0.7, lng: bounds.getEast() + offset * 0.7, priority: 6 },
+                    { lat: bounds.getNorth() + offset * 0.7, lng: bounds.getWest() - offset * 0.7, priority: 7 },
+                    { lat: bounds.getSouth() - offset * 0.7, lng: bounds.getEast() + offset * 0.7, priority: 8 },
+                    { lat: bounds.getSouth() - offset * 0.7, lng: bounds.getWest() - offset * 0.7, priority: 9 }
+                );
+                
+                // Add far positions for crowded areas
+                candidates.push(
+                    { lat: center.lat, lng: bounds.getEast() + largeOffset, priority: 10 },
+                    { lat: center.lat, lng: bounds.getWest() - largeOffset, priority: 11 },
+                    { lat: bounds.getNorth() + largeOffset, lng: center.lng, priority: 12 },
+                    { lat: bounds.getSouth() - largeOffset, lng: center.lng, priority: 13 }
                 );
                 
                 // Sort by priority
-                validCandidates.sort((a, b) => a.priority - b.priority);
+                candidates.sort((a, b) => a.priority - b.priority);
                 
                 // Find first non-colliding position
-                for (const candidate of validCandidates) {
+                for (const candidate of candidates) {
                     if (!checkCollision(candidate.lat, candidate.lng, labelWidth)) {
                         return candidate;
                     }
                 }
                 
-                // If all positions collide, use center (guaranteed to be inside)
-                return { lat: center.lat, lng: center.lng, priority: 999 };
+                // If all positions collide, use the one with lowest priority (furthest)
+                return candidates[candidates.length - 1];
             };
             
             // Process regions in order (smaller regions first to avoid blocking larger ones)
@@ -4526,7 +4568,8 @@ function initInteractiveMap() {
                     if (hasWines || !wineType) {
                         layer.setStyle({
                             color: isSelected ? '#2A2A2A' : '#4A4A4A', // Dark grey borders
-                            fillColor: isSelected ? 'rgba(255, 255, 255, 0.1)' : 'transparent', // Transparent background
+                            fillColor: isSelected ? 'rgba(255, 255, 255, 0.1)' : 'transparent', // Transparent fill
+                            color: isSelected ? '#CCC' : '#999', // Light grey borders
                             weight: isSelected ? 3 : 1.5,
                             fillOpacity: isSelected ? 0.3 : 0.15,
                             opacity: isSelected ? 1 : 0.8,

@@ -6696,7 +6696,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 
     /* Leaflet map container adjustments for mobile */
     .mobile-map-wrapper .leaflet-container {
-        background: transparent !important; /* Transparent background */
+        background: #000000 !important; /* Black background like in photo */
     }
 
     .mobile-region-info {
@@ -8128,9 +8128,9 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 }
 
 :root[data-theme="day"] #mobileMap {
-    background: transparent !important; /* Transparent background */
+    background: #000000 !important; /* Black background */
 }
 
 :root[data-theme="day"] .mobile-map-wrapper .leaflet-container {
-    background: transparent !important; /* Transparent background */
+    background: #000000 !important; /* Black background */
 }
