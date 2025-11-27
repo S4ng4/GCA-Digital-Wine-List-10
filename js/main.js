@@ -4436,10 +4436,10 @@ function initInteractiveMap() {
                 
                 // Special handling for left-side regions (Friuli, Veneto, Emilia-Romagna)
                 if (isLeftSideRegion) {
-                    // PRIORITY 1: Left edge of map (bordo sinistro della mappa)
-                    candidates.push({ lat: center.lat, lng: bounds.getWest() - offset * 0.8, priority: 1 });
-                    candidates.push({ lat: center.lat, lng: bounds.getWest() - offset * 1.2, priority: 2 });
-                    // Fallback to center if left edge collides
+                    // PRIORITY 1: Right edge of region (sulla destra della regione)
+                    candidates.push({ lat: center.lat, lng: bounds.getEast() + offset * 0.6, priority: 1 });
+                    candidates.push({ lat: center.lat, lng: bounds.getEast() + offset * 0.8, priority: 2 });
+                    // Fallback to center if right edge collides
                     candidates.push({ lat: center.lat, lng: center.lng, priority: 3 });
                 }
                 // Special handling for Trentino
