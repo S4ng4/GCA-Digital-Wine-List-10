@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gran Caffè L'Aquila - Wine By The Glass</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap');
+
+        :root {
+            --bg-paper: #FDFBF7;
+            --text-dark: #1a1a1a;
+            --brand-red: #8B0000;
+            --gold: #C5A059;
+            --font-head: 'Cinzel', serif;
+            --font-body: 'Cormorant', serif;
+        }
+
+        /* Day/Night Theme Support */
+        :root[data-theme="night"] {
+            --bg-paper: #1a1a1a;
+            --text-dark: #F5F5F0;
+            --brand-red: #C5A059;
+            --gold: #D4AF37;
+        }
+
+        :root[data-theme="day"] {
+            --bg-paper: #FDFBF7;
+            --text-dark: #1a1a1a;
+            --brand-red: #8B0000;
+            --gold: #C5A059;
+        }
+
+        /* Night Theme Styles */
+        :root[data-theme="night"] body {
+            background-color: #0a0a0a;
+        }
+
+        :root[data-theme="night"] .menu-sheet {
+            background-color: var(--bg-paper);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        :root[data-theme="night"] .menu-sheet::before {
+            border-color: var(--gold);
+        }
+
+        :root[data-theme="night"] header {
+            border-bottom-color: rgba(212, 175, 55, 0.3);
+        }
+
+        :root[data-theme="night"] h1,
+        :root[data-theme="night"] .cat-title {
+            color: var(--gold);
+        }
+
+        :root[data-theme="night"] .subhead,
+        :root[data-theme="night"] .d-desc {
+            color: rgba(245, 245, 240, 0.8);
+        }
+
+        :root[data-theme="night"] .d-price {
+            color: var(--gold);
+        }
+
+        /* Day Theme Styles */
+        :root[data-theme="day"] body {
+            background-color: #e0e0e0;
+        }
+
+        :root[data-theme="day"] .menu-sheet {
+            background-color: var(--bg-paper);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        :root[data-theme="day"] .menu-sheet::before {
+            border-color: var(--brand-red);
+        }
+
+        :root[data-theme="day"] header {
+            border-bottom-color: #ccc;
+        }
+
+        :root[data-theme="day"] h1,
+        :root[data-theme="day"] .cat-title {
+            color: var(--brand-red);
+        }
+
+        :root[data-theme="day"] .subhead {
+            color: #555;
+        }
+
+        :root[data-theme="day"] .d-desc {
+            color: #555;
+        }
+
+        :root[data-theme="day"] .d-price {
+            color: var(--brand-red);
+        }
+
+        body {
+            background-color: #e0e0e0;
+            font-family: var(--font-body);
+            margin: 0;
+            padding: 20px;
+            color: var(--text-dark);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .menu-sheet {
+            background-color: var(--bg-paper);
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            position: relative;
+        }
+
+        /* Bordo decorativo */
+        .menu-sheet::before {
+            content: "";
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 2px solid var(--brand-red);
+            pointer-events: none;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-family: var(--font-head);
+            color: var(--brand-red);
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .subhead {
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: clamp(0.8rem, 1.2vw, 0.9rem);
+            color: #555;
+            margin-top: 5px;
+            font-family: 'Cormorant', serif;
+            font-weight: 400;
+        }
+
+        /* Wine List Button */
+        .wine-list-button {
+            display: inline-block;
+            padding: 1.25rem 2rem;
+            background: linear-gradient(145deg, rgba(26, 26, 26, 0.7), rgba(10, 10, 10, 0.9));
+            color: var(--gold);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wine-list-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(212, 175, 55, 0.05), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .wine-list-button:hover {
+            transform: translateX(5px);
+            border-color: var(--gold);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+            background: linear-gradient(145deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+        }
+
+        .wine-list-button:hover::before {
+            left: 100%;
+        }
+
+        :root[data-theme="day"] .wine-list-button {
+            background: linear-gradient(145deg, rgba(245, 245, 240, 0.9), rgba(250, 250, 245, 0.95));
+            border-color: rgba(212, 175, 55, 0.3);
+            color: var(--brand-red);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        :root[data-theme="day"] .wine-list-button:hover {
+            background: linear-gradient(145deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+            border-color: var(--gold);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+        }
+
+        /* --- LAYOUT COLONNE --- */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        /* Sezioni */
+        .section-group {
+            margin-bottom: 40px;
+        }
+
+        .cat-title {
+            font-family: var(--font-head);
+            font-size: clamp(1.2rem, 1.8vw, 1.4rem);
+            color: var(--brand-red);
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-weight: 600;
+        }
+
+        /* Piatti/Vini */
+        .dish {
+            margin-bottom: 14px;
+        }
+
+        .dish.wine-item {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .dish.wine-item:hover {
+            background-color: rgba(212, 175, 55, 0.1);
+            transform: translateX(3px);
+        }
+
+        .d-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            font-size: clamp(0.9rem, 1.2vw, 1rem);
+            font-family: var(--font-head);
+            color: #222;
+            letter-spacing: 0.5px;
+        }
+
+        :root[data-theme="night"] .d-header {
+            color: rgba(245, 245, 240, 0.9);
+        }
+
+        .d-price {
+            color: var(--brand-red);
+            white-space: nowrap;
+            margin-left: 10px;
+        }
+
+        .d-desc {
+            font-size: clamp(0.8rem, 1.1vw, 0.85rem);
+            color: #555;
+            line-height: 1.5;
+            margin-top: 2px;
+            font-family: 'Cormorant', serif;
+            font-weight: 400;
+        }
+
+        .wine-producer {
+            font-style: italic;
+            color: rgba(85, 85, 85, 0.8);
+            font-size: clamp(0.75rem, 1vw, 0.8rem);
+        }
+
+        :root[data-theme="night"] .wine-producer {
+            color: rgba(245, 245, 240, 0.6);
+        }
+
+        /* Loading state */
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-dark);
+            font-style: italic;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            .menu-sheet {
+                padding: 20px;
+            }
+            h1 {
+                font-size: clamp(2rem, 5vw, 2.5rem);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu-sheet">
+        <header>
+            <h1>Gran Caffè L'Aquila</h1>
+            <div class="subhead">Wine By The Glass</div>
+        </header>
+
+        <div id="winesContainer" class="loading">
+            Loading wines...
+        </div>
+
+        <div style="text-align: center; margin: 40px 0 30px 0;">
+            <a href="./index.html" class="wine-list-button">Esplora la Wine List</a>
+        </div>
+    </div>
+
+    <script>
+        // Funzione per applicare il tema
+        function applyTheme() {
+            const dayMode = localStorage.getItem('dayMode') === 'true';
+            document.documentElement.setAttribute('data-theme', dayMode ? 'day' : 'night');
+        }
+
+        // Applica il tema all'avvio
+        applyTheme();
+
+        // Ascolta i cambiamenti del tema
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'dayMode') {
+                applyTheme();
+            }
+        });
+
+        // Polling per verificare cambiamenti del tema
+        setInterval(function() {
+            const currentDayMode = localStorage.getItem('dayMode') === 'true';
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const expectedTheme = currentDayMode ? 'day' : 'night';
+            
+            if (currentTheme !== expectedTheme) {
+                applyTheme();
+            }
+        }, 100);
+
+        // Carica i vini
+        async function loadWinesByTheGlass() {
+            try {
+                const response = await fetch('./data/wines.json');
+                const data = await response.json();
+                
+                // Filtra i vini che hanno wine_price_glass
+                const winesByGlass = data.wines.filter(wine => 
+                    wine.wine_price_glass && wine.wine_price_glass !== null && wine.wine_price_glass !== ''
+                );
+
+                if (winesByGlass.length === 0) {
+                    document.getElementById('winesContainer').innerHTML = 
+                        '<div class="loading">No wines available by the glass.</div>';
+                    return;
+                }
+
+                // Organizza i vini per tipo
+                const winesByType = {
+                    'ROSSO': [],
+                    'BIANCO': [],
+                    'ROSATO': [],
+                    'ARANCIONE': [],
+                    'BOLLICINE': [],
+                    'NON ALCOLICO': []
+                };
+
+                winesByGlass.forEach(wine => {
+                    const type = wine.wine_type || 'BIANCO';
+                    if (winesByType[type]) {
+                        winesByType[type].push(wine);
+                    }
+                });
+
+                // Nomi dei tipi di vino
+                const wineTypeNames = {
+                    'ROSSO': 'Red Wines',
+                    'BIANCO': 'White Wines',
+                    'ROSATO': 'Rosé Wines',
+                    'ARANCIONE': 'Orange Wines',
+                    'BOLLICINE': 'Sparkling',
+                    'NON ALCOLICO': 'Non-Alcoholic'
+                };
+
+                // Genera HTML
+                let html = '<div class="main-grid">';
+                
+                // Colonna sinistra
+                html += '<div class="col-left">';
+                
+                // Bianco
+                if (winesByType['BIANCO'].length > 0) {
+                    html += '<div class="section-group">';
+                    html += `<div class="cat-title">${wineTypeNames['BIANCO']}</div>`;
+                    winesByType['BIANCO'].forEach(wine => {
+                        html += createWineItem(wine);
+                    });
+                    html += '</div>';
+                }
+
+                // Rosato
+                if (winesByType['ROSATO'].length > 0) {
+                    html += '<div class="section-group">';
+                    html += `<div class="cat-title">${wineTypeNames['ROSATO']}</div>`;
+                    winesByType['ROSATO'].forEach(wine => {
+                        html += createWineItem(wine);
+                    });
+                    html += '</div>';
+                }
+
+                // Arancione
+                if (winesByType['ARANCIONE'].length > 0) {
+                    html += '<div class="section-group">';
+                    html += `<div class="cat-title">${wineTypeNames['ARANCIONE']}</div>`;
+                    winesByType['ARANCIONE'].forEach(wine => {
+                        html += createWineItem(wine);
+                    });
+                    html += '</div>';
+                }
+
+                html += '</div>'; // Fine colonna sinistra
+
+                // Colonna destra
+                html += '<div class="col-right">';
+
+                // Rosso
+                if (winesByType['ROSSO'].length > 0) {
+                    html += '<div class="section-group">';
+                    html += `<div class="cat-title">${wineTypeNames['ROSSO']}</div>`;
+                    winesByType['ROSSO'].forEach(wine => {
+                        html += createWineItem(wine);
+                    });
+                    html += '</div>';
+                }
+
+                // Bollicine
+                if (winesByType['BOLLICINE'].length > 0) {
+                    html += '<div class="section-group">';
+                    html += `<div class="cat-title">${wineTypeNames['BOLLICINE']}</div>`;
+                    winesByType['BOLLICINE'].forEach(wine => {
+                        html += createWineItem(wine);
+                    });
+                    html += '</div>';
+                }
+
+                // Non Alcolico
+                if (winesByType['NON ALCOLICO'].length > 0) {
+                    html += '<div class="section-group">';
+                    html += `<div class="cat-title">${wineTypeNames['NON ALCOLICO']}</div>`;
+                    winesByType['NON ALCOLICO'].forEach(wine => {
+                        html += createWineItem(wine);
+                    });
+                    html += '</div>';
+                }
+
+                html += '</div>'; // Fine colonna destra
+                html += '</div>'; // Fine main-grid
+
+                document.getElementById('winesContainer').innerHTML = html;
+
+                // Aggiungi event listeners ai vini
+                document.querySelectorAll('.wine-item').forEach(item => {
+                    item.addEventListener('click', function() {
+                        const wineId = this.dataset.wineId;
+                        window.location.href = `wine-details.html?id=${wineId}`;
+                    });
+                });
+
+            } catch (error) {
+                console.error('Error loading wines:', error);
+                document.getElementById('winesContainer').innerHTML = 
+                    '<div class="loading">Error loading wines. Please try again later.</div>';
+            }
+        }
+
+        function createWineItem(wine) {
+            const wineName = wine.wine_name || 'Unknown Wine';
+            const producer = wine.wine_producer || '';
+            const price = wine.wine_price_glass || 'N/A';
+            const description = wine.wine_description || '';
+            const vintage = wine.wine_vintage ? wine.wine_vintage.match(/\b(19|20)\d{2}\b/)?.[0] : '';
+
+            let html = `<div class="dish wine-item" data-wine-id="${wine.wine_number}">`;
+            html += '<div class="d-header">';
+            html += `<span>${wineName}${vintage ? ' ' + vintage : ''}${producer ? ' <span class="wine-producer">- ' + producer + '</span>' : ''}</span>`;
+            html += `<span class="d-price">$${price}</span>`;
+            html += '</div>';
+            if (description) {
+                html += `<div class="d-desc">${description}</div>`;
+            }
+            html += '</div>';
+
+            return html;
+        }
+
+        // Carica i vini al caricamento della pagina
+        loadWinesByTheGlass();
+    </script>
+
+</body>
+</html>
+
