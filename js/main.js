@@ -4404,7 +4404,7 @@ function initInteractiveMap() {
                 return false;
             };
             
-            // Get optimal label position outside the region, avoiding collisions
+            // Get optimal label position - prefer center of region, fallback to outside if collision
             const getOptimalPosition = (bounds, center, regionName) => {
                 const labelWidth = getLabelWidth(regionName);
                 const offset = 0.25; // Base offset in degrees (outside the region)
@@ -4412,101 +4412,98 @@ function initInteractiveMap() {
                 const isNorth = center.lat > 43; // Regions in northern Italy
                 const isSmall = (bounds.getNorth() - bounds.getSouth()) < 0.5; // Small regions
                 
-                // Predefined positions for specific regions (outside the region, to the right)
-                const regionSpecificPositions = {
-                    'Valle d\'Aosta': { lat: center.lat, lng: bounds.getEast() + offset * 0.5, priority: 0 },
-                    'Valle d\'Aosta/Vallée d\'Aoste': { lat: center.lat, lng: bounds.getEast() + offset * 0.5, priority: 0 },
-                    'Piemonte': { lat: bounds.getNorth() + offset * 0.6, lng: bounds.getWest() - offset * 0.5, priority: 0 },
-                    'Lombardia': { lat: bounds.getNorth() + offset * 0.8, lng: bounds.getEast() + offset * 0.5, priority: 0 },
-                    'Trentino-Alto Adige': { lat: bounds.getNorth() + offset * 0.5, lng: center.lng, priority: 0 },
-                    'Trentino-Alto Adige/Südtirol': { lat: bounds.getNorth() + offset * 0.5, lng: center.lng, priority: 0 },
-                    'Veneto': { lat: bounds.getEast() + offset * 0.6, lng: center.lat, priority: 0 },
-                    'Friuli-Venezia Giulia': { lat: bounds.getEast() + offset * 0.7, lng: center.lat, priority: 0 },
-                    'Liguria': { lat: center.lat, lng: bounds.getWest() - offset * 0.6, priority: 0 },
-                    'Emilia-Romagna': { lat: bounds.getNorth() + offset * 0.7, lng: center.lng, priority: 0 },
-                    'Toscana': { lat: bounds.getWest() - offset * 0.5, lng: center.lat, priority: 0 },
-                    'Umbria': { lat: bounds.getSouth() - offset * 0.5, lng: center.lng, priority: 0 },
-                    'Marche': { lat: bounds.getEast() + offset * 0.6, lng: center.lat, priority: 0 },
-                    'Le Marche': { lat: bounds.getEast() + offset * 0.6, lng: center.lat, priority: 0 },
-                    'Lazio': { lat: bounds.getSouth() - offset * 0.6, lng: bounds.getWest() - offset * 0.3, priority: 0 },
-                    'Abruzzo': { lat: bounds.getEast() + offset * 0.6, lng: center.lat, priority: 0 },
-                    'Molise': { lat: bounds.getEast() + offset * 0.5, lng: center.lat, priority: 0 },
-                    'Campania': { lat: bounds.getSouth() - offset * 0.6, lng: center.lng, priority: 0 },
-                    'Puglia': { lat: center.lat, lng: bounds.getEast() + offset * 0.7, priority: 0 },
-                    'Basilicata': { lat: bounds.getSouth() - offset * 0.5, lng: center.lng, priority: 0 },
-                    'Calabria': { lat: bounds.getSouth() - offset * 0.6, lng: center.lng, priority: 0 },
-                    'Sicilia': { lat: bounds.getSouth() - offset * 0.8, lng: center.lng, priority: 0 },
-                    'Sardegna': { lat: bounds.getNorth() + offset * 0.6, lng: center.lng, priority: 0 },
-                };
+                // Calculate region dimensions for inner positioning
+                const latRange = bounds.getNorth() - bounds.getSouth();
+                const lngRange = bounds.getEast() - bounds.getWest();
+                const innerOffset = Math.min(latRange * 0.1, lngRange * 0.1, 0.05); // Small offset from center
                 
-                // Check if there's a predefined position for this region
-                const normalizedName = regionName.trim();
-                const nameVariations = [
-                    normalizedName,
-                    normalizedName.replace(/\/.*$/, ''),
-                    normalizedName.replace(/\/.*$/, '').replace(/\/.*$/, ''),
-                    normalizedName.replace(/^Le /, ''),
-                ];
-                
-                for (const nameVar of nameVariations) {
-                    if (regionSpecificPositions[nameVar]) {
-                        const predefined = regionSpecificPositions[nameVar];
-                        if (!checkCollision(predefined.lat, predefined.lng, labelWidth)) {
-                            return predefined;
-                        }
-                    }
-                }
-                
-                // Generate candidate positions outside the region
+                // Generate candidate positions - PRIORITY: center first, then nearby, then outside
                 const candidates = [];
                 
+                // PRIORITY 1: Center of region (best position)
+                candidates.push({ lat: center.lat, lng: center.lng, priority: 1 });
+                
+                // PRIORITY 2: Small offsets from center (still inside region)
+                candidates.push(
+                    { lat: center.lat - innerOffset * 0.3, lng: center.lng, priority: 2 },
+                    { lat: center.lat + innerOffset * 0.3, lng: center.lng, priority: 3 },
+                    { lat: center.lat, lng: center.lng - innerOffset * 0.3, priority: 4 },
+                    { lat: center.lat, lng: center.lng + innerOffset * 0.3, priority: 5 },
+                    { lat: center.lat - innerOffset * 0.2, lng: center.lng - innerOffset * 0.2, priority: 6 },
+                    { lat: center.lat - innerOffset * 0.2, lng: center.lng + innerOffset * 0.2, priority: 7 },
+                    { lat: center.lat + innerOffset * 0.2, lng: center.lng - innerOffset * 0.2, priority: 8 },
+                    { lat: center.lat + innerOffset * 0.2, lng: center.lng + innerOffset * 0.2, priority: 9 }
+                );
+                
+                // PRIORITY 3: Positions near edges but still inside (for larger regions)
+                if (latRange > 0.5 && lngRange > 0.5) {
+                    const edgeOffset = Math.min(latRange * 0.2, lngRange * 0.2, 0.15);
+                    candidates.push(
+                        { lat: center.lat - edgeOffset, lng: center.lng, priority: 10 },
+                        { lat: center.lat + edgeOffset, lng: center.lng, priority: 11 },
+                        { lat: center.lat, lng: center.lng - edgeOffset, priority: 12 },
+                        { lat: center.lat, lng: center.lng + edgeOffset, priority: 13 }
+                    );
+                }
+                
+                // PRIORITY 4: Outside positions (fallback if center collides)
                 // For northern regions, prefer top positions
                 if (isNorth) {
                     candidates.push(
-                        { lat: bounds.getNorth() + offset, lng: center.lng, priority: 1 },
-                        { lat: bounds.getNorth() + offset * 0.7, lng: bounds.getEast() + offset * 0.7, priority: 2 },
-                        { lat: bounds.getNorth() + offset * 0.7, lng: bounds.getWest() - offset * 0.7, priority: 3 },
-                        { lat: center.lat, lng: bounds.getEast() + offset, priority: 4 },
-                        { lat: center.lat, lng: bounds.getWest() - offset, priority: 5 }
+                        { lat: bounds.getNorth() + offset * 0.5, lng: center.lng, priority: 14 },
+                        { lat: center.lat, lng: bounds.getEast() + offset * 0.5, priority: 15 },
+                        { lat: bounds.getNorth() + offset, lng: center.lng, priority: 16 },
+                        { lat: center.lat, lng: bounds.getEast() + offset, priority: 17 }
                     );
                 } else {
                     // For southern regions, prefer bottom or side positions
                     candidates.push(
-                        { lat: center.lat, lng: bounds.getEast() + offset, priority: 1 },
-                        { lat: bounds.getSouth() - offset, lng: center.lng, priority: 2 },
-                        { lat: center.lat, lng: bounds.getWest() - offset, priority: 3 },
-                        { lat: bounds.getNorth() + offset, lng: center.lng, priority: 4 }
+                        { lat: center.lat, lng: bounds.getEast() + offset * 0.5, priority: 14 },
+                        { lat: bounds.getSouth() - offset * 0.5, lng: center.lng, priority: 15 },
+                        { lat: center.lat, lng: bounds.getEast() + offset, priority: 16 },
+                        { lat: bounds.getSouth() - offset, lng: center.lng, priority: 17 }
                     );
                 }
                 
-                // Add diagonal positions
+                // PRIORITY 5: Diagonal outside positions
                 candidates.push(
-                    { lat: bounds.getNorth() + offset * 0.7, lng: bounds.getEast() + offset * 0.7, priority: 6 },
-                    { lat: bounds.getNorth() + offset * 0.7, lng: bounds.getWest() - offset * 0.7, priority: 7 },
-                    { lat: bounds.getSouth() - offset * 0.7, lng: bounds.getEast() + offset * 0.7, priority: 8 },
-                    { lat: bounds.getSouth() - offset * 0.7, lng: bounds.getWest() - offset * 0.7, priority: 9 }
+                    { lat: bounds.getNorth() + offset * 0.7, lng: bounds.getEast() + offset * 0.7, priority: 18 },
+                    { lat: bounds.getNorth() + offset * 0.7, lng: bounds.getWest() - offset * 0.7, priority: 19 },
+                    { lat: bounds.getSouth() - offset * 0.7, lng: bounds.getEast() + offset * 0.7, priority: 20 },
+                    { lat: bounds.getSouth() - offset * 0.7, lng: bounds.getWest() - offset * 0.7, priority: 21 }
                 );
                 
-                // Add far positions for crowded areas
+                // PRIORITY 6: Far positions for crowded areas
                 candidates.push(
-                    { lat: center.lat, lng: bounds.getEast() + largeOffset, priority: 10 },
-                    { lat: center.lat, lng: bounds.getWest() - largeOffset, priority: 11 },
-                    { lat: bounds.getNorth() + largeOffset, lng: center.lng, priority: 12 },
-                    { lat: bounds.getSouth() - largeOffset, lng: center.lng, priority: 13 }
+                    { lat: center.lat, lng: bounds.getEast() + largeOffset, priority: 22 },
+                    { lat: center.lat, lng: bounds.getWest() - largeOffset, priority: 23 },
+                    { lat: bounds.getNorth() + largeOffset, lng: center.lng, priority: 24 },
+                    { lat: bounds.getSouth() - largeOffset, lng: center.lng, priority: 25 }
                 );
+                
+                // Filter candidates to ensure they're valid (inside bounds for center positions)
+                const validCandidates = candidates.map(c => {
+                    // For priorities 1-13 (center positions), ensure they're inside bounds
+                    if (c.priority <= 13) {
+                        const lat = Math.max(bounds.getSouth(), Math.min(bounds.getNorth(), c.lat));
+                        const lng = Math.max(bounds.getWest(), Math.min(bounds.getEast(), c.lng));
+                        return { ...c, lat, lng };
+                    }
+                    return c;
+                });
                 
                 // Sort by priority
-                candidates.sort((a, b) => a.priority - b.priority);
+                validCandidates.sort((a, b) => a.priority - b.priority);
                 
                 // Find first non-colliding position
-                for (const candidate of candidates) {
+                for (const candidate of validCandidates) {
                     if (!checkCollision(candidate.lat, candidate.lng, labelWidth)) {
                         return candidate;
                     }
                 }
                 
-                // If all positions collide, use the one with lowest priority (furthest)
-                return candidates[candidates.length - 1];
+                // If all positions collide, use center (guaranteed to be inside)
+                return { lat: center.lat, lng: center.lng, priority: 999 };
             };
             
             // Process regions in order (smaller regions first to avoid blocking larger ones)
