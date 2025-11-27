@@ -4431,14 +4431,27 @@ function initInteractiveMap() {
                                         normalizedName.includes('emilia');
                 const isTrentino = normalizedName.includes('trentino');
                 
+                // Regions that need more external positioning
+                const needsExternalPosition = normalizedName.includes('veneto') || 
+                                            normalizedName.includes('piemonte') || 
+                                            normalizedName.includes('liguria') || 
+                                            normalizedName.includes('marche') || 
+                                            normalizedName.includes('molise') || 
+                                            normalizedName.includes('puglia');
+                
+                // Use larger offset for regions that need external positioning
+                const externalOffset = needsExternalPosition ? largeOffset : offset;
+                
                 // Generate candidate positions - PRIORITY: center first, then nearby, then outside
                 const candidates = [];
                 
                 // Special handling for left-side regions (Friuli, Veneto, Emilia-Romagna)
                 if (isLeftSideRegion) {
                     // PRIORITY 1: Right edge of region (sulla destra della regione)
-                    candidates.push({ lat: center.lat, lng: bounds.getEast() + offset * 0.6, priority: 1 });
-                    candidates.push({ lat: center.lat, lng: bounds.getEast() + offset * 0.8, priority: 2 });
+                    // Use larger offset for Veneto
+                    const venetoOffset = normalizedName.includes('veneto') ? largeOffset : offset;
+                    candidates.push({ lat: center.lat, lng: bounds.getEast() + venetoOffset * 0.8, priority: 1 });
+                    candidates.push({ lat: center.lat, lng: bounds.getEast() + venetoOffset * 1.2, priority: 2 });
                     // Fallback to center if right edge collides
                     candidates.push({ lat: center.lat, lng: center.lng, priority: 3 });
                 }
@@ -4448,6 +4461,28 @@ function initInteractiveMap() {
                     candidates.push({ lat: bounds.getNorth() + offset * 0.6, lng: center.lng, priority: 1 });
                     candidates.push({ lat: bounds.getNorth() + offset * 0.8, lng: center.lng, priority: 2 });
                     // Fallback to center if above collides
+                    candidates.push({ lat: center.lat, lng: center.lng, priority: 3 });
+                }
+                // Special handling for regions that need external positioning
+                else if (needsExternalPosition) {
+                    // PRIORITY 1: External positions (more outside)
+                    if (normalizedName.includes('piemonte')) {
+                        candidates.push({ lat: bounds.getNorth() + externalOffset * 0.8, lng: bounds.getWest() - externalOffset * 0.6, priority: 1 });
+                        candidates.push({ lat: bounds.getNorth() + externalOffset * 1.0, lng: bounds.getWest() - externalOffset * 0.8, priority: 2 });
+                    } else if (normalizedName.includes('liguria')) {
+                        candidates.push({ lat: center.lat, lng: bounds.getWest() - externalOffset * 0.8, priority: 1 });
+                        candidates.push({ lat: center.lat, lng: bounds.getWest() - externalOffset * 1.2, priority: 2 });
+                    } else if (normalizedName.includes('marche')) {
+                        candidates.push({ lat: bounds.getEast() + externalOffset * 0.8, lng: center.lat, priority: 1 });
+                        candidates.push({ lat: bounds.getEast() + externalOffset * 1.2, lng: center.lat, priority: 2 });
+                    } else if (normalizedName.includes('molise')) {
+                        candidates.push({ lat: bounds.getEast() + externalOffset * 0.8, lng: center.lat, priority: 1 });
+                        candidates.push({ lat: bounds.getEast() + externalOffset * 1.0, lng: center.lat, priority: 2 });
+                    } else if (normalizedName.includes('puglia')) {
+                        candidates.push({ lat: center.lat, lng: bounds.getEast() + externalOffset * 1.0, priority: 1 });
+                        candidates.push({ lat: center.lat, lng: bounds.getEast() + externalOffset * 1.4, priority: 2 });
+                    }
+                    // Fallback to center if external positions collide
                     candidates.push({ lat: center.lat, lng: center.lng, priority: 3 });
                 }
                 // Default: center first
