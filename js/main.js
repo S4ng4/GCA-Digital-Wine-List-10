@@ -990,13 +990,10 @@ class WineListApp {
         // Update meta information
         this.updateMetaInfo(wine);
 
-        // Update wine description
-        this.updateWineDescription(wine);
-
         // Update wine image
         this.updateWineImage(wine);
 
-        // Update tasting notes
+        // Update tasting notes (includes wine description)
         this.updateTastingNotes(wine);
 
         // Update wine information
@@ -1159,11 +1156,19 @@ class WineListApp {
         
         if (tastingNotes && tastingGrid) {
             // Use wine_description instead of tasting_notes
-            const wineDescription = wine.wine_description || 'A fine wine selection from our curated collection.';
+            let wineDescription = wine.wine_description || 'A fine wine selection from our curated collection.';
+            
+            // Convert text to proper case (not all uppercase)
+            // Check if text is all uppercase and convert to title case
+            if (wineDescription === wineDescription.toUpperCase() && wineDescription !== wineDescription.toLowerCase()) {
+                // Convert to title case: first letter of each word uppercase, rest lowercase
+                wineDescription = wineDescription.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+            }
+            
             const elegantMessage = `
                 <div class="tasting-category elegant-message">
                     <span class="tasting-label">Tasting Notes</span>
-                    <span class="tasting-value">${wineDescription}</span>
+                    <span class="tasting-value" style="text-transform: none;">${wineDescription}</span>
                 </div>
             `;
             tastingGrid.innerHTML = elegantMessage;
@@ -4612,8 +4617,14 @@ function initInteractiveMap() {
                     if (regionPositions['toscana']) {
                         finalPosition = { lat: regionPositions['toscana'].lat, lng: position.lng, priority: position.priority };
                     }
-                } else if (normalizedName.includes('abruzzo') || normalizedName.includes('marche') || normalizedName.includes('molise')) {
-                    // Abruzzo, Marche, Molise: si spostano sulla destra
+                } else if (normalizedName.includes('friuli')) {
+                    // Friuli Venezia Giulia: si sposta più a destra
+                    finalPosition = { lat: position.lat, lng: position.lng + 0.25, priority: position.priority };
+                } else if (normalizedName.includes('marche')) {
+                    // Marche: si sposta più a destra
+                    finalPosition = { lat: position.lat, lng: position.lng + 0.25, priority: position.priority };
+                } else if (normalizedName.includes('abruzzo') || normalizedName.includes('molise')) {
+                    // Abruzzo, Molise: si spostano sulla destra
                     finalPosition = { lat: position.lat, lng: position.lng + 0.15, priority: position.priority };
                 } else if (normalizedName.includes('veneto')) {
                     // Veneto: scende di 10px (circa 0.001 gradi)

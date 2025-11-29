@@ -1902,6 +1902,7 @@ body:not(.home-page) .luxury-container {
 .elegant-message .tasting-value {
     font-size: 1.1rem;
     color: rgba(245, 245, 240, 0.9);
+    text-transform: none !important;
     line-height: 1.7;
     font-style: italic;
     max-width: 1400px;
