@@ -1085,6 +1085,12 @@ class WineListApp {
     }
 
     findWineImage(wine) {
+        // First, check if wine has bottle_image_url directly (from wines.json)
+        if (wine.bottle_image_url) {
+            console.log(`Found bottle_image_url for wine: ${wine.wine_name} by ${wine.wine_producer}`);
+            return wine.bottle_image_url;
+        }
+        
         if (!this.wineImages) return null;
         
         console.log(`Looking for image for wine: ${wine.wine_name} by ${wine.wine_producer}`);
