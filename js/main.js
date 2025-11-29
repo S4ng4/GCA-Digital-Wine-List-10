@@ -1158,27 +1158,16 @@ class WineListApp {
         const tastingGrid = document.getElementById('tastingGrid');
         
         if (tastingNotes && tastingGrid) {
-            // Check if we have detailed tasting notes in the wine data
-            if (wine.tasting_notes && Array.isArray(wine.tasting_notes) && wine.tasting_notes.length > 0) {
-                // Use existing tasting notes if available
-                tastingGrid.innerHTML = wine.tasting_notes.map(note => `
-                    <div class="tasting-category">
-                        <span class="tasting-label">${note.label || 'Note'}</span>
-                        <span class="tasting-value">${note.value || 'N/A'}</span>
-                    </div>
-                `).join('');
-                tastingNotes.style.display = 'block';
-            } else {
-                // Generate elegant fallback message
-                const elegantMessage = `
-                    <div class="tasting-category elegant-message">
-                        <span class="tasting-label">Organoleptic Profile</span>
-                        <span class="tasting-value">Our expert sommelier team is currently crafting a detailed organoleptic profile for this exceptional wine. We are carefully analyzing its complex aromas, flavors, and characteristics to provide you with the most comprehensive tasting notes. Please check back soon for our detailed sensory analysis.</span>
-                    </div>
-                `;
-                tastingGrid.innerHTML = elegantMessage;
-                tastingNotes.style.display = 'block';
-            }
+            // Use wine_description instead of tasting_notes
+            const wineDescription = wine.wine_description || 'A fine wine selection from our curated collection.';
+            const elegantMessage = `
+                <div class="tasting-category elegant-message">
+                    <span class="tasting-label">Tasting Notes</span>
+                    <span class="tasting-value">${wineDescription}</span>
+                </div>
+            `;
+            tastingGrid.innerHTML = elegantMessage;
+            tastingNotes.style.display = 'block';
         } else if (tastingNotes) {
             tastingNotes.style.display = 'none';
         }
