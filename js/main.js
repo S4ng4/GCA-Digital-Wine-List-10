@@ -4571,17 +4571,64 @@ function initInteractiveMap() {
                 return { feature, layer, bounds, area };
             }).sort((a, b) => a.area - b.area);
             
+            // First pass: calculate all positions
+            const regionData = [];
             regions.forEach(({ feature, layer, bounds }) => {
                 const regionName = feature.properties.reg_name || feature.properties.NAME || feature.properties.name || 'Unknown';
                 const center = bounds.getCenter();
+                const normalizedName = regionName.trim().toLowerCase();
                 
                 // Get optimal position
-                const position = getOptimalPosition(bounds, center, regionName);
+                let position = getOptimalPosition(bounds, center, regionName);
+                
+                regionData.push({
+                    feature,
+                    layer,
+                    bounds,
+                    regionName,
+                    normalizedName,
+                    center,
+                    position
+                });
+            });
+            
+            // Second pass: apply specific label adjustments based on other regions
+            const regionPositions = {};
+            regionData.forEach(({ normalizedName, position }) => {
+                regionPositions[normalizedName] = { lat: position.lat, lng: position.lng };
+            });
+            
+            regionData.forEach(({ feature, layer, bounds, regionName, normalizedName, center, position }) => {
+                let finalPosition = { ...position };
+                
+                // Apply specific label adjustments
+                if (normalizedName.includes('piemonte')) {
+                    // Piemonte: scende dove c'è Liguria
+                    if (regionPositions['liguria']) {
+                        finalPosition = { lat: regionPositions['liguria'].lat, lng: regionPositions['liguria'].lng, priority: position.priority };
+                    }
+                } else if (normalizedName.includes('liguria')) {
+                    // Liguria: scende all'altezza di Toscana ma solo orizzontalmente (stessa lat di Toscana, stessa lng di Liguria)
+                    if (regionPositions['toscana']) {
+                        finalPosition = { lat: regionPositions['toscana'].lat, lng: position.lng, priority: position.priority };
+                    }
+                } else if (normalizedName.includes('abruzzo') || normalizedName.includes('marche') || normalizedName.includes('molise')) {
+                    // Abruzzo, Marche, Molise: si spostano sulla destra
+                    finalPosition = { lat: position.lat, lng: position.lng + 0.15, priority: position.priority };
+                } else if (normalizedName.includes('veneto')) {
+                    // Veneto: scende di 10px (circa 0.001 gradi)
+                    finalPosition = { lat: position.lat - 0.001, lng: position.lng, priority: position.priority };
+                } else if (normalizedName.includes('umbria')) {
+                    // Umbria: prende il posto di Marche
+                    if (regionPositions['marche']) {
+                        finalPosition = { lat: regionPositions['marche'].lat, lng: regionPositions['marche'].lng, priority: position.priority };
+                    }
+                }
                 
                 // Record this label position
                 placedLabels.push({
-                    lat: position.lat,
-                    lng: position.lng,
+                    lat: finalPosition.lat,
+                    lng: finalPosition.lng,
                     name: regionName
                 });
                 
@@ -4597,8 +4644,8 @@ function initInteractiveMap() {
                     iconAnchor: [iconSize[0] / 2, iconSize[1] / 2]
                 });
                 
-                // Create marker for label
-                const labelMarker = L.marker([position.lat, position.lng], {
+                // Create marker for label using finalPosition
+                const labelMarker = L.marker([finalPosition.lat, finalPosition.lng], {
                     icon: labelIcon,
                     interactive: false,
                     zIndexOffset: 1000
