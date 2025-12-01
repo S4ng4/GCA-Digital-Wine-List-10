@@ -18,7 +18,8 @@
       "aging": "Stainless steel, 4 months",
       "varietals": "100% Zibibbo (Muscat of Alexandria)",
       "soil": "Volcanic with sand and limestone",
-      "elevation": "50-200m"
+      "elevation": "50-200m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/9QmL9h7tR--R9j6z5w2XJg_pb_x600.png"
     },
     {
       "wine_number": "102",
@@ -143,7 +144,8 @@
       "aging": "Stainless steel, 6 months on lees",
       "varietals": "100% Nerello Mascalese",
       "soil": "Volcanic ash and pumice",
-      "elevation": "600-700m"
+      "elevation": "600-700m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "114",
@@ -163,7 +165,8 @@
       "aging": "Stainless steel, 4 months on lees",
       "varietals": "100% Greco Bianco",
       "soil": "Clay-limestone with marine fossils",
-      "elevation": "250-400m"
+      "elevation": "250-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/taGqMACvRRabyRG2F6cZlg_pl_375x500.png"
     },
     {
       "wine_number": "115",
@@ -204,7 +207,8 @@
       "aging": "Stainless steel, 4 months",
       "varietals": "95% Gaglioppo, 5% Trebbiano Toscano",
       "soil": "Clay-limestone",
-      "elevation": "250-400m"
+      "elevation": "250-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "130",
@@ -224,7 +228,8 @@
       "aging": "Stainless steel, 6 months",
       "varietals": "60% Fiano, 40% Falanghina",
       "soil": "Volcanic tuff and clay",
-      "elevation": "400-600m"
+      "elevation": "400-600m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "131",
@@ -244,7 +249,8 @@
       "aging": null,
       "varietals": "GRECO",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "135",
@@ -265,7 +271,7 @@
       "varietals": "60% Greco, 40% Malvasia Bianca",
       "soil": "Calcareous clay with tuff",
       "elevation": "350-450m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4629_394x.jpg?v=1596472186"
+      "bottle_image_url": "https://images.vivino.com/thumbs/hH3uhumYQIy0z4JnG5T8ww_pl_480x640.png"
     },
     {
       "wine_number": "136",
@@ -286,7 +292,7 @@
       "varietals": "100% Verdeca",
       "soil": "Red clay with limestone",
       "elevation": "50-150m",
-      "bottle_image_url": "https://images.squarespace-cdn.com/content/v1/5d126c2e75a7600001e817b3/1578964762550-8TKL0FH3SOTQB3360OKK/TORREVENTO+E+ARTE+VERDECA.png"
+      "bottle_image_url": "https://images.vivino.com/thumbs/Jf33AqEbS3K1uExgaVjUBw_pl_480x640.png"
     },
     {
       "wine_number": "993",
@@ -306,7 +312,8 @@
       "aging": null,
       "varietals": "VERDECA",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://www.vinery.it/wp-content/uploads/2023/06/Verdeca-Vineka-768x768.png"
     },
     {
       "wine_number": "145",
@@ -327,7 +334,7 @@
       "varietals": "100% Falanghina",
       "soil": "Clay-limestone with volcanic ash",
       "elevation": "400-600m",
-      "bottle_image_url": "https://images.vivino.com/thumbs/KMkWu3QmTWmaBB9_nfwYiA_pl_375x500.png"
+      "bottle_image_url": "https://images.vivino.com/thumbs/-jUR8z4DRo2XYZPybkZa1g_pb_x600.png"
     },
     {
       "wine_number": "146",
@@ -389,7 +396,8 @@
       "aging": "Stainless steel, 6 months",
       "varietals": "60% Falanghina, 40% Biancolella",
       "soil": "Volcanic tuff and limestone",
-      "elevation": "100-300m"
+      "elevation": "100-300m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "151",
@@ -430,7 +438,8 @@
       "aging": "Stainless steel, 6 months",
       "varietals": "60% Falanghina, 40% Biancolella",
       "soil": "Limestone with volcanic elements",
-      "elevation": "200-400m"
+      "elevation": "200-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "152",
@@ -471,7 +480,8 @@
       "aging": "Stainless steel, 4 months",
       "varietals": "100% Aglianico",
       "soil": "Volcanic clay",
-      "elevation": "400-550m"
+      "elevation": "400-550m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "171",
@@ -492,7 +502,7 @@
       "varietals": "100% Vermentino",
       "soil": "Granite with clay",
       "elevation": "200-400m",
-      "bottle_image_url": "https://www.wine.com/product/images/w_600,h_600,dpr_2.0,c_fit,q_auto:good,fl_progressive/mxja14kg78nzdjfpcyah.jpg"
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "170",
@@ -513,7 +523,7 @@
       "varietals": "100% Vermentino",
       "soil": "Clay-limestone with sand",
       "elevation": "100-300m",
-      "bottle_image_url": "https://www.wine.com/product/images/w_600,h_600,dpr_2.0,c_fit,q_auto:good,fl_progressive/mxja14kg78nzdjfpcyah.jpg"
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "172",
@@ -554,7 +564,8 @@
       "aging": "Stainless steel, 4 months",
       "varietals": "65% Trebbiano, 35% Bombino Bianco",
       "soil": "Clay-limestone",
-      "elevation": "200-400m"
+      "elevation": "200-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/taGqMACvRRabyRG2F6cZlg_pl_375x500.png"
     },
     {
       "wine_number": "182",
@@ -574,7 +585,8 @@
       "aging": "Stainless steel, 3 months",
       "varietals": "100% Trebbiano",
       "soil": "Clay with limestone",
-      "elevation": "300-450m"
+      "elevation": "300-450m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/taGqMACvRRabyRG2F6cZlg_pl_375x500.png"
     },
     {
       "wine_number": "191",
@@ -595,7 +607,7 @@
       "varietals": "100% Trebbiano d'Abruzzo",
       "soil": "Clay-limestone",
       "elevation": "300-450m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4619_1_394x.jpg?v=1596214197"
+      "bottle_image_url": "https://images.vivino.com/thumbs/taGqMACvRRabyRG2F6cZlg_pl_375x500.png"
     },
     {
       "wine_number": "192",
@@ -637,7 +649,7 @@
       "varietals": "100% Trebbiano d'Abruzzo",
       "soil": "Clay-limestone",
       "elevation": "200-350m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4619_1_394x.jpg?v=1596214197"
+      "bottle_image_url": "https://images.vivino.com/thumbs/taGqMACvRRabyRG2F6cZlg_pl_375x500.png"
     },
     {
       "wine_number": "194",
@@ -658,7 +670,7 @@
       "varietals": "100% Trebbiano d'Abruzzo",
       "soil": "Clay-limestone",
       "elevation": "200-350m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4619_1_394x.jpg?v=1596214197"
+      "bottle_image_url": "https://images.vivino.com/thumbs/taGqMACvRRabyRG2F6cZlg_pl_375x500.png"
     },
     {
       "wine_number": "205",
@@ -678,7 +690,8 @@
       "aging": "Stainless steel, 6 months",
       "varietals": "100% Montepulciano d'Abruzzo",
       "soil": "Clay-limestone",
-      "elevation": "250-400m"
+      "elevation": "250-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "206",
@@ -698,7 +711,8 @@
       "aging": "Stainless steel, 6 months",
       "varietals": "100% Montepulciano d'Abruzzo",
       "soil": "Clay-limestone",
-      "elevation": "250-400m"
+      "elevation": "250-400m",
+      "bottle_image_url": "https://www.vinook.it/wp-content/uploads/2020/06/Passofino-Montepulciano-dAbruzzo-DOC-768x990.jpg"
     },
     {
       "wine_number": "207",
@@ -718,7 +732,8 @@
       "aging": "Stainless steel, 6 months",
       "varietals": "100% Montepulciano d'Abruzzo",
       "soil": "Clay-limestone",
-      "elevation": "200-350m"
+      "elevation": "200-350m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "210",
@@ -801,7 +816,8 @@
       "aging": "French oak barrels 18 months + bottle aging",
       "varietals": "60% Merlot, 40% Cabernet Sauvignon",
       "soil": "Volcanic tuff",
-      "elevation": "400-600m"
+      "elevation": "400-600m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "220",
@@ -822,7 +838,7 @@
       "varietals": "100% Pecorino",
       "soil": "Clay-limestone with marine deposits",
       "elevation": "250-400m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4399_394x.jpg?v=1595358014"
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "221",
@@ -905,7 +921,8 @@
       "aging": "Amphora aging, 8 months",
       "varietals": "100% Trebbiano Toscano",
       "soil": "Galestro clay",
-      "elevation": "300-500m"
+      "elevation": "300-500m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "232",
@@ -947,7 +964,7 @@
       "varietals": "100% Vermentino",
       "soil": "Clay with marine fossils",
       "elevation": "100-300m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4398_394x.jpg?v=1595357951"
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "234",
@@ -968,7 +985,7 @@
       "varietals": "100% Ansonica",
       "soil": "Granite with iron deposits",
       "elevation": "100-200m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CeciliaAnsonica_394x.jpg?v=1633088152"
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "245",
@@ -989,7 +1006,7 @@
       "varietals": "70% Grechetto, 30% Trebbiano",
       "soil": "Clay-limestone",
       "elevation": "250-450m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4613_590x.jpg?v=1596211837"
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "246",
@@ -1010,7 +1027,7 @@
       "varietals": "60% Grechetto, 40% Procanico",
       "soil": "Clay and volcanic tuff",
       "elevation": "200-400m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4616_394x.jpg?v=1596212255"
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "260",
@@ -1031,7 +1048,7 @@
       "varietals": "100% Vermentino",
       "soil": "Sandy clay with limestone",
       "elevation": "200-400m",
-      "bottle_image_url": "https://www.wine.com/product/images/w_600,h_600,dpr_2.0,c_fit,q_auto:good,fl_progressive/mxja14kg78nzdjfpcyah.jpg"
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "261",
@@ -1052,7 +1069,7 @@
       "varietals": "100% Pigato",
       "soil": "Sandy clay with limestone",
       "elevation": "200-400m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/ColledeiBardellini_394x.png?v=1633969582"
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "262",
@@ -1072,7 +1089,8 @@
       "aging": "Stainless steel, 6 months",
       "varietals": "40% Bosco, 30% Vermentino, 20% Albarola, 10% other local varieties",
       "soil": "Terraced schist and limestone",
-      "elevation": "100-300m"
+      "elevation": "100-300m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "276",
@@ -1092,7 +1110,8 @@
       "aging": "Charmat method, 6 months on lees",
       "varietals": "100% Malvasia di Candia",
       "soil": "Clay with limestone",
-      "elevation": "150-300m"
+      "elevation": "150-300m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/taGqMACvRRabyRG2F6cZlg_pl_375x500.png"
     },
     {
       "wine_number": "277",
@@ -1112,7 +1131,8 @@
       "aging": "Traditional method, 12 months on lees",
       "varietals": "100% Pignoletto",
       "soil": "Clay-limestone",
-      "elevation": "200-400m"
+      "elevation": "200-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "275",
@@ -1132,7 +1152,8 @@
       "aging": "Charmat method, 3 months",
       "varietals": "100% Lambrusco Salamino",
       "soil": "Clay with sand",
-      "elevation": "100-250m"
+      "elevation": "100-250m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/hH3uhumYQIy0z4JnG5T8ww_pl_480x640.png"
     },
     {
       "wine_number": "286",
@@ -1152,7 +1173,8 @@
       "aging": "Charmat method, 4 months on lees",
       "varietals": "100% Fortana",
       "soil": "Sandy clay",
-      "elevation": "50-150m"
+      "elevation": "50-150m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "287",
@@ -1172,7 +1194,8 @@
       "aging": "Charmat method, 6 months",
       "varietals": "60% Lambrusco, 25% Marzemino, 15% Malbo Gentile",
       "soil": "Clay-limestone",
-      "elevation": "100-300m"
+      "elevation": "100-300m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "300",
@@ -1192,7 +1215,8 @@
       "aging": "Charmat method, 3 months",
       "varietals": "100% Glera",
       "soil": "Clay-limestone",
-      "elevation": "100-300m"
+      "elevation": "100-300m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "301",
@@ -1212,7 +1236,8 @@
       "aging": "Charmat method, 4 months",
       "varietals": "100% Glera",
       "soil": "Clay-limestone with moraine",
-      "elevation": "200-400m"
+      "elevation": "200-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "302",
@@ -1232,7 +1257,8 @@
       "aging": "Charmat method, 4 months",
       "varietals": "100% Glera",
       "soil": "Clay-limestone",
-      "elevation": "200-400m"
+      "elevation": "200-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "303",
@@ -1252,7 +1278,8 @@
       "aging": "Charmat method, 4 months",
       "varietals": "60% Corvina, 30% Rondinella, 10% Molinara",
       "soil": "Glacial moraine with clay",
-      "elevation": "100-300m"
+      "elevation": "100-300m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "304",
@@ -1272,7 +1299,8 @@
       "aging": "Traditional method, 24 months on lees",
       "varietals": "100% Garganega",
       "soil": "Volcanic basalt and limestone",
-      "elevation": "200-400m"
+      "elevation": "200-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/taGqMACvRRabyRG2F6cZlg_pl_375x500.png"
     },
     {
       "wine_number": "310",
@@ -1293,7 +1321,7 @@
       "varietals": "100% Turbiana (Trebbiano di Lugana)",
       "soil": "Clay with limestone and glacial deposits",
       "elevation": "100-200m",
-      "bottle_image_url": "https://cdn11.bigcommerce.com/s-vwdff65dat/images/stencil/1280x1280/products/15384/3762/Zenato-San-Benedetto-Lugana__33976.1698188634.jpg?c=1"
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "305",
@@ -1314,7 +1342,7 @@
       "varietals": "100% Glera",
       "soil": "Clay-limestone",
       "elevation": "100-300m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/files/Gleraigtmongarda_394x.jpg?v=1686707847"
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "306",
@@ -1335,7 +1363,7 @@
       "varietals": null,
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4668_394x.jpg?v=1597171707"
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "312",
@@ -1356,7 +1384,7 @@
       "varietals": "100% Garganega",
       "soil": "Volcanic basalt and limestone",
       "elevation": "200-400m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4568_394x.jpg?v=1596158532"
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "313",
@@ -1377,7 +1405,7 @@
       "varietals": "100% Garganega",
       "soil": "Volcanic basalt and limestone",
       "elevation": "200-400m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4568_394x.jpg?v=1596158532"
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "994",
@@ -1398,7 +1426,7 @@
       "varietals": null,
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://cdn11.bigcommerce.com/s-vwdff65dat/images/stencil/1280x1280/products/15384/3762/Zenato-San-Benedetto-Lugana__33976.1698188634.jpg?c=1"
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "321",
@@ -1418,7 +1446,8 @@
       "aging": "Stainless steel, 4 months",
       "varietals": "60% Corvina, 30% Rondinella, 10% Molinara",
       "soil": "Glacial moraine with clay",
-      "elevation": "100-300m"
+      "elevation": "100-300m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "331",
@@ -1439,7 +1468,7 @@
       "varietals": "100% Friulano",
       "soil": "Marl and sandstone (flysch)",
       "elevation": "100-200m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4583_394x.jpg?v=1596208209"
+      "bottle_image_url": "https://images.vivino.com/thumbs/hH3uhumYQIy0z4JnG5T8ww_pl_480x640.png"
     },
     {
       "wine_number": "332",
@@ -1460,7 +1489,7 @@
       "varietals": "100% Ribolla Gialla",
       "soil": "Marl and sandstone",
       "elevation": "100-250m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4584_394x.jpg?v=1596208297"
+      "bottle_image_url": "https://images.vivino.com/thumbs/Jf33AqEbS3K1uExgaVjUBw_pl_480x640.png"
     },
     {
       "wine_number": "333",
@@ -1481,7 +1510,7 @@
       "varietals": "100% Pinot Grigio",
       "soil": "Marl and sandstone",
       "elevation": "100-250m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4577_394x.jpg?v=1596160789"
+      "bottle_image_url": "https://images.vivino.com/thumbs/H3bKAUe7ScemrAkWDmCvYw_pb_x960.png"
     },
     {
       "wine_number": "334",
@@ -1502,7 +1531,7 @@
       "varietals": "100% Chardonnay",
       "soil": "Calcareous marl",
       "elevation": "50-150m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4589_394x.jpg?v=1596208858"
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "335",
@@ -1523,7 +1552,7 @@
       "varietals": "100% Chardonnay",
       "soil": "Marl and sandstone",
       "elevation": "100-200m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4576_394x.jpg?v=1596160743"
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "336",
@@ -1544,7 +1573,7 @@
       "varietals": "Sauvignon, Chardonnay, Ribolla Gialla, Malvasia, Picolit",
       "soil": "Marl and sandstone",
       "elevation": "100-250m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4577_394x.jpg?v=1596160789"
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "340",
@@ -1564,7 +1593,8 @@
       "aging": "Autoclave (Charmat Method)",
       "varietals": "100% Moscato Bianco",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "341",
@@ -1584,7 +1614,8 @@
       "aging": null,
       "varietals": null,
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "342",
@@ -1604,7 +1635,8 @@
       "aging": null,
       "varietals": "100% Brachetto",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "343",
@@ -1624,7 +1656,8 @@
       "aging": null,
       "varietals": null,
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "344",
@@ -1644,7 +1677,8 @@
       "aging": null,
       "varietals": null,
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "351",
@@ -1664,7 +1698,8 @@
       "aging": "Stainless steel, Autoclave (Charmat Method)",
       "varietals": "100% Moscato Bianco",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "352",
@@ -1684,7 +1719,8 @@
       "aging": "Stainless steel, Autoclave (Charmat Method)",
       "varietals": "100% Moscato Bianco",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "353",
@@ -1704,7 +1740,8 @@
       "aging": "Stainless steel",
       "varietals": "100% Arneis",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "354",
@@ -1724,7 +1761,8 @@
       "aging": "Stainless steel",
       "varietals": "100% Cortese",
       "soil": "Calcareous, Marl",
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "355",
@@ -1744,7 +1782,8 @@
       "aging": null,
       "varietals": "100% Timorasso",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "761",
@@ -1764,7 +1803,8 @@
       "aging": "Stainless steel",
       "varietals": "100% Nebbiolo",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://www.gustoebonta.it/325-large_default/pio-cesare-nebbiolo-rosy-langhe-doc-2022.jpg"
     },
     {
       "wine_number": "365",
@@ -1784,7 +1824,8 @@
       "aging": "On the lees (Metodo Classico)",
       "varietals": "Chardonnay, Pinot Nero",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "366",
@@ -1804,7 +1845,8 @@
       "aging": "On the lees (Metodo Classico)",
       "varietals": "Chardonnay, Pinot Nero",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "367",
@@ -1824,7 +1866,8 @@
       "aging": null,
       "varietals": null,
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "371",
@@ -1844,7 +1887,8 @@
       "aging": "Stainless steel",
       "varietals": "100% Pinot Grigio",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "377",
@@ -1864,7 +1908,8 @@
       "aging": "Stainless steel",
       "varietals": "100% Riesling",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "372",
@@ -1884,7 +1929,8 @@
       "aging": "Stainless steel",
       "varietals": "100% Muller Thurgau",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "373",
@@ -1904,7 +1950,8 @@
       "aging": "Stainless steel",
       "varietals": "Veltliner",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "374",
@@ -1924,7 +1971,8 @@
       "aging": "Stainless steel",
       "varietals": "100% Sauvignon Blanc",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "375",
@@ -1944,7 +1992,8 @@
       "aging": "Stainless steel",
       "varietals": "100% Kerner",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "376",
@@ -1964,7 +2013,8 @@
       "aging": "Stainless steel",
       "varietals": "100% Gewürztraminer",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "378",
@@ -1984,7 +2034,8 @@
       "aging": "8 Months on skins in Amphorae (Tinaja)",
       "varietals": "100% Pinot Grigio",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "391",
@@ -2004,7 +2055,8 @@
       "aging": "On the lees (Metodo Classico)",
       "varietals": "Chardonnay, Pinot Nero",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "392",
@@ -2024,7 +2076,8 @@
       "aging": "On the lees (Metodo Classico)",
       "varietals": "100% Chardonnay",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "393",
@@ -2044,7 +2097,8 @@
       "aging": "On the lees (Metodo Classico)",
       "varietals": "Pinot Nero, Chardonnay",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "395",
@@ -2064,7 +2118,8 @@
       "aging": "On the lees (Metodo Classico)",
       "varietals": "Chardonnay, Pinot Nero, Pinot Bianco",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "396",
@@ -2084,7 +2139,8 @@
       "aging": "On the lees (Metodo Classico)",
       "varietals": "Chardonnay, Pinot Nero, Pinot Bianco",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "397",
@@ -2104,7 +2160,8 @@
       "aging": "On the lees (Metodo Classico)",
       "varietals": "Chardonnay, Pinot Nero, Pinot Bianco",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "394",
@@ -2124,7 +2181,8 @@
       "aging": "On the lees (Metodo Classico)",
       "varietals": "Chardonnay, Pinot Nero",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "398",
@@ -2144,7 +2202,8 @@
       "aging": "On the lees (Metodo Classico)",
       "varietals": "Chardonnay, Pinot Nero, Pinot Bianco",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://www.tannico.it/media/catalog/product/c/a/ca-del-bosco-franciacorta-dosage-zero-dosaggio-zero-ca-del-bosco-1_1.jpg"
     },
     {
       "wine_number": "399",
@@ -2164,7 +2223,8 @@
       "aging": null,
       "varietals": null,
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://www.bortoluzziwinelab.com/389-large_default/ca-del-bosco-annamaria-clementi-riserva-1.jpg"
     },
     {
       "wine_number": "405",
@@ -2184,7 +2244,8 @@
       "aging": null,
       "varietals": "100% Prié Blanc",
       "soil": "Sandy",
-      "elevation": "Very High (over 1000m)"
+      "elevation": "Very High (over 1000m)",
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "411",
@@ -2204,7 +2265,8 @@
       "aging": "Stainless steel",
       "varietals": "100% Prié Blanc",
       "soil": "Sandy",
-      "elevation": "Very High (over 1000m)"
+      "elevation": "Very High (over 1000m)",
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "412",
@@ -2224,7 +2286,8 @@
       "aging": "Stainless steel",
       "varietals": null,
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "420",
@@ -2245,7 +2308,7 @@
       "varietals": "100% Frappato",
       "soil": "Clay-limestone with sand",
       "elevation": "100-300m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4700_394x.jpg?v=1598896705"
+      "bottle_image_url": "https://images.vivino.com/thumbs/H3bKAUe7ScemrAkWDmCvYw_pb_x960.png"
     },
     {
       "wine_number": "423",
@@ -2265,7 +2328,8 @@
       "aging": "Oak barrels, 18 months + bottle aging",
       "varietals": "60% Nero d'Avola, 40% Frappato",
       "soil": "Red clay with limestone",
-      "elevation": "250-400m"
+      "elevation": "250-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "421",
@@ -2286,7 +2350,7 @@
       "varietals": "100% Nero d'Avola",
       "soil": "Clay-limestone with sand",
       "elevation": "100-250m",
-      "bottle_image_url": "https://images.vivino.com/thumbs/H3bKAUe7ScemrAkWDmCvYw_pb_x960.png"
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "425",
@@ -2306,7 +2370,8 @@
       "aging": "Large oak casks, 24 months",
       "varietals": "100% Nero d'Avola",
       "soil": "Clay-limestone",
-      "elevation": "400-500m"
+      "elevation": "400-500m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "422",
@@ -2327,7 +2392,7 @@
       "varietals": "95% Nerello Mascalese, 5% Nerello Cappuccio",
       "soil": "Volcanic ash and pumice",
       "elevation": "600-800m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4690_394x.jpg?v=1597179230"
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "424",
@@ -2348,7 +2413,7 @@
       "varietals": "98% Nerello Mascalese, 2% Nerello Cappuccio",
       "soil": "Black volcanic ash (lapilli)",
       "elevation": "600-900m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4690_394x.jpg?v=1597179230"
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "426",
@@ -2369,7 +2434,7 @@
       "varietals": null,
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/nero_394x.png?v=1633972664"
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "427",
@@ -2390,7 +2455,7 @@
       "varietals": null,
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4690_394x.jpg?v=1597179230"
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "436",
@@ -2411,7 +2476,7 @@
       "varietals": "95% Gaglioppo, 5% Greco Nero",
       "soil": "Clay-limestone with marine fossils",
       "elevation": "250-400m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4702_394x.jpg?v=1598896842"
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "437",
@@ -2431,7 +2496,8 @@
       "aging": null,
       "varietals": "Gaglioppo, Nerello,  Greco Nero",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "438",
@@ -2452,7 +2518,7 @@
       "varietals": null,
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4772_394x.jpg?v=1598898039"
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "451",
@@ -2473,7 +2539,7 @@
       "varietals": "100% Aglianico",
       "soil": "Volcanic tuff and ash",
       "elevation": "600-700m",
-      "bottle_image_url": "https://images.vivino.com/thumbs/-jUR8z4DRo2XYZPybkZa1g_pb_x600.png"
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "452",
@@ -2494,7 +2560,7 @@
       "varietals": "100% Aglianico",
       "soil": "Volcanic tuff and ash",
       "elevation": "600-700m",
-      "bottle_image_url": "https://images.vivino.com/thumbs/-jUR8z4DRo2XYZPybkZa1g_pb_x600.png"
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "460",
@@ -2515,7 +2581,7 @@
       "varietals": "100% Nero di Troia",
       "soil": "Clay-limestone with limestone",
       "elevation": "200-350m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4773_590x.jpg?v=1598898104"
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "461",
@@ -2536,7 +2602,7 @@
       "varietals": "90% Negroamaro, 10% Malvasia Nera",
       "soil": "Red clay with limestone",
       "elevation": "50-150m",
-      "bottle_image_url": "https://www.winetransit.com/media/catalog/product/cache/400a650acef16caf799ce948294c4e36/f/a/fabiana_kalema_negroamaro_mv_750.jpg"
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "462",
@@ -2557,7 +2623,7 @@
       "varietals": null,
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4409_394x.jpg?v=1595363037"
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "463",
@@ -2578,7 +2644,7 @@
       "varietals": null,
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/zin2020_590x.jpg?v=1607627762"
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "475",
@@ -2599,7 +2665,7 @@
       "varietals": "60% Piedirosso, 40% Aglianico",
       "soil": "Volcanic tuff with limestone",
       "elevation": "200-400m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4703_394x.jpg?v=1598896915"
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "476",
@@ -2620,7 +2686,7 @@
       "varietals": null,
       "soil": "Volcanic tuff with limestone",
       "elevation": null,
-      "bottle_image_url": "https://images.vivino.com/thumbs/-jUR8z4DRo2XYZPybkZa1g_pb_x600.png"
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "477",
@@ -2640,7 +2706,8 @@
       "aging": null,
       "varietals": null,
       "soil": "Volcanic tuff with limestone",
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "478",
@@ -2661,7 +2728,7 @@
       "varietals": "PIEDIROSSO & AGLIANIC",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4696_590x.jpg?v=1598896402"
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "479",
@@ -2682,7 +2749,7 @@
       "varietals": null,
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://images.vivino.com/thumbs/-jUR8z4DRo2XYZPybkZa1g_pb_x600.png"
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "480",
@@ -2702,7 +2769,8 @@
       "aging": null,
       "varietals": null,
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "481",
@@ -2723,7 +2791,7 @@
       "varietals": "100% Aglianico",
       "soil": "Clay-limestone with volcanic ash",
       "elevation": "400-700m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4707_590x.jpg?v=1598897086"
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "482",
@@ -2744,7 +2812,7 @@
       "varietals": null,
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4701_394x.jpg?v=1598896797"
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "483",
@@ -2765,7 +2833,7 @@
       "varietals": null,
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4701_394x.jpg?v=1598896797"
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "496",
@@ -2785,7 +2853,8 @@
       "aging": "Neutral oak + cement, 12 months",
       "varietals": "100% Monica",
       "soil": "Clay-limestone with sand",
-      "elevation": "100-300m"
+      "elevation": "100-300m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "497",
@@ -2806,7 +2875,7 @@
       "varietals": "Cannonau (Grenache)",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4689_900x.jpg?v=1597178934"
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "498",
@@ -2826,7 +2895,8 @@
       "aging": null,
       "varietals": "Carignano",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "499",
@@ -2846,7 +2916,8 @@
       "aging": null,
       "varietals": "Carignano, Cabernet",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "505",
@@ -2867,7 +2938,7 @@
       "varietals": "Sangiovese, Montepulciano",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://www.totalwine.com/dynamic/490x/media/sys_master/twmmedia/h24/hc7/12780153569310.png"
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "507",
@@ -2887,7 +2958,8 @@
       "aging": "Oak barrels, 18 months",
       "varietals": "100% Tintilia",
       "soil": "Clay-limestone with marine influence",
-      "elevation": "200-400m"
+      "elevation": "200-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "506",
@@ -2908,7 +2980,7 @@
       "varietals": "Cabernet",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/dugaltinazzi_394x.png?v=1633091842"
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "508",
@@ -2929,7 +3001,7 @@
       "varietals": "Montepulciano",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://www.wineatelier.com/cdn/shop/products/TORREMIGLIORI_1024x1024.jpg?v=1571269723"
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "515",
@@ -2950,7 +3022,7 @@
       "varietals": "100% Montepulciano d'Abruzzo",
       "soil": "Clay-limestone",
       "elevation": "250-400m",
-      "bottle_image_url": "https://www.wineatelier.com/cdn/shop/products/TORREMIGLIORI_1024x1024.jpg?v=1571269723"
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "516",
@@ -2971,7 +3043,7 @@
       "varietals": "100% Montepulciano d'Abruzzo",
       "soil": "Clay-limestone",
       "elevation": "250-400m",
-      "bottle_image_url": "https://www.wineatelier.com/cdn/shop/products/TORREMIGLIORI_1024x1024.jpg?v=1571269723"
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "517",
@@ -2992,7 +3064,7 @@
       "varietals": "Montepulciano",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://www.wineatelier.com/cdn/shop/products/TORREMIGLIORI_1024x1024.jpg?v=1571269723"
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "518",
@@ -3013,7 +3085,7 @@
       "varietals": "Montepulciano",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4714_394x.jpg?v=1598897566"
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "519",
@@ -3034,7 +3106,7 @@
       "varietals": "Montepulciano",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://www.wineatelier.com/cdn/shop/products/TORREMIGLIORI_1024x1024.jpg?v=1571269723"
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "520",
@@ -3055,7 +3127,7 @@
       "varietals": "100% Montepulciano d'Abruzzo",
       "soil": "Clay-limestone",
       "elevation": "250-400m",
-      "bottle_image_url": "https://www.wineatelier.com/cdn/shop/products/TORREMIGLIORI_1024x1024.jpg?v=1571269723"
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "521",
@@ -3076,7 +3148,7 @@
       "varietals": "100% Montepulciano d'Abruzzo",
       "soil": "Clay-limestone",
       "elevation": "250-400m",
-      "bottle_image_url": "https://www.wineatelier.com/cdn/shop/products/TORREMIGLIORI_1024x1024.jpg?v=1571269723"
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "531",
@@ -3097,7 +3169,7 @@
       "varietals": "100% Cesanese",
       "soil": "Volcanic tuff with clay",
       "elevation": "400-600m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4711_394x.jpg?v=1598897374"
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "532",
@@ -3118,7 +3190,7 @@
       "varietals": null,
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4711_394x.jpg?v=1598897374"
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "533",
@@ -3139,7 +3211,7 @@
       "varietals": null,
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4669_394x.jpg?v=1597173028"
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "545",
@@ -3159,7 +3231,8 @@
       "aging": "Stainless steel, 8 months",
       "varietals": "100% Lacrima",
       "soil": "Clay-limestone with sand",
-      "elevation": "200-350m"
+      "elevation": "200-350m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "546",
@@ -3180,7 +3253,7 @@
       "varietals": null,
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4666_394x.jpg?v=1597170875"
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "547",
@@ -3201,7 +3274,7 @@
       "varietals": null,
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4667_394x.jpg?v=1597171113"
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "556",
@@ -3222,7 +3295,7 @@
       "varietals": "100% Sangiovese (Morellino)",
       "soil": "Clay with limestone and tuff",
       "elevation": "200-400m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4647_590x.jpg?v=1596474499"
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "557",
@@ -3243,7 +3316,7 @@
       "varietals": "SANGIOVESE/SYRAH/CAB FRANC",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4402_394x.jpg?v=1595360893"
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "558",
@@ -3264,7 +3337,7 @@
       "varietals": "SANGIOVESE,SYRAH,PETIT VERDOT",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/files/montecarlotenutabuonamico_394x.jpg?v=1686957702"
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "559",
@@ -3285,7 +3358,7 @@
       "varietals": null,
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://images.vivino.com/thumbs/MXKeg3csQ7-WwL2FTAd9hw_pb_x600.png"
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "560",
@@ -3305,7 +3378,8 @@
       "aging": null,
       "varietals": "MERLOT CAB FRANC",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "561",
@@ -3326,7 +3400,7 @@
       "varietals": null,
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://www.wineatelier.com/cdn/shop/products/TORREMIGLIORI_1024x1024.jpg?v=1571269723"
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "562",
@@ -3347,7 +3421,7 @@
       "varietals": null,
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4645_394x.jpg?v=1596474164"
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "563",
@@ -3368,7 +3442,7 @@
       "varietals": null,
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4645_394x.jpg?v=1596474164"
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "995",
@@ -3388,7 +3462,8 @@
       "aging": null,
       "varietals": null,
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "576",
@@ -3409,7 +3484,7 @@
       "varietals": "SANGIOVESE",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4670_394x.jpg?v=1597173338"
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "575",
@@ -3430,7 +3505,7 @@
       "varietals": "SANGIOVESE",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "578",
@@ -3451,7 +3526,7 @@
       "varietals": "SANGIOVESE",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4419_394x.jpg?v=1595363703"
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "577",
@@ -3472,7 +3547,7 @@
       "varietals": "SANGIOVESE",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "579",
@@ -3493,7 +3568,7 @@
       "varietals": "SANGIOVESE",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4670_394x.jpg?v=1597173338"
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "583",
@@ -3514,7 +3589,7 @@
       "varietals": "SANGIOVESE",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4674_394x.jpg?v=1597173898"
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "580",
@@ -3535,7 +3610,7 @@
       "varietals": "SANGIOVESE",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4670_394x.jpg?v=1597173338"
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "581",
@@ -3556,7 +3631,7 @@
       "varietals": "SANGIOVESE",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4670_394x.jpg?v=1597173338"
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "582",
@@ -3577,7 +3652,7 @@
       "varietals": "SANGIOVESE",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4670_394x.jpg?v=1597173338"
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "996",
@@ -3598,7 +3673,7 @@
       "varietals": "SANGIOVESE",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4670_394x.jpg?v=1597173338"
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "591",
@@ -3619,7 +3694,7 @@
       "varietals": "SANGIOVESE GROSSO",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://www.wine-searcher.com/images/labels/51/31/10775131.jpg?width=260&height=260&fit=bounds&canvas=260,260"
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "592",
@@ -3640,7 +3715,7 @@
       "varietals": "SANGIOVESE GROSSO",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://www.wine-searcher.com/images/labels/51/31/10775131.jpg?width=260&height=260&fit=bounds&canvas=260,260"
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "593",
@@ -3661,7 +3736,7 @@
       "varietals": "SANGIOVESE GROSSO",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/AMARTOMMASI_590x.png?v=1633971436"
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "594",
@@ -3682,7 +3757,7 @@
       "varietals": "SANGIOVESE GROSSO",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/AMARTOMMASI_590x.png?v=1633971436"
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "595",
@@ -3703,7 +3778,7 @@
       "varietals": "SANGIOVESE GROSSO",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/AMARTOMMASI_590x.png?v=1633971436"
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "596",
@@ -3724,7 +3799,7 @@
       "varietals": "SANGIOVESE GROSSO",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/AMARTOMMASI_590x.png?v=1633971436"
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "597",
@@ -3745,7 +3820,7 @@
       "varietals": "SANGIOVESE GROSSO",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/AMARTOMMASI_590x.png?v=1633971436"
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "598",
@@ -3766,7 +3841,7 @@
       "varietals": "SANGIOVESE GROSSO",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/AMARTOMMASI_590x.png?v=1633971436"
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "599",
@@ -3787,7 +3862,7 @@
       "varietals": "SANGIOVESE GROSSO",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/AMARTOMMASI_590x.png?v=1633971436"
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "600",
@@ -3808,7 +3883,7 @@
       "varietals": "SANGIOVESE GROSSO",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/AMARTOMMASI_590x.png?v=1633971436"
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "601",
@@ -3829,7 +3904,7 @@
       "varietals": "SANGIOVESE GROSSO",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/AMARTOMMASI_590x.png?v=1633971436"
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "602",
@@ -3850,7 +3925,7 @@
       "varietals": "SANGIOVESE GROSSO",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/AMARTOMMASI_590x.png?v=1633971436"
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "603",
@@ -3871,7 +3946,7 @@
       "varietals": "SANGIOVESE GROSSO",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/AMARTOMMASI_590x.png?v=1633971436"
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "605",
@@ -3892,7 +3967,7 @@
       "varietals": "SANGIOVESE GROSSO",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/AMARTOMMASI_590x.png?v=1633971436"
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "604",
@@ -3913,7 +3988,7 @@
       "varietals": "SANGIOVESE GROSSO",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/AMARTOMMASI_590x.png?v=1633971436"
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "997",
@@ -3934,7 +4009,7 @@
       "varietals": "SANGIOVESE GROSSO",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/AMARTOMMASI_590x.png?v=1633971436"
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "606",
@@ -3955,7 +4030,7 @@
       "varietals": "SANGIOVESE GROSSO",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/AMARTOMMASI_590x.png?v=1633971436"
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "609",
@@ -3976,7 +4051,7 @@
       "varietals": "SANGIOVESE GROSSO",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/AMARTOMMASI_590x.png?v=1633971436"
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "615",
@@ -3996,7 +4071,8 @@
       "aging": null,
       "varietals": "CABERNET SAUVIGNON, MERLOT, SANGIOVESE",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "617",
@@ -4017,7 +4093,7 @@
       "varietals": "CABERNET SAUVIGNON, MERLOT, SANGIOVESE",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://ruffino.com/cdn/shop/products/Modus-750ml-Bottle-Shot.png?v=1618551553"
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "618",
@@ -4037,7 +4113,8 @@
       "aging": null,
       "varietals": "CABERNET FRANC, CABERNET SAUVIGNON, PETIT VERDOT",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "619",
@@ -4058,7 +4135,7 @@
       "varietals": "CABERNET SAUVIGNON, SYRAH, MERLOT",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://www.wine.com/product/images/w_600,h_600,dpr_2.0,c_fit,q_auto:good,fl_progressive/260389fbs.jpg"
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "620",
@@ -4079,7 +4156,7 @@
       "varietals": "MERLOT, CABERNET SAUVIGNON, SANGIOVESE",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4670_394x.jpg?v=1597173338"
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "621",
@@ -4099,7 +4176,8 @@
       "aging": null,
       "varietals": "MERLOT, SANGIOVESE, CABERNET SAUVIGNON",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "622",
@@ -4119,7 +4197,8 @@
       "aging": null,
       "varietals": "CABERNET SAUVIGNON, MERLOT, CABERNET FRANC, PETIT VERDOT",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "623",
@@ -4139,7 +4218,8 @@
       "aging": null,
       "varietals": "SANGIOVESE, CABERNET SAUVIGNON, CABERNET FRANC",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "624",
@@ -4159,7 +4239,8 @@
       "aging": null,
       "varietals": "SANGIOVESE, CABERNET SAUVIGNON, CABERNET FRANC",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "625",
@@ -4180,7 +4261,7 @@
       "varietals": "CABERNET SAUVIGNON, CABERNET FRANC",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/SASSICAIATENUTASANGUIDO_590x.png?v=1633971152"
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "626",
@@ -4200,7 +4281,8 @@
       "aging": null,
       "varietals": "CABERNET SAUVIGNON, CABERNET FRANC, SANGIOVESE",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "640",
@@ -4221,7 +4303,7 @@
       "varietals": "70% Sangiovese, 30% Merlot",
       "soil": "Clay-limestone",
       "elevation": "250-400m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4677_394x.jpg?v=1597174660"
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "641",
@@ -4242,7 +4324,7 @@
       "varietals": "SANGIOVESE, SAGRANTINO",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://www.cantinascacciadiavoli.it/wp-content/uploads/2018/11/Rosso-Montefalco-alta-risoluzione-075.jpg"
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "642",
@@ -4263,7 +4345,7 @@
       "varietals": "100% Sagrantino",
       "soil": "Clay-limestone",
       "elevation": "350-500m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4673_590x.jpg?v=1597173812"
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "643",
@@ -4284,7 +4366,7 @@
       "varietals": "100% Sagrantino",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4673_590x.jpg?v=1597173812"
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "655",
@@ -4304,7 +4386,8 @@
       "aging": "Stainless steel + partial oak, 8 months",
       "varietals": "100% Rossese",
       "soil": "Schistose with clay",
-      "elevation": "100-400m"
+      "elevation": "100-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "656",
@@ -4325,7 +4408,7 @@
       "varietals": null,
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://www.gorleriwineresort.com/poggio-dei-gorleri/wp-content/blogs.dir/5/files/sites/5/15s13_imgk0001-Peinetti.jpg"
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "675",
@@ -4346,7 +4429,7 @@
       "varietals": "100% Lambrusco di Sorbara",
       "soil": "Clay with limestone",
       "elevation": "50-200m",
-      "bottle_image_url": "https://images.vivino.com/thumbs/hH3uhumYQIy0z4JnG5T8ww_pl_480x640.png"
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "676",
@@ -4387,7 +4470,8 @@
       "aging": null,
       "varietals": null,
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "678",
@@ -4408,7 +4492,7 @@
       "varietals": "Sangiovese",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://www.totalwine.com/dynamic/490x/media/sys_master/twmmedia/h24/hc7/12780153569310.png"
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "679",
@@ -4429,7 +4513,7 @@
       "varietals": "Sangiovese",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://www.totalwine.com/dynamic/490x/media/sys_master/twmmedia/h24/hc7/12780153569310.png"
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "695",
@@ -4449,7 +4533,8 @@
       "aging": null,
       "varietals": null,
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "696",
@@ -4470,7 +4555,7 @@
       "varietals": "50% Corvina, 30% Rondinella, 20% Molinara",
       "soil": "Calcareous clay with limestone",
       "elevation": "200-400m",
-      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "716",
@@ -4490,7 +4575,8 @@
       "aging": "Oak barrels, 36 months + bottle 12 months",
       "varietals": "45% Corvina, 35% Rondinella, 20% Molinara",
       "soil": "Calcareous clay with limestone",
-      "elevation": "200-450m"
+      "elevation": "200-450m",
+      "bottle_image_url": "https://www.avenariuswine.it/654-large_default/amarone-della-valpolicella-classico-doc-juliet.jpg"
     },
     {
       "wine_number": "717",
@@ -4510,7 +4596,8 @@
       "aging": "Oak barrels, 36 months + bottle 18 months",
       "varietals": "45% Corvina Veronese, 40% Rondinella, 15% Oseleta",
       "soil": "Calcareous clay with limestone",
-      "elevation": "200-400m"
+      "elevation": "200-400m",
+      "bottle_image_url": "https://www.tannico.it/media/catalog/product/m/o/monte-zovo-amarone-della-valpolicella-docg-1_1.jpg"
     },
     {
       "wine_number": "718",
@@ -4530,7 +4617,8 @@
       "aging": null,
       "varietals": "Corvina, Corvinone, Rondinella",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://www.bortoluzziwinelab.com/377-large_default/tommaso-tommasi-amarone-della-valpolicella-classico-docg-1.jpg"
     },
     {
       "wine_number": "719",
@@ -4550,7 +4638,8 @@
       "aging": "Aged 15 Years",
       "varietals": "Corvina, Corvinone, Rondinella",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://www.avenariuswine.it/650-large_default/amarone-della-valpolicella-classico-doc-righetti-vigneto-lalder-1.jpg"
     },
     {
       "wine_number": "720",
@@ -4570,7 +4659,8 @@
       "aging": null,
       "varietals": "Corvina, Corvinone, Rondinella",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://www.bortoluzziwinelab.com/379-large_default/speri-amarone-della-valpolicella-classico-docg-1.jpg"
     },
     {
       "wine_number": "721",
@@ -4590,7 +4680,8 @@
       "aging": null,
       "varietals": "Corvina, Corvinone, Rondinella",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://www.tannico.it/media/catalog/product/b/u/buglioni-lamarone-della-valpolicella-classico-docg-1_1.jpg"
     },
     {
       "wine_number": "722",
@@ -4610,7 +4701,8 @@
       "aging": null,
       "varietals": "Corvina, Corvinone, Rondinella",
       "soil": null,
-      "elevation": "High Elevation"
+      "elevation": "High Elevation",
+      "bottle_image_url": "https://www.tannico.it/media/catalog/product/p/r/pra-amarone-della-valpolicella-classico-docg-1_1.jpg"
     },
     {
       "wine_number": "723",
@@ -4630,7 +4722,8 @@
       "aging": "Oak barrels, 36 months + bottle 18 months",
       "varietals": "45% Corvina Veronese, 40% Rondinella, 15% Oseleta",
       "soil": "Calcareous clay with limestone",
-      "elevation": "200-400m"
+      "elevation": "200-400m",
+      "bottle_image_url": "https://www.tannico.it/media/catalog/product/a/l/allegrini-amarone-della-valpolicella-classico-docg-1_5.jpg"
     },
     {
       "wine_number": "724",
@@ -4650,7 +4743,8 @@
       "aging": null,
       "varietals": "Corvina, Corvinone, Rondinella",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://www.tannico.it/media/catalog/product/b/e/bertani-amarone-della-valpolicella-valpantena-docg-1.jpg"
     },
     {
       "wine_number": "725",
@@ -4670,7 +4764,8 @@
       "aging": null,
       "varietals": "Corvina, Rondinella, Molinara",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://www.tannico.it/media/catalog/product/d/a/dal-forno-romano-valpolicella-superiore-doc-1.jpg"
     },
     {
       "wine_number": "726",
@@ -4690,7 +4785,8 @@
       "aging": null,
       "varietals": "Corvina, Rondinella, Molinara",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://www.wine-searcher.com/images/labels/76/54/10437654.jpg"
     },
     {
       "wine_number": "727",
@@ -4710,7 +4806,8 @@
       "aging": "French oak barriques, 48 months + bottle 192 months",
       "varietals": "70% Corvina, 20% Rondinella, 10% Croatina",
       "soil": "Calcareous clay with basaltic elements",
-      "elevation": "300-450m"
+      "elevation": "300-450m",
+      "bottle_image_url": "https://www.tannico.it/media/catalog/product/d/a/dal-forno-romano-amarone-della-valpolicella-docg-1_2.jpg"
     },
     {
       "wine_number": "751",
@@ -4751,7 +4848,8 @@
       "aging": "Stainless steel, 4 months",
       "varietals": "100% Schiava (Vernatsch)",
       "soil": "Porphyry and dolomite",
-      "elevation": "400-600m"
+      "elevation": "400-600m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "774",
@@ -4771,7 +4869,8 @@
       "aging": "Concrete vats + oak barrels, 12 months",
       "varietals": "100% Teroldego",
       "soil": "Alluvial with dolomite",
-      "elevation": "200-400m"
+      "elevation": "200-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "791",
@@ -4792,7 +4891,7 @@
       "varietals": "100% Barbera",
       "soil": "Calcareous-clayey marl",
       "elevation": "250-400m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4620_394x.jpg?v=1596469755"
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "792",
@@ -4812,7 +4911,8 @@
       "aging": "Oak barrels, 12 months",
       "varietals": "100% Nebbiolo",
       "soil": "Calcareous marl",
-      "elevation": "250-400m"
+      "elevation": "250-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "795",
@@ -4832,7 +4932,8 @@
       "aging": "Oak barrels, 12 months",
       "varietals": "100% Nebbiolo",
       "soil": "Calcareous marl with clay",
-      "elevation": "250-350m"
+      "elevation": "250-350m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "821",
@@ -4852,7 +4953,8 @@
       "aging": "Slavonian oak casks, 38 months + bottle 12 months",
       "varietals": "100% Nebbiolo",
       "soil": "Calcareous marl (Tortonian)",
-      "elevation": "300-450m"
+      "elevation": "300-450m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "825",
@@ -4872,7 +4974,8 @@
       "aging": "Large oak casks, 38 months + bottle 10 months",
       "varietals": "100% Nebbiolo",
       "soil": "Calcareous-clayey marl (Helvetian)",
-      "elevation": "350-450m"
+      "elevation": "350-450m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "848",
@@ -4892,7 +4995,8 @@
       "aging": "Large oak casks, 38 months + bottle 12 months",
       "varietals": "100% Nebbiolo",
       "soil": "Calcareous marl (Tortonian)",
-      "elevation": "300-350m"
+      "elevation": "300-350m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "998",
@@ -4913,7 +5017,7 @@
       "varietals": "Gaglioppo",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4772_394x.jpg?v=1598898039"
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "999",
@@ -4934,7 +5038,7 @@
       "varietals": "Primitivo (Zinfandel)",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4409_394x.jpg?v=1595363037"
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "1000",
@@ -4955,7 +5059,7 @@
       "varietals": "Primitivo",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/zin2020_590x.jpg?v=1607627762"
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "1001",
@@ -4976,7 +5080,7 @@
       "varietals": "Piedirosso, Aglianico",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4696_590x.jpg?v=1598896402"
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "1002",
@@ -4997,7 +5101,7 @@
       "varietals": "Aglianico",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://images.vivino.com/thumbs/-jUR8z4DRo2XYZPybkZa1g_pb_x600.png"
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "1003",
@@ -5018,7 +5122,7 @@
       "varietals": null,
       "soil": "Volcanic",
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4701_394x.jpg?v=1598896797"
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "1004",
@@ -5039,7 +5143,7 @@
       "varietals": "Aglianico",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://images.vivino.com/thumbs/-jUR8z4DRo2XYZPybkZa1g_pb_x600.png"
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "1005",
@@ -5059,7 +5163,8 @@
       "aging": null,
       "varietals": null,
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "1006",
@@ -5079,7 +5184,8 @@
       "aging": null,
       "varietals": "Ciliegiolo",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "1007",
@@ -5100,7 +5206,7 @@
       "varietals": "Syrah",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://images.vivino.com/thumbs/MXKeg3csQ7-WwL2FTAd9hw_pb_x600.png"
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "555",
@@ -5141,7 +5247,8 @@
       "aging": null,
       "varietals": "Lacrima",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "1009",
@@ -5161,7 +5268,8 @@
       "aging": null,
       "varietals": "Montepulciano",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "1010",
@@ -5182,7 +5290,7 @@
       "varietals": "Sangiovese",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "1011",
@@ -5203,7 +5311,7 @@
       "varietals": "Sangiovese",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4679_590x.jpg?v=1597174777"
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "1012",
@@ -5224,7 +5332,7 @@
       "varietals": "Sangiovese",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4670_394x.jpg?v=1597173338"
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "1013",
@@ -5244,7 +5352,8 @@
       "aging": null,
       "varietals": "Sangiovese (Morellino)",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "1014",
@@ -5264,7 +5373,8 @@
       "aging": null,
       "varietals": "Cabernet, Merlot, Cabernet Franc",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "1015",
@@ -5284,7 +5394,8 @@
       "aging": "Aged in Oak",
       "varietals": "100% Sangiovese",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "1016",
@@ -5304,7 +5415,8 @@
       "aging": "2 Years in Oak",
       "varietals": "Sangiovese",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "1017",
@@ -5325,7 +5437,7 @@
       "varietals": "100% Sangiovese (Brunello)",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/AMARTOMMASI_590x.png?v=1633971436"
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "1018",
@@ -5346,7 +5458,7 @@
       "varietals": "Sangiovese (Brunello)",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/AMARTOMMASI_590x.png?v=1633971436"
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "1019",
@@ -5367,7 +5479,7 @@
       "varietals": "Sangiovese (Brunello)",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/AMARTOMMASI_590x.png?v=1633971436"
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "1020",
@@ -5388,7 +5500,7 @@
       "varietals": "Sangiovese (Brunello)",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/AMARTOMMASI_590x.png?v=1633971436"
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "1021",
@@ -5408,7 +5520,8 @@
       "aging": null,
       "varietals": "Montepulciano, Peaches, Seasonal Fruits",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "1022",
@@ -5428,7 +5541,8 @@
       "aging": null,
       "varietals": "Prosecco, Aperol, Club Soda",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "1023",
@@ -5448,7 +5562,8 @@
       "aging": null,
       "varietals": "Prosecco, Italian Gin, Grapefruit, Aperol, Cynar",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "1024",
@@ -5468,7 +5583,8 @@
       "aging": null,
       "varietals": "Prosecco, Mint, Elderflower",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "1025",
@@ -5488,7 +5604,8 @@
       "aging": null,
       "varietals": "Prosecco, Limoncello, Lemon, Mint",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "1026",
@@ -5508,7 +5625,8 @@
       "aging": null,
       "varietals": "Campari, Carpano Vermouth, Italian Gin, Prosecco",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "607",
@@ -5528,7 +5646,8 @@
       "aging": null,
       "varietals": "Prosecco, Aperol, Amarone Wine, Italian Citrus Tonic",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://img.freepik.com/premium-photo/refreshing-aperol-spritz-cocktail-glass-with-orange-slice_1339-27424.jpg"
     },
     {
       "wine_number": "1027",
@@ -5549,7 +5668,7 @@
       "varietals": "Sangiovese",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://www.totalwine.com/dynamic/490x/media/sys_master/twmmedia/h24/hc7/12780153569310.png"
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "1028",
@@ -5569,7 +5688,8 @@
       "aging": null,
       "varietals": "Lambrusco",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "1029",
@@ -5590,7 +5710,7 @@
       "varietals": "Sangiovese",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://www.totalwine.com/dynamic/490x/media/sys_master/twmmedia/h24/hc7/12780153569310.png"
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "1030",
@@ -5631,7 +5751,8 @@
       "aging": null,
       "varietals": "Corvina, Rondinella, Molinara",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "1032",
@@ -5652,7 +5773,7 @@
       "varietals": "Corvina, Rondinella, Molinara",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "1033",
@@ -5672,7 +5793,8 @@
       "aging": null,
       "varietals": "Corvina, Rondinella, Molinara",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "1034",
@@ -5692,7 +5814,8 @@
       "aging": null,
       "varietals": "Corvina, Corvinone, Rondinella",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "1035",
@@ -5712,7 +5835,8 @@
       "aging": null,
       "varietals": "Corvina, Corvinone, Rondinella",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "1036",
@@ -5733,7 +5857,7 @@
       "varietals": "Refosco",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4691_295x.jpg?v=1597182845"
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "1037",
@@ -5754,7 +5878,7 @@
       "varietals": "Pinot Noir",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4693_394x.jpg?v=1598896127"
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "1038",
@@ -5775,7 +5899,7 @@
       "varietals": "Barbera",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4693_394x.jpg?v=1598896127"
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "1039",
@@ -5796,7 +5920,7 @@
       "varietals": "Nebbiolo",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4693_394x.jpg?v=1598896127"
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "1040",
@@ -5816,7 +5940,8 @@
       "aging": null,
       "varietals": "Nebbiolo",
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "1041",
@@ -5837,7 +5962,7 @@
       "varietals": "Nebbiolo",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4695_590x.jpg?v=1598896271"
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "697",
@@ -5858,7 +5983,7 @@
       "varietals": "Nebbiolo",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4695_590x.jpg?v=1598896271"
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "698",
@@ -5879,7 +6004,7 @@
       "varietals": "Nebbiolo",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4695_590x.jpg?v=1598896271"
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "699",
@@ -5900,7 +6025,7 @@
       "varietals": "Nebbiolo",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4695_590x.jpg?v=1598896271"
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "700",
@@ -5921,7 +6046,7 @@
       "varietals": "Nebbiolo",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4695_590x.jpg?v=1598896271"
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "701",
@@ -5942,7 +6067,7 @@
       "varietals": "Nebbiolo",
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4695_590x.jpg?v=1598896271"
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "865",
@@ -5962,7 +6087,8 @@
       "aging": null,
       "varietals": null,
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "866",
@@ -5982,7 +6108,8 @@
       "aging": null,
       "varietals": null,
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "867",
@@ -6003,7 +6130,7 @@
       "varietals": null,
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4692_394x.jpg?v=1598896066"
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "868",
@@ -6023,7 +6150,8 @@
       "aging": null,
       "varietals": null,
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "869",
@@ -6043,7 +6171,8 @@
       "aging": null,
       "varietals": null,
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "870",
@@ -6063,7 +6192,8 @@
       "aging": null,
       "varietals": null,
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "871",
@@ -6084,7 +6214,7 @@
       "varietals": null,
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4693_394x.jpg?v=1598896127"
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "872",
@@ -6105,7 +6235,7 @@
       "varietals": null,
       "soil": null,
       "elevation": null,
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4692_394x.jpg?v=1598896066"
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "873",
@@ -6125,7 +6255,8 @@
       "aging": null,
       "varietals": null,
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "874",
@@ -6145,7 +6276,8 @@
       "aging": null,
       "varietals": null,
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "875",
@@ -6165,7 +6297,8 @@
       "aging": null,
       "varietals": null,
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "991",
@@ -6185,7 +6318,8 @@
       "aging": null,
       "varietals": null,
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "992",
@@ -6205,7 +6339,8 @@
       "aging": null,
       "varietals": null,
       "soil": null,
-      "elevation": null
+      "elevation": null,
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "1042",
@@ -6225,7 +6360,8 @@
       "aging": "Oak barrels, 24 months + bottle 12 months",
       "varietals": "100% Nebbiolo",
       "soil": "Calcareous marl",
-      "elevation": "300-450m"
+      "elevation": "300-450m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "1043",
@@ -6245,7 +6381,8 @@
       "aging": "Oak barrels, 24 months + bottle 12 months",
       "varietals": "100% Nebbiolo",
       "soil": "Calcareous marl",
-      "elevation": "300-450m"
+      "elevation": "300-450m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "1044",
@@ -6266,7 +6403,7 @@
       "varietals": "100% Nebbiolo",
       "soil": "Calcareous marl with limestone",
       "elevation": "300-400m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4692_394x.jpg?v=1598896066"
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "1045",
@@ -6286,7 +6423,8 @@
       "aging": "Oak barrels, 24 months + bottle 12 months",
       "varietals": "100% Nebbiolo",
       "soil": "Calcareous marl",
-      "elevation": "300-450m"
+      "elevation": "300-450m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "1046",
@@ -6306,7 +6444,8 @@
       "aging": "Oak barrels, 24 months + bottle 12 months",
       "varietals": "100% Nebbiolo",
       "soil": "Calcareous marl",
-      "elevation": "300-450m"
+      "elevation": "300-450m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "1047",
@@ -6326,7 +6465,8 @@
       "aging": "Oak barrels, 24 months + bottle 12 months",
       "varietals": "100% Nebbiolo",
       "soil": "Calcareous marl with mineral deposits",
-      "elevation": "300-450m"
+      "elevation": "300-450m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "1048",
@@ -6347,7 +6487,7 @@
       "varietals": "100% Nebbiolo",
       "soil": "Calcareous marl",
       "elevation": "300-400m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4693_394x.jpg?v=1598896127"
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "1049",
@@ -6368,7 +6508,7 @@
       "varietals": "100% Nebbiolo",
       "soil": "Calcareous marl with limestone",
       "elevation": "300-450m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4692_394x.jpg?v=1598896066"
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "1050",
@@ -6388,7 +6528,8 @@
       "aging": "Oak barrels, 24 months + bottle 12 months",
       "varietals": "100% Nebbiolo",
       "soil": "Calcareous marl",
-      "elevation": "300-450m"
+      "elevation": "300-450m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "1051",
@@ -6408,7 +6549,8 @@
       "aging": "Oak barrels, 24 months + bottle 12 months",
       "varietals": "100% Nebbiolo",
       "soil": "Calcareous marl",
-      "elevation": "300-450m"
+      "elevation": "300-450m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "1052",
@@ -6428,7 +6570,8 @@
       "aging": "Oak barrels, 36 months + bottle 24 months",
       "varietals": "100% Nebbiolo",
       "soil": "Calcareous marl with basaltic elements",
-      "elevation": "300-450m"
+      "elevation": "300-450m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "901",
@@ -6449,7 +6592,7 @@
       "varietals": "100% Croatina",
       "soil": "Clay-limestone",
       "elevation": "200-400m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4631_394x.jpg?v=1596472471"
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "902",
@@ -6469,7 +6612,8 @@
       "aging": "Oak barrels, 12 months",
       "varietals": "100% Nebbiolo",
       "soil": "Slate and granite",
-      "elevation": "400-700m"
+      "elevation": "400-700m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "903",
@@ -6490,7 +6634,7 @@
       "varietals": "100% Nebbiolo",
       "soil": "Slate and granite",
       "elevation": "400-700m",
-      "bottle_image_url": "https://images.vivino.com/thumbs/VHP2B3G6RYK4-zTyetjFKw_pb_x960.png"
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "921",
@@ -6511,7 +6655,7 @@
       "varietals": "80% Petit Rouge, 10% Fumin, 10% Cornalin",
       "soil": "Glacial moraine with slate",
       "elevation": "300-700m",
-      "bottle_image_url": "https://www.astorwines.com/images/items/15393.jpg"
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "922",
@@ -6532,7 +6676,7 @@
       "varietals": "100% Pinot Noir",
       "soil": "Alpine glacial soil with slate",
       "elevation": "400-700m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4693_394x.jpg?v=1598896127"
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "923",
@@ -6553,7 +6697,7 @@
       "varietals": "100% Fumin",
       "soil": "Alpine glacial soil",
       "elevation": "400-700m",
-      "bottle_image_url": "https://grancaffelaquila.com/cdn/shop/products/CopyofIMG_4693_394x.jpg?v=1598896127"
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "924",
@@ -6573,7 +6717,8 @@
       "aging": "Oak barrels, 18 months",
       "varietals": "100% Nebbiolo",
       "soil": "Alpine glacial soil with granite",
-      "elevation": "300-600m"
+      "elevation": "300-600m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "925",
@@ -6593,7 +6738,8 @@
       "aging": "Stainless steel + oak, 8 months",
       "varietals": "100% Petit Rouge",
       "soil": "Alpine moraine with slate",
-      "elevation": "400-700m"
+      "elevation": "400-700m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "1053",
@@ -6613,7 +6759,8 @@
       "aging": "Autoclave (Charmat Method), 3 months",
       "varietals": "100% Moscato Bianco",
       "soil": "Calcareous marl",
-      "elevation": "250-400m"
+      "elevation": "250-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "1054",
@@ -6633,7 +6780,8 @@
       "aging": "Autoclave (Charmat Method), 3 months",
       "varietals": "100% Moscato Bianco",
       "soil": "Calcareous marl",
-      "elevation": "250-400m"
+      "elevation": "250-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "1055",
@@ -6653,7 +6801,8 @@
       "aging": "Autoclave (Charmat Method)",
       "varietals": "100% Moscato Bianco",
       "soil": "Calcareous marl",
-      "elevation": "250-400m"
+      "elevation": "250-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "1056",
@@ -6673,7 +6822,8 @@
       "aging": "Autoclave (Charmat Method), 3 months",
       "varietals": "100% Brachetto",
       "soil": "Calcareous marl",
-      "elevation": "200-350m"
+      "elevation": "200-350m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "1057",
@@ -6693,7 +6843,8 @@
       "aging": "Charmat method, 3 months on lees",
       "varietals": "100% Lambrusco di Sorbara",
       "soil": "Clay with limestone",
-      "elevation": "50-200m"
+      "elevation": "50-200m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "1058",
@@ -6713,7 +6864,8 @@
       "aging": "Charmat method, 3 months",
       "varietals": "100% Lambrusco Salamino",
       "soil": "Clay with sand",
-      "elevation": "100-250m"
+      "elevation": "100-250m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "1059",
@@ -6733,7 +6885,8 @@
       "aging": "Charmat method, 4 months on lees",
       "varietals": "85% Lambrusco Salamino, 15% Ancellotta",
       "soil": "Clay-limestone",
-      "elevation": "100-300m"
+      "elevation": "100-300m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "1060",
@@ -6753,7 +6906,8 @@
       "aging": "Charmat method, 3 months",
       "varietals": "100% Glera",
       "soil": "Clay-limestone",
-      "elevation": "100-300m"
+      "elevation": "100-300m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "1061",
@@ -6773,7 +6927,8 @@
       "aging": "Charmat method, 4 months",
       "varietals": "100% Glera",
       "soil": "Clay-limestone with moraine",
-      "elevation": "200-400m"
+      "elevation": "200-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "1062",
@@ -6793,7 +6948,8 @@
       "aging": "Charmat method, 4 months",
       "varietals": "100% Glera",
       "soil": "Clay-limestone",
-      "elevation": "200-400m"
+      "elevation": "200-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "1063",
@@ -6813,7 +6969,8 @@
       "aging": "Charmat method, 4 months",
       "varietals": "60% Corvina, 30% Rondinella, 10% Molinara",
       "soil": "Glacial moraine with clay",
-      "elevation": "100-300m"
+      "elevation": "100-300m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "311",
@@ -6833,7 +6990,8 @@
       "aging": "Ancestral method (Pet Nat), single fermentation in bottle",
       "varietals": "100% Glera",
       "soil": "Clay-limestone",
-      "elevation": "100-300m"
+      "elevation": "100-300m",
+      "bottle_image_url": "https://www.avenariuswine.it/657-large_default/prosecco-doc-brut-mongarda-1.jpg"
     },
     {
       "wine_number": "1064",
@@ -6853,7 +7011,8 @@
       "aging": "Ancestral method, single fermentation in bottle",
       "varietals": "100% Malvasia di Candia",
       "soil": "Clay with limestone",
-      "elevation": "150-300m"
+      "elevation": "150-300m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "1065",
@@ -6873,7 +7032,8 @@
       "aging": "Ancestral method, 12 months on lees",
       "varietals": "100% Pignoletto",
       "soil": "Clay-limestone",
-      "elevation": "200-400m"
+      "elevation": "200-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "1066",
@@ -6893,7 +7053,8 @@
       "aging": "Ancestral method (Pet Nat), single fermentation in bottle",
       "varietals": "60% Lambrusco, 25% Marzemino, 15% Malbo Gentile",
       "soil": "Clay-limestone",
-      "elevation": "100-300m"
+      "elevation": "100-300m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "1067",
@@ -6913,7 +7074,8 @@
       "aging": "Ancestral method (Pet Nat), fermentation in bottle, 4 months",
       "varietals": "100% Fortana",
       "soil": "Sandy clay",
-      "elevation": "50-150m"
+      "elevation": "50-150m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "1068",
@@ -6933,7 +7095,8 @@
       "aging": "Ancestral method (Pet Nat), 6 months in bottle",
       "varietals": "100% Montepulciano d'Abruzzo",
       "soil": "Clay-limestone",
-      "elevation": "200-350m"
+      "elevation": "200-350m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "1069",
@@ -6953,7 +7116,8 @@
       "aging": "Traditional method (Metodo Classico), on the lees",
       "varietals": "100% Moscato Bianco",
       "soil": "Calcareous marl",
-      "elevation": "250-400m"
+      "elevation": "250-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "390",
@@ -6973,7 +7137,8 @@
       "aging": "Traditional method, 8 months on lees",
       "varietals": "100% Lambrusco di Grasparossa",
       "soil": "Clay-limestone",
-      "elevation": "100-200m"
+      "elevation": "100-200m",
+      "bottle_image_url": "https://www.tannico.it/media/catalog/product/l/a/lambrusco-grasparossa-di-castelvetro-doc-secco-battagliola-1.jpg"
     },
     {
       "wine_number": "1070",
@@ -6993,7 +7158,8 @@
       "aging": "Traditional method, 24 months on lees",
       "varietals": "100% Garganega",
       "soil": "Volcanic basalt and limestone",
-      "elevation": "200-400m"
+      "elevation": "200-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "1071",
@@ -7013,7 +7179,8 @@
       "aging": "Traditional method, on the lees",
       "varietals": "100% Prié Blanc",
       "soil": "Alpine glacial sand",
-      "elevation": "Over 1000m"
+      "elevation": "Over 1000m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "1072",
@@ -7033,7 +7200,8 @@
       "aging": "Traditional method, 36 months on lees",
       "varietals": "100% Erbaluce",
       "soil": "Calcareous clay",
-      "elevation": "300-500m"
+      "elevation": "300-500m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "1073",
@@ -7053,7 +7221,8 @@
       "aging": "Traditional method (Metodo Classico), on the lees 24 months",
       "varietals": "Chardonnay, Pinot Nero",
       "soil": "Moraine with limestone",
-      "elevation": "200-400m"
+      "elevation": "200-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "1074",
@@ -7073,7 +7242,8 @@
       "aging": "Traditional method (Metodo Classico Satén), on the lees 24 months",
       "varietals": "100% Chardonnay",
       "soil": "Moraine with limestone",
-      "elevation": "200-400m"
+      "elevation": "200-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "1075",
@@ -7093,7 +7263,8 @@
       "aging": "Traditional method (Metodo Classico), on the lees 36 months",
       "varietals": "Chardonnay, Pinot Nero",
       "soil": "Moraine with porphyry",
-      "elevation": "300-600m"
+      "elevation": "300-600m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "1076",
@@ -7113,7 +7284,8 @@
       "aging": "Traditional method (Metodo Classico), on the lees 36 months",
       "varietals": "Chardonnay, Pinot Nero",
       "soil": "Moraine with porphyry",
-      "elevation": "300-600m"
+      "elevation": "300-600m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/bgtD9YY0T6WAW6NdFV27eg_pb_x600.png"
     },
     {
       "wine_number": "1077",
@@ -7133,7 +7305,8 @@
       "aging": "Traditional method (Metodo Classico), on the lees 48 months",
       "varietals": "100% Chardonnay",
       "soil": "Moraine with porphyry",
-      "elevation": "300-600m"
+      "elevation": "300-600m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/17PnbPjuSb2u3Fcrp-T0Jg_pb_600x600.png"
     },
     {
       "wine_number": "1078",
@@ -7153,7 +7326,8 @@
       "aging": "Traditional method (Metodo Classico), on the lees 36 months",
       "varietals": "Chardonnay, Pinot Nero",
       "soil": "Moraine with limestone",
-      "elevation": "200-400m"
+      "elevation": "200-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/mxja14kg78nzdjfpcyah.jpg"
     },
     {
       "wine_number": "1079",
@@ -7173,7 +7347,8 @@
       "aging": "Traditional method (Metodo Classico), on the lees 30 months",
       "varietals": "Chardonnay, Pinot Nero, Pinot Bianco",
       "soil": "Moraine with limestone",
-      "elevation": "200-400m"
+      "elevation": "200-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/KtNpuWGcT36oYn8mQBCBnQ_pb_600x600.png"
     },
     {
       "wine_number": "1080",
@@ -7193,7 +7368,8 @@
       "aging": "Traditional method (Metodo Classico), on the lees 30 months",
       "varietals": "Chardonnay, Pinot Nero, Pinot Bianco",
       "soil": "Moraine with limestone",
-      "elevation": "200-400m"
+      "elevation": "200-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/JdBDVe2xR0yznZjUe7_QZg_pl_375x500.png"
     },
     {
       "wine_number": "1081",
@@ -7213,7 +7389,8 @@
       "aging": "Traditional method (Metodo Classico), on the lees 36 months",
       "varietals": "100% Chardonnay",
       "soil": "Calcareous marl with clay",
-      "elevation": "250-450m"
+      "elevation": "250-450m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/8TKL0FH3SOTQB3360OKK_pb_x600.png"
     },
     {
       "wine_number": "1082",
@@ -7233,7 +7410,8 @@
       "aging": "Traditional method (Metodo Classico), on the lees 30 months, dosage zero",
       "varietals": "Chardonnay, Pinot Nero, Pinot Bianco",
       "soil": "Moraine with limestone",
-      "elevation": "200-400m"
+      "elevation": "200-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/2z-LQTQeS-Weavsp1HiZSA_pb_x960.png"
     },
     {
       "wine_number": "1083",
@@ -7253,7 +7431,8 @@
       "aging": "Traditional method (Metodo Classico), on the lees 36 months",
       "varietals": "Pinot Nero, Chardonnay",
       "soil": "Moraine with limestone",
-      "elevation": "200-400m"
+      "elevation": "200-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/oD2EMWQ8S62aLDrBUWZ3pw_pb_600x600.png"
     },
     {
       "wine_number": "1084",
@@ -7273,7 +7452,8 @@
       "aging": "Traditional method (Metodo Classico), on the lees 96 months (8 years), dosage zero",
       "varietals": "Chardonnay, Pinot Noir",
       "soil": "Moraine with limestone",
-      "elevation": "200-400m"
+      "elevation": "200-400m",
+      "bottle_image_url": "https://images.vivino.com/thumbs/6HsSQzAgTliT1lOyevDhGA_pl_375x500.png"
     },
     {
       "wine_number": "270",
@@ -7293,7 +7473,8 @@
       "aging": "Stainless steel, 6 months",
       "varietals": "100% Ciliegiolo",
       "soil": "Limestone and sandstone with marine sediments",
-      "elevation": "150-250m"
+      "elevation": "150-250m",
+      "bottle_image_url": "https://www.bisson-birreriedelporto.it/wp-content/uploads/2021/01/Ciliegiolo_22-768x1024.jpg"
     }
   ]
 }
