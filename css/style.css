@@ -7308,6 +7308,40 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         display: none !important;
     }
     
+    /* Popup mobile con larghezza limitata per mostrare mappa sottostante */
+    .mobile-wine-type-popup {
+        width: 28% !important;
+        max-width: 250px !important;
+        left: 0 !important;
+        right: auto !important;
+        background: linear-gradient(180deg, rgba(10, 10, 10, 0.95) 0%, rgba(26, 26, 26, 0.95) 100%) !important;
+        border-right: 2px solid rgba(212, 175, 55, 0.3) !important;
+    }
+    
+    .mobile-wine-type-popup-overlay {
+        background: rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    .mobile-wine-type-popup-content {
+        background: transparent !important;
+    }
+    
+    .mobile-wine-type-popup-regions,
+    .mobile-wine-type-popup-varietals {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+    }
+    
+    :root[data-theme="day"] .mobile-wine-type-popup {
+        background: linear-gradient(180deg, rgba(253, 251, 247, 0.95) 0%, rgba(248, 246, 240, 0.95) 100%) !important;
+        border-right: 2px solid rgba(139, 105, 20, 0.3) !important;
+    }
+    
+    :root[data-theme="day"] .mobile-wine-type-popup-content {
+        background: transparent !important;
+    }
+    
     /* Mostra elementi desktop */
     .main-content-desktop {
         display: flex !important;
