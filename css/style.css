@@ -7107,7 +7107,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         display: flex;
         flex-direction: column;
         cursor: pointer;
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7),
                     0 2px 8px rgba(0, 0, 0, 0.4);
         border: 1px solid rgba(212, 175, 55, 0.3);
@@ -7126,6 +7126,24 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         -moz-osx-font-smoothing: grayscale;
     }
     
+    /* Ripple effect container */
+    .mobile-wine-card-grid::after {
+        content: '';
+        position: absolute;
+        top: var(--ripple-y, 50%);
+        left: var(--ripple-x, 50%);
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                    height 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                    opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        opacity: 0;
+        pointer-events: none;
+        z-index: 1;
+    }
 
     .mobile-wine-card-grid::before {
         content: '';
@@ -7136,13 +7154,36 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         height: 100%;
         background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.15), transparent);
         transition: left 0.5s ease;
+        z-index: 2;
     }
 
     .mobile-wine-card-grid:active {
-        transform: scale(0.97) translateY(-1px);
-        box-shadow: 0 8px 24px rgba(212, 175, 55, 0.5),
-                    0 4px 12px rgba(212, 175, 55, 0.3);
-        border-color: rgba(212, 175, 55, 0.4);
+        transform: scale(0.96) translateY(-2px);
+        box-shadow: 0 12px 32px rgba(212, 175, 55, 0.6),
+                    0 6px 16px rgba(212, 175, 55, 0.4),
+                    0 0 0 2px rgba(212, 175, 55, 0.2);
+        border-color: rgba(212, 175, 55, 0.6);
+    }
+    
+    /* Selected state - triggered on click */
+    .mobile-wine-card-grid.selected {
+        transform: scale(0.95) translateY(-3px);
+        box-shadow: 0 16px 40px rgba(212, 175, 55, 0.7),
+                    0 8px 20px rgba(212, 175, 55, 0.5),
+                    0 0 0 3px rgba(212, 175, 55, 0.3),
+                    inset 0 0 30px rgba(212, 175, 55, 0.1);
+        border-color: rgba(212, 175, 55, 0.8);
+        background: linear-gradient(145deg, rgba(26, 26, 26, 0.98), rgba(30, 25, 15, 1));
+    }
+    
+    /* Ripple effect when selected */
+    .mobile-wine-card-grid.selected::after {
+        width: 400px;
+        height: 400px;
+        opacity: 0.5;
+        transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                    height 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                    opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     /* Better touch feedback */
@@ -7153,6 +7194,13 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 
     .mobile-wine-card-grid:active::before {
         left: 100%;
+    }
+    
+    /* Pulse glow effect on hover/touch */
+    .mobile-wine-card-grid:hover {
+        box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4),
+                    0 3px 10px rgba(212, 175, 55, 0.2);
+        border-color: rgba(212, 175, 55, 0.4);
     }
 
     .mobile-wine-card-grid-single-row {

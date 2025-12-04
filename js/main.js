@@ -4843,14 +4843,29 @@ function initInteractiveMap() {
                             <div class="mobile-wine-card-grid-price">$${price}</div>
                         </div>
                     `;
-                    wineCard.addEventListener('click', () => {
-                        const params = new URLSearchParams();
-                        params.set('id', wine.wine_number);
-                        if (wineType) {
-                            params.set('type', wineType);
-                        }
-                        params.set('from', 'index');
-                        window.location.href = `wine-details.html?${params.toString()}`;
+                    wineCard.addEventListener('click', (e) => {
+                        // Add selected class for visual feedback
+                        wineCard.classList.add('selected');
+                        
+                        // Get click position for ripple effect
+                        const rect = wineCard.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        
+                        // Set ripple origin
+                        wineCard.style.setProperty('--ripple-x', `${x}px`);
+                        wineCard.style.setProperty('--ripple-y', `${y}px`);
+                        
+                        // Navigate after a short delay to show the effect
+                        setTimeout(() => {
+                            const params = new URLSearchParams();
+                            params.set('id', wine.wine_number);
+                            if (wineType) {
+                                params.set('type', wineType);
+                            }
+                            params.set('from', 'index');
+                            window.location.href = `wine-details.html?${params.toString()}`;
+                        }, 300);
                     });
                     winesGrid.appendChild(wineCard);
                 });
@@ -4969,11 +4984,26 @@ function initInteractiveMap() {
                             ${vintage !== 'N/A' ? `<div class="mobile-wine-card-grid-vintage">${vintage}</div>` : ''}
                         </div>
                     `;
-                    wineCard.addEventListener('click', () => {
-                        const params = new URLSearchParams();
-                        params.set('id', wine.wine_number);
-                        params.set('from', 'index');
-                        window.location.href = `wine-details.html?${params.toString()}`;
+                    wineCard.addEventListener('click', (e) => {
+                        // Add selected class for visual feedback
+                        wineCard.classList.add('selected');
+                        
+                        // Get click position for ripple effect
+                        const rect = wineCard.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        
+                        // Set ripple origin
+                        wineCard.style.setProperty('--ripple-x', `${x}px`);
+                        wineCard.style.setProperty('--ripple-y', `${y}px`);
+                        
+                        // Navigate after a short delay to show the effect
+                        setTimeout(() => {
+                            const params = new URLSearchParams();
+                            params.set('id', wine.wine_number);
+                            params.set('from', 'index');
+                            window.location.href = `wine-details.html?${params.toString()}`;
+                        }, 300);
                     });
                     winesGrid.appendChild(wineCard);
                 });
@@ -5105,12 +5135,27 @@ function initInteractiveMap() {
                             ${vintage !== 'N/A' ? `<div class="mobile-wine-card-grid-vintage">${vintage}</div>` : ''}
                         </div>
                     `;
-                    wineCard.addEventListener('click', () => {
-                        const params = new URLSearchParams();
-                        params.set('id', wine.wine_number);
-                        params.set('type', wineType);
-                        params.set('from', 'index');
-                        window.location.href = `wine-details.html?${params.toString()}`;
+                    wineCard.addEventListener('click', (e) => {
+                        // Add selected class for visual feedback
+                        wineCard.classList.add('selected');
+                        
+                        // Get click position for ripple effect
+                        const rect = wineCard.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        
+                        // Set ripple origin
+                        wineCard.style.setProperty('--ripple-x', `${x}px`);
+                        wineCard.style.setProperty('--ripple-y', `${y}px`);
+                        
+                        // Navigate after a short delay to show the effect
+                        setTimeout(() => {
+                            const params = new URLSearchParams();
+                            params.set('id', wine.wine_number);
+                            params.set('type', wineType);
+                            params.set('from', 'index');
+                            window.location.href = `wine-details.html?${params.toString()}`;
+                        }, 300);
                     });
                     winesGrid.appendChild(wineCard);
                 });
