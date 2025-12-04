@@ -6835,8 +6835,8 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     
     /* Sposta la mappa a destra quando il popup è visibile */
     body:has(.mobile-wine-type-popup.show) .mobile-map-wines-container {
-        margin-left: 250px;
-        max-width: calc(100% - 250px);
+        margin-left: 150px;
+        max-width: calc(100% - 150px);
         transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1), max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
@@ -6847,8 +6847,8 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     
     /* Fallback per browser che non supportano :has() */
     .mobile-wine-type-popup.show ~ .content-wrapper .mobile-map-wines-container {
-        margin-left: 250px;
-        max-width: calc(100% - 250px);
+        margin-left: 150px;
+        max-width: calc(100% - 150px);
         transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1), max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
@@ -7571,8 +7571,8 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     
     /* Sposta la mappa a destra quando il popup è visibile */
     body:has(.mobile-wine-type-popup.show) .mobile-map-wines-container {
-        margin-left: 250px !important;
-        max-width: calc(100% - 250px) !important;
+        margin-left: 150px !important;
+        max-width: calc(100% - 150px) !important;
         transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1), max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
     
