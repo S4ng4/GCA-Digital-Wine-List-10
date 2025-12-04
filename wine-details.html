@@ -13,735 +13,62 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./css/style.css">
     <style>
-        /* Night Mode (default) */
-        :root {
-            --gold: #D4AF37;
-            --gold-light: #F4CF67;
-            --dark-gold: #B8860B;
-            --black: #0A0A0A;
-            --charcoal: #1A1A1A;
-            --ivory: #F5F5F0;
-            --cream: #F8F8F0;
-            --bg-primary: #0A0A0A;
-            --bg-secondary: #1A1A1A;
-            --text-primary: #F5F5F0;
-            --text-secondary: rgba(245, 245, 240, 0.8);
-            --border-color: rgba(212, 175, 55, 0.3);
-            --shadow-color: rgba(0, 0, 0, 0.8);
-        }
-
-        /* Day Mode */
-        :root[data-theme="day"] {
-            --bg-primary: #FDFBF7;
-            --bg-secondary: #F8F6F0;
-            --text-primary: #000000;
-            --text-secondary: #1A1A1A;
-            --gold: #8B6914;
-            --gold-light: #A67C00;
-            --dark-gold: #5C4409;
-            --border-color: #000000;
-            --shadow-color: rgba(0, 0, 0, 0.2);
-            --black: #FDFBF7;
-            --charcoal: #F8F6F0;
-            --ivory: #FFFFFF;
-            --cream: #FDFBF7;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* Override only for NO SCROLL and tablet support */
         html, body {
             height: 100vh;
             overflow: hidden;
-            font-family: 'Cormorant', serif;
-            background: var(--bg-primary, var(--black));
-            color: var(--text-primary, var(--ivory));
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        :root[data-theme="night"] body {
-            background: var(--black);
-            color: var(--ivory);
-        }
-
-        :root[data-theme="day"] body {
-            background: var(--bg-primary);
-            color: var(--text-primary);
         }
 
         .luxury-container {
-            display: flex;
-            flex-direction: column;
             height: 100vh;
-            background: var(--bg-primary, linear-gradient(135deg, var(--charcoal) 0%, var(--black) 100%));
-            transition: background 0.3s ease;
-        }
-
-        :root[data-theme="night"] .luxury-container {
-            background: linear-gradient(135deg, var(--charcoal) 0%, var(--black) 100%);
-        }
-
-        :root[data-theme="day"] .luxury-container {
-            background: var(--bg-primary);
-        }
-
-        /* Top Bar */
-        .wine-details-top-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 20px;
-            background: var(--bg-secondary, rgba(26, 26, 26, 0.95));
-            border-bottom: 1px solid var(--border-color, rgba(212, 175, 55, 0.1));
-            flex-shrink: 0;
-            height: 60px;
-            transition: background 0.3s ease, border-color 0.3s ease;
-        }
-
-        :root[data-theme="night"] .wine-details-top-bar {
-            background: rgba(26, 26, 26, 0.95);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-        }
-
-        :root[data-theme="day"] .wine-details-top-bar {
-            background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .wine-details-back-btn {
-            color: var(--gold);
-            font-size: 18px;
-            cursor: pointer;
-            transition: color 0.3s;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-
-        .wine-details-back-btn:hover {
-            color: var(--gold-light);
-        }
-
-        .wine-details-top-title {
-            font-family: 'Cinzel', serif;
-            font-size: 16px;
-            font-weight: 600;
-            letter-spacing: 2px;
-            color: var(--gold);
-            flex: 1;
-            text-align: center;
-        }
-
-        .wine-details-share-btn {
-            background: none;
-            border: none;
-            color: var(--gold);
-            font-size: 18px;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .wine-details-share-btn:hover {
-            color: var(--gold-light);
-        }
-
-        /* Main Content - No scroll, all visible */
-        .wine-details-container {
-            flex: 1;
             overflow: hidden;
             display: flex;
-            gap: 2rem;
-            padding: 1.5rem;
-            max-width: 1600px;
+            flex-direction: column;
+        }
+
+        /* Use original desktop layout - NO SCROLL */
+        .wine-details-container {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            max-width: 1400px;
             margin: 0 auto;
             width: 100%;
         }
 
-        /* Left Column - Standardized Bottle Image */
-        .wine-image-section {
-            flex: 0 0 320px; /* Fixed width for standardization */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .wine-image {
-            width: 100%;
-            height: 100%;
-            max-height: calc(100vh - 120px); /* Account for top bar and padding */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg-secondary, rgba(245, 245, 240, 0.05));
-            border: 2px solid var(--border-color, rgba(212, 175, 55, 0.3));
-            border-radius: 12px;
-            box-shadow: 0 4px 12px var(--shadow-color, rgba(0, 0, 0, 0.3));
-            transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-            padding: 1rem;
-        }
-
-        :root[data-theme="night"] .wine-image {
-            background: rgba(245, 245, 240, 0.05);
-            border: 2px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        :root[data-theme="day"] .wine-image {
-            background: var(--bg-secondary);
-            border: 2px solid var(--border-color);
-            box-shadow: 0 4px 12px var(--shadow-color);
-        }
-
-        .wine-bottle {
-            font-size: 120px;
-            color: rgba(212, 175, 55, 0.4);
-        }
-
-        #wineBottleImage {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
-        }
-
-        /* Right Column - All Info in Compact Layout */
-        .wine-info-section {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            overflow-y: auto;
-            overflow-x: hidden;
-            padding-right: 0.5rem;
-        }
-
-        .wine-info-section::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .wine-info-section::-webkit-scrollbar-track {
-            background: rgba(245, 245, 240, 0.05);
-        }
-
-        .wine-info-section::-webkit-scrollbar-thumb {
-            background: rgba(212, 175, 55, 0.3);
-            border-radius: 3px;
-        }
-
-        /* Wine Name */
-        .wine-name {
-            font-family: 'Cinzel', serif;
-            font-size: 2rem;
-            font-weight: 600;
-            color: var(--gold-light);
-            letter-spacing: 1px;
-            line-height: 1.2;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Meta Info - Compact Grid */
-        .wine-meta {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .meta-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-            padding: 0.75rem;
-            background: var(--bg-secondary, rgba(245, 245, 240, 0.05));
-            border-left: 3px solid var(--gold);
-            border-radius: 4px;
-            transition: background 0.3s ease;
-        }
-
-        :root[data-theme="night"] .meta-item {
-            background: rgba(245, 245, 240, 0.05);
-        }
-
-        :root[data-theme="day"] .meta-item {
-            background: var(--bg-secondary);
-        }
-
-        .meta-label {
-            color: var(--gold);
-            font-weight: 600;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .meta-value {
-            color: var(--text-primary, var(--ivory));
-            font-size: 1rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        :root[data-theme="night"] .meta-value {
-            color: var(--ivory);
-        }
-
-        :root[data-theme="day"] .meta-value {
-            color: var(--text-primary);
-        }
-
-        /* Info Grid - Compact */
-        .wine-information {
-            margin-top: 0.5rem;
-        }
-
-        .section-title {
-            font-family: 'Cinzel', serif;
-            font-size: 1rem;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            color: var(--gold);
-            margin-bottom: 0.75rem;
-            text-transform: uppercase;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.75rem;
-        }
-
-        .info-item {
-            background: var(--bg-secondary, rgba(245, 245, 240, 0.05));
-            padding: 0.75rem;
-            border-left: 3px solid var(--gold);
-            border-radius: 4px;
-            transition: background 0.3s ease;
-        }
-
-        :root[data-theme="night"] .info-item {
-            background: rgba(245, 245, 240, 0.05);
-        }
-
-        :root[data-theme="day"] .info-item {
-            background: var(--bg-secondary);
-        }
-
-        .info-label {
-            font-weight: 600;
-            color: var(--gold);
-            display: block;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.25rem;
-        }
-
-        .info-value {
-            color: var(--text-primary, var(--ivory));
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        :root[data-theme="night"] .info-value {
-            color: var(--ivory);
-        }
-
-        :root[data-theme="day"] .info-value {
-            color: var(--text-primary);
-        }
-
-        /* Description */
-        .wine-description {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: var(--text-primary, var(--ivory));
-            background: var(--bg-secondary, rgba(245, 245, 240, 0.05));
-            padding: 0.75rem 1rem;
-            border-left: 3px solid var(--gold);
-            border-radius: 4px;
-            margin-bottom: 0.5rem;
-            transition: color 0.3s ease, background 0.3s ease;
-        }
-
-        :root[data-theme="night"] .wine-description {
-            color: var(--ivory);
-            background: rgba(245, 245, 240, 0.05);
-        }
-
-        :root[data-theme="day"] .wine-description {
-            color: var(--text-primary);
-            background: var(--bg-secondary);
-        }
-
-        /* Tasting Notes - Compact */
-        .tasting-notes {
-            margin-top: 0.5rem;
-        }
-
-        .tasting-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-            gap: 0.5rem;
-        }
-
-        .tasting-note {
-            background: var(--bg-secondary, rgba(212, 175, 55, 0.1));
-            border: 1px solid var(--border-color, rgba(212, 175, 55, 0.2));
-            padding: 0.5rem;
-            border-radius: 4px;
-            text-align: center;
-            font-size: 0.85rem;
-            color: var(--text-primary, var(--ivory));
-            transition: all 0.3s;
-        }
-
-        :root[data-theme="night"] .tasting-note {
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            color: var(--ivory);
-        }
-
-        :root[data-theme="day"] .tasting-note {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-        }
-
-        .tasting-category {
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            padding: 0.5rem;
-            border-radius: 4px;
-            text-align: center;
-            font-size: 0.85rem;
-            color: var(--ivory);
-            transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-
-        .tasting-label {
-            font-weight: 600;
-            color: var(--gold);
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .tasting-value {
-            color: var(--text-primary, var(--ivory));
-            font-size: 0.85rem;
-            line-height: 1.4;
-            transition: color 0.3s ease;
-        }
-
-        :root[data-theme="night"] .tasting-value {
-            color: var(--ivory);
-        }
-
-        :root[data-theme="day"] .tasting-value {
-            color: var(--text-primary);
-        }
-
-        /* Food Pairings - Compact */
-        .food-pairings {
-            margin-top: 0.5rem;
-        }
-
-        .pairing-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 0.5rem;
-        }
-
-        .pairing-item {
-            position: relative;
-            background: var(--bg-secondary, rgba(245, 245, 240, 0.05));
-            border: 1px solid var(--border-color, rgba(212, 175, 55, 0.15));
-            padding: 0.5rem;
-            border-radius: 4px;
-            text-align: center;
-            font-size: 0.85rem;
-            color: var(--text-primary, var(--ivory));
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.25rem;
-            transition: all 0.3s ease;
-        }
-
-        :root[data-theme="night"] .pairing-item {
-            background: rgba(245, 245, 240, 0.05);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            color: var(--ivory);
-        }
-
-        :root[data-theme="day"] .pairing-item {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-        }
-
-        .pairing-icon {
-            font-size: 16px;
-            color: var(--gold);
-        }
-
-        .pairing-name {
-            font-size: 0.85rem;
-            margin: 0;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .personalized-pairing {
-            border-color: var(--gold) !important;
-            background: rgba(212, 175, 55, 0.15) !important;
-        }
-
-        .pairing-score {
-            display: block;
-            font-size: 0.65rem;
-            color: var(--gold);
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .gca-food-pairing-badge {
-            position: absolute;
-            top: 0.25rem;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--gold);
-            color: var(--black);
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.6rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            z-index: 1;
-            white-space: nowrap;
-        }
-
-        /* Producer Info - Compact */
-        .producer-info {
-            margin-top: 0.5rem;
-        }
-
-        .producer-name {
-            font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
-            color: var(--gold-light);
-            margin-bottom: 0.25rem;
-        }
-
-        .producer-description {
-            font-size: 0.9rem;
-            line-height: 1.5;
-            color: var(--gold);
-        }
-
-        /* Share Section - Compact */
-        .share-wine-section {
-            margin-top: 0.5rem;
-            padding-top: 0.75rem;
-            border-top: 1px solid rgba(212, 175, 55, 0.1);
-        }
-
-        .share-wine-btn {
-            width: 100%;
-            padding: 0.75rem;
-            background: linear-gradient(135deg, var(--gold) 0%, var(--dark-gold) 100%);
-            border: none;
-            color: var(--black);
-            font-family: 'Cinzel', serif;
-            font-size: 0.875rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.3s;
-        }
-
-        .share-wine-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(212, 175, 55, 0.2);
-        }
-
-        /* Modal */
-        .share-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .share-modal.active {
-            display: flex;
-        }
-
-        .share-modal-content {
-            background: var(--bg-secondary, var(--charcoal));
-            border: 1px solid var(--border-color, rgba(212, 175, 55, 0.2));
-            border-radius: 8px;
-            padding: 25px;
-            width: 90%;
-            max-width: 400px;
-            max-height: 80vh;
-            overflow-y: auto;
-            transition: background 0.3s ease, border-color 0.3s ease;
-        }
-
-        :root[data-theme="night"] .share-modal-content {
-            background: var(--charcoal);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        :root[data-theme="day"] .share-modal-content {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-        }
-
-        .share-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .share-modal-header h3 {
-            font-family: 'Cinzel', serif;
-            color: var(--gold);
-            font-size: 14px;
-        }
-
-        .close-share-modal {
-            background: none;
-            border: none;
-            color: var(--gold);
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        .share-options {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .share-option {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            padding: 12px;
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s;
-            color: var(--ivory);
-            font-size: 10px;
-        }
-
-        .share-option:hover {
-            background: rgba(212, 175, 55, 0.2);
-            border-color: var(--gold);
-        }
-
-        .share-option i {
-            font-size: 20px;
-            color: var(--gold);
-        }
-
-        .share-url-section {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(212, 175, 55, 0.1);
-        }
-
-        .share-url-section label {
-            display: block;
-            font-size: 10px;
-            color: var(--gold);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .url-copy-container {
-            display: flex;
-            gap: 8px;
-        }
-
-        #shareUrl {
-            flex: 1;
-            padding: 8px;
-            background: rgba(245, 245, 240, 0.05);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            color: var(--ivory);
-            border-radius: 4px;
-            font-size: 11px;
-        }
-
-        .copy-url-btn {
-            padding: 8px 12px;
-            background: rgba(212, 175, 55, 0.2);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            color: var(--gold);
-            cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.3s;
-        }
-
-        .copy-url-btn:hover {
-            background: rgba(212, 175, 55, 0.3);
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 1024px) {
-            .wine-details-container {
-                flex-direction: column;
-                gap: 1rem;
+        /* Keep desktop layout for tablet too (>= 768px) - same as desktop */
+        /* Override the CSS media query that changes layout for tablet */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .wine-details-content {
+                grid-template-columns: 1fr 1fr !important;
+                gap: 3rem !important;
             }
-
-            .wine-image-section {
-                flex: 0 0 250px;
-            }
-
+            
             .wine-image {
-                max-height: 250px;
+                max-width: 400px !important;
+                height: 500px !important;
             }
         }
 
+        /* Mobile only changes - keep original mobile behavior */
         @media (max-width: 767px) {
             .wine-details-top-bar {
-                display: flex;
+                display: flex !important;
             }
-
-            .wine-info-section {
-                overflow-y: auto;
+            
+            .wine-details-container {
+                margin-top: 60px;
+                padding: 0 1rem;
             }
-
-            .wine-meta {
+            
+            .wine-details-content {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
-
-            .info-grid {
-                grid-template-columns: repeat(2, 1fr);
+            
+            .wine-image {
+                max-width: 300px;
+                height: 400px;
             }
         }
     </style>
@@ -759,105 +86,85 @@
             </button>
         </div>
 
-        <!-- Main Content -->
+        <!-- Main Content - Original Desktop Layout -->
         <main class="wine-details-container">
-            <!-- Left Column - Standardized Bottle Image -->
-            <div class="wine-image-section">
-                <div class="wine-image" id="wineImageContainer">
-                    <i class="fas fa-wine-bottle wine-bottle" id="wineBottleIcon"></i>
-                    <img id="wineBottleImage" src="" alt="Wine bottle">
-                </div>
-            </div>
-
-            <!-- Right Column - All Info -->
-            <div class="wine-info-section">
-                <h1 class="wine-name" id="wineName">Brunello di Montalcino</h1>
-                
-                <div class="wine-meta" id="wineMeta">
-                    <div class="meta-item">
-                        <span class="meta-label">ABV</span>
-                        <span class="meta-value">14.5%</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Producer</span>
-                        <span class="meta-value">Estate Tenuta</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Type</span>
-                        <span class="meta-value">Red</span>
-                    </div>
-                </div>
-                
-                <div class="wine-information" id="wineInformation">
-                    <h2 class="section-title">Info</h2>
-                    <div class="info-grid" id="infoGrid">
-                        <div class="info-item">
-                            <span class="info-label">Vintage</span>
-                            <span class="info-value">2018</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Region</span>
-                            <span class="info-value">Tuscany</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Varietal</span>
-                            <span class="info-value">Sangiovese</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Alcohol</span>
-                            <span class="info-value">14.5%</span>
-                        </div>
+            <div class="wine-details-content">
+                <!-- Left Column - Bottle Image -->
+                <div class="wine-image-section">
+                    <div class="wine-image" id="wineImageContainer">
+                        <i class="fas fa-wine-bottle wine-bottle" id="wineBottleIcon"></i>
+                        <img id="wineBottleImage" src="" alt="Wine bottle">
                     </div>
                 </div>
 
-                <div class="wine-description" id="wineDescription">
-                    A masterpiece of elegance and complexity, this wine presents layers of dark fruit with subtle oak undertones.
-                </div>
-
-                <!-- Tasting Notes -->
-                <div class="tasting-notes" id="tastingNotes">
-                    <h2 class="section-title">Tasting Notes</h2>
-                    <div class="tasting-grid" id="tastingGrid">
-                        <div class="tasting-note">Cherry</div>
-                        <div class="tasting-note">Oak</div>
-                        <div class="tasting-note">Spice</div>
-                        <div class="tasting-note">Leather</div>
-                    </div>
-                </div>
-
-                <!-- Food Pairings -->
-                <div class="food-pairings" id="foodPairings">
-                    <h2 class="section-title">Pairings</h2>
-                    <div class="pairing-list" id="pairingList">
-                        <div class="pairing-item">
-                            <i class="fas fa-utensils pairing-icon"></i>
-                            <span class="pairing-name">Beef</span>
+                <!-- Right Column - Wine Info -->
+                <div class="wine-info-section">
+                    <h1 class="wine-name" id="wineName">Brunello di Montalcino</h1>
+                    
+                    <div class="wine-meta" id="wineMeta">
+                        <div class="meta-item">
+                            <span class="meta-label">ABV</span>
+                            <span class="meta-value">14.5%</span>
                         </div>
-                        <div class="pairing-item">
-                            <i class="fas fa-utensils pairing-icon"></i>
-                            <span class="pairing-name">Game</span>
-                        </div>
-                        <div class="pairing-item">
-                            <i class="fas fa-utensils pairing-icon"></i>
-                            <span class="pairing-name">Hard Cheese</span>
+                        <div class="meta-item">
+                            <span class="meta-label">Producer</span>
+                            <span class="meta-value">Estate Tenuta</span>
                         </div>
                     </div>
-                </div>
+                    
+                    <div class="wine-description" id="wineDescription">
+                        A masterpiece of elegance and complexity, this wine presents layers of dark fruit with subtle oak undertones.
+                    </div>
+                    
+                    <div class="wine-information" id="wineInformation">
+                        <h2 class="section-title">Info</h2>
+                        <div class="info-grid" id="infoGrid">
+                            <div class="info-item">
+                                <span class="info-label">Vintage</span>
+                                <span class="info-value">2018</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Region</span>
+                                <span class="info-value">Tuscany</span>
+                            </div>
+                        </div>
+                    </div>
 
-                <!-- Producer Info -->
-                <div class="producer-info" id="producerInfo">
-                    <h2 class="section-title">Producer</h2>
-                    <h3 class="producer-name" id="producerName">Tenuta Tradizionale</h3>
-                    <p class="producer-description" id="producerDescription">
-                        A family-owned estate dedicated to producing exceptional wines through sustainable and traditional methods.
-                    </p>
-                </div>
+                    <div class="tasting-notes" id="tastingNotes">
+                        <h2 class="section-title">Tasting Notes</h2>
+                        <div class="tasting-grid" id="tastingGrid">
+                            <div class="wine-description" id="wineDescription" style="grid-column: 1 / -1;">
+                                A masterpiece of elegance and complexity, this wine presents layers of dark fruit with subtle oak undertones.
+                            </div>
+                            <div class="tasting-note">Cherry</div>
+                            <div class="tasting-note">Oak</div>
+                            <div class="tasting-note">Spice</div>
+                            <div class="tasting-note">Leather</div>
+                        </div>
+                    </div>
 
-                <!-- Share Button -->
-                <div class="share-wine-section">
-                    <button class="share-wine-btn" id="shareWineBtn">
-                        <i class="fas fa-share-alt"></i> SHARE WINE
-                    </button>
+                    <div class="food-pairings" id="foodPairings">
+                        <h2 class="section-title">Pairings</h2>
+                        <div class="pairing-list" id="pairingList">
+                            <div class="pairing-item">Beef</div>
+                            <div class="pairing-item">Game</div>
+                            <div class="pairing-item">Hard Cheese</div>
+                        </div>
+                    </div>
+
+                    <div class="producer-info" id="producerInfo">
+                        <h2 class="section-title">Producer</h2>
+                        <h3 class="producer-name" id="producerName">Tenuta Tradizionale</h3>
+                        <p class="producer-description" id="producerDescription">
+                            A family-owned estate dedicated to producing exceptional wines through sustainable and traditional methods.
+                        </p>
+                    </div>
+
+                    <div class="share-wine-section">
+                        <button class="share-wine-btn" id="shareWineBtn">
+                            <i class="fas fa-share-alt"></i> SHARE WINE
+                        </button>
+                    </div>
                 </div>
             </div>
         </main>
@@ -915,40 +222,37 @@
     <!-- Custom JS -->
     <script src="./js/main.js"></script>
     <script>
-        // Share Modal functionality (handled by main.js ShareWineManager, but keeping as fallback)
         document.addEventListener('DOMContentLoaded', () => {
-        const shareWineBtn = document.getElementById('shareWineBtn');
-        const shareWineBtnTop = document.getElementById('shareWineBtnTop');
-        const shareModal = document.getElementById('shareModal');
-        const closeShareModal = document.getElementById('closeShareModal');
+            const shareWineBtn = document.getElementById('shareWineBtn');
+            const shareWineBtnTop = document.getElementById('shareWineBtnTop');
+            const shareModal = document.getElementById('shareModal');
+            const closeShareModal = document.getElementById('closeShareModal');
 
             if (shareWineBtn && shareModal) {
-        shareWineBtn.addEventListener('click', () => shareModal.classList.add('active'));
+                shareWineBtn.addEventListener('click', () => shareModal.classList.add('active'));
             }
             if (shareWineBtnTop && shareModal) {
-        shareWineBtnTop.addEventListener('click', () => shareModal.classList.add('active'));
+                shareWineBtnTop.addEventListener('click', () => shareModal.classList.add('active'));
             }
             if (closeShareModal && shareModal) {
-        closeShareModal.addEventListener('click', () => shareModal.classList.remove('active'));
+                closeShareModal.addEventListener('click', () => shareModal.classList.remove('active'));
             }
             if (shareModal) {
-        shareModal.addEventListener('click', (e) => {
-            if (e.target === shareModal) shareModal.classList.remove('active');
-        });
+                shareModal.addEventListener('click', (e) => {
+                    if (e.target === shareModal) shareModal.classList.remove('active');
+                });
             }
 
-        // Copy URL
             const copyUrlBtn = document.getElementById('copyUrlBtn');
             if (copyUrlBtn) {
                 copyUrlBtn.addEventListener('click', () => {
-            const url = document.getElementById('shareUrl');
+                    const url = document.getElementById('shareUrl');
                     if (url) {
-            url.select();
+                        url.select();
                         try {
-            document.execCommand('copy');
-            alert('Link copied!');
+                            document.execCommand('copy');
+                            alert('Link copied!');
                         } catch (err) {
-                            // Fallback for modern browsers
                             navigator.clipboard.writeText(url.value).then(() => {
                                 alert('Link copied!');
                             }).catch(() => {
@@ -959,44 +263,33 @@
                 });
             }
 
-            // Set share URL
             const shareUrl = document.getElementById('shareUrl');
             if (shareUrl) {
                 shareUrl.value = window.location.href;
             }
 
-            // Back Button handler - fallback if WineApp hasn't set it up yet
             const backButton = document.getElementById('backButton');
             if (backButton) {
-                // Wait a bit for WineApp to set up the back button handler
-                // If after 1 second the button still has href="#", set up fallback
                 setTimeout(() => {
-                    // Check if button still has default href (WineApp should have removed it)
                     if (backButton.href === '#' || backButton.href.endsWith('#') || backButton.hasAttribute('href')) {
-                        // Set up fallback handler using history.back()
                         backButton.removeAttribute('href');
                         
                         const fallbackHandler = (e) => {
                             e.preventDefault();
                             
-                            // Check if there's a referrer from the same origin
                             const referrer = document.referrer;
                             const currentOrigin = window.location.origin;
                             const referrerOrigin = referrer ? new URL(referrer).origin : null;
                             
-                            // Try to go back to previous page if there's a valid referrer
                             if (referrer && referrerOrigin === currentOrigin && referrer !== window.location.href) {
-                                // Go back to previous page
                                 window.history.back();
                             } else {
-                                // Fallback: return to index.html if no valid referrer
                                 const urlParams = new URLSearchParams(window.location.search);
                                 const type = urlParams.get('type');
                                 
                                 let backUrl = 'index.html';
                                 const params = new URLSearchParams();
                                 
-                                // Try to get region from wine data if available
                                 if (window.wineApp && window.wineApp.wines) {
                                     const wineId = urlParams.get('id');
                                     if (wineId) {
@@ -1023,7 +316,6 @@
                             }
                         };
                         
-                        // Only add listener if one isn't already added
                         if (!backButton.hasAttribute('data-fallback-handler')) {
                             backButton.addEventListener('click', fallbackHandler);
                             backButton.setAttribute('data-fallback-handler', 'true');
