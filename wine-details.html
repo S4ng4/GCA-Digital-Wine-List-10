@@ -31,7 +31,8 @@
 
         html, body {
             height: 100%;
-            overflow: visible;
+            overflow-x: hidden;
+            overflow-y: auto;
             font-family: 'Cormorant', serif;
             background: var(--black);
             color: var(--ivory);
@@ -92,8 +93,10 @@
             color: var(--gold-light);
         }
 
-        /* Override: Use desktop layout also for tablet */
-        @media (min-width: 768px) and (max-width: 1024px) {
+        /* Desktop and Tablet share the same 2-column layout */
+        /* Override CSS external file to keep 2 columns for tablet */
+        @media (min-width: 768px) {
+            /* Desktop (> 1024px) and Tablet (768px - 1024px): Same 2 columns layout */
             .wine-details-content {
                 grid-template-columns: 1fr 1fr !important;
                 gap: 3rem !important;
@@ -642,10 +645,213 @@
             font-size: 9px;
         }
 
-        /* Responsive adjustments - Keep desktop layout for tablet */
+        /* Mobile (< 768px): Vertical stacked layout */
         @media (max-width: 767px) {
+            /* Mobile: Vertical stacked layout */
+            .wine-details-container {
+                padding: 1rem;
+                margin: 0;
+            }
+
             .wine-details-content {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr !important;
+                gap: 2rem;
+                padding: 0;
+            }
+
+            /* Image - Centered, 70% max width */
+            .wine-image-section {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 2rem;
+            }
+
+            .wine-image {
+                max-width: 70% !important;
+                width: 100%;
+                height: auto;
+                min-height: 280px;
+            }
+
+            /* Wine Info Section - Full width, vertical stack */
+            .wine-info-section {
+                width: 100%;
+                align-items: center;
+                gap: 1.5rem;
+            }
+
+            /* Wine Name - Larger, centered */
+            .wine-name {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+                text-align: center;
+            }
+
+            /* Description - Centered */
+            .wine-description {
+                max-width: 100%;
+                margin-bottom: 1.5rem;
+                text-align: center;
+            }
+
+            /* Wine Meta - Vertical layout, full width items stacked */
+            .wine-meta {
+                grid-template-columns: 1fr !important;
+                gap: 1rem;
+                width: 100%;
+                max-width: 100%;
+                margin-bottom: 2rem;
+            }
+
+            .meta-item {
+                width: 100%;
+                text-align: center;
+            }
+
+            /* Info Grid - Full width, stacked vertically */
+            .wine-information {
+                width: 100%;
+                margin-bottom: 2rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1rem;
+            }
+
+            .info-item {
+                width: 100%;
+                text-align: center;
+            }
+
+            /* Section Titles - Smaller for mobile */
+            .section-title {
+                font-size: 1.5rem;
+                margin-top: 2rem;
+                margin-bottom: 1.5rem;
+            }
+
+            /* Tasting Notes - Multiple rows, left-aligned */
+            .tasting-notes {
+                width: 100%;
+                margin-bottom: 2rem;
+            }
+
+            .tasting-grid {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.75rem;
+                justify-content: flex-start;
+            }
+
+            .tasting-note {
+                padding: 1rem;
+                font-size: 0.9rem;
+                width: auto;
+                min-width: 80px;
+            }
+
+            /* Pairings - Multiple rows, left-aligned */
+            .food-pairings {
+                width: 100%;
+                margin-bottom: 2rem;
+            }
+
+            .pairing-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.75rem;
+                justify-content: flex-start;
+            }
+
+            .pairing-item {
+                padding: 1.5rem 1rem;
+                font-size: 1rem;
+                width: auto;
+                min-width: 100px;
+            }
+
+            /* Producer Info - Centered */
+            .producer-info {
+                width: 100%;
+                text-align: center;
+            }
+
+            .producer-name {
+                font-size: 1.3rem;
+            }
+
+            .producer-description {
+                max-width: 100%;
+            }
+
+            /* Share Button - Full width */
+            .share-wine-section {
+                width: 100%;
+                margin-top: 2rem;
+            }
+
+            .share-wine-btn {
+                width: 100%;
+                padding: 1rem;
+                font-size: 14px;
+            }
+
+            /* Footer - Centered, stacked */
+            .footer-content {
+                grid-template-columns: 1fr !important;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .footer-logo {
+                font-size: 1rem;
+            }
+
+            .footer-info {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .footer-info p {
+                margin: 0.25rem 0;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
+
+            .copyright {
+                margin-top: 1rem;
+            }
+        }
+
+        /* Extra small devices - Max 420px */
+        @media (max-width: 420px) {
+            .wine-name {
+                font-size: 1.75rem;
+            }
+
+            .wine-description {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .tasting-note {
+                font-size: 0.85rem;
+                padding: 0.75rem;
+            }
+
+            .pairing-item {
+                font-size: 0.9rem;
+                padding: 1rem 0.75rem;
             }
         }
     </style>
