@@ -144,13 +144,28 @@
 
         .section-title {
             font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
+            font-size: 2rem;
             font-weight: 600;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             color: var(--gold);
-            margin-bottom: 1rem;
-            margin-top: 1.5rem;
+            margin-bottom: 2rem;
+            margin-top: 3rem;
             text-transform: uppercase;
+            text-align: center;
+            text-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
         }
 
         .info-grid {
@@ -199,59 +214,79 @@
         .wine-info-section {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            align-items: center;
+            gap: 0;
             height: fit-content;
         }
 
         .wine-name {
             font-family: 'Cinzel', serif;
-            font-size: 1.8rem;
+            font-size: 2.5rem;
             font-weight: 600;
-            color: var(--gold-light);
-            letter-spacing: 1px;
-            line-height: 1.3;
-            margin-bottom: 0.5rem;
+            color: var(--gold);
+            letter-spacing: 2px;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-transform: uppercase;
+            text-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
         }
 
         .wine-description {
-            font-size: 1rem;
-            line-height: 1.7;
-            color: var(--ivory);
-            background: rgba(245, 245, 240, 0.05);
-            padding: 1rem;
-            border-left: 3px solid var(--gold);
-            border-radius: 4px;
-            margin-bottom: 0.5rem;
+            font-family: 'Cormorant', serif;
+            font-size: 1.15rem;
+            color: rgba(245, 245, 240, 0.85);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            text-align: center;
+            max-width: 600px;
+            font-weight: 400;
         }
 
         .wine-meta {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            font-size: 1rem;
-            padding: 1rem;
-            background: rgba(245, 245, 240, 0.03);
-            border-radius: 6px;
-            margin-bottom: 0.5rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            width: 100%;
+            max-width: 600px;
         }
 
         .meta-item {
             display: flex;
-            justify-content: space-between;
-            padding: 6px 0;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            flex-direction: column;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.6) 0%, rgba(10, 10, 10, 0.85) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            align-items: center;
+            text-align: center;
+        }
+        
+        .meta-item:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 4px 16px rgba(212, 175, 55, 0.15);
+            transform: translateY(-2px);
         }
 
         .meta-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
             color: var(--gold);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
             font-weight: 600;
-            font-size: 0.9rem;
         }
 
         .meta-value {
-            color: var(--ivory);
-            font-size: 1rem;
+            font-family: 'Cormorant', serif;
+            font-size: 1.2rem;
+            color: rgba(245, 245, 240, 0.9);
             font-weight: 500;
+            line-height: 1.4;
         }
 
         /* Tasting Notes */
@@ -266,14 +301,14 @@
         }
 
         .tasting-note {
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            padding: 0.75rem;
-            border-radius: 6px;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.5) 0%, rgba(10, 10, 10, 0.7) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            padding: 1.5rem;
+            border-radius: 12px;
             text-align: center;
-            font-size: 0.9rem;
-            color: var(--ivory);
-            transition: all 0.3s;
+            font-size: 1rem;
+            color: rgba(245, 245, 240, 0.85);
+            transition: all 0.3s ease;
         }
 
         .tasting-note:hover {
@@ -341,17 +376,25 @@
         }
 
         .pairing-item {
-            background: rgba(245, 245, 240, 0.05);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            padding: 0.75rem;
-            border-radius: 6px;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.8) 0%, rgba(10, 10, 10, 0.95) 100%);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            padding: 2rem;
+            border-radius: 15px;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
             color: var(--ivory);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
+            gap: 1rem;
+        }
+        
+        .pairing-item:hover {
+            border-color: rgba(212, 175, 55, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.2);
         }
 
         .pairing-icon {
@@ -374,15 +417,21 @@
 
         .producer-name {
             font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             color: var(--gold-light);
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .producer-description {
-            font-size: 1rem;
-            line-height: 1.6;
+            font-family: 'Cormorant', serif;
+            font-size: 1.15rem;
+            line-height: 1.8;
             color: var(--gold);
+            text-align: center;
+            max-width: 600px;
         }
 
         /* Share Section */
@@ -627,74 +676,74 @@
 
                 <!-- Right Column - Wine Info -->
                 <div class="wine-info-section">
-                <h1 class="wine-name" id="wineName">Brunello di Montalcino</h1>
-                
-                <div class="wine-description" id="wineDescription">
-                    A masterpiece of elegance and complexity, this wine presents layers of dark fruit with subtle oak undertones.
-                </div>
-                
-                <div class="wine-meta" id="wineMeta">
-                    <div class="meta-item">
-                        <span class="meta-label">ABV</span>
-                        <span class="meta-value">14.5%</span>
+                    <h1 class="wine-name" id="wineName">BRUNELLO DI MONTALCINO</h1>
+                    
+                    <div class="wine-description" id="wineDescription">
+                        A masterpiece of elegance and complexity, this wine presents layers of dark fruit with subtle oak undertones.
                     </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Producer</span>
-                        <span class="meta-value">Estate Tenuta</span>
-                    </div>
-                </div>
-                
-                <div class="wine-information" id="wineInformation">
-                    <h2 class="section-title">Info</h2>
-                    <div class="info-grid" id="infoGrid">
-                        <div class="info-item">
-                            <span class="info-label">Vintage</span>
-                            <span class="info-value">2018</span>
+                    
+                    <div class="wine-meta" id="wineMeta">
+                        <div class="meta-item">
+                            <span class="meta-label">ABV</span>
+                            <span class="meta-value">14.5%</span>
                         </div>
-                        <div class="info-item">
-                            <span class="info-label">Region</span>
-                            <span class="info-value">Tuscany</span>
+                        <div class="meta-item">
+                            <span class="meta-label">Producer</span>
+                            <span class="meta-value">Estate Tenuta</span>
+                        </div>
+                    </div>
+                
+                    <div class="wine-information" id="wineInformation">
+                        <h2 class="section-title">Info</h2>
+                        <div class="info-grid" id="infoGrid">
+                            <div class="info-item">
+                                <span class="info-label">Vintage</span>
+                                <span class="info-value">2018</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Region</span>
+                                <span class="info-value">Tuscany</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tasting Notes -->
+                    <div class="tasting-notes" id="tastingNotes">
+                        <h2 class="section-title">Tasting Notes</h2>
+                        <div class="tasting-grid" id="tastingGrid">
+                            <div class="tasting-note">Cherry</div>
+                            <div class="tasting-note">Oak</div>
+                            <div class="tasting-note">Spice</div>
+                            <div class="tasting-note">Leather</div>
+                        </div>
+                    </div>
+
+                    <!-- Food Pairings -->
+                    <div class="food-pairings" id="foodPairings">
+                        <h2 class="section-title">Pairings</h2>
+                        <div class="pairing-list" id="pairingList">
+                            <div class="pairing-item">Beef</div>
+                            <div class="pairing-item">Game</div>
+                            <div class="pairing-item">Hard Cheese</div>
+                        </div>
+                    </div>
+
+                    <!-- Producer Info -->
+                    <div class="producer-info" id="producerInfo">
+                        <h2 class="section-title">Producer</h2>
+                        <h3 class="producer-name" id="producerName">TENUTA TRADIZIONALE</h3>
+                        <p class="producer-description" id="producerDescription">
+                            A family-owned estate dedicated to producing exceptional wines through sustainable and traditional methods.
+                        </p>
+                    </div>
+
+                    <!-- Share Button -->
+                    <div class="share-wine-section">
+                        <button class="share-wine-btn" id="shareWineBtn">
+                            <i class="fas fa-share-alt"></i> SHARE WINE
+                        </button>
                     </div>
                 </div>
-            </div>
-
-                <!-- Tasting Notes -->
-            <div class="tasting-notes" id="tastingNotes">
-                <h2 class="section-title">Tasting Notes</h2>
-                <div class="tasting-grid" id="tastingGrid">
-                    <div class="tasting-note">Cherry</div>
-                    <div class="tasting-note">Oak</div>
-                    <div class="tasting-note">Spice</div>
-                    <div class="tasting-note">Leather</div>
-                </div>
-            </div>
-
-                <!-- Food Pairings -->
-            <div class="food-pairings" id="foodPairings">
-                <h2 class="section-title">Pairings</h2>
-                <div class="pairing-list" id="pairingList">
-                    <div class="pairing-item">Beef</div>
-                    <div class="pairing-item">Game</div>
-                    <div class="pairing-item">Hard Cheese</div>
-                </div>
-            </div>
-
-                <!-- Producer Info -->
-            <div class="producer-info" id="producerInfo">
-                <h2 class="section-title">Producer</h2>
-                <h3 class="producer-name" id="producerName">Tenuta Tradizionale</h3>
-                <p class="producer-description" id="producerDescription">
-                    A family-owned estate dedicated to producing exceptional wines through sustainable and traditional methods.
-                </p>
-            </div>
-
-                <!-- Share Button -->
-            <div class="share-wine-section">
-                <button class="share-wine-btn" id="shareWineBtn">
-                    <i class="fas fa-share-alt"></i> SHARE WINE
-                </button>
-                </div>
-            </div>
             </div>
         </main>
 
