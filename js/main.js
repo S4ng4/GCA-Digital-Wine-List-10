@@ -1408,29 +1408,59 @@ class WineListApp {
         const backButtonText = document.getElementById('backButtonText');
         
         if (backButton) {
-            // Always return to index.html (wines.html and regions.html are no longer needed)
-            const urlParams = new URLSearchParams(window.location.search);
-            const type = urlParams.get('type');
+            // Remove href to prevent default navigation
+            backButton.removeAttribute('href');
             
-            // Return to index.html with region and type filters
-            let backUrl = `index.html`;
-            const params = new URLSearchParams();
-            
-            if (wine.region) {
-                params.set('region', wine.region);
+            // Check if handler already added to avoid duplicates
+            if (!backButton.hasAttribute('data-back-handler')) {
+                // Mark as handler added
+                backButton.setAttribute('data-back-handler', 'true');
+                
+                // Use history.back() to return to previous page
+                backButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    // Check if there's a referrer from the same origin (user came from another page)
+                    const referrer = document.referrer;
+                    const currentOrigin = window.location.origin;
+                    const referrerOrigin = referrer ? new URL(referrer).origin : null;
+                    
+                    // Try to go back to previous page if:
+                    // 1. There's a referrer
+                    // 2. Referrer is from the same origin
+                    // 3. Referrer is different from current page
+                    if (referrer && referrerOrigin === currentOrigin && referrer !== window.location.href) {
+                        // Go back to previous page
+                        window.history.back();
+                    } else {
+                        // Fallback: return to index.html if no valid referrer
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const type = urlParams.get('type');
+                        
+                        let backUrl = `index.html`;
+                        const params = new URLSearchParams();
+                        
+                        if (wine.region) {
+                            params.set('region', wine.region);
+                        }
+                        if (type) {
+                            params.set('type', type);
+                        }
+                        
+                        if (params.toString()) {
+                            backUrl += `?${params.toString()}`;
+                        }
+                        
+                        window.location.href = backUrl;
+                    }
+                });
             }
-            if (type) {
-                params.set('type', type);
-            }
-            
-            if (params.toString()) {
-                backUrl += `?${params.toString()}`;
-            }
-            
-            backButton.href = backUrl;
             
             // Update button text if element exists
             if (backButtonText) {
+                const urlParams = new URLSearchParams(window.location.search);
+                const type = urlParams.get('type');
+                
                 if (wine.region) {
                     if (type) {
                         const wineFamily = this.getWineFamily(wine.wine_type);
@@ -1440,7 +1470,7 @@ class WineListApp {
                         backButtonText.textContent = `Back to ${wine.region} Wines`;
                     }
                 } else {
-                    backButtonText.textContent = `Back to Home`;
+                    backButtonText.textContent = `Back`;
                 }
             }
         }
