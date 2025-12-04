@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200, height=2000, initial-scale=1.0">
+    <title>Wine Details - TLC 11 - Gran Caffè L'Aquila</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4CF67;
+            --dark-gold: #B8860B;
+            --black: #0A0A0A;
+            --charcoal: #1A1A1A;
+            --ivory: #F5F5F0;
+            --cream: #F8F8F0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 1200px;
+            height: 2000px;
+            overflow: hidden;
+            font-family: 'Cormorant', serif;
+            background: linear-gradient(135deg, var(--charcoal) 0%, var(--black) 100%);
+            color: var(--ivory);
+        }
+
+        .tlc11-container {
+            width: 1200px;
+            height: 2000px;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 60px auto 1fr;
+            gap: 0;
+            background: linear-gradient(135deg, var(--charcoal) 0%, var(--black) 100%);
+            position: relative;
+        }
+
+        /* Top Bar - Fixed height */
+        .tlc11-top-bar {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            background: rgba(26, 26, 26, 0.95);
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+            height: 60px;
+            z-index: 100;
+        }
+
+        .tlc11-back-btn {
+            color: var(--gold);
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 6px;
+        }
+
+        .tlc11-back-btn:hover {
+            color: var(--gold-light);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .tlc11-top-title {
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+
+        .tlc11-share-btn {
+            background: rgba(212, 175, 55, 0.1);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            color: var(--gold);
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 6px 14px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tlc11-share-btn:hover {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* Image Section - Horizontal at top */
+        .tlc11-image-section {
+            grid-column: 1;
+            grid-row: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 30px;
+            background: rgba(10, 10, 10, 0.5);
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+            height: 280px;
+        }
+
+        .tlc11-wine-image-container {
+            width: 100%;
+            max-width: 300px;
+            height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(245, 245, 240, 0.05);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tlc11-wine-bottle-icon {
+            font-size: 120px;
+            color: rgba(212, 175, 55, 0.4);
+        }
+
+        #tlc11WineBottleImage {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
+        }
+
+        /* Content Section */
+        .tlc11-content-section {
+            grid-column: 1;
+            grid-row: 3;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            padding: 20px 30px;
+            overflow: hidden;
+            height: 1660px;
+        }
+
+        /* Header Section - Name and Meta */
+        .tlc11-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .tlc11-wine-name {
+            font-family: 'Cinzel', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--gold-light);
+            letter-spacing: 1.5px;
+            line-height: 1.2;
+            text-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+        }
+
+        .tlc11-wine-description {
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--ivory);
+            font-style: italic;
+        }
+
+        .tlc11-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .tlc11-meta-item {
+            background: rgba(245, 245, 240, 0.05);
+            padding: 10px 14px;
+            border-left: 3px solid var(--gold);
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .tlc11-meta-label {
+            font-size: 11px;
+            color: var(--gold);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .tlc11-meta-value {
+            font-size: 16px;
+            color: var(--ivory);
+            font-weight: 500;
+        }
+
+        /* Main Content - Single column scrollable */
+        .tlc11-main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: 100%;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .tlc11-main-content::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .tlc11-main-content::-webkit-scrollbar-track {
+            background: rgba(245, 245, 240, 0.05);
+        }
+
+        .tlc11-main-content::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.3);
+            border-radius: 2px;
+        }
+
+        /* Section Styling */
+        .tlc11-section {
+            background: rgba(26, 26, 26, 0.6);
+            padding: 18px;
+            border-radius: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .tlc11-section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            color: var(--gold);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+        }
+
+        /* Tasting Notes */
+        .tlc11-tasting-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .tlc11-tasting-note {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 12px;
+            border-radius: 6px;
+            text-align: left;
+            font-size: 14px;
+            color: var(--ivory);
+            transition: all 0.3s;
+            line-height: 1.5;
+        }
+
+        .tlc11-tasting-note:hover {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: var(--gold);
+        }
+
+        /* Food Pairings */
+        .tlc11-pairing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .tlc11-pairing-item {
+            background: rgba(245, 245, 240, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tlc11-pairing-icon {
+            font-size: 24px;
+            color: var(--gold);
+        }
+
+        .tlc11-pairing-name {
+            font-size: 13px;
+            color: var(--ivory);
+            font-weight: 500;
+        }
+
+        /* Producer Info */
+        .tlc11-producer-name {
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            color: var(--gold-light);
+            margin-bottom: 12px;
+        }
+
+        .tlc11-producer-description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--ivory);
+        }
+
+        /* Wine Information Grid */
+        .tlc11-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .tlc11-info-item {
+            background: rgba(245, 245, 240, 0.05);
+            padding: 12px;
+            border-left: 3px solid var(--gold);
+            border-radius: 6px;
+        }
+
+        .tlc11-info-label {
+            font-size: 11px;
+            color: var(--gold);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 6px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .tlc11-info-value {
+            font-size: 15px;
+            color: var(--ivory);
+            font-weight: 500;
+        }
+
+        /* Share Button */
+        .tlc11-share-section {
+            margin-top: 10px;
+            padding-top: 15px;
+            border-top: 2px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .tlc11-share-wine-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--dark-gold) 100%);
+            border: none;
+            color: var(--black);
+            font-family: 'Cinzel', serif;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .tlc11-share-wine-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(212, 175, 55, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="tlc11-container">
+        <!-- Top Bar -->
+        <div class="tlc11-top-bar">
+            <a href="#" class="tlc11-back-btn" id="tlc11BackButton">
+                <i class="fas fa-chevron-left"></i>
+                <span>Back</span>
+            </a>
+            <h1 class="tlc11-top-title">WINE DETAILS</h1>
+            <button class="tlc11-share-btn" id="tlc11ShareBtn">
+                <i class="fas fa-share-alt"></i>
+                <span>Share</span>
+            </button>
+        </div>
+
+        <!-- Image Section - Top -->
+        <div class="tlc11-image-section">
+            <div class="tlc11-wine-image-container" id="tlc11WineImageContainer">
+                <i class="fas fa-wine-bottle tlc11-wine-bottle-icon" id="tlc11WineBottleIcon"></i>
+                <img id="tlc11WineBottleImage" src="" alt="Wine bottle" style="display: none;">
+            </div>
+        </div>
+
+        <!-- Content Section -->
+        <div class="tlc11-content-section">
+            <!-- Header -->
+            <div class="tlc11-header">
+                <h1 class="tlc11-wine-name" id="tlc11WineName">Brunello di Montalcino</h1>
+                <div class="tlc11-wine-description" id="tlc11WineDescription">
+                    A masterpiece of elegance and complexity, this wine presents layers of dark fruit with subtle oak undertones.
+                </div>
+                <div class="tlc11-meta-grid" id="tlc11MetaGrid">
+                    <div class="tlc11-meta-item">
+                        <span class="tlc11-meta-label">Price</span>
+                        <span class="tlc11-meta-value">$45</span>
+                    </div>
+                    <div class="tlc11-meta-item">
+                        <span class="tlc11-meta-label">Producer</span>
+                        <span class="tlc11-meta-value">Estate Tenuta</span>
+                    </div>
+                    <div class="tlc11-meta-item">
+                        <span class="tlc11-meta-label">Region</span>
+                        <span class="tlc11-meta-value">Tuscany</span>
+                    </div>
+                    <div class="tlc11-meta-item">
+                        <span class="tlc11-meta-label">Vintage</span>
+                        <span class="tlc11-meta-value">2018</span>
+                    </div>
+                    <div class="tlc11-meta-item">
+                        <span class="tlc11-meta-label">Grape</span>
+                        <span class="tlc11-meta-value">Sangiovese</span>
+                    </div>
+                    <div class="tlc11-meta-item">
+                        <span class="tlc11-meta-label">Alcohol</span>
+                        <span class="tlc11-meta-value">14.5%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content - Single Column -->
+            <div class="tlc11-main-content">
+                <!-- Wine Information -->
+                <div class="tlc11-section">
+                    <h2 class="tlc11-section-title">Information</h2>
+                    <div class="tlc11-info-grid" id="tlc11InfoGrid">
+                        <div class="tlc11-info-item">
+                            <span class="tlc11-info-label">Vintage</span>
+                            <span class="tlc11-info-value">2018</span>
+                        </div>
+                        <div class="tlc11-info-item">
+                            <span class="tlc11-info-label">Region</span>
+                            <span class="tlc11-info-value">Tuscany</span>
+                        </div>
+                        <div class="tlc11-info-item">
+                            <span class="tlc11-info-label">Appellation</span>
+                            <span class="tlc11-info-value">DOCG</span>
+                        </div>
+                        <div class="tlc11-info-item">
+                            <span class="tlc11-info-label">Bottle Size</span>
+                            <span class="tlc11-info-value">750ml</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tasting Notes -->
+                <div class="tlc11-section">
+                    <h2 class="tlc11-section-title">Tasting Notes</h2>
+                    <div class="tlc11-tasting-grid" id="tlc11TastingGrid">
+                        <div class="tlc11-tasting-note">Cherry</div>
+                        <div class="tlc11-tasting-note">Oak</div>
+                        <div class="tlc11-tasting-note">Spice</div>
+                        <div class="tlc11-tasting-note">Leather</div>
+                    </div>
+                </div>
+
+                <!-- Food Pairings -->
+                <div class="tlc11-section">
+                    <h2 class="tlc11-section-title">Food Pairings</h2>
+                    <div class="tlc11-pairing-grid" id="tlc11PairingGrid">
+                        <div class="tlc11-pairing-item">
+                            <i class="fas fa-drumstick-bite tlc11-pairing-icon"></i>
+                            <span class="tlc11-pairing-name">Beef</span>
+                        </div>
+                        <div class="tlc11-pairing-item">
+                            <i class="fas fa-fish tlc11-pairing-icon"></i>
+                            <span class="tlc11-pairing-name">Game</span>
+                        </div>
+                        <div class="tlc11-pairing-item">
+                            <i class="fas fa-cheese tlc11-pairing-icon"></i>
+                            <span class="tlc11-pairing-name">Hard Cheese</span>
+                        </div>
+                        <div class="tlc11-pairing-item">
+                            <i class="fas fa-utensils tlc11-pairing-icon"></i>
+                            <span class="tlc11-pairing-name">Pasta</span>
+                        </div>
+                        <div class="tlc11-pairing-item">
+                            <i class="fas fa-bacon tlc11-pairing-icon"></i>
+                            <span class="tlc11-pairing-name">Cured Meats</span>
+                        </div>
+                        <div class="tlc11-pairing-item">
+                            <i class="fas fa-pepper-hot tlc11-pairing-icon"></i>
+                            <span class="tlc11-pairing-name">Spicy Dishes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producer Info -->
+                <div class="tlc11-section">
+                    <h2 class="tlc11-section-title">Producer</h2>
+                    <h3 class="tlc11-producer-name" id="tlc11ProducerName">Tenuta Tradizionale</h3>
+                    <p class="tlc11-producer-description" id="tlc11ProducerDescription">
+                        A family-owned estate dedicated to producing exceptional wines through sustainable and traditional methods.
+                    </p>
+                </div>
+
+                <!-- Share Section -->
+                <div class="tlc11-share-section">
+                    <button class="tlc11-share-wine-btn" id="tlc11ShareWineBtn">
+                        <i class="fas fa-share-alt"></i> SHARE WINE
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        // TLC 11 Specific Initialization
+        let currentWine = null;
+
+        function waitForWineApp(callback, maxAttempts = 50) {
+            if (window.wineApp && window.wineApp.wines && window.wineApp.wines.length > 0) {
+                callback();
+            } else if (maxAttempts > 0) {
+                setTimeout(() => waitForWineApp(callback, maxAttempts - 1), 100);
+            } else {
+                console.error('WineApp not available after waiting');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const wineId = urlParams.get('id');
+
+            // Wait for WineApp to be ready
+            waitForWineApp(() => {
+                if (wineId) {
+                    const wine = window.wineApp.wines.find(w => 
+                        w.wine_number === wineId || 
+                        w.wine_number === String(wineId) || 
+                        String(w.wine_number) === String(wineId)
+                    );
+                    
+                    if (wine) {
+                        currentWine = wine;
+                        updateTLC11WineDetails(wine);
+                    } else {
+                        console.error('Wine not found:', wineId);
+                    }
+                }
+            });
+
+            // Back Button
+            const backButton = document.getElementById('tlc11BackButton');
+            if (backButton) {
+                backButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const type = urlParams.get('type');
+                    let backUrl = 'index.html';
+                    if (type) {
+                        backUrl += `?type=${type}`;
+                    }
+                    window.location.href = backUrl;
+                });
+            }
+
+            // Share Button
+            const shareBtn = document.getElementById('tlc11ShareBtn');
+            const shareWineBtn = document.getElementById('tlc11ShareWineBtn');
+            if (shareBtn || shareWineBtn) {
+                const handleShare = () => {
+                    if (navigator.share) {
+                        navigator.share({
+                            title: document.getElementById('tlc11WineName')?.textContent || 'Wine Details',
+                            url: window.location.href
+                        });
+                    } else {
+                        // Fallback: copy to clipboard
+                        navigator.clipboard.writeText(window.location.href).then(() => {
+                            alert('Link copied to clipboard!');
+                        });
+                    }
+                };
+                if (shareBtn) shareBtn.addEventListener('click', handleShare);
+                if (shareWineBtn) shareWineBtn.addEventListener('click', handleShare);
+            }
+            
+            // Update page title
+            if (currentWine && currentWine.wine_name) {
+                document.title = `${currentWine.wine_name} - TLC 11 - Gran Caffè L'Aquila`;
+            }
+        });
+
+        function updateTLC11WineDetails(wine) {
+            if (!wine) return;
+
+            // Update wine name
+            const wineName = document.getElementById('tlc11WineName');
+            if (wineName) {
+                wineName.textContent = wine.wine_name || 'Unknown Wine';
+            }
+
+            // Update description
+            const description = document.getElementById('tlc11WineDescription');
+            if (description) {
+                let wineDesc = wine.wine_description || wine.wine_description_short || 'A fine wine selection from our curated collection.';
+                // Convert uppercase to title case if needed
+                if (wineDesc === wineDesc.toUpperCase() && wineDesc !== wineDesc.toLowerCase()) {
+                    wineDesc = wineDesc.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+                }
+                description.textContent = wineDesc;
+            }
+
+            // Update meta grid
+            const metaGrid = document.getElementById('tlc11MetaGrid');
+            if (metaGrid) {
+                const vintage = wine.wine_vintage ? wine.wine_vintage.match(/\b(19|20)\d{2}\b/)?.[0] || 'N/A' : 'N/A';
+                const price = wine.wine_price || wine.wine_price_bottle || wine.wine_price_glass || 'N/A';
+                const producer = wine.wine_producer || 'N/A';
+                const region = wine.region || 'N/A';
+                const grape = wine.varietals || 'N/A';
+                const alcohol = wine.alcohol || 'N/A';
+
+                metaGrid.innerHTML = `
+                    <div class="tlc11-meta-item">
+                        <span class="tlc11-meta-label">Price</span>
+                        <span class="tlc11-meta-value">${price !== 'N/A' ? '$' + price : 'N/A'}</span>
+                    </div>
+                    <div class="tlc11-meta-item">
+                        <span class="tlc11-meta-label">Producer</span>
+                        <span class="tlc11-meta-value">${producer}</span>
+                    </div>
+                    <div class="tlc11-meta-item">
+                        <span class="tlc11-meta-label">Region</span>
+                        <span class="tlc11-meta-value">${region}</span>
+                    </div>
+                    <div class="tlc11-meta-item">
+                        <span class="tlc11-meta-label">Vintage</span>
+                        <span class="tlc11-meta-value">${vintage}</span>
+                    </div>
+                    <div class="tlc11-meta-item">
+                        <span class="tlc11-meta-label">Grape</span>
+                        <span class="tlc11-meta-value">${grape}</span>
+                    </div>
+                    <div class="tlc11-meta-item">
+                        <span class="tlc11-meta-label">Alcohol</span>
+                        <span class="tlc11-meta-value">${alcohol}</span>
+                    </div>
+                `;
+            }
+
+            // Update wine image
+            const wineBottleIcon = document.getElementById('tlc11WineBottleIcon');
+            const wineBottleImage = document.getElementById('tlc11WineBottleImage');
+            
+            if (wineBottleIcon && wineBottleImage && window.wineApp) {
+                const wineImageUrl = window.wineApp.findWineImage(wine);
+                if (wineImageUrl) {
+                    wineBottleImage.src = wineImageUrl;
+                    wineBottleImage.style.display = 'block';
+                    wineBottleIcon.style.display = 'none';
+                    wineBottleImage.onerror = () => {
+                        wineBottleImage.style.display = 'none';
+                        wineBottleIcon.style.display = 'block';
+                    };
+                } else {
+                    wineBottleImage.style.display = 'none';
+                    wineBottleIcon.style.display = 'block';
+                }
+            }
+
+            // Update info grid
+            const infoGrid = document.getElementById('tlc11InfoGrid');
+            if (infoGrid && window.wineApp) {
+                const vintage = window.wineApp.extractYear(wine.wine_vintage) || (wine.wine_vintage || 'N/A');
+                const infoItems = [
+                    { label: 'Grape Variety', value: wine.varietals || 'N/A', show: !!wine.varietals },
+                    { label: 'Vintage', value: vintage, show: true },
+                    { label: 'Alcohol', value: wine.alcohol || 'N/A', show: !!wine.alcohol },
+                    { label: 'Wine Type', value: window.wineApp.getWineTypeName(wine.wine_type) || 'N/A', show: true },
+                    { label: 'Aging', value: wine.aging || 'N/A', show: !!wine.aging },
+                    { label: 'Soil', value: wine.soil || 'N/A', show: !!wine.soil }
+                ].filter(item => item.show);
+
+                if (infoItems.length > 0) {
+                    infoGrid.innerHTML = infoItems.map(item => `
+                        <div class="tlc11-info-item">
+                            <span class="tlc11-info-label">${item.label}</span>
+                            <span class="tlc11-info-value">${item.value}</span>
+                        </div>
+                    `).join('');
+                }
+            }
+
+            // Update tasting notes
+            const tastingGrid = document.getElementById('tlc11TastingGrid');
+            if (tastingGrid) {
+                let wineDescription = wine.wine_description || 'A fine wine selection from our curated collection.';
+                if (wineDescription === wineDescription.toUpperCase() && wineDescription !== wineDescription.toLowerCase()) {
+                    wineDescription = wineDescription.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+                }
+                // Show description as tasting notes in a single card
+                tastingGrid.innerHTML = `
+                    <div class="tlc11-tasting-note">
+                        <strong style="color: var(--gold); display: block; margin-bottom: 8px; font-size: 13px;">Tasting Notes</strong>
+                        <span style="font-size: 14px; line-height: 1.5;">${wineDescription}</span>
+                    </div>
+                `;
+            }
+
+            // Update food pairings
+            updateTLC11FoodPairings(wine);
+
+            // Update producer info
+            const producerName = document.getElementById('tlc11ProducerName');
+            const producerDesc = document.getElementById('tlc11ProducerDescription');
+            if (producerName) {
+                producerName.textContent = wine.wine_producer || 'Unknown Producer';
+            }
+            if (producerDesc) {
+                producerDesc.textContent = wine.producer_description || 'A producer dedicated to quality wines.';
+            }
+        }
+
+        async function updateTLC11FoodPairings(wine) {
+            const pairingGrid = document.getElementById('tlc11PairingGrid');
+            if (!pairingGrid || !window.wineApp) return;
+
+            // Ensure food pairings data is loaded
+            if (!window.wineApp.foodPairingsData) {
+                await window.wineApp.loadFoodPairingsData();
+            }
+
+            const allPairings = window.wineApp.getFoodPairings(wine);
+            const genericPairings = allPairings.filter(p => !p.isPersonalized);
+            const gcaPairings = allPairings.filter(p => p.isPersonalized);
+
+            // Combine and limit to 6 items for grid
+            const displayPairings = [...genericPairings, ...gcaPairings].slice(0, 6);
+
+            const pairingIcons = {
+                'Beef': 'fas fa-drumstick-bite',
+                'Game': 'fas fa-fish',
+                'Hard Cheese': 'fas fa-cheese',
+                'Pasta': 'fas fa-utensils',
+                'Cured Meats': 'fas fa-bacon',
+                'Spicy Dishes': 'fas fa-pepper-hot',
+                'Poultry': 'fas fa-drumstick-bite',
+                'Seafood': 'fas fa-fish',
+                'Vegetables': 'fas fa-carrot'
+            };
+
+            if (displayPairings.length > 0) {
+                pairingGrid.innerHTML = displayPairings.map(pairing => {
+                    const icon = pairing.icon || pairingIcons[pairing.name] || 'fas fa-utensils';
+                    return `
+                        <div class="tlc11-pairing-item" ${pairing.reason ? `title="${pairing.reason}"` : ''}>
+                            <i class="${icon} tlc11-pairing-icon"></i>
+                            <span class="tlc11-pairing-name">${pairing.name}</span>
+                            ${pairing.isPersonalized ? '<span style="font-size: 12px; color: var(--gold);">GCA</span>' : ''}
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
+    </script>
+</body>
+</html>
+
