@@ -4,14 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wine Details - Gran Caffè L'Aquila</title>
-    <!-- Bootstrap 5.3 CSS (HTTPS CDN) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <!-- Font Awesome (HTTPS CDN) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <!-- Google Fonts (HTTPS) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant:wght@300;400;500&display=swap" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="./css/style.css">
     <style>
         :root {
             --gold: #D4AF37;
@@ -36,6 +30,8 @@
             font-family: 'Cormorant', serif;
             background: var(--black);
             color: var(--ivory);
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            touch-action: pan-y; /* Enable vertical scrolling, prevent horizontal */
         }
 
         .luxury-container {
@@ -54,6 +50,21 @@
             background: rgba(26, 26, 26, 0.95);
             border-bottom: 1px solid rgba(212, 175, 55, 0.1);
             flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        @media (max-width: 767px) {
+            .wine-details-top-bar {
+                padding: 10px 15px;
+            }
+            
+            .wine-details-top-title {
+                font-size: 14px;
+            }
         }
 
         .wine-details-back-btn {
@@ -93,19 +104,44 @@
             color: var(--gold-light);
         }
 
-        /* Desktop and Tablet share the same 2-column layout */
-        /* Override CSS external file to keep 2 columns for tablet */
-        @media (min-width: 768px) {
-            /* Desktop (> 1024px) and Tablet (768px - 1024px): Same 2 columns layout */
-            .wine-details-content {
-                grid-template-columns: 1fr 1fr !important;
-                gap: 3rem !important;
-            }
-            
-            .wine-image {
-                max-width: 400px !important;
-                height: 500px !important;
-            }
+        /* Main Content */
+        .wine-details-container {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 0;
+            width: 100%;
+        }
+
+        .wine-details-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .wine-details-container::-webkit-scrollbar-track {
+            background: rgba(245, 245, 240, 0.05);
+        }
+
+        .wine-details-container::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.3);
+            border-radius: 3px;
+        }
+
+        .wine-details-content {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            gap: 2rem;
+        }
+
+        /* Wine Details Content */
+        .wine-details-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: 100%;
         }
 
         .wine-image-section {
@@ -118,7 +154,6 @@
 
         .wine-image {
             width: 100%;
-            height: 100%;
             min-height: 280px;
             display: flex;
             align-items: center;
@@ -127,6 +162,8 @@
             border: 2px solid rgba(212, 175, 55, 0.3);
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
         }
 
         .wine-bottle {
@@ -137,8 +174,19 @@
         #wineBottleImage {
             max-width: 70%;
             max-height: 100%;
+            width: auto;
+            height: auto;
             object-fit: contain;
             filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+        }
+        
+        #wineBottleIcon {
+            display: block;
+        }
+        
+        #wineBottleImage[style*="display: block"] ~ #wineBottleIcon,
+        #wineBottleImage:not([style*="display: none"]) ~ #wineBottleIcon {
+            display: none !important;
         }
 
         .wine-information {
@@ -147,42 +195,38 @@
 
         .section-title {
             font-family: 'Cinzel', serif;
-            font-size: 2rem;
+            font-size: 1.2rem;
             font-weight: 600;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             color: var(--gold);
-            margin-bottom: 2rem;
-            margin-top: 3rem;
+            margin-bottom: 1rem;
+            margin-top: 1.5rem;
             text-transform: uppercase;
-            text-align: center;
-            text-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
-            position: relative;
-            padding-bottom: 1rem;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
         }
 
         .info-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            font-size: 12px;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        
+        @media (min-width: 768px) {
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         .info-item {
             background: rgba(245, 245, 240, 0.05);
-            padding: 10px 12px;
+            padding: 1rem 1.25rem;
             border-left: 3px solid var(--gold);
-            border-radius: 4px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .info-item:hover {
+            background: rgba(245, 245, 240, 0.08);
+            transform: translateX(4px);
         }
 
         .info-head {
@@ -194,102 +238,86 @@
 
         .info-icon {
             color: var(--gold);
-            font-size: 12px;
+            font-size: 14px;
+            width: 16px;
+            text-align: center;
         }
 
         .info-label {
             font-weight: 600;
             color: var(--gold);
             display: block;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Cinzel', serif;
         }
 
         .info-value {
             color: var(--ivory);
             font-size: 1rem;
             font-weight: 500;
+            line-height: 1.5;
         }
 
         /* Wine Info Section */
         .wine-info-section {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 0;
+            gap: 15px;
             height: fit-content;
         }
 
         .wine-name {
             font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             font-weight: 600;
-            color: var(--gold);
-            letter-spacing: 2px;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            text-transform: uppercase;
-            text-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
+            color: var(--gold-light);
+            letter-spacing: 1px;
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
         }
 
         .wine-description {
-            font-family: 'Cormorant', serif;
-            font-size: 1.15rem;
-            color: rgba(245, 245, 240, 0.85);
-            line-height: 1.8;
-            margin-bottom: 2rem;
-            text-align: center;
-            max-width: 600px;
-            font-weight: 400;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--ivory);
+            background: rgba(245, 245, 240, 0.05);
+            padding: 1rem;
+            border-left: 3px solid var(--gold);
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
         }
 
         .wine-meta {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            width: 100%;
-            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            font-size: 1rem;
+            padding: 1rem;
+            background: rgba(245, 245, 240, 0.03);
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
         }
 
         .meta-item {
             display: flex;
-            flex-direction: column;
-            background: linear-gradient(135deg, rgba(26, 26, 26, 0.6) 0%, rgba(10, 10, 10, 0.85) 100%);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 12px;
-            padding: 1.25rem 1.5rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            align-items: center;
-            text-align: center;
-        }
-        
-        .meta-item:hover {
-            border-color: rgba(212, 175, 55, 0.4);
-            box-shadow: 0 4px 16px rgba(212, 175, 55, 0.15);
-            transform: translateY(-2px);
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
         }
 
         .meta-label {
-            font-family: 'Cinzel', serif;
-            font-size: 0.85rem;
             color: var(--gold);
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
             font-weight: 600;
+            font-size: 0.9rem;
         }
 
         .meta-value {
-            font-family: 'Cormorant', serif;
-            font-size: 1.2rem;
-            color: rgba(245, 245, 240, 0.9);
+            color: var(--ivory);
+            font-size: 1rem;
             font-weight: 500;
-            line-height: 1.4;
         }
 
         /* Tasting Notes */
@@ -298,20 +326,21 @@
         }
 
         .tasting-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
         }
 
         .tasting-note {
-            background: linear-gradient(135deg, rgba(26, 26, 26, 0.5) 0%, rgba(10, 10, 10, 0.7) 100%);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            padding: 1.5rem;
-            border-radius: 12px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 0.75rem;
+            border-radius: 6px;
             text-align: center;
-            font-size: 1rem;
-            color: rgba(245, 245, 240, 0.85);
-            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            color: var(--ivory);
+            transition: all 0.3s;
         }
 
         .tasting-note:hover {
@@ -321,17 +350,19 @@
 
         /* Tasting Category (for WineApp compatibility) */
         .tasting-category {
-            background: rgba(212, 175, 55, 0.1);
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.6) 0%, rgba(10, 10, 10, 0.85) 100%);
             border: 1px solid rgba(212, 175, 55, 0.2);
-            padding: 0.75rem;
-            border-radius: 6px;
-            text-align: center;
-            font-size: 0.9rem;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: left;
+            font-size: 1rem;
             color: var(--ivory);
             transition: all 0.3s;
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.75rem;
+            width: 100%;
+            max-width: 100%;
         }
 
         .tasting-category:hover {
@@ -373,31 +404,24 @@
         }
 
         .pairing-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
         }
 
         .pairing-item {
-            background: linear-gradient(135deg, rgba(26, 26, 26, 0.8) 0%, rgba(10, 10, 10, 0.95) 100%);
-            border: 2px solid rgba(212, 175, 55, 0.3);
-            padding: 2rem;
-            border-radius: 15px;
+            background: rgba(245, 245, 240, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            padding: 0.75rem;
+            border-radius: 6px;
             text-align: center;
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             color: var(--ivory);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1rem;
-        }
-        
-        .pairing-item:hover {
-            border-color: rgba(212, 175, 55, 0.5);
-            transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.2);
+            gap: 0.5rem;
         }
 
         .pairing-icon {
@@ -420,21 +444,15 @@
 
         .producer-name {
             font-family: 'Cinzel', serif;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: var(--gold-light);
-            margin-bottom: 1rem;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
         }
 
         .producer-description {
-            font-family: 'Cormorant', serif;
-            font-size: 1.15rem;
-            line-height: 1.8;
+            font-size: 1rem;
+            line-height: 1.6;
             color: var(--gold);
-            text-align: center;
-            max-width: 600px;
         }
 
         /* Share Section */
@@ -645,213 +663,11 @@
             font-size: 9px;
         }
 
-        /* Mobile (< 768px): Vertical stacked layout */
-        @media (max-width: 767px) {
-            /* Mobile: Vertical stacked layout */
-            .wine-details-container {
-                padding: 1rem;
-                margin: 0;
-            }
-
+        /* Tablet adjustments */
+        @media (min-width: 768px) and (max-width: 1023px) {
             .wine-details-content {
-                grid-template-columns: 1fr !important;
-                gap: 2rem;
-                padding: 0;
-            }
-
-            /* Image - Centered, 70% max width */
-            .wine-image-section {
-                width: 100%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin-bottom: 2rem;
-            }
-
-            .wine-image {
-                max-width: 70% !important;
-                width: 100%;
-                height: auto;
-                min-height: 280px;
-            }
-
-            /* Wine Info Section - Full width, vertical stack */
-            .wine-info-section {
-                width: 100%;
-                align-items: center;
-                gap: 1.5rem;
-            }
-
-            /* Wine Name - Larger, centered */
-            .wine-name {
-                font-size: 2rem;
-                margin-bottom: 1rem;
-                text-align: center;
-            }
-
-            /* Description - Centered */
-            .wine-description {
-                max-width: 100%;
-                margin-bottom: 1.5rem;
-                text-align: center;
-            }
-
-            /* Wine Meta - Vertical layout, full width items stacked */
-            .wine-meta {
-                grid-template-columns: 1fr !important;
-                gap: 1rem;
-                width: 100%;
-                max-width: 100%;
-                margin-bottom: 2rem;
-            }
-
-            .meta-item {
-                width: 100%;
-                text-align: center;
-            }
-
-            /* Info Grid - Full width, stacked vertically */
-            .wine-information {
-                width: 100%;
-                margin-bottom: 2rem;
-            }
-
-            .info-grid {
-                grid-template-columns: 1fr !important;
-                gap: 1rem;
-            }
-
-            .info-item {
-                width: 100%;
-                text-align: center;
-            }
-
-            /* Section Titles - Smaller for mobile */
-            .section-title {
-                font-size: 1.5rem;
-                margin-top: 2rem;
-                margin-bottom: 1.5rem;
-            }
-
-            /* Tasting Notes - Multiple rows, left-aligned */
-            .tasting-notes {
-                width: 100%;
-                margin-bottom: 2rem;
-            }
-
-            .tasting-grid {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.75rem;
-                justify-content: flex-start;
-            }
-
-            .tasting-note {
-                padding: 1rem;
-                font-size: 0.9rem;
-                width: auto;
-                min-width: 80px;
-            }
-
-            /* Pairings - Multiple rows, left-aligned */
-            .food-pairings {
-                width: 100%;
-                margin-bottom: 2rem;
-            }
-
-            .pairing-list {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.75rem;
-                justify-content: flex-start;
-            }
-
-            .pairing-item {
-                padding: 1.5rem 1rem;
-                font-size: 1rem;
-                width: auto;
-                min-width: 100px;
-            }
-
-            /* Producer Info - Centered */
-            .producer-info {
-                width: 100%;
-                text-align: center;
-            }
-
-            .producer-name {
-                font-size: 1.3rem;
-            }
-
-            .producer-description {
-                max-width: 100%;
-            }
-
-            /* Share Button - Full width */
-            .share-wine-section {
-                width: 100%;
-                margin-top: 2rem;
-            }
-
-            .share-wine-btn {
-                width: 100%;
-                padding: 1rem;
-                font-size: 14px;
-            }
-
-            /* Footer - Centered, stacked */
-            .footer-content {
-                grid-template-columns: 1fr !important;
-                text-align: center;
-                gap: 1rem;
-            }
-
-            .footer-logo {
-                font-size: 1rem;
-            }
-
-            .footer-info {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 0.5rem;
-            }
-
-            .footer-info p {
-                margin: 0.25rem 0;
-            }
-
-            .social-icons {
-                justify-content: center;
-            }
-
-            .copyright {
-                margin-top: 1rem;
-            }
-        }
-
-        /* Extra small devices - Max 420px */
-        @media (max-width: 420px) {
-            .wine-name {
-                font-size: 1.75rem;
-            }
-
-            .wine-description {
-                font-size: 1rem;
-            }
-
-            .section-title {
-                font-size: 1.3rem;
-            }
-
-            .tasting-note {
-                font-size: 0.85rem;
-                padding: 0.75rem;
-            }
-
-            .pairing-item {
-                font-size: 0.9rem;
-                padding: 1rem 0.75rem;
+                grid-template-columns: 0.4fr 0.6fr;
+                gap: 2.5rem;
             }
         }
     </style>
@@ -869,86 +685,66 @@
             </button>
         </div>
 
-        <!-- Main Content - Original Desktop Layout -->
+        <!-- Main Content -->
         <main class="wine-details-container">
             <div class="wine-details-content">
-                <!-- Left Column - Bottle Image -->
+                <!-- Image Section -->
                 <div class="wine-image-section">
                     <div class="wine-image" id="wineImageContainer">
                         <i class="fas fa-wine-bottle wine-bottle" id="wineBottleIcon"></i>
-                        <img id="wineBottleImage" src="" alt="Wine bottle">
+                        <img id="wineBottleImage" src="" alt="Wine bottle" style="display: none;">
                     </div>
                 </div>
 
-                <!-- Right Column - Wine Info -->
+                <!-- Wine Info Section -->
                 <div class="wine-info-section">
-                    <h1 class="wine-name" id="wineName">BRUNELLO DI MONTALCINO</h1>
+                    <h1 class="wine-name" id="wineName">Loading...</h1>
                     
-                    <div class="wine-description" id="wineDescription">
-                        A masterpiece of elegance and complexity, this wine presents layers of dark fruit with subtle oak undertones.
+                    <div class="wine-description" id="wineDescription" style="display: none;">
+                        Loading wine description...
                     </div>
                     
                     <div class="wine-meta" id="wineMeta">
-                        <div class="meta-item">
-                            <span class="meta-label">ABV</span>
-                            <span class="meta-value">14.5%</span>
-                        </div>
-                        <div class="meta-item">
-                            <span class="meta-label">Producer</span>
-                            <span class="meta-value">Estate Tenuta</span>
-                        </div>
+                        <!-- Populated by main.js -->
                     </div>
                 
                     <div class="wine-information" id="wineInformation">
-                        <h2 class="section-title">Info</h2>
+                        <h2 class="section-title">Information</h2>
                         <div class="info-grid" id="infoGrid">
-                            <div class="info-item">
-                                <span class="info-label">Vintage</span>
-                                <span class="info-value">2018</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Region</span>
-                                <span class="info-value">Tuscany</span>
-                            </div>
+                            <!-- Populated by main.js -->
                         </div>
                     </div>
 
                     <!-- Tasting Notes -->
-                    <div class="tasting-notes" id="tastingNotes">
+                    <div class="tasting-notes" id="tastingNotes" style="display: none;">
                         <h2 class="section-title">Tasting Notes</h2>
                         <div class="tasting-grid" id="tastingGrid">
-                            <div class="tasting-note">Cherry</div>
-                            <div class="tasting-note">Oak</div>
-                            <div class="tasting-note">Spice</div>
-                            <div class="tasting-note">Leather</div>
+                            <!-- Populated by main.js -->
                         </div>
                     </div>
 
                     <!-- Food Pairings -->
-                    <div class="food-pairings" id="foodPairings">
-                        <h2 class="section-title">Pairings</h2>
+                    <div class="food-pairings" id="foodPairings" style="display: none;">
+                        <h2 class="section-title">Food Pairings</h2>
                         <div class="pairing-list" id="pairingList">
-                            <div class="pairing-item">Beef</div>
-                            <div class="pairing-item">Game</div>
-                            <div class="pairing-item">Hard Cheese</div>
+                            <!-- Populated by main.js -->
                         </div>
                     </div>
 
                     <!-- Producer Info -->
-                    <div class="producer-info" id="producerInfo">
+                    <div class="producer-info" id="producerInfo" style="display: none;">
                         <h2 class="section-title">Producer</h2>
-                        <h3 class="producer-name" id="producerName">TENUTA TRADIZIONALE</h3>
+                        <h3 class="producer-name" id="producerName"></h3>
                         <p class="producer-description" id="producerDescription">
-                            A family-owned estate dedicated to producing exceptional wines through sustainable and traditional methods.
+                            <!-- Populated by main.js -->
                         </p>
                     </div>
 
-                    <!-- Share Button -->
-                    <div class="share-wine-section">
-                        <button class="share-wine-btn" id="shareWineBtn">
-                            <i class="fas fa-share-alt"></i> SHARE WINE
-                        </button>
-                    </div>
+                <!-- Share Button -->
+            <div class="share-wine-section">
+                <button class="share-wine-btn" id="shareWineBtn">
+                    <i class="fas fa-share-alt"></i> SHARE WINE
+                </button>
                 </div>
             </div>
         </main>
@@ -1127,6 +923,46 @@
                         }, 100);
                     }
                 });
+            }
+
+            // Swipe gesture support for mobile/tablet navigation
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let touchEndX = 0;
+            let touchEndY = 0;
+            const minSwipeDistance = 50; // Minimum distance for a swipe
+            const maxVerticalDistance = 100; // Max vertical movement to consider it a horizontal swipe
+
+            const container = document.querySelector('.wine-details-container');
+            if (container) {
+                container.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                    touchStartY = e.changedTouches[0].screenY;
+                }, { passive: true });
+
+                container.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    touchEndY = e.changedTouches[0].screenY;
+                    handleSwipe();
+                }, { passive: true });
+
+                function handleSwipe() {
+                    const deltaX = touchEndX - touchStartX;
+                    const deltaY = Math.abs(touchEndY - touchStartY);
+                    
+                    // Only trigger swipe if horizontal movement is greater than vertical (horizontal swipe)
+                    if (Math.abs(deltaX) > minSwipeDistance && deltaY < maxVerticalDistance) {
+                        if (deltaX > 0) {
+                            // Swipe right - go back
+                            if (backButton && backButton.href && !backButton.href.endsWith('#')) {
+                                window.location.href = backButton.href;
+                            } else {
+                                window.history.back();
+                            }
+                        }
+                        // Swipe left could be used for next wine in future
+                    }
+                }
             }
         });
     </script>
