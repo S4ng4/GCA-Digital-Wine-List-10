@@ -4556,6 +4556,30 @@ body:not(.home-page) .luxury-container {
     font-weight: 600;
 }
 
+.mobile-wine-card-subcategory {
+    font-size: 0.7rem;
+    color: var(--gold);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: 'Cinzel', serif;
+    margin-bottom: 0.5rem;
+    padding: 0.2rem 0.4rem;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 4px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.mobile-wine-card-info .mobile-wine-card-subcategory {
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
 .active-filters-badge {
     display: inline-flex;
     align-items: center;
@@ -7297,6 +7321,44 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         color: rgba(245, 245, 240, 0.75);
         margin-bottom: 0.75rem;
         line-height: 1.4;
+    }
+    
+    .mobile-wine-card-grid-subcategory {
+        font-size: 0.75rem;
+        color: var(--gold);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-family: 'Cinzel', serif;
+        margin-top: 0.5rem;
+        padding: 0.25rem 0.5rem;
+        background: rgba(212, 175, 55, 0.1);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: 4px;
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+    }
+    
+    .mobile-wine-card-subcategory {
+        font-size: 0.7rem;
+        color: var(--gold);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-family: 'Cinzel', serif;
+        margin-top: 0.25rem;
+        padding: 0.2rem 0.4rem;
+        background: rgba(212, 175, 55, 0.1);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: 4px;
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
     }
 
     /* Layout spacing adjustments - unified and optimized */
