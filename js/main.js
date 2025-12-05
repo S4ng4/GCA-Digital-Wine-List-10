@@ -3918,11 +3918,17 @@ function initInteractiveMap() {
                     const vintage = wine.wine_vintage ? wine.wine_vintage.match(/\b(19|20)\d{2}\b/)?.[0] || 'N/A' : 'N/A';
                     const producer = wine.wine_producer || 'Unknown Producer';
                     const subcategory = wine.subcategory || '';
+                    const subcategoryInfo = formatSubcategoryForDisplay(subcategory, wine);
                     wineCard.innerHTML = `
                         <div class="mobile-wine-info">
                             <div class="mobile-wine-name">${wine.wine_name || 'Unknown Wine'} <span class="mobile-wine-producer-inline">- ${producer}</span></div>
                             <div class="mobile-wine-vintage">${vintage !== 'N/A' ? vintage : ''}</div>
-                            ${subcategory ? `<div class="mobile-wine-card-subcategory">${subcategory}</div>` : ''}
+                            ${subcategoryInfo ? `
+                                <div class="mobile-wine-card-subcategory-wrapper">
+                                    <div class="mobile-wine-card-subcategory">${subcategoryInfo.name}</div>
+                                    ${subcategoryInfo.description ? `<div class="mobile-wine-card-subcategory-desc">${subcategoryInfo.description}</div>` : ''}
+                                </div>
+                            ` : ''}
                         </div>
                         <span class="mobile-wine-price">$${price}</span>
                         <i class="fas fa-chevron-right" style="color: var(--gold);"></i>
@@ -4838,6 +4844,7 @@ function initInteractiveMap() {
                     const vintage = wine.wine_vintage ? wine.wine_vintage.match(/\b(19|20)\d{2}\b/)?.[0] || 'N/A' : 'N/A';
                     const producer = wine.wine_producer || 'Unknown Producer';
                     const subcategory = wine.subcategory || '';
+                    const subcategoryInfo = formatSubcategoryForDisplay(subcategory, wine);
                     wineCard.innerHTML = `
                         <div class="mobile-wine-card-grid-single-row">
                             <div class="mobile-wine-card-grid-name">${wine.wine_name || 'Unknown Wine'}</div>
@@ -4845,7 +4852,12 @@ function initInteractiveMap() {
                             ${vintage !== 'N/A' ? `<div class="mobile-wine-card-grid-vintage">${vintage}</div>` : '<div class="mobile-wine-card-grid-vintage"></div>'}
                             <div class="mobile-wine-card-grid-price">$${price}</div>
                         </div>
-                        ${subcategory ? `<div class="mobile-wine-card-grid-subcategory">${subcategory}</div>` : ''}
+                        ${subcategoryInfo ? `
+                            <div class="mobile-wine-card-grid-subcategory-wrapper">
+                                <div class="mobile-wine-card-grid-subcategory">${subcategoryInfo.name}</div>
+                                ${subcategoryInfo.description ? `<div class="mobile-wine-card-grid-subcategory-desc">${subcategoryInfo.description}</div>` : ''}
+                            </div>
+                        ` : ''}
                     `;
                     wineCard.addEventListener('click', (e) => {
                         // Add selected class for visual feedback
@@ -4979,6 +4991,7 @@ function initInteractiveMap() {
                     const vintage = wine.wine_vintage ? wine.wine_vintage.match(/\b(19|20)\d{2}\b/)?.[0] || 'N/A' : 'N/A';
                     const producer = wine.wine_producer || 'Unknown Producer';
                     const subcategory = wine.subcategory || '';
+                    const subcategoryInfo = formatSubcategoryForDisplay(subcategory, wine);
                     wineCard.innerHTML = `
                         <div class="mobile-wine-card-grid-header">
                             <div class="mobile-wine-card-grid-name">${wine.wine_name || 'Unknown Wine'}</div>
@@ -4988,7 +5001,12 @@ function initInteractiveMap() {
                             <div class="mobile-wine-card-grid-producer">${producer}</div>
                             ${vintage !== 'N/A' ? `<div class="mobile-wine-card-grid-vintage">${vintage}</div>` : ''}
                         </div>
-                        ${subcategory ? `<div class="mobile-wine-card-grid-subcategory">${subcategory}</div>` : ''}
+                        ${subcategoryInfo ? `
+                            <div class="mobile-wine-card-grid-subcategory-wrapper">
+                                <div class="mobile-wine-card-grid-subcategory">${subcategoryInfo.name}</div>
+                                ${subcategoryInfo.description ? `<div class="mobile-wine-card-grid-subcategory-desc">${subcategoryInfo.description}</div>` : ''}
+                            </div>
+                        ` : ''}
                     `;
                     wineCard.addEventListener('click', (e) => {
                         // Add selected class for visual feedback
@@ -5132,6 +5150,7 @@ function initInteractiveMap() {
                     const vintage = wine.wine_vintage ? wine.wine_vintage.match(/\b(19|20)\d{2}\b/)?.[0] || 'N/A' : 'N/A';
                     const producer = wine.wine_producer || 'Unknown Producer';
                     const subcategory = wine.subcategory || '';
+                    const subcategoryInfo = formatSubcategoryForDisplay(subcategory, wine);
                     wineCard.innerHTML = `
                         <div class="mobile-wine-card-grid-header">
                             <div class="mobile-wine-card-grid-name">${wine.wine_name || 'Unknown Wine'}</div>
@@ -5141,7 +5160,12 @@ function initInteractiveMap() {
                             <div class="mobile-wine-card-grid-producer">${producer}</div>
                             ${vintage !== 'N/A' ? `<div class="mobile-wine-card-grid-vintage">${vintage}</div>` : ''}
                         </div>
-                        ${subcategory ? `<div class="mobile-wine-card-grid-subcategory">${subcategory}</div>` : ''}
+                        ${subcategoryInfo ? `
+                            <div class="mobile-wine-card-grid-subcategory-wrapper">
+                                <div class="mobile-wine-card-grid-subcategory">${subcategoryInfo.name}</div>
+                                ${subcategoryInfo.description ? `<div class="mobile-wine-card-grid-subcategory-desc">${subcategoryInfo.description}</div>` : ''}
+                            </div>
+                        ` : ''}
                     `;
                     wineCard.addEventListener('click', (e) => {
                         // Add selected class for visual feedback
@@ -6439,6 +6463,7 @@ function initInteractiveMap() {
                 const price = wine.wine_price || wine.wine_price_bottle || wine.wine_price_glass || 'N/A';
                 const producer = wine.wine_producer || 'Unknown';
                 const subcategory = wine.subcategory || '';
+                const subcategoryInfo = formatSubcategoryForDisplay(subcategory, wine);
                 return `
                     <div class="mobile-wine-card" data-wine-id="${wine.wine_number}" onclick="window.location.href='wine-details.html?id=${wine.wine_number}&from=search'">
                         <div class="mobile-wine-card-header">
@@ -6446,7 +6471,12 @@ function initInteractiveMap() {
                             <span class="mobile-wine-card-price">$${price}</span>
                         </div>
                         <div class="mobile-wine-card-info">
-                            ${subcategory ? `<p class="mobile-wine-card-subcategory"><strong>Subcategory:</strong> ${subcategory}</p>` : ''}
+                            ${subcategoryInfo ? `
+                                <div class="mobile-wine-card-subcategory-wrapper">
+                                    <div class="mobile-wine-card-subcategory">${subcategoryInfo.name}</div>
+                                    ${subcategoryInfo.description ? `<div class="mobile-wine-card-subcategory-desc">${subcategoryInfo.description}</div>` : ''}
+                                </div>
+                            ` : ''}
                             <p class="mobile-wine-card-region"><strong>Region:</strong> ${wine.region || 'N/A'}</p>
                             <p class="mobile-wine-card-varietal"><strong>Varietal:</strong> ${wine.varietals || 'N/A'}</p>
                         </div>
