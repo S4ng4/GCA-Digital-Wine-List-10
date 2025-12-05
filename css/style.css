@@ -7409,6 +7409,30 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         margin-top: 0.25rem;
     }
     
+    .mobile-wine-card-grid-subcategory-header {
+        grid-column: 1 / -1;
+        margin: 1.5rem 0 0.75rem 0;
+        padding: 0.75rem 1rem;
+        background: rgba(212, 175, 55, 0.08);
+        border-left: 4px solid var(--gold);
+        border-radius: 6px;
+        transition: all 0.3s ease;
+    }
+    
+    .mobile-wine-card-grid-subcategory-header:first-child {
+        margin-top: 0;
+    }
+    
+    .mobile-wine-card-grid-subcategory-header .mobile-wine-card-grid-subcategory {
+        font-size: 0.85rem;
+        margin-bottom: 0.35rem;
+    }
+    
+    .mobile-wine-card-grid-subcategory-header .mobile-wine-card-grid-subcategory-desc {
+        font-size: 0.75rem;
+        margin-top: 0.35rem;
+    }
+    
     .mobile-wine-card-subcategory {
         font-size: 0.7rem;
         color: var(--gold);

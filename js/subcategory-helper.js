@@ -104,3 +104,45 @@ function formatSubcategoryForDisplay(subcategory, wine) {
     };
 }
 
+/**
+ * Raggruppa i vini per sub-categoria
+ * Restituisce un array di oggetti con { subcategoryInfo, wines }
+ */
+function groupWinesBySubcategory(wines) {
+    const groups = new Map();
+    const winesWithoutSubcategory = [];
+    
+    wines.forEach(wine => {
+        const subcategory = wine.subcategory || '';
+        const subcategoryInfo = formatSubcategoryForDisplay(subcategory, wine);
+        
+        if (subcategoryInfo) {
+            const key = subcategoryInfo.name;
+            if (!groups.has(key)) {
+                groups.set(key, {
+                    subcategoryInfo: subcategoryInfo,
+                    wines: []
+                });
+            }
+            groups.get(key).wines.push(wine);
+        } else {
+            winesWithoutSubcategory.push(wine);
+        }
+    });
+    
+    // Converti la Map in array e ordina per nome sub-categoria
+    const groupedArray = Array.from(groups.values()).sort((a, b) => 
+        a.subcategoryInfo.name.localeCompare(b.subcategoryInfo.name)
+    );
+    
+    // Aggiungi i vini senza sub-categoria alla fine
+    if (winesWithoutSubcategory.length > 0) {
+        groupedArray.push({
+            subcategoryInfo: null,
+            wines: winesWithoutSubcategory
+        });
+    }
+    
+    return groupedArray;
+}
+

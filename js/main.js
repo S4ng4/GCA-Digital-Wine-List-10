@@ -4991,55 +4991,65 @@ function initInteractiveMap() {
                     winesGrid.innerHTML = `<div style="color: rgba(245, 245, 240, 0.5); text-align: center; padding: 2rem;">${noResultsMsg}</div>`;
                     return;
                 }
-                filteredWines.forEach(wine => {
-                    const wineCard = document.createElement('div');
-                    wineCard.className = 'mobile-wine-card-grid';
-                    wineCard.dataset.wineId = wine.wine_number;
+                
+                // Raggruppa i vini per sub-categoria
+                const groupedWines = groupWinesBySubcategory(filteredWines);
+                
+                groupedWines.forEach(group => {
+                    // Aggiungi header sub-categoria se presente
+                    if (group.subcategoryInfo) {
+                        const subcategoryHeader = document.createElement('div');
+                        subcategoryHeader.className = 'mobile-wine-card-grid-subcategory-header';
+                        subcategoryHeader.innerHTML = `
+                            <div class="mobile-wine-card-grid-subcategory">${group.subcategoryInfo.name}</div>
+                            ${group.subcategoryInfo.description ? `<div class="mobile-wine-card-grid-subcategory-desc">${group.subcategoryInfo.description}</div>` : ''}
+                        `;
+                        winesGrid.appendChild(subcategoryHeader);
+                    }
                     
-                    const price = wine.wine_price || wine.wine_price_bottle || wine.wine_price_glass || 'N/A';
-                    const vintage = wine.wine_vintage ? wine.wine_vintage.match(/\b(19|20)\d{2}\b/)?.[0] || 'N/A' : 'N/A';
-                    const producer = wine.wine_producer || 'Unknown Producer';
-                    const subcategory = wine.subcategory || '';
-                    const subcategoryInfo = formatSubcategoryForDisplay(subcategory, wine);
-                    wineCard.innerHTML = `
-                        <div class="mobile-wine-card-grid-single-row">
-                            <div class="mobile-wine-card-grid-name">${wine.wine_name || 'Unknown Wine'}</div>
-                            <div class="mobile-wine-card-grid-producer">${producer}</div>
-                            ${vintage !== 'N/A' ? `<div class="mobile-wine-card-grid-vintage">${vintage}</div>` : '<div class="mobile-wine-card-grid-vintage"></div>'}
-                            <div class="mobile-wine-card-grid-price">$${price}</div>
-                        </div>
-                        ${subcategoryInfo ? `
-                            <div class="mobile-wine-card-grid-subcategory-wrapper">
-                                <div class="mobile-wine-card-grid-subcategory">${subcategoryInfo.name}</div>
-                                ${subcategoryInfo.description ? `<div class="mobile-wine-card-grid-subcategory-desc">${subcategoryInfo.description}</div>` : ''}
+                    // Aggiungi le card dei vini del gruppo
+                    group.wines.forEach(wine => {
+                        const wineCard = document.createElement('div');
+                        wineCard.className = 'mobile-wine-card-grid';
+                        wineCard.dataset.wineId = wine.wine_number;
+                        
+                        const price = wine.wine_price || wine.wine_price_bottle || wine.wine_price_glass || 'N/A';
+                        const vintage = wine.wine_vintage ? wine.wine_vintage.match(/\b(19|20)\d{2}\b/)?.[0] || 'N/A' : 'N/A';
+                        const producer = wine.wine_producer || 'Unknown Producer';
+                        wineCard.innerHTML = `
+                            <div class="mobile-wine-card-grid-single-row">
+                                <div class="mobile-wine-card-grid-name">${wine.wine_name || 'Unknown Wine'}</div>
+                                <div class="mobile-wine-card-grid-producer">${producer}</div>
+                                ${vintage !== 'N/A' ? `<div class="mobile-wine-card-grid-vintage">${vintage}</div>` : '<div class="mobile-wine-card-grid-vintage"></div>'}
+                                <div class="mobile-wine-card-grid-price">$${price}</div>
                             </div>
-                        ` : ''}
-                    `;
-                    wineCard.addEventListener('click', (e) => {
-                        // Add selected class for visual feedback
-                        wineCard.classList.add('selected');
-                        
-                        // Get click position for ripple effect
-                        const rect = wineCard.getBoundingClientRect();
-                        const x = e.clientX - rect.left;
-                        const y = e.clientY - rect.top;
-                        
-                        // Set ripple origin
-                        wineCard.style.setProperty('--ripple-x', `${x}px`);
-                        wineCard.style.setProperty('--ripple-y', `${y}px`);
-                        
-                        // Navigate after a short delay to show the effect
-                        setTimeout(() => {
-                            const params = new URLSearchParams();
-                            params.set('id', wine.wine_number);
-                            if (wineType) {
-                                params.set('type', wineType);
-                            }
-                            params.set('from', 'index');
-                            window.location.href = `wine-details.html?${params.toString()}`;
-                        }, 300);
+                        `;
+                        wineCard.addEventListener('click', (e) => {
+                            // Add selected class for visual feedback
+                            wineCard.classList.add('selected');
+                            
+                            // Get click position for ripple effect
+                            const rect = wineCard.getBoundingClientRect();
+                            const x = e.clientX - rect.left;
+                            const y = e.clientY - rect.top;
+                            
+                            // Set ripple origin
+                            wineCard.style.setProperty('--ripple-x', `${x}px`);
+                            wineCard.style.setProperty('--ripple-y', `${y}px`);
+                            
+                            // Navigate after a short delay to show the effect
+                            setTimeout(() => {
+                                const params = new URLSearchParams();
+                                params.set('id', wine.wine_number);
+                                if (wineType) {
+                                    params.set('type', wineType);
+                                }
+                                params.set('from', 'index');
+                                window.location.href = `wine-details.html?${params.toString()}`;
+                            }, 300);
+                        });
+                        winesGrid.appendChild(wineCard);
                     });
-                    winesGrid.appendChild(wineCard);
                 });
                 // Force reflow per prevenire sovrapposizione delle card
                 winesGrid.offsetHeight; // Trigger reflow
@@ -5138,54 +5148,63 @@ function initInteractiveMap() {
                     return;
                 }
                 
-                varietalWines.forEach(wine => {
-                    const wineCard = document.createElement('div');
-                    wineCard.className = 'mobile-wine-card-grid';
-                    wineCard.dataset.wineId = wine.wine_number;
+                // Raggruppa i vini per sub-categoria
+                const groupedWines = groupWinesBySubcategory(varietalWines);
+                
+                groupedWines.forEach(group => {
+                    // Aggiungi header sub-categoria se presente
+                    if (group.subcategoryInfo) {
+                        const subcategoryHeader = document.createElement('div');
+                        subcategoryHeader.className = 'mobile-wine-card-grid-subcategory-header';
+                        subcategoryHeader.innerHTML = `
+                            <div class="mobile-wine-card-grid-subcategory">${group.subcategoryInfo.name}</div>
+                            ${group.subcategoryInfo.description ? `<div class="mobile-wine-card-grid-subcategory-desc">${group.subcategoryInfo.description}</div>` : ''}
+                        `;
+                        winesGrid.appendChild(subcategoryHeader);
+                    }
                     
-                    const price = wine.wine_price || wine.wine_price_bottle || wine.wine_price_glass || 'N/A';
-                    const vintage = wine.wine_vintage ? wine.wine_vintage.match(/\b(19|20)\d{2}\b/)?.[0] || 'N/A' : 'N/A';
-                    const producer = wine.wine_producer || 'Unknown Producer';
-                    const subcategory = wine.subcategory || '';
-                    const subcategoryInfo = formatSubcategoryForDisplay(subcategory, wine);
-                    wineCard.innerHTML = `
-                        <div class="mobile-wine-card-grid-header">
-                            <div class="mobile-wine-card-grid-name">${wine.wine_name || 'Unknown Wine'}</div>
-                            <div class="mobile-wine-card-grid-price">$${price}</div>
-                        </div>
-                        <div class="mobile-wine-card-grid-info">
-                            <div class="mobile-wine-card-grid-producer">${producer}</div>
-                            ${vintage !== 'N/A' ? `<div class="mobile-wine-card-grid-vintage">${vintage}</div>` : ''}
-                        </div>
-                        ${subcategoryInfo ? `
-                            <div class="mobile-wine-card-grid-subcategory-wrapper">
-                                <div class="mobile-wine-card-grid-subcategory">${subcategoryInfo.name}</div>
-                                ${subcategoryInfo.description ? `<div class="mobile-wine-card-grid-subcategory-desc">${subcategoryInfo.description}</div>` : ''}
+                    // Aggiungi le card dei vini del gruppo
+                    group.wines.forEach(wine => {
+                        const wineCard = document.createElement('div');
+                        wineCard.className = 'mobile-wine-card-grid';
+                        wineCard.dataset.wineId = wine.wine_number;
+                        
+                        const price = wine.wine_price || wine.wine_price_bottle || wine.wine_price_glass || 'N/A';
+                        const vintage = wine.wine_vintage ? wine.wine_vintage.match(/\b(19|20)\d{2}\b/)?.[0] || 'N/A' : 'N/A';
+                        const producer = wine.wine_producer || 'Unknown Producer';
+                        wineCard.innerHTML = `
+                            <div class="mobile-wine-card-grid-header">
+                                <div class="mobile-wine-card-grid-name">${wine.wine_name || 'Unknown Wine'}</div>
+                                <div class="mobile-wine-card-grid-price">$${price}</div>
                             </div>
-                        ` : ''}
-                    `;
-                    wineCard.addEventListener('click', (e) => {
-                        // Add selected class for visual feedback
-                        wineCard.classList.add('selected');
-                        
-                        // Get click position for ripple effect
-                        const rect = wineCard.getBoundingClientRect();
-                        const x = e.clientX - rect.left;
-                        const y = e.clientY - rect.top;
-                        
-                        // Set ripple origin
-                        wineCard.style.setProperty('--ripple-x', `${x}px`);
-                        wineCard.style.setProperty('--ripple-y', `${y}px`);
-                        
-                        // Navigate after a short delay to show the effect
-                        setTimeout(() => {
-                            const params = new URLSearchParams();
-                            params.set('id', wine.wine_number);
-                            params.set('from', 'index');
-                            window.location.href = `wine-details.html?${params.toString()}`;
-                        }, 300);
+                            <div class="mobile-wine-card-grid-info">
+                                <div class="mobile-wine-card-grid-producer">${producer}</div>
+                                ${vintage !== 'N/A' ? `<div class="mobile-wine-card-grid-vintage">${vintage}</div>` : ''}
+                            </div>
+                        `;
+                        wineCard.addEventListener('click', (e) => {
+                            // Add selected class for visual feedback
+                            wineCard.classList.add('selected');
+                            
+                            // Get click position for ripple effect
+                            const rect = wineCard.getBoundingClientRect();
+                            const x = e.clientX - rect.left;
+                            const y = e.clientY - rect.top;
+                            
+                            // Set ripple origin
+                            wineCard.style.setProperty('--ripple-x', `${x}px`);
+                            wineCard.style.setProperty('--ripple-y', `${y}px`);
+                            
+                            // Navigate after a short delay to show the effect
+                            setTimeout(() => {
+                                const params = new URLSearchParams();
+                                params.set('id', wine.wine_number);
+                                params.set('from', 'index');
+                                window.location.href = `wine-details.html?${params.toString()}`;
+                            }, 300);
+                        });
+                        winesGrid.appendChild(wineCard);
                     });
-                    winesGrid.appendChild(wineCard);
                 });
                 
                 // Force reflow per prevenire sovrapposizione delle card
@@ -5297,55 +5316,64 @@ function initInteractiveMap() {
                     return;
                 }
                 
-                filteredWines.forEach(wine => {
-                    const wineCard = document.createElement('div');
-                    wineCard.className = 'mobile-wine-card-grid';
-                    wineCard.dataset.wineId = wine.wine_number;
+                // Raggruppa i vini per sub-categoria
+                const groupedWines = groupWinesBySubcategory(filteredWines);
+                
+                groupedWines.forEach(group => {
+                    // Aggiungi header sub-categoria se presente
+                    if (group.subcategoryInfo) {
+                        const subcategoryHeader = document.createElement('div');
+                        subcategoryHeader.className = 'mobile-wine-card-grid-subcategory-header';
+                        subcategoryHeader.innerHTML = `
+                            <div class="mobile-wine-card-grid-subcategory">${group.subcategoryInfo.name}</div>
+                            ${group.subcategoryInfo.description ? `<div class="mobile-wine-card-grid-subcategory-desc">${group.subcategoryInfo.description}</div>` : ''}
+                        `;
+                        winesGrid.appendChild(subcategoryHeader);
+                    }
                     
-                    const price = wine.wine_price || wine.wine_price_bottle || wine.wine_price_glass || 'N/A';
-                    const vintage = wine.wine_vintage ? wine.wine_vintage.match(/\b(19|20)\d{2}\b/)?.[0] || 'N/A' : 'N/A';
-                    const producer = wine.wine_producer || 'Unknown Producer';
-                    const subcategory = wine.subcategory || '';
-                    const subcategoryInfo = formatSubcategoryForDisplay(subcategory, wine);
-                    wineCard.innerHTML = `
-                        <div class="mobile-wine-card-grid-header">
-                            <div class="mobile-wine-card-grid-name">${wine.wine_name || 'Unknown Wine'}</div>
-                            <div class="mobile-wine-card-grid-price">$${price}</div>
-                        </div>
-                        <div class="mobile-wine-card-grid-info">
-                            <div class="mobile-wine-card-grid-producer">${producer}</div>
-                            ${vintage !== 'N/A' ? `<div class="mobile-wine-card-grid-vintage">${vintage}</div>` : ''}
-                        </div>
-                        ${subcategoryInfo ? `
-                            <div class="mobile-wine-card-grid-subcategory-wrapper">
-                                <div class="mobile-wine-card-grid-subcategory">${subcategoryInfo.name}</div>
-                                ${subcategoryInfo.description ? `<div class="mobile-wine-card-grid-subcategory-desc">${subcategoryInfo.description}</div>` : ''}
+                    // Aggiungi le card dei vini del gruppo
+                    group.wines.forEach(wine => {
+                        const wineCard = document.createElement('div');
+                        wineCard.className = 'mobile-wine-card-grid';
+                        wineCard.dataset.wineId = wine.wine_number;
+                        
+                        const price = wine.wine_price || wine.wine_price_bottle || wine.wine_price_glass || 'N/A';
+                        const vintage = wine.wine_vintage ? wine.wine_vintage.match(/\b(19|20)\d{2}\b/)?.[0] || 'N/A' : 'N/A';
+                        const producer = wine.wine_producer || 'Unknown Producer';
+                        wineCard.innerHTML = `
+                            <div class="mobile-wine-card-grid-header">
+                                <div class="mobile-wine-card-grid-name">${wine.wine_name || 'Unknown Wine'}</div>
+                                <div class="mobile-wine-card-grid-price">$${price}</div>
                             </div>
-                        ` : ''}
-                    `;
-                    wineCard.addEventListener('click', (e) => {
-                        // Add selected class for visual feedback
-                        wineCard.classList.add('selected');
-                        
-                        // Get click position for ripple effect
-                        const rect = wineCard.getBoundingClientRect();
-                        const x = e.clientX - rect.left;
-                        const y = e.clientY - rect.top;
-                        
-                        // Set ripple origin
-                        wineCard.style.setProperty('--ripple-x', `${x}px`);
-                        wineCard.style.setProperty('--ripple-y', `${y}px`);
-                        
-                        // Navigate after a short delay to show the effect
-                        setTimeout(() => {
-                            const params = new URLSearchParams();
-                            params.set('id', wine.wine_number);
-                            params.set('type', wineType);
-                            params.set('from', 'index');
-                            window.location.href = `wine-details.html?${params.toString()}`;
-                        }, 300);
+                            <div class="mobile-wine-card-grid-info">
+                                <div class="mobile-wine-card-grid-producer">${producer}</div>
+                                ${vintage !== 'N/A' ? `<div class="mobile-wine-card-grid-vintage">${vintage}</div>` : ''}
+                            </div>
+                        `;
+                        wineCard.addEventListener('click', (e) => {
+                            // Add selected class for visual feedback
+                            wineCard.classList.add('selected');
+                            
+                            // Get click position for ripple effect
+                            const rect = wineCard.getBoundingClientRect();
+                            const x = e.clientX - rect.left;
+                            const y = e.clientY - rect.top;
+                            
+                            // Set ripple origin
+                            wineCard.style.setProperty('--ripple-x', `${x}px`);
+                            wineCard.style.setProperty('--ripple-y', `${y}px`);
+                            
+                            // Navigate after a short delay to show the effect
+                            setTimeout(() => {
+                                const params = new URLSearchParams();
+                                params.set('id', wine.wine_number);
+                                params.set('type', wineType);
+                                params.set('from', 'index');
+                                window.location.href = `wine-details.html?${params.toString()}`;
+                            }, 300);
+                        });
+                        winesGrid.appendChild(wineCard);
                     });
-                    winesGrid.appendChild(wineCard);
                 });
                 
                 // Force reflow per prevenire sovrapposizione delle card
