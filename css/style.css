@@ -3929,6 +3929,26 @@ body:not(.home-page) .luxury-container {
     box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
 }
 
+.region-item.dimmed {
+    opacity: 0.4;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.region-item.dimmed .region-item-name {
+    color: rgba(212, 175, 55, 0.4);
+}
+
+.region-item.dimmed .region-item-count {
+    color: rgba(245, 245, 240, 0.3);
+}
+
+.region-item.dimmed:hover {
+    transform: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.8) 0%, rgba(10, 10, 10, 0.95) 100%);
+}
+
 .region-item-name {
     font-family: 'Cinzel', serif;
     font-size: 0.9rem;

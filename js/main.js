@@ -4746,6 +4746,162 @@ function initInteractiveMap() {
                     }
                 });
             }
+            // Update regions list to show dimmed regions
+            updateRegionsListForWineType(wineType);
+        }
+        
+        // Update regions list to show all regions with dimmed state for regions without wines
+        function updateRegionsListForWineType(wineType) {
+            const regionsList = document.getElementById('regionsList');
+            if (!regionsList || !window.wineApp || !window.wineApp.wines) return;
+            
+            // Get all unique regions from all wines
+            const allRegionsSet = new Set();
+            window.wineApp.wines.forEach(wine => {
+                if (wine.region && wine.region.trim() !== '') {
+                    const normalizedRegion = window.wineApp.normalizeRegionName(wine.region);
+                    allRegionsSet.add(normalizedRegion);
+                }
+            });
+            
+            const allRegions = Array.from(allRegionsSet).sort();
+            
+            // Get existing region items
+            const regionItems = regionsList.querySelectorAll('.region-item');
+            const existingRegions = new Map();
+            
+            regionItems.forEach(item => {
+                const regionName = item.dataset.regionName || item.querySelector('.region-item-name')?.textContent;
+                if (regionName) {
+                    existingRegions.set(regionName, item);
+                }
+            });
+            
+            // If no wine type selected, show all regions normally
+            if (!wineType) {
+                regionItems.forEach(item => {
+                    item.classList.remove('dimmed');
+                });
+                // If regions list is empty, populate it with all regions
+                if (regionItems.length === 0) {
+                    allRegions.forEach(region => {
+                        const allWinesInRegion = window.wineApp.wines.filter(wine => {
+                            const normalizedWineRegion = window.wineApp.normalizeRegionName(wine.region);
+                            return normalizedWineRegion === region;
+                        });
+                        const count = allWinesInRegion.length;
+                        
+                        const regionItem = createRegionItem(region, count, true, null);
+                        regionsList.appendChild(regionItem);
+                    });
+                }
+                return;
+            }
+            
+            // If regions list is empty, populate it with all regions first
+            if (regionItems.length === 0) {
+                allRegions.forEach(region => {
+                    const filteredWines = window.wineApp.wines.filter(wine => {
+                        const normalizedWineRegion = window.wineApp.normalizeRegionName(wine.region);
+                        return normalizedWineRegion === region && window.wineApp.wineMatchesFamily(wine, wineType);
+                    });
+                    
+                    const count = filteredWines.length;
+                    const hasWines = count > 0;
+                    
+                    const regionItem = createRegionItem(region, count, hasWines, wineType);
+                    regionsList.appendChild(regionItem);
+                });
+                return;
+            }
+            
+            // Update existing region items
+            existingRegions.forEach((item, regionName) => {
+                const hasWines = regionHasWines(regionName, wineType);
+                if (hasWines) {
+                    item.classList.remove('dimmed');
+                } else {
+                    item.classList.add('dimmed');
+                }
+                // Update count for the selected wine type
+                const filteredWines = window.wineApp.wines.filter(wine => {
+                    const normalizedWineRegion = window.wineApp.normalizeRegionName(wine.region);
+                    return normalizedWineRegion === regionName && window.wineApp.wineMatchesFamily(wine, wineType);
+                });
+                const countElement = item.querySelector('.region-item-count');
+                if (countElement) {
+                    countElement.textContent = `${filteredWines.length} wines`;
+                }
+            });
+            
+            // Add any missing regions
+            allRegions.forEach(region => {
+                if (!existingRegions.has(region)) {
+                    const filteredWines = window.wineApp.wines.filter(wine => {
+                        const normalizedWineRegion = window.wineApp.normalizeRegionName(wine.region);
+                        return normalizedWineRegion === region && window.wineApp.wineMatchesFamily(wine, wineType);
+                    });
+                    
+                    const count = filteredWines.length;
+                    const hasWines = count > 0;
+                    
+                    const regionItem = createRegionItem(region, count, hasWines, wineType);
+                    regionsList.appendChild(regionItem);
+                }
+            });
+        }
+        
+        // Helper function to create a region item
+        function createRegionItem(region, count, hasWines, wineType) {
+            const regionItem = document.createElement('div');
+            regionItem.className = 'region-item' + (hasWines ? '' : ' dimmed');
+            regionItem.dataset.regionName = region;
+            regionItem.innerHTML = `
+                <div class="region-item-name">${region}</div>
+                <div class="region-item-count">${count} wines</div>
+            `;
+            
+            // Add click handler
+            regionItem.addEventListener('click', function(e) {
+                if (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                }
+                
+                if (hasWines) {
+                    const clickedItem = e && e.currentTarget ? e.currentTarget : this;
+                    const regionName = clickedItem.dataset.regionName || region;
+                    
+                    document.querySelectorAll('.region-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    clickedItem.classList.add('active');
+                    
+                    // Select region on map (try both mobile and desktop maps)
+                    if (mobileGeoJsonLayer) {
+                        const mapRegionName = getMapRegionName(region);
+                        mobileGeoJsonLayer.eachLayer(function(layer) {
+                            if (layer._regionName === region || layer._regionName === mapRegionName) {
+                                if (layer.fire) {
+                                    layer.fire('click');
+                                }
+                            }
+                        });
+                    } else if (geoJsonLayer) {
+                        const mapRegionName = getMapRegionName(region);
+                        geoJsonLayer.eachLayer(function(layer) {
+                            const mapRegion = layer.feature && layer.feature.properties.reg_name;
+                            if (mapRegion === mapRegionName || mapRegion === region) {
+                                if (layer.fire) {
+                                    layer.fire('click');
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+            
+            return regionItem;
         }
         // Show Mobile Wines for Region
         function showMobileWinesForRegion(regionName, wineType, searchTerm = '') {
