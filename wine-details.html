@@ -136,12 +136,14 @@
             gap: 2rem;
         }
 
-        /* Wine Details Content */
-        .wine-details-content {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            height: 100%;
+        /* Wine Details Content - Two Column Layout */
+        @media (min-width: 768px) {
+            .wine-details-content {
+                display: grid;
+                grid-template-columns: 0.4fr 0.6fr;
+                gap: 2.5rem;
+                align-items: start;
+            }
         }
 
         .wine-image-section {
@@ -663,13 +665,6 @@
             font-size: 9px;
         }
 
-        /* Tablet adjustments */
-        @media (min-width: 768px) and (max-width: 1023px) {
-            .wine-details-content {
-                grid-template-columns: 0.4fr 0.6fr;
-                gap: 2.5rem;
-            }
-        }
     </style>
 </head>
 <body class="hero-enhanced">
@@ -707,18 +702,18 @@
                     <div class="wine-meta" id="wineMeta">
                         <!-- Populated by main.js -->
                     </div>
-                
-                    <div class="wine-information" id="wineInformation">
-                        <h2 class="section-title">Information</h2>
-                        <div class="info-grid" id="infoGrid">
-                            <!-- Populated by main.js -->
-                        </div>
-                    </div>
 
                     <!-- Tasting Notes -->
                     <div class="tasting-notes" id="tastingNotes" style="display: none;">
                         <h2 class="section-title">Tasting Notes</h2>
                         <div class="tasting-grid" id="tastingGrid">
+                            <!-- Populated by main.js -->
+                        </div>
+                    </div>
+                
+                    <div class="wine-information" id="wineInformation">
+                        <h2 class="section-title">Information</h2>
+                        <div class="info-grid" id="infoGrid">
                             <!-- Populated by main.js -->
                         </div>
                     </div>
