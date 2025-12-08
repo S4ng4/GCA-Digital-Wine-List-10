@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione Vini - Link Manager</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 30px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .file-input-wrapper {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .file-input-wrapper label {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .file-input-wrapper label:hover {
+            background: #5568d3;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            display: none;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .wine-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .wine-table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .wine-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .wine-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+        }
+
+        .wine-table tbody tr {
+            transition: all 0.3s;
+        }
+
+        .wine-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .wine-table tbody tr.highlighted {
+            background-color: #90EE90 !important;
+        }
+
+        .wine-image {
+            width: 80px;
+            height: 120px;
+            object-fit: contain;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .wine-producer {
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .wine-name {
+            color: #666;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .link-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 13px;
+            font-family: monospace;
+        }
+
+        .link-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .link-display {
+            font-size: 12px;
+            color: #666;
+            word-break: break-all;
+            max-width: 300px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .btn-highlight {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .btn-highlight:hover {
+            background: #e0a800;
+        }
+
+        .btn-update {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .btn-update:hover {
+            background: #138496;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .stat-box h3 {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .stat-box p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 18px;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .wine-table {
+                font-size: 12px;
+            }
+
+            .wine-table th,
+            .wine-table td {
+                padding: 8px;
+            }
+
+            .wine-image {
+                width: 60px;
+                height: 90px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍷 Gestione Vini - Link Manager</h1>
+        <p class="subtitle">Gestisci le immagini e i link dei vini</p>
+
+        <div class="controls">
+            <div class="file-input-wrapper">
+                <label for="csvFile">Carica CSV</label>
+                <input type="file" id="csvFile" accept=".csv">
+            </div>
+            <div class="file-input-wrapper">
+                <label for="jsonFile">Carica JSON</label>
+                <input type="file" id="jsonFile" accept=".json">
+            </div>
+            <input type="text" class="search-box" id="searchBox" placeholder="Cerca vino, produttore o numero...">
+            <button class="btn btn-primary" onclick="downloadUpdatedJSON()">Scarica wines.json aggiornato</button>
+            <button class="btn btn-secondary" onclick="downloadUpdatedCSV()">Scarica wine_links.csv aggiornato</button>
+        </div>
+
+        <div class="stats" id="stats" style="display: none;">
+            <div class="stat-box">
+                <h3 id="totalWines">0</h3>
+                <p>Vini Totali</p>
+            </div>
+            <div class="stat-box">
+                <h3 id="updatedLinks">0</h3>
+                <p>Link Modificati</p>
+            </div>
+        </div>
+
+        <div id="errorMessage" class="error" style="display: none;"></div>
+
+        <div id="loading" class="loading">
+            <div style="margin-bottom: 20px;">
+                <h3>📋 Istruzioni per l'uso:</h3>
+                <ol style="text-align: left; max-width: 600px; margin: 20px auto;">
+                    <li><strong>Avvia il server locale:</strong><br>
+                        <code style="background: #f0f0f0; padding: 5px 10px; border-radius: 3px;">
+                            python3 server.py
+                        </code>
+                        <br>oppure<br>
+                        <code style="background: #f0f0f0; padding: 5px 10px; border-radius: 3px;">
+                            ./start_server.sh
+                        </code>
+                    </li>
+                    <li>Apri <code>http://localhost:8000/wine_manager.html</code> nel browser</li>
+                    <li>I file verranno caricati automaticamente, oppure caricali manualmente usando i pulsanti sopra</li>
+                </ol>
+                <p style="color: #666; margin-top: 20px;">
+                    ⚠️ <strong>Nota:</strong> Per caricare i file JSON/CSV è necessario un server HTTP locale.<br>
+                    Aprire il file HTML direttamente (file://) non funzionerà a causa delle restrizioni CORS del browser.
+                </p>
+            </div>
+            <div id="loadingStatus">Caricamento file in corso...</div>
+        </div>
+
+        <table class="wine-table" id="wineTable" style="display: none;">
+            <thead>
+                <tr>
+                    <th>Immagine</th>
+                    <th>Produttore</th>
+                    <th>Nome Vino</th>
+                    <th>Numero</th>
+                    <th>Link Attuale</th>
+                    <th>Nuovo Link</th>
+                    <th>Azioni</th>
+                </tr>
+            </thead>
+            <tbody id="wineTableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        let winesData = [];
+        let jsonData = { wines: [] };
+        let updatedLinks = new Set();
+
+        // Carica CSV
+        document.getElementById('csvFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    parseCSV(event.target.result);
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        // Carica JSON
+        document.getElementById('jsonFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    try {
+                        jsonData = JSON.parse(event.target.result);
+                        mergeData();
+                    } catch (error) {
+                        showError('Errore nel parsing del file JSON: ' + error.message);
+                    }
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        // Cerca vini
+        document.getElementById('searchBox').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            filterWines(searchTerm);
+        });
+
+        function parseCSV(csvText) {
+            const lines = csvText.split('\n');
+            winesData = [];
+            
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line) continue;
+
+                // Gestisce CSV con virgole nelle stringhe
+                const parts = [];
+                let currentPart = '';
+                let inQuotes = false;
+
+                for (let j = 0; j < line.length; j++) {
+                    const char = line[j];
+                    if (char === '"') {
+                        inQuotes = !inQuotes;
+                    } else if (char === ',' && !inQuotes) {
+                        parts.push(currentPart.trim());
+                        currentPart = '';
+                    } else {
+                        currentPart += char;
+                    }
+                }
+                parts.push(currentPart.trim());
+
+                if (parts.length >= 3) {
+                    winesData.push({
+                        wineNumber: parts[0],
+                        wineName: parts[1].replace(/^"|"$/g, ''),
+                        link: parts[2].replace(/^"|"$/g, '')
+                    });
+                }
+            }
+
+            mergeData();
+        }
+
+        function mergeData() {
+            if (winesData.length === 0 || !jsonData.wines || jsonData.wines.length === 0) {
+                return;
+            }
+
+            // Crea una mappa dei vini dal JSON per accesso rapido
+            const jsonWinesMap = {};
+            jsonData.wines.forEach(wine => {
+                jsonWinesMap[wine.wine_number] = wine;
+            });
+
+            // Combina i dati
+            const mergedWines = winesData.map(csvWine => {
+                const jsonWine = jsonWinesMap[csvWine.wineNumber] || {};
+                return {
+                    wineNumber: csvWine.wineNumber,
+                    wineName: csvWine.wineName,
+                    link: csvWine.link,
+                    producer: jsonWine.wine_producer || 'N/A',
+                    jsonWine: jsonWine
+                };
+            });
+
+            displayWines(mergedWines);
+            updateStats(mergedWines.length);
+        }
+
+        function displayWines(wines) {
+            const tbody = document.getElementById('wineTableBody');
+            tbody.innerHTML = '';
+
+            wines.forEach((wine, index) => {
+                const row = document.createElement('tr');
+                row.id = `wine-row-${wine.wineNumber}`;
+                row.dataset.wineNumber = wine.wineNumber;
+
+                row.innerHTML = `
+                    <td>
+                        <img src="${wine.link}" alt="${wine.wineName}" class="wine-image" 
+                             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%27 height=%27100%27%3E%3Crect fill=%27%23ddd%27 width=%27100%27 height=%27100%27/%3E%3Ctext x=%2750%25%27 y=%2750%27 text-anchor=%27middle%27 dy=%27.3em%27 fill=%27%23999%27%3ENo Image%3C/text%3E%3C/svg%3E'">
+                    </td>
+                    <td>
+                        <div class="wine-producer">${wine.producer}</div>
+                    </td>
+                    <td>
+                        <div class="wine-name">${wine.wineName}</div>
+                    </td>
+                    <td>${wine.wineNumber}</td>
+                    <td>
+                        <div class="link-display" title="${wine.link}">${truncateLink(wine.link)}</div>
+                    </td>
+                    <td>
+                        <input type="text" class="link-input" 
+                               value="${wine.link}" 
+                               data-wine-number="${wine.wineNumber}"
+                               placeholder="Inserisci nuovo link">
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn btn-small btn-highlight" 
+                                    onclick="highlightRow('${wine.wineNumber}')">
+                                Evidenzia
+                            </button>
+                            <button class="btn btn-small btn-update" 
+                                    onclick="updateLink('${wine.wineNumber}')">
+                                Aggiorna
+                            </button>
+                        </div>
+                    </td>
+                `;
+
+                tbody.appendChild(row);
+            });
+
+            document.getElementById('wineTable').style.display = 'table';
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        function truncateLink(link) {
+            if (link.length > 50) {
+                return link.substring(0, 47) + '...';
+            }
+            return link;
+        }
+
+        function highlightRow(wineNumber) {
+            const row = document.getElementById(`wine-row-${wineNumber}`);
+            if (row) {
+                row.classList.toggle('highlighted');
+            }
+        }
+
+        function updateLink(wineNumber) {
+            const input = document.querySelector(`input[data-wine-number="${wineNumber}"]`);
+            if (!input) return;
+
+            const newLink = input.value.trim();
+            if (!newLink) {
+                alert('Inserisci un link valido');
+                return;
+            }
+
+            // Aggiorna l'immagine
+            const row = document.getElementById(`wine-row-${wineNumber}`);
+            if (row) {
+                const img = row.querySelector('.wine-image');
+                if (img) {
+                    img.src = newLink;
+                }
+            }
+
+            // Aggiorna il link nel JSON
+            const wine = jsonData.wines.find(w => w.wine_number === wineNumber);
+            if (wine) {
+                wine.bottle_image_url = newLink;
+                updatedLinks.add(wineNumber);
+            }
+
+            // Aggiorna anche nel CSV data
+            const csvWine = winesData.find(w => w.wineNumber === wineNumber);
+            if (csvWine) {
+                csvWine.link = newLink;
+            }
+
+            updateStats();
+            alert(`Link aggiornato per il vino ${wineNumber}`);
+        }
+
+        function filterWines(searchTerm) {
+            const rows = document.querySelectorAll('#wineTableBody tr');
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        function updateStats(total = null) {
+            if (total !== null) {
+                document.getElementById('totalWines').textContent = total;
+            }
+            document.getElementById('updatedLinks').textContent = updatedLinks.size;
+            document.getElementById('stats').style.display = 'flex';
+        }
+
+        function downloadUpdatedJSON() {
+            if (updatedLinks.size === 0) {
+                alert('Nessun link è stato modificato');
+                return;
+            }
+
+            const dataStr = JSON.stringify(jsonData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'wines.json';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+
+            alert(`File wines.json scaricato con ${updatedLinks.size} link aggiornati`);
+        }
+
+        function downloadUpdatedCSV() {
+            if (winesData.length === 0) {
+                alert('Nessun dato CSV disponibile');
+                return;
+            }
+
+            // Crea il contenuto CSV
+            let csvContent = 'Wine Number,Wine Name,Link\n';
+            winesData.forEach(wine => {
+                // Gestisce virgole e virgolette nel nome
+                const wineName = wine.wineName.includes(',') || wine.wineName.includes('"') 
+                    ? `"${wine.wineName.replace(/"/g, '""')}"` 
+                    : wine.wineName;
+                csvContent += `${wine.wineNumber},${wineName},${wine.link}\n`;
+            });
+
+            const dataBlob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'wine_links.csv';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+
+            alert(`File wine_links.csv scaricato con ${winesData.length} vini`);
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // Carica automaticamente i file se presenti nella stessa directory
+        window.addEventListener('DOMContentLoaded', function() {
+            const loadingStatus = document.getElementById('loadingStatus');
+            let csvLoaded = false;
+            let jsonLoaded = false;
+
+            function updateLoadingStatus() {
+                if (csvLoaded && jsonLoaded) {
+                    loadingStatus.textContent = '✅ File caricati con successo!';
+                    loadingStatus.style.color = '#28a745';
+                } else if (csvLoaded || jsonLoaded) {
+                    loadingStatus.textContent = `Caricamento... (CSV: ${csvLoaded ? '✅' : '⏳'}, JSON: ${jsonLoaded ? '✅' : '⏳'})`;
+                }
+            }
+
+            // Prova a caricare i file automaticamente
+            fetch('wine_links.csv')
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    }
+                    throw new Error('CSV non trovato');
+                })
+                .then(text => {
+                    parseCSV(text);
+                    csvLoaded = true;
+                    updateLoadingStatus();
+                })
+                .catch((error) => {
+                    csvLoaded = false;
+                    updateLoadingStatus();
+                    if (window.location.protocol === 'file:') {
+                        showError('⚠️ Server locale necessario! Usa "python3 server.py" e apri http://localhost:8000/wine_manager.html');
+                    }
+                });
+
+            fetch('data/wines.json')
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('JSON non trovato');
+                })
+                .then(data => {
+                    jsonData = data;
+                    jsonLoaded = true;
+                    updateLoadingStatus();
+                    mergeData();
+                })
+                .catch((error) => {
+                    jsonLoaded = false;
+                    updateLoadingStatus();
+                    if (window.location.protocol === 'file:') {
+                        showError('⚠️ Server locale necessario! Usa "python3 server.py" e apri http://localhost:8000/wine_manager.html');
+                    }
+                });
+        });
+    </script>
+</body>
+</html>
+
