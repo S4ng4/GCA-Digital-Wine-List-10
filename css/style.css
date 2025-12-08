@@ -5604,12 +5604,291 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     font-weight: 600;
 }
 
+/* Search Bar in Menu */
+.mobile-menu-search-container {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    flex-shrink: 0;
+    background: transparent;
+    transition: background 0.3s ease;
+}
+
+.mobile-side-menu.open .mobile-menu-search-container {
+    background: linear-gradient(180deg, rgba(15, 15, 15, 0.85) 0%, rgba(5, 5, 5, 0.9) 100%);
+    backdrop-filter: blur(40px) saturate(200%) brightness(0.7);
+    -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(0.7);
+}
+
+:root[data-theme="day"] .mobile-side-menu.open .mobile-menu-search-container {
+    background: rgba(250, 250, 245, 0.85);
+    backdrop-filter: blur(40px) saturate(200%) brightness(1.1);
+    -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(1.1);
+}
+
+.mobile-menu-search-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.mobile-menu-search-input-wrapper {
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-search-input-wrapper:active {
+    transform: scale(0.98);
+}
+
+.mobile-menu-search-icon {
+    position: absolute;
+    left: 0.875rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold-dark);
+    font-size: 0.95rem;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.mobile-menu-search-input {
+    width: 100%;
+    padding: 0.75rem 0.875rem 0.75rem 2.5rem;
+    background: rgba(26, 26, 26, 0.6);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 8px;
+    color: rgba(245, 245, 240, 0.8);
+    font-size: 0.9rem;
+    font-family: 'Cormorant', serif;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.mobile-menu-search-input:focus {
+    outline: none;
+    background: rgba(26, 26, 26, 0.8);
+    border-color: rgba(212, 175, 55, 0.4);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.mobile-menu-quick-search-buttons {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.mobile-menu-quick-search-btn {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    background: rgba(212, 175, 55, 0.08);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 6px;
+    color: var(--gold);
+    font-size: 0.8rem;
+    font-weight: 500;
+    font-family: 'Cormorant', serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.mobile-menu-quick-search-btn:active {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: rgba(212, 175, 55, 0.4);
+    transform: scale(0.97);
+}
+
+.mobile-menu-quick-search-btn.active {
+    background: rgba(212, 175, 55, 0.2);
+    border-color: var(--gold);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+}
+
+/* Search Popup */
+.mobile-menu-search-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.mobile-menu-search-popup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.mobile-menu-search-popup-content {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    background: linear-gradient(180deg, rgba(26, 26, 26, 0.98) 0%, rgba(10, 10, 10, 0.98) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(212, 175, 55, 0.3);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mobile-menu-search-popup-header {
+    padding: 1.5rem 1.5rem 1rem;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mobile-menu-search-popup-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    letter-spacing: 1px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.mobile-menu-search-popup-close {
+    background: none;
+    border: none;
+    color: var(--gold);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: transform 0.2s, color 0.2s;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-menu-search-popup-close:active {
+    transform: scale(0.9);
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.mobile-menu-search-popup-body {
+    padding: 1.5rem;
+}
+
+.mobile-menu-search-popup-input-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.mobile-menu-search-popup-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold-dark);
+    font-size: 1rem;
+    z-index: 1;
+}
+
+.mobile-menu-search-popup-input {
+    width: 100%;
+    padding: 1rem 1rem 1rem 2.75rem;
+    background: rgba(26, 26, 26, 0.9);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 10px;
+    color: rgba(245, 245, 240, 0.9);
+    font-size: 1rem;
+    font-family: 'Cormorant', serif;
+    transition: all 0.3s;
+}
+
+.mobile-menu-search-popup-input:focus {
+    outline: none;
+    background: rgba(26, 26, 26, 1);
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+.mobile-menu-search-popup-quick-buttons {
+    display: flex;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.mobile-menu-search-popup-quick-btn {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 8px;
+    color: var(--gold);
+    font-size: 0.9rem;
+    font-weight: 500;
+    font-family: 'Cormorant', serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.mobile-menu-search-popup-quick-btn:active {
+    background: rgba(212, 175, 55, 0.2);
+    border-color: rgba(212, 175, 55, 0.5);
+    transform: scale(0.97);
+}
+
+.mobile-menu-search-popup-quick-btn.active {
+    background: rgba(212, 175, 55, 0.25);
+    border-color: var(--gold);
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+}
+
 .mobile-menu-categories {
     padding: 1rem 0;
     overflow-y: auto;
     flex: 1;
     display: flex;
     flex-direction: column;
+    transition: padding-top 0.3s ease;
+}
+
+/* Scroll categories down when menu is open to show search bar */
+.mobile-side-menu.open .mobile-menu-categories {
+    padding-top: 0;
 }
 
 #mobileMenuSwitchContainer {
@@ -6182,7 +6461,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         padding-left: calc(1.25rem + env(safe-area-inset-left)); /* iOS 11.2+ */
         padding-right: calc(1.25rem + constant(safe-area-inset-right)); /* iOS 11.0-11.2 */
         padding-right: calc(1.25rem + env(safe-area-inset-right)); /* iOS 11.2+ */
-        display: none;
+        display: block; /* Always visible on mobile and tablet */
     }
 
     .mobile-search-bar-container.visible {
@@ -6251,21 +6530,88 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         transform: scale(0.98);
     }
 
+    /* Quick Search Buttons */
+    .mobile-quick-search-buttons {
+        display: flex;
+        gap: 0.625rem;
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+
+    .mobile-quick-search-btn {
+        flex: 1;
+        padding: 0.625rem 1rem;
+        background: rgba(212, 175, 55, 0.08);
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        border-radius: 8px;
+        color: var(--gold);
+        font-size: 0.85rem;
+        font-weight: 500;
+        font-family: 'Cormorant', serif;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .mobile-quick-search-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+        transition: left 0.5s;
+    }
+
+    .mobile-quick-search-btn:hover::before,
+    .mobile-quick-search-btn:active::before {
+        left: 100%;
+    }
+
+    .mobile-quick-search-btn:active {
+        background: rgba(212, 175, 55, 0.15);
+        border-color: rgba(212, 175, 55, 0.4);
+        transform: scale(0.97);
+    }
+
+    .mobile-quick-search-btn.active {
+        background: rgba(212, 175, 55, 0.2);
+        border-color: var(--gold);
+        box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
+    }
+
+    .mobile-quick-search-btn span {
+        position: relative;
+        z-index: 1;
+    }
+
     /* Hide desktop search bar on mobile */
     .search-bar-container {
         display: none;
     }
+}
+
+/* Hide quick search buttons on desktop */
+@media (min-width: 820px) {
+    .mobile-quick-search-buttons {
+        display: none !important;
+    }
+}
 
     /* Hide desktop main content on mobile */
     .main-content-desktop {
         display: none !important;
     }
 
-    /* Mobile Wine Type Selector (below nav) - Apple-like design */
+    /* Mobile Wine Type Selector (below search bar) - Apple-like design */
     .mobile-wine-type-selector {
         position: fixed;
-        top: calc(var(--mobile-nav-height) + constant(safe-area-inset-top)); /* iOS 11.0-11.2 */
-        top: calc(var(--mobile-nav-height) + env(safe-area-inset-top)); /* iOS 11.2+ */
+        /* Position below search bar (nav height + search bar height ~140px) */
+        top: calc(var(--mobile-nav-height) + 140px + constant(safe-area-inset-top)); /* iOS 11.0-11.2 */
+        top: calc(var(--mobile-nav-height) + 140px + env(safe-area-inset-top)); /* iOS 11.2+ */
         left: 0;
         right: 0;
         z-index: 180;
@@ -6281,11 +6627,6 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         padding-right: calc(1.25rem + env(safe-area-inset-right)); /* iOS 11.2+ */
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
-    }
-
-    .mobile-search-bar-container.visible + .mobile-wine-type-selector {
-        top: calc(var(--mobile-nav-height) + var(--mobile-search-height) + constant(safe-area-inset-top)); /* iOS 11.0-11.2 */
-        top: calc(var(--mobile-nav-height) + var(--mobile-search-height) + env(safe-area-inset-top)); /* iOS 11.2+ */
     }
 
     .mobile-wine-types-scroll {
@@ -7487,23 +7828,9 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         overflow: hidden;
     }
 
-    .mobile-search-bar-container.visible + .mobile-wine-type-selector + .content-wrapper .mobile-map-wines-container {
-        min-height: calc(100vh - (var(--mobile-nav-height) + var(--mobile-wine-type-height) + var(--mobile-search-height)));
-    }
-
-    /* Smooth animation for mobile search bar - improved */
-    .mobile-search-bar-container {
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-                    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                    box-shadow 0.3s ease;
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-
-    .mobile-search-bar-container.visible {
-        transform: translateY(0);
-        opacity: 1;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    /* Mobile map wines container - positioned below search bar and wine type selector */
+    .mobile-map-wines-container {
+        margin-top: calc(140px + 60px); /* Search bar height + wine type selector height */
     }
     
     /* Improve mobile wine type selector transitions */

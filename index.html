@@ -53,10 +53,60 @@
             </button>
             <h2 class="mobile-menu-title">Gran Caffe Experience</h2>
         </div>
+        <!-- Search Bar in Menu -->
+        <div class="mobile-menu-search-container" id="mobileMenuSearchContainer">
+            <div class="mobile-menu-search-wrapper">
+                <div class="mobile-menu-search-input-wrapper" id="mobileMenuSearchTrigger">
+                    <i class="fas fa-search mobile-menu-search-icon"></i>
+                    <input type="text" class="mobile-menu-search-input" placeholder="Search wines..." readonly>
+                </div>
+                <!-- Quick Search Buttons -->
+                <div class="mobile-menu-quick-search-buttons">
+                    <button class="mobile-menu-quick-search-btn" id="mobileMenuQuickSearchOrganic" data-filter="organic">
+                        <span>Organic</span>
+                    </button>
+                    <button class="mobile-menu-quick-search-btn" id="mobileMenuQuickSearchFancy" data-filter="fancy">
+                        <span>Fellenig Fancy</span>
+                    </button>
+                </div>
+            </div>
+        </div>
         <div class="mobile-menu-categories" id="mobileMenuCategories">
             <!-- Wine categories will be populated dynamically -->
         </div>
     </nav>
+
+    <!-- Search Popup for Menu -->
+    <div class="mobile-menu-search-popup" id="mobileMenuSearchPopup" style="display: none;">
+        <div class="mobile-menu-search-popup-overlay" id="mobileMenuSearchPopupOverlay"></div>
+        <div class="mobile-menu-search-popup-content">
+            <div class="mobile-menu-search-popup-header">
+                <h3 class="mobile-menu-search-popup-title">Search Wines</h3>
+                <button class="mobile-menu-search-popup-close" id="mobileMenuSearchPopupClose" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="mobile-menu-search-popup-body">
+                <div class="mobile-menu-search-popup-input-wrapper">
+                    <i class="fas fa-search mobile-menu-search-popup-icon"></i>
+                    <input type="text" id="mobileMenuSearchPopupInput" class="mobile-menu-search-popup-input" placeholder="Search wines by name, producer, varietal, or region..." autocomplete="off">
+                    <!-- Autocomplete Dropdown -->
+                    <div class="search-autocomplete-dropdown mobile-menu-search-popup-autocomplete" id="mobileMenuSearchPopupAutocomplete" style="display: none;">
+                        <div class="autocomplete-suggestions" id="mobileMenuSearchPopupSuggestions"></div>
+                    </div>
+                </div>
+                <!-- Quick Search Buttons in Popup -->
+                <div class="mobile-menu-search-popup-quick-buttons">
+                    <button class="mobile-menu-search-popup-quick-btn" id="mobileMenuSearchPopupOrganic" data-filter="organic">
+                        <span>Organic</span>
+                    </button>
+                    <button class="mobile-menu-search-popup-quick-btn" id="mobileMenuSearchPopupFancy" data-filter="fancy">
+                        <span>Fellenig Fancy</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="main-layout">
         <!-- Top Navigation -->
@@ -92,6 +142,15 @@
                     <div class="search-autocomplete-dropdown mobile-autocomplete" id="mobileSearchAutocompleteDropdown" style="display: none;">
                         <div class="autocomplete-suggestions" id="mobileAutocompleteSuggestions"></div>
                     </div>
+                </div>
+                <!-- Quick Search Buttons -->
+                <div class="mobile-quick-search-buttons">
+                    <button class="mobile-quick-search-btn" id="mobileQuickSearchOrganic" data-filter="organic">
+                        <span>Organic</span>
+                    </button>
+                    <button class="mobile-quick-search-btn" id="mobileQuickSearchFancy" data-filter="fancy">
+                        <span>Fellenig Fancy</span>
+                    </button>
                 </div>
                 <div class="mobile-filter-buttons">
                     <button class="mobile-filter-btn" id="mobileFilterRegionBtn">Region</button>
