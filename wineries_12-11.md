@@ -213,6 +213,285 @@ Wine: Barolo Paesi Tuoi.
 
 ---
 
+## ALTESINO
+Region: Tuscany  
+Location: Montalcino  
+History: Historic estate of Brunello di Montalcino, known for the innovative introduction of barrique in the area.  
+Main Wines: Brunello di Montalcino "Montosoli" (reference cru).
+
+## ANTINORI
+Region: Tuscany  
+Location: Florence  
+Year: 1385  
+History: One of the oldest and most celebrated wine families in Italy, based in Florence since 1385. Constant innovators, they created icons like Tignanello and Solaia, and own estates throughout Italy.  
+Production Philosophy: Innovation while respecting tradition.
+
+## ARCENO
+Region: Tuscany  
+Location: Chianti Classico (between Castellina and Radda)  
+Year: 1994  
+Ownership: American Kunz family  
+Main Wines: Chianti Classico, Supertuscan wines.
+
+## ARGIANO
+Region: Tuscany  
+Location: Montalcino  
+Year: 1580  
+History: Historic Montalcino estate, famous for its Brunello. In 2013 it was acquired by a Brazilian group, maintaining high-quality standards.  
+Main Wines: Brunello di Montalcino.
+
+## AVIGNONESI
+Region: Tuscany  
+Location: Valdichiana  
+History: Important winery historically linked to Vino Nobile di Montepulciano. Since 2009 it has been owned by a Belgian couple and converted to organic farming.  
+Certification: Organic  
+Main Wines: Vino Nobile di Montepulciano.
+
+## BANFI
+Region: Tuscany  
+Location: Montalcino  
+Year: 1978  
+Ownership: American Mariani brothers  
+History: One of the largest and most innovative estates in Montalcino (Brunello). A pioneer in research on Sangiovese clones.  
+Main Wines: Brunello di Montalcino.
+
+## BIONDI-SANTI
+Region: Tuscany  
+Location: Montalcino  
+History: The family that "invented" Brunello di Montalcino in the late 1800s. The "Biondi Santi Tenuta Il Greppo" is a global icon, a symbol of longevity and elegance.  
+Main Wines: Brunello di Montalcino.
+
+## BRANCAIA
+Region: Tuscany  
+Location: Chianti Classico  
+Ownership: Swiss Widmer family  
+Main Wines: Chianti Classico, supertuscan "Brancaia Il Blu."
+
+## CIACCI
+Region: Tuscany  
+Location: Montalcino  
+Ownership: Ciacci family  
+Main Wines: Brunello di Montalcino, particularly from the famous "Pianrosso" cru.  
+Style: Powerful and elegant.
+
+## COL D'ORCIA
+Region: Tuscany  
+Location: Montalcino  
+Ownership: Cinzano family (since 1973)  
+History: Ancient Montalcino estate. One of the largest properties in the DOCG.  
+Main Wines: Brunello di Montalcino (traditional and long-aging style).
+
+## DIEVOLE
+Region: Tuscany  
+Location: Chianti Classico (between Castelnuovo Berardenga and Siena)  
+Production Philosophy: Approach that combines tradition and technological innovation.  
+Main Wines: Chianti Classico.
+
+## FOSSACOLLE
+Region: Tuscany  
+Location: Montalcino  
+Production Philosophy: Traditional style, aged in large oak casks.  
+Main Wines: Brunello di Montalcino.
+
+## GUADO AL TASSO (ANTINORI)
+Region: Tuscany  
+Location: Bolgheri DOC  
+Ownership: Antinori  
+Main Wines: Supertuscan "Guado al Tasso" (Cabernet, Merlot, Syrah), Vermentino.
+
+## IL POGGIONE
+Region: Tuscany  
+Location: Montalcino  
+Year: Late 1800s  
+Ownership: Franceschi family  
+History: One of the first producers of Brunello.  
+Style: Traditional and long-lived.  
+Main Wines: Brunello di Montalcino.
+
+## MAZZEI
+Region: Tuscany  
+Location: Chianti Classico (Fonterutoli)  
+Year: 1435  
+History: Tuscan family owning Fonterutoli in Chianti Classico since 1435.  
+Main Wines: Chianti Classico, supertuscan "Siepi."  
+Additional Estates: Tenuta Belguardo in Maremma, Zisola in Sicily.
+
+## MORISFARMS
+Region: Tuscany  
+Location: Maremma (near Massa Marittima)  
+Production Philosophy: Modern approach.  
+Main Wines: Morellino di Scansano, Vermentino.
+
+## PIAN DELLE VIGNE (ANTINORI)
+Region: Tuscany  
+Location: Montalcino  
+Ownership: Antinori  
+Main Wines: Brunello di Montalcino (elegant and accessible style), named after the eponymous locality.
+
+## POLIZIANO
+Region: Tuscany  
+Location: Montepulciano  
+Year: 1961  
+Founder: Dino Carletti  
+Main Wines: Vino Nobile di Montepulciano (particularly the "Asinone" selection), supertuscan "Le Stanze."
+
+## ROMITORO
+Region: Tuscany  
+Location: Montalcino  
+Ownership: Artist Sandro Chia  
+Production Philosophy: Approach respectful of tradition.  
+Main Wines: Brunello di Montalcino, Rosso di Montalcino.
+
+## RUFFINO
+Region: Tuscany  
+Location: Pontassieve (FI)  
+Year: 1877  
+Ownership: Folonari family  
+History: One of the most well-known Tuscan wineries worldwide.  
+Main Wines: Chianti "Ducale" and a vast range of products.
+
+## SAN FELICE
+Region: Tuscany  
+Location: Chianti Classico (comune of Castelnuovo Berardenga)  
+Main Wines: Chianti Classico "Il Grigio," supertuscan "Vigorello."  
+Additional Estates: Estate in Montalcino (Campogiovanni).
+
+## TIGNANELLO (ANTINORI)
+Region: Tuscany  
+Ownership: Antinori  
+History: The Supertuscan that in 1971 (in its first vintages as "Chianti Classico Riserva vigneto Tignanello") changed the history of Italian wine. The first modern Tuscan wine with a Bordeaux blend (Sangiovese/Cabernet) and the first Chianti not to use white grapes. A world icon.  
+Main Wines: Tignanello.
+
+## VAL DI SUGA
+Region: Tuscany  
+Location: Montalcino  
+Ownership: Angelini group  
+Production Philosophy: Produces Brunello di Montalcino from three different areas of the comune (north, south-east, south), expressing the different souls of the territory.  
+Main Wines: Brunello di Montalcino.
+
+## VILLA CALCINAIA
+Region: Tuscany  
+Location: Greve in Chianti  
+Year: 1524  
+Ownership: Capponi family (since 1524)  
+History: Historic estate.  
+Style: Great elegance and tradition.  
+Main Wines: Chianti Classico.
+
+---
+
+## ALBINO ROCCA OVELO
+Region: Piedmont  
+Location: Barbaresco  
+Ownership: Rocca family  
+Main Wines: Barbaresco from historic vineyards like Vigneto Brich Ronchi and Vigneto Loreto.  
+Style: Traditional yet modern.
+
+## BRUNO
+Region: Piedmont  
+Location: Barolo (La Morra area)  
+Main Wines: Barolo from crus like "Rocche dell'Annunziata" and "Sarmassa."  
+Style: Elegant and traditional.
+
+## CASTELLO DI NEIVE
+Region: Piedmont  
+Location: Neive (Langhe)  
+History: Historic estate in the eponymous comune in the Langhe.  
+Main Wines: Barbaresco, Barbera, Moscato d'Asti from vineyards situated in the best positions of the town.
+
+## CERETTO
+Region: Piedmont  
+Location: Langhe  
+Year: 1937  
+Founder: Riccardo Ceretto  
+History: Historic Langhe family. Innovators in marketing and quality, they have mapped and valorized Barolo and Barbaresco crus (like "Brunate," "Bricco Rocche").  
+Main Wines: Barolo, Barbaresco.
+
+## COCCHI
+Region: Piedmont  
+Location: Asti  
+Year: 1891  
+Founder: Giulio Cocchi  
+History: Historic house.  
+Main Wines: Vermouths, Asti, metodo classico "Villadoria."
+
+## CONTRATTO
+Region: Piedmont  
+Location: Canelli (AT)  
+Year: 1867  
+History: One of the oldest metodo classico sparkling wine houses in Italy.  
+Main Wines: Millesimati, Vermouth.
+
+## FONTANAFREDDA
+Region: Piedmont  
+Location: Langhe  
+Year: 1878  
+History: Historic Langhe estate, founded by the will of the first King of Italy, Vittorio Emanuele II, and his mistress Rosa Vercellana. One of the most important producers of Barolo, Barbaresco, and sparkling wines.  
+Main Wines: Barolo, Barbaresco, sparkling wines.
+
+## GAJA
+Region: Piedmont  
+Location: Barbaresco  
+Ownership: Angelo Gaja (today led by his daughters Gaia, Rossana, and Lucia)  
+History: The winery of Angelo Gaja, an absolute innovator and global ambassador of Italian wine. He revolutionized Barbaresco and Barolo by introducing modern methods.  
+Main Wines: Barbaresco icons like "Sori San Lorenzo," "Sori Tildìn," "Sperss."
+
+## MARCHESI DI BAROLO
+Region: Piedmont  
+Location: Barolo  
+Year: 1800s  
+History: One of the historic and most representative Barolo wineries. Marchesa Giulia Colbert Falletti entrusted Paolo Francesco Staglieno here with the first production of "Barolo" wine as we know it today. A guardian of tradition.  
+Main Wines: Barolo.
+
+## NIVOLE
+Region: Piedmont  
+Location: Asti  
+Producer: Michele Chiarlo  
+Main Wines: Moscato d'Asti.  
+Style: Light, aromatic, and sweet.
+
+## PAOLO SCAVINO
+Region: Piedmont  
+Location: Barolo  
+Year: 1921  
+Founder: Paolo Scavino  
+Ownership: Enrico Scavino and his daughters  
+Main Wines: Barolo from single crus (Bric del Fiasc, Cannubi, Rocche dell'Annunziata).  
+Style: Great elegance and purity.
+
+## PIO CESARE
+Region: Piedmont  
+Location: Alba  
+Year: 1881  
+History: Historic Alba winery. One of the first to bottle and market wines from the Langhe under its own name.  
+Main Wines: Barolo, Barbaresco, Barbera.
+
+## PRUNOTTO
+Region: Piedmont  
+Location: Langhe  
+Year: 1904  
+Ownership: Acquired by Antinori in 1989  
+History: Historic Langhe winery.  
+Main Wines: Barolo from crus (Bussia, Cannubi), Barbaresco.  
+Style: Great tradition and balance.
+
+## R. MASCARELLO
+Region: Piedmont  
+Location: Barolo  
+History: Historic Barolo winery, symbol of purist tradition.  
+Production Philosophy: Produces blended Barolo from different crus (like the "Barolo" blend) according to traditional methods: fermentation with pied de cuve, long macerations, large casks.  
+Main Wines: Barolo.
+
+## RATTI
+Region: Piedmont  
+Location: Langhe  
+Year: 1865  
+Founder: Giovanni Battista Ratti  
+History: One of the most respected wineries in Piedmont. The son, Renato Ratti, was a pioneer in the zoning of Barolo crus in the 60s-70s.  
+Main Wines: Barolo, Barbaresco, Barbera.
+
+---
+
 # Additional Wineries (Name Only – No Details Provided)
 
 The following wineries appeared in the file but without descriptions:
