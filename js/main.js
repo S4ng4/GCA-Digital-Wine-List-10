@@ -2917,17 +2917,32 @@ function updateMapColors(wineType) {
             const isSelected = layer === selectedRegion;
             
             if (hasWines || !wineType) {
-                // Region has wines - use normal colors
-                layer.setStyle({
-                    color: colors.border,
-                    fillColor: colors.fill,
-                    weight: isSelected ? 4 : 1.5,
-                    fillOpacity: isSelected ? 0.5 : 0.08,
-                    opacity: isSelected ? 1 : 0.8,
-                    dashArray: isSelected ? '10, 5' : null,
-                    lineCap: 'round',
-                    lineJoin: 'round'
-                });
+                // Region has wines - use normal colors with higher opacity when wine type is selected
+                if (wineType && hasWines) {
+                    // When a wine type is selected, highlight regions with that wine type
+                    layer.setStyle({
+                        color: colors.border,
+                        fillColor: colors.fill,
+                        weight: isSelected ? 4 : 2,
+                        fillOpacity: isSelected ? 0.5 : 0.3,
+                        opacity: isSelected ? 1 : 0.9,
+                        dashArray: isSelected ? '10, 5' : null,
+                        lineCap: 'round',
+                        lineJoin: 'round'
+                    });
+                } else {
+                    // No wine type selected - use default colors
+                    layer.setStyle({
+                        color: colors.border,
+                        fillColor: colors.fill,
+                        weight: isSelected ? 4 : 1.5,
+                        fillOpacity: isSelected ? 0.5 : 0.08,
+                        opacity: isSelected ? 1 : 0.8,
+                        dashArray: isSelected ? '10, 5' : null,
+                        lineCap: 'round',
+                        lineJoin: 'round'
+                    });
+                }
                 // Re-enable interactions
                 layer.options.interactive = true;
             } else {
@@ -3105,14 +3120,28 @@ function loadRegionsForWineType(wineType, listContainer) {
                         // Use currentWineType from global scope
                         const hasWines = currentWineType ? regionHasWines(region, currentWineType) : true;
                         if (hasWines || !currentWineType) {
-                            layer.setStyle({
-                                weight: 1.5,
-                                fillOpacity: 0.08,
-                                fillColor: currentColors.fill,
-                                color: currentColors.border,
-                                opacity: 0.8,
-                                dashArray: null
-                            });
+                            // Use highlighted opacity if wine type is selected, otherwise use default
+                            if (currentWineType && hasWines) {
+                                layer.setStyle({
+                                    color: currentColors.border,
+                                    fillColor: currentColors.fill,
+                                    weight: 2,
+                                    fillOpacity: 0.3,
+                                    opacity: 0.9,
+                                    dashArray: null,
+                                    lineCap: 'round',
+                                    lineJoin: 'round'
+                                });
+                            } else {
+                                layer.setStyle({
+                                    weight: 1.5,
+                                    fillOpacity: 0.08,
+                                    fillColor: currentColors.fill,
+                                    color: currentColors.border,
+                                    opacity: 0.8,
+                                    dashArray: null
+                                });
+                            }
                         } else {
                             layer.setStyle({
                                 weight: 1.5,
@@ -3170,14 +3199,28 @@ function loadRegionsForWineType(wineType, listContainer) {
                             const hasWines = rName ? regionHasWines(rName, wineType) : false;
                             
                             if (hasWines || !wineType) {
-                                l.setStyle({
-                                    weight: 1.5,
-                                    fillOpacity: 0.08,
-                                    color: currentColors.border,
-                                    fillColor: currentColors.fill,
-                                    opacity: 0.8,
-                                    dashArray: null
-                                });
+                                // Use highlighted opacity if wine type is selected, otherwise use default
+                                if (wineType && hasWines) {
+                                    l.setStyle({
+                                        color: currentColors.border,
+                                        fillColor: currentColors.fill,
+                                        weight: 2,
+                                        fillOpacity: 0.3,
+                                        opacity: 0.9,
+                                        dashArray: null,
+                                        lineCap: 'round',
+                                        lineJoin: 'round'
+                                    });
+                                } else {
+                                    l.setStyle({
+                                        weight: 1.5,
+                                        fillOpacity: 0.08,
+                                        color: currentColors.border,
+                                        fillColor: currentColors.fill,
+                                        opacity: 0.8,
+                                        dashArray: null
+                                    });
+                                }
                             } else {
                                 l.setStyle({
                                     weight: 1.5,
@@ -4385,13 +4428,26 @@ function initInteractiveMap() {
                 },
                 mouseout: function(e) {
                     if (this !== mobileSelectedRegion && shouldEnable) {
-                        this.setStyle({
-                            weight: 1.5,
-                            fillOpacity: 0.08,
-                            fillColor: mobileCurrentWineType ? currentColors.fill : '#D4AF37',
-                            color: mobileCurrentWineType ? currentColors.border : '#D4AF37',
-                            opacity: 0.8
-                        });
+                        // Restore to highlighted state if wine type is selected, otherwise use default
+                        if (mobileCurrentWineType && hasWines) {
+                            this.setStyle({
+                                color: currentColors.border,
+                                fillColor: currentColors.fill,
+                                weight: 2,
+                                fillOpacity: 0.25,
+                                opacity: 0.9,
+                                lineCap: 'round',
+                                lineJoin: 'round'
+                            });
+                        } else {
+                            this.setStyle({
+                                weight: 1.5,
+                                fillOpacity: 0.08,
+                                fillColor: mobileCurrentWineType ? currentColors.fill : '#D4AF37',
+                                color: mobileCurrentWineType ? currentColors.border : '#D4AF37',
+                                opacity: 0.8
+                            });
+                        }
                     }
                 }
             });
@@ -4405,13 +4461,26 @@ function initInteractiveMap() {
             if (mobileGeoJsonLayer && mobileSelectedRegion) {
                 const hasWines = regionHasWines(mobileSelectedRegion._regionName, mobileCurrentWineType);
                 if (hasWines || !mobileCurrentWineType) {
-                    mobileSelectedRegion.setStyle({
-                        weight: 1.5,
-                        fillOpacity: 0.08,
-                        fillColor: mobileCurrentWineType ? currentColors.fill : '#D4AF37',
-                        color: mobileCurrentWineType ? currentColors.border : '#D4AF37',
-                        opacity: 0.8
-                    });
+                    // Restore to highlighted state if wine type is selected, otherwise use default
+                    if (mobileCurrentWineType && hasWines) {
+                        mobileSelectedRegion.setStyle({
+                            color: currentColors.border,
+                            fillColor: currentColors.fill,
+                            weight: 2,
+                            fillOpacity: 0.25,
+                            opacity: 0.9,
+                            lineCap: 'round',
+                            lineJoin: 'round'
+                        });
+                    } else {
+                        mobileSelectedRegion.setStyle({
+                            weight: 1.5,
+                            fillOpacity: 0.08,
+                            fillColor: mobileCurrentWineType ? currentColors.fill : '#D4AF37',
+                            color: mobileCurrentWineType ? currentColors.border : '#D4AF37',
+                            opacity: 0.8
+                        });
+                    }
                 }
             }
             mobileSelectedRegion = layer;
@@ -4755,15 +4824,29 @@ function initInteractiveMap() {
                     const isSelected = layer === mobileSelectedRegion;
                     
                     if (hasWines || !wineType) {
-                        layer.setStyle({
-                            color: isSelected ? '#2A2A2A' : '#4A4A4A', // Dark grey borders
-                            fillColor: isSelected ? 'rgba(255, 255, 255, 0.1)' : 'transparent', // Transparent fill
-                            color: isSelected ? '#CCC' : '#999', // Light grey borders
-                            weight: isSelected ? 3 : 1.5,
-                            fillOpacity: isSelected ? 0.3 : 0.15,
-                            opacity: isSelected ? 1 : 0.8,
-                            dashArray: isSelected ? '10, 5' : null
-                        });
+                        if (wineType && hasWines) {
+                            // When a wine type is selected, highlight regions with that wine type using wine color
+                            layer.setStyle({
+                                color: colors.border,
+                                fillColor: colors.fill,
+                                weight: isSelected ? 3 : 2,
+                                fillOpacity: isSelected ? 0.3 : 0.25,
+                                opacity: isSelected ? 1 : 0.9,
+                                dashArray: isSelected ? '10, 5' : null,
+                                lineCap: 'round',
+                                lineJoin: 'round'
+                            });
+                        } else {
+                            // No wine type selected - use default style
+                            layer.setStyle({
+                                color: isSelected ? '#CCC' : '#999', // Light grey borders
+                                fillColor: isSelected ? 'rgba(255, 255, 255, 0.1)' : 'transparent', // Transparent fill
+                                weight: isSelected ? 3 : 1.5,
+                                fillOpacity: isSelected ? 0.3 : 0.15,
+                                opacity: isSelected ? 1 : 0.8,
+                                dashArray: isSelected ? '10, 5' : null
+                            });
+                        }
                         // Re-enable interactions
                         layer.options.interactive = true;
                     } else {
@@ -5508,7 +5591,7 @@ function initInteractiveMap() {
                     if (filterType === 'organic') {
                         winesTitle.textContent = 'Organic Wines';
                     } else if (filterType === 'fancy') {
-                        winesTitle.textContent = 'Feeling Lucky';
+                        winesTitle.textContent = 'Feeling Fancy';
                     }
                 }
                 
@@ -6094,14 +6177,28 @@ function initInteractiveMap() {
                         hideRegionTooltip();
                         
                         if (this !== selectedRegion && shouldEnable) {
-                            // Return to default style
-                            this.setStyle({
-                                weight: 1.5,
-                                fillOpacity: 0.08,
-                                fillColor: currentWineType ? currentColors.fill : '#D4AF37',
-                                color: currentWineType ? currentColors.border : '#D4AF37',
-                                opacity: 0.8
-                            });
+                            const rName = this._regionName;
+                            const hasWines = rName ? regionHasWines(rName, currentWineType) : false;
+                            // Return to highlighted state if wine type is selected, otherwise use default
+                            if (currentWineType && hasWines) {
+                                this.setStyle({
+                                    color: currentColors.border,
+                                    fillColor: currentColors.fill,
+                                    weight: 2,
+                                    fillOpacity: 0.3,
+                                    opacity: 0.9,
+                                    lineCap: 'round',
+                                    lineJoin: 'round'
+                                });
+                            } else {
+                                this.setStyle({
+                                    weight: 1.5,
+                                    fillOpacity: 0.08,
+                                    fillColor: currentWineType ? currentColors.fill : '#D4AF37',
+                                    color: currentWineType ? currentColors.border : '#D4AF37',
+                                    opacity: 0.8
+                                });
+                            }
                         }
                     },
                     click: function(e) {
@@ -6910,12 +7007,22 @@ function initInteractiveMap() {
                         return;
                     }
                     
-                    // For other types (producer, varietal, region), perform search
+                    // For other types (producer, varietal, region), perform search immediately
                     const searchInput = document.getElementById('desktopSearchInput') || document.getElementById('mobileSearchInput');
                     if (searchInput) {
                         searchInput.value = text;
-                        searchInput.dispatchEvent(new Event('input'));
                         dropdown.style.display = 'none';
+                        
+                        // Perform search immediately without debounce
+                        waitForWineApp(() => {
+                            const results = performGlobalSearch(text);
+                            const isMobile = searchInput.id === 'mobileSearchInput';
+                            if (isMobile) {
+                                displayMobileSearchResults(text, results);
+                            } else {
+                                displaySearchResults(text, results);
+                            }
+                        });
                     }
                 });
             });
