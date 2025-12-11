@@ -82,7 +82,7 @@
     display: block;
     text-align: center;
     pointer-events: none;
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-weight: 600;
     color: var(--ivory);
     text-shadow: 0 2px 8px rgba(0,0,0,0.45);
@@ -111,7 +111,7 @@
 .loading-subtitle {
     color: var(--ivory);
     opacity: 0.75;
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 1rem;
     letter-spacing: 0.5px;
 }
@@ -143,7 +143,7 @@
 
 /* removed progress line and tip */
 
-.skip-loading { background: rgba(0,0,0,0.45); border: 1px solid rgba(212,175,55,0.6); color: #D4AF37; border-radius: 999px; padding: 0.55rem 1.25rem; font-family: 'Cinzel', serif; font-size: 1.05rem; letter-spacing: 0.6px; cursor: pointer; opacity: 1; transform: none; transition: all 250ms ease; margin-top: 1.5rem; }
+.skip-loading { background: rgba(0,0,0,0.45); border: 1px solid rgba(212,175,55,0.6); color: #D4AF37; border-radius: 999px; padding: 0.55rem 1.25rem; font-family: var(--font-heading); font-size: 1.05rem; letter-spacing: 0.6px; cursor: pointer; opacity: 1; transform: none; transition: all 250ms ease; margin-top: 1.5rem; }
 .skip-loading:hover { background: rgba(212,175,55,0.08); }
 
 .gold-bokeh { position: absolute; inset: 0; pointer-events: none; filter: blur(0.3px); }
@@ -172,6 +172,11 @@
 }
 
 :root {
+    /* === FONT FAMILIES - SISTEMA UNIFORME === */
+    --font-heading: 'Cinzel', serif;  /* Heading, titoli, navigazione */
+    --font-body: 'Cormorant', serif;  /* Testo corpo, descrizioni */
+    
+    /* === COLORI === */
     --gold: #D4AF37;
     --gold-light: #F4CF67; /* Lighter gold for hover states */
     --dark-gold: #B8860B;
@@ -180,6 +185,10 @@
     --charcoal: #1A1A1A;
     --ivory: #F5F5F0;
     --cream: #F8F8F0;
+    
+    /* === COLORI TESTO WCAG COMPLIANT === */
+    --text-accent: var(--ivory);      /* Testo normale - alto contrasto */
+    --text-accent-large: var(--gold); /* Testo grande (24px+) - contrasto OK */
     
     /* Wine Type Colors - Red (Default) - Colore più acceso per migliore contrasto */
     --wine-primary: #DC143C; /* Crimson - Rosso più acceso */
@@ -208,11 +217,12 @@
     --space-xl: calc(var(--space-unit) * 6);     /* 48px */
     --space-xxl: calc(var(--space-unit) * 8);    /* 64px */
     
-    /* === REGOLE COLORE PER LEGGIBILITÀ === */
+    /* === REGOLE COLORE PER LEGGIBILITÀ WCAG AA === */
     /* Oro (#D4AF37) usato SOLO per: */
-    /* 1. Accenti su sfondo scuro (hover, bordi attivi) */
-    /* 2. Testo molto grande su sfondo #0A0A0A o #1A1A1A */
-    /* MAI per testo normale su sfondo chiaro */
+    /* 1. Testo grande (>=24px/1.5rem) su sfondo scuro - contrasto 3:1 OK per WCAG AA */
+    /* 2. Accenti, bordi, hover states, icone */
+    /* Testo normale (<24px): usa --text-accent (ivory) per contrasto 4.5:1 WCAG AA */
+    /* MAI usare oro per testo normale su sfondo chiaro */
 }
 
 /* Night Mode (default) */
@@ -254,7 +264,7 @@
 }
 
 body {
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body, 'Cormorant', serif);
     background-color: var(--bg-primary, var(--black));
     color: var(--text-primary, var(--ivory));
     line-height: 1.6;
@@ -268,7 +278,7 @@ h1 {
     font-size: var(--fs-800);
     font-weight: 700;
     line-height: 1.1;
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     letter-spacing: 0.5px;
 }
 
@@ -276,7 +286,7 @@ h2 {
     font-size: var(--fs-700);
     font-weight: 600;
     line-height: 1.2;
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     letter-spacing: 0.3px;
 }
 
@@ -284,7 +294,7 @@ h3 {
     font-size: var(--fs-600);
     font-weight: 600;
     line-height: 1.3;
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     letter-spacing: 0.2px;
 }
 
@@ -292,7 +302,7 @@ h4 {
     font-size: var(--fs-500);
     font-weight: 500;
     line-height: 1.4;
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     letter-spacing: 0.1px;
 }
 
@@ -545,9 +555,9 @@ body:not(.home-page) .luxury-container {
 }
 
 .back-button {
-    color: var(--gold);
+    color: var(--text-accent); /* Ivory per WCAG AA - testo piccolo */
     text-decoration: none;
-    font-size: 1.1rem;
+    font-size: 1.1rem; /* 17.6px - piccolo */
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -599,7 +609,7 @@ body:not(.home-page) .luxury-container {
     align-items: center;
     justify-content: center;
     color: var(--gold);
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 1.8rem;
     font-weight: 600;
     letter-spacing: 2px;
@@ -630,10 +640,10 @@ body:not(.home-page) .luxury-container {
 /* Removed rotate animation for simplified design */
 
 .luxury-title {
-    font-family: 'Cinzel', serif;
-    font-size: 2.5rem;
+    font-family: var(--font-heading);
+    font-size: 2.5rem; /* 40px - grande, oro OK per WCAG AA (3:1) */
     font-weight: 600;
-    color: var(--gold);
+    color: var(--text-accent-large); /* Oro per testo grande */
     letter-spacing: 4px;
     margin-bottom: 0.5rem;
     text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
@@ -724,14 +734,15 @@ body:not(.home-page) .luxury-container {
     border: 2px solid rgba(212, 175, 55, 0.3);
     border-radius: 15px;
     color: var(--ivory);
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 1rem;
     letter-spacing: 0.5px;
     min-width: 200px;
 }
 
 .luxury-select:focus {
-    outline: none;
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
     border-color: var(--gold);
     box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
 }
@@ -750,14 +761,15 @@ body:not(.home-page) .luxury-container {
     border: 2px solid rgba(212, 175, 55, 0.3);
     border-radius: 12px;
     color: var(--ivory);
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 0.9rem;
     letter-spacing: 0.5px;
     transition: all 0.3s ease;
 }
 
 .luxury-search-input:focus {
-    outline: none;
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
     border-color: var(--gold);
     box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
 }
@@ -772,7 +784,7 @@ body:not(.home-page) .luxury-container {
     border: 2px solid var(--gold);
     border-radius: 12px;
     color: var(--gold);
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 0.85rem; /* match .view-btn */
     letter-spacing: 0.5px;
     cursor: pointer;
@@ -829,7 +841,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .breadcrumb a:hover {
-    color: var(--gold);
+    color: var(--text-accent); /* Ivory per WCAG AA */
     transform: translateY(-1px);
 }
 
@@ -872,7 +884,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .mobile-breadcrumb a:active {
-    color: var(--gold);
+    color: var(--text-accent); /* Ivory per WCAG AA */
     transform: scale(0.98);
 }
 
@@ -914,9 +926,9 @@ body:not(.home-page) .luxury-container {
 }
 
 .sidebar-title {
-    font-family: 'Cinzel', serif;
-    font-size: 1.2rem;
-    color: var(--gold);
+    font-family: var(--font-heading);
+    font-size: 1.2rem; /* 19.2px - piccolo */
+    color: var(--text-accent); /* Ivory per WCAG AA */
     margin-bottom: 1rem;
     text-align: center;
     letter-spacing: 2px;
@@ -1034,7 +1046,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .wine-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 0.95rem;
     color: var(--gold);
     margin: 0;
@@ -1056,8 +1068,8 @@ body:not(.home-page) .luxury-container {
 }
 
 .wine-count {
-    font-size: 0.7rem;
-    color: var(--gold);
+    font-size: 0.7rem; /* 11.2px - molto piccolo */
+    color: var(--text-accent); /* Ivory per WCAG AA */
     font-weight: 500;
     margin-top: 0.25rem;
     letter-spacing: 0.5px;
@@ -1106,7 +1118,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .regions-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 1.8rem;
     color: var(--gold);
     letter-spacing: 2px;
@@ -1194,7 +1206,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .region-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 1.2rem;
     color: var(--gold);
     margin-bottom: 0.3rem;
@@ -1225,8 +1237,8 @@ body:not(.home-page) .luxury-container {
 
 .regions-table th {
     background: rgba(212, 175, 55, 0.1);
-    color: var(--gold);
-    font-family: 'Cinzel', serif;
+    color: var(--text-accent); /* Ivory per WCAG AA - testo tabella */
+    font-family: var(--font-heading);
     font-weight: 500;
     padding: 1.2rem 1rem;
     text-align: left;
@@ -1245,8 +1257,8 @@ body:not(.home-page) .luxury-container {
 }
 
 .table-region-name {
-    font-family: 'Cinzel', serif;
-    color: var(--gold);
+    font-family: var(--font-heading);
+    color: var(--text-accent); /* Ivory per WCAG AA */
     font-weight: 500;
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -1256,7 +1268,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .table-region-count {
-    color: var(--gold);
+    color: var(--text-accent); /* Ivory per WCAG AA */
     font-weight: 500;
 }
 
@@ -1273,7 +1285,7 @@ body:not(.home-page) .luxury-container {
     border-radius: 15px;
     color: var(--gold);
     padding: 0.5rem 1rem;
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -1301,7 +1313,7 @@ body:not(.home-page) .luxury-container {
     border-radius: 15px;
     color: var(--gold);
     padding: 0.7rem 1.5rem;
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -1332,7 +1344,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .wines-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 1.8rem;
     color: var(--gold);
     letter-spacing: 2px;
@@ -1413,18 +1425,18 @@ body:not(.home-page) .luxury-container {
 
 /* Emphasize wine name for better hierarchy */
 .wine-name {
-    font-family: 'Cinzel', serif;
-    font-size: 1.35rem;
-    color: var(--gold);
+    font-family: var(--font-heading);
+    font-size: 1.35rem; /* 21.6px - piccolo, usa ivory per WCAG AA */
+    color: var(--text-accent); /* Ivory per contrasto 4.5:1 */
     letter-spacing: 1px;
     font-weight: 600;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
 }
 
 .wine-name {
-    font-family: 'Cinzel', serif;
-    font-size: 1.2rem;
-    color: var(--gold);
+    font-family: var(--font-heading);
+    font-size: 1.2rem; /* 19.2px - piccolo */
+    color: var(--text-accent); /* Ivory per WCAG AA */
     letter-spacing: 1px;
     font-weight: 500;
     line-height: 1.3;
@@ -1439,8 +1451,8 @@ body:not(.home-page) .luxury-container {
 }
 
 .wine-price {
-    font-size: 1.3rem;
-    color: var(--gold);
+    font-size: 1.3rem; /* 20.8px - piccolo, usa ivory */
+    color: var(--text-accent); /* Ivory per WCAG AA */
     font-weight: 500;
     white-space: nowrap;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
@@ -1477,8 +1489,8 @@ body:not(.home-page) .luxury-container {
 
 .wine-producer-detail {
     display: block;
-    font-size: 1rem;
-    color: var(--gold);
+    font-size: 1rem; /* 16px - piccolo */
+    color: var(--text-accent); /* Ivory per WCAG AA */
     margin-bottom: 0.5rem;
     font-weight: 500;
     text-transform: uppercase;
@@ -1554,7 +1566,7 @@ body:not(.home-page) .luxury-container {
     border-radius: 15px;
     color: var(--gold);
     padding: 0 16px;
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 0.95rem;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -1602,7 +1614,7 @@ body:not(.home-page) .luxury-container {
 .wine-table th {
     background: rgba(212, 175, 55, 0.1);
     color: var(--gold);
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-weight: 500;
     padding: 1.2rem 1rem;
     text-align: left;
@@ -1621,7 +1633,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .table-wine-name {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     color: var(--gold);
     font-weight: 500;
     word-wrap: break-word;
@@ -1647,7 +1659,7 @@ body:not(.home-page) .luxury-container {
     border-radius: 15px;
     color: var(--gold);
     padding: 0.5rem 1rem;
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -1696,7 +1708,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .wine-details-top-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 1rem;
     color: var(--gold);
     letter-spacing: 2px;
@@ -1882,9 +1894,9 @@ body:not(.home-page) .luxury-container {
 
 /* Luxury wine name styling for wine-details page */
 .wine-details-container .wine-name {
-    font-family: 'Cinzel', serif;
-    font-size: 2.5rem;
-    color: var(--gold);
+    font-family: var(--font-heading);
+    font-size: 2.5rem; /* 40px - grande, oro OK per WCAG AA (3:1) */
+    color: var(--text-accent-large); /* Oro per testo grande */
     letter-spacing: 2px;
     font-weight: 600;
     margin-bottom: 1.5rem;
@@ -1894,7 +1906,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .wine-details-container .wine-description {
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 1.15rem;
     color: rgba(245, 245, 240, 0.85);
     line-height: 1.8;
@@ -1950,7 +1962,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .meta-label {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 0.85rem;
     color: var(--gold);
     margin-bottom: 0.5rem;
@@ -1960,7 +1972,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .meta-value {
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 1.2rem;
     color: rgba(245, 245, 240, 0.9);
     font-weight: 500;
@@ -1984,7 +1996,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .section-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 2rem;
     color: var(--gold);
     margin-bottom: 2rem;
@@ -2030,7 +2042,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .tasting-label {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 1.1rem;
     color: var(--gold);
     margin-bottom: 1rem;
@@ -2040,7 +2052,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .tasting-value {
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 1.1rem;
     color: rgba(245, 245, 240, 0.85);
     line-height: 1.7;
@@ -2063,7 +2075,7 @@ body:not(.home-page) .luxury-container {
     color: var(--gold);
     margin-bottom: 1rem;
     font-weight: 600;
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
 }
 
 .elegant-message .tasting-value {
@@ -2315,7 +2327,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .producer-name {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 1.8rem;
     color: var(--gold);
     margin-bottom: 1.5rem;
@@ -2326,7 +2338,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .producer-description {
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 1.15rem;
     color: rgba(245, 245, 240, 0.85);
     line-height: 1.8;
@@ -2355,7 +2367,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .footer-logo {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 1.5rem;
     color: var(--gold);
     margin-bottom: 1.5rem;
@@ -2715,7 +2727,7 @@ body:not(.home-page) .luxury-container {
 
 .filter-dropdown-content h3 {
     color: #d4af37;
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 1.5rem;
     font-weight: 600;
     margin: 0 0 20px 0;
@@ -2738,7 +2750,7 @@ body:not(.home-page) .luxury-container {
     border-radius: 8px;
     color: #ffffff;
     padding: 12px 16px;
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
@@ -2781,7 +2793,7 @@ body:not(.home-page) .luxury-container {
     border-radius: 8px;
     color: #ffffff;
     padding: 12px 24px;
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
@@ -2813,7 +2825,7 @@ body:not(.home-page) .luxury-container {
     border-radius: 8px;
     color: #1a1a1a;
     padding: 12px 24px;
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
@@ -2843,7 +2855,7 @@ body:not(.home-page) .luxury-container {
     border-radius: 12px;
     color: #D4AF37;
     padding: 0.8rem 1.5rem;
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 0.9rem;
     font-weight: 600;
     letter-spacing: 1px;
@@ -2956,7 +2968,7 @@ body:not(.home-page) .luxury-container {
 
 .share-modal-header h3 {
     color: var(--gold);
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 1.5rem;
     font-weight: 600;
     margin: 0;
@@ -3036,7 +3048,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .share-option span {
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 0.9rem;
     color: var(--ivory);
     font-weight: 500;
@@ -3106,7 +3118,7 @@ body:not(.home-page) .luxury-container {
 .share-url-section label {
     display: block;
     color: var(--gold);
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 1rem;
     font-weight: 500;
     margin-bottom: 1rem;
@@ -3126,7 +3138,7 @@ body:not(.home-page) .luxury-container {
     border-radius: 10px;
     color: var(--ivory);
     padding: 0.8rem 1rem;
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 0.9rem;
     letter-spacing: 0.5px;
     transition: all 0.3s ease;
@@ -3282,7 +3294,7 @@ body:not(.home-page) .luxury-container {
     color: var(--gold);
     margin-bottom: 8px;
     font-size: 1.3rem;
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     letter-spacing: 1px;
 }
 
@@ -3313,7 +3325,7 @@ body:not(.home-page) .luxury-container {
     margin-bottom: 8px;
     border-bottom: 1px solid rgba(212, 175, 55, 0.3);
     padding-bottom: 5px;
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 1.1rem;
     letter-spacing: 0.5px;
 }
@@ -3378,7 +3390,7 @@ body:not(.home-page) .luxury-container {
     margin-bottom: 8px;
     color: var(--gold);
     font-size: 0.9rem;
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     letter-spacing: 0.5px;
 }
 
@@ -3956,10 +3968,10 @@ body:not(.home-page) .luxury-container {
 }
 
 .nav-title {
-    font-family: 'Cinzel', serif;
-    font-size: var(--fs-600, 1.953rem); /* Usa scala tipografica */
+    font-family: var(--font-heading);
+    font-size: var(--fs-600, 1.953rem); /* 31px - grande, oro OK per WCAG AA */
     font-weight: 600;
-    color: var(--gold);
+    color: var(--text-accent-large); /* Oro per testo grande */
     letter-spacing: 3.5px;
     text-transform: uppercase;
     margin: 0;
@@ -3970,7 +3982,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .nav-subtitle {
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 0.9rem;
     color: rgba(245, 245, 240, 0.8); /* Aumentato contrasto per leggibilità */
     letter-spacing: 0.8px;
@@ -4073,7 +4085,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .regions-panel-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 1rem;
     font-weight: 700;
     color: var(--gold);
@@ -4085,7 +4097,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .regions-panel-subtitle {
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 0.85rem;
     color: rgba(245, 245, 240, 0.6);
     letter-spacing: 0.5px;
@@ -4181,7 +4193,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .region-item-name {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--gold);
@@ -4223,7 +4235,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .wines-panel-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 1rem;
     font-weight: 700;
     color: var(--gold);
@@ -4235,7 +4247,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .wines-panel-subtitle {
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 0.85rem;
     color: rgba(245, 245, 240, 0.6);
     letter-spacing: 0.5px;
@@ -4284,7 +4296,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .wine-item-name {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--gold);
@@ -4354,7 +4366,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .sidebar-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 0.95rem;
     font-weight: 700;
     color: var(--gold);
@@ -4437,7 +4449,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .wine-card-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 0.875rem;
     font-weight: 700;
     color: var(--gold);
@@ -4448,7 +4460,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .wine-card-subtitle {
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 0.8rem;
     color: rgba(245, 245, 240, 0.7);
     letter-spacing: 0.4px;
@@ -4508,7 +4520,7 @@ body:not(.home-page) .luxury-container {
     border: 1.5px solid rgba(212, 175, 55, 0.3);
     border-radius: 8px;
     color: var(--light);
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 0.95rem;
     transition: all 0.3s ease;
     letter-spacing: 0.4px;
@@ -4608,7 +4620,7 @@ body:not(.home-page) .luxury-container {
 
 .autocomplete-suggestion-main {
     color: var(--light);
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 1rem;
     font-weight: 500;
     letter-spacing: 0.3px;
@@ -4616,14 +4628,14 @@ body:not(.home-page) .luxury-container {
 
 .autocomplete-suggestion-sub {
     color: rgba(245, 245, 240, 0.6);
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
     font-size: 0.85rem;
     letter-spacing: 0.2px;
 }
 
 .autocomplete-suggestion-count {
     color: var(--gold);
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 0.9rem;
     font-weight: 600;
     padding: 0.25rem 0.5rem;
@@ -4636,7 +4648,7 @@ body:not(.home-page) .luxury-container {
     padding: 2rem 1.25rem;
     text-align: center;
     color: rgba(245, 245, 240, 0.5);
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 0.95rem;
 }
 
@@ -4690,7 +4702,7 @@ body:not(.home-page) .luxury-container {
     padding: 1rem 1.25rem;
     text-align: left;
     color: var(--gold);
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 1.1rem;
     font-weight: 600;
     letter-spacing: 0.5px;
@@ -4715,13 +4727,13 @@ body:not(.home-page) .luxury-container {
 .wines-table td {
     padding: 1rem 1.25rem;
     color: var(--light);
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
     font-size: 0.95rem;
     vertical-align: middle;
 }
 
 .wine-table-type {
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 0.95rem;
     color: var(--gold);
     font-weight: 600;
@@ -4729,7 +4741,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .wine-table-name {
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 1.05rem;
     font-weight: 600;
     color: var(--light);
@@ -4751,7 +4763,7 @@ body:not(.home-page) .luxury-container {
 
 .wine-table-price {
     color: var(--gold);
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 1.1rem;
     font-weight: 600;
     text-align: right;
@@ -4783,7 +4795,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .mobile-wine-card-name {
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 1.2rem;
     font-weight: 600;
     color: var(--light);
@@ -4800,7 +4812,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .mobile-wine-card-price {
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 1.1rem;
     font-weight: 600;
     color: var(--gold);
@@ -4814,7 +4826,7 @@ body:not(.home-page) .luxury-container {
 
 .mobile-wine-card-info p {
     margin: 0;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
     font-size: 0.9rem;
     color: rgba(245, 245, 240, 0.8);
 }
@@ -4830,7 +4842,7 @@ body:not(.home-page) .luxury-container {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     margin-bottom: 0.5rem;
     padding: 0.2rem 0.4rem;
     background: rgba(212, 175, 55, 0.1);
@@ -4872,7 +4884,7 @@ body:not(.home-page) .luxury-container {
     font-size: 0.65rem;
     color: rgba(245, 245, 240, 0.75);
     font-style: italic;
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     line-height: 1.3;
     margin-top: 0.2rem;
 }
@@ -4886,7 +4898,7 @@ body:not(.home-page) .luxury-container {
     border: 1px solid rgba(212, 175, 55, 0.4);
     border-radius: 6px;
     color: var(--gold);
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 0.85rem;
     letter-spacing: 0.3px;
     white-space: nowrap;
@@ -4916,7 +4928,7 @@ body:not(.home-page) .luxury-container {
     border: 1.5px solid var(--gold);
     border-radius: 8px;
     color: var(--gold);
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -4994,7 +5006,7 @@ body:not(.home-page) .luxury-container {
     border: 1.5px solid var(--gold);
     border-radius: 8px;
     color: var(--gold);
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -5016,10 +5028,10 @@ body:not(.home-page) .luxury-container {
 }
 
 .wines-list-title {
-    font-family: 'Cinzel', serif;
-    font-size: var(--fs-600, 1.953rem); /* Usa scala tipografica */
+    font-family: var(--font-heading);
+    font-size: var(--fs-600, 1.953rem); /* 31px - grande, oro OK per WCAG AA */
     font-weight: 600;
-    color: var(--gold);
+    color: var(--text-accent-large); /* Oro per testo grande */
     letter-spacing: 2px;
     text-transform: uppercase;
     margin: 0 0 0.25rem 0;
@@ -5029,7 +5041,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .wines-list-subtitle {
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 0.9rem;
     color: rgba(245, 245, 240, 0.8); /* Aumentato contrasto per leggibilità */
     letter-spacing: 0.8px;
@@ -5053,7 +5065,7 @@ body:not(.home-page) .luxury-container {
     border: 1.5px solid rgba(212, 175, 55, 0.3);
     border-radius: 6px;
     color: rgba(245, 245, 240, 0.7);
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 0.9rem;
     font-weight: 500;
     cursor: pointer;
@@ -5105,7 +5117,7 @@ body:not(.home-page) .luxury-container {
 .wines-table th {
     padding: 1.25rem 1.5rem;
     text-align: left;
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 0.95rem;
     font-weight: 600;
     color: var(--gold);
@@ -5132,7 +5144,7 @@ body:not(.home-page) .luxury-container {
 .wines-table td {
     padding: 1.25rem 1.5rem;
     color: rgba(245, 245, 240, 0.9);
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     font-size: 1rem;
     vertical-align: middle;
 }
@@ -5259,7 +5271,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .wine-grid-item-name {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 1.1rem;
     font-weight: 700;
     color: var(--gold);
@@ -5340,7 +5352,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .region-info h3 {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     color: var(--gold);
     margin-bottom: 1rem;
     font-size: 1.2rem;
@@ -5389,7 +5401,7 @@ body:not(.home-page) .luxury-container {
     display: none;
     border: 1px solid rgba(212, 175, 55, 0.4);
     pointer-events: none;
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 0.95rem;
     font-weight: 600;
     color: var(--gold);
@@ -5854,7 +5866,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 }
 
 .mobile-menu-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 1.4rem;
     color: var(--gold);
     letter-spacing: 2px;
@@ -5920,7 +5932,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     border-radius: 8px;
     color: rgba(245, 245, 240, 0.8);
     font-size: 0.9rem;
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     transition: all 0.3s;
     cursor: pointer;
 }
@@ -5947,7 +5959,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     color: var(--gold);
     font-size: 0.8rem;
     font-weight: 500;
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     cursor: pointer;
     transition: all 0.3s ease;
     text-align: center;
@@ -6035,7 +6047,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 }
 
 .mobile-menu-search-popup-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 1.3rem;
     color: var(--gold);
     letter-spacing: 1px;
@@ -6092,7 +6104,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     border-radius: 10px;
     color: rgba(245, 245, 240, 0.9);
     font-size: 1rem;
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     transition: all 0.3s;
 }
 
@@ -6118,7 +6130,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     color: var(--gold);
     font-size: 0.9rem;
     font-weight: 500;
-    font-family: 'Cormorant', serif;
+    font-family: var(--font-body);
     cursor: pointer;
     transition: all 0.3s ease;
     text-align: center;
@@ -6330,7 +6342,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 }
 
 .mobile-view-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-heading);
     font-size: 1.5rem;
     color: var(--gold);
     margin-bottom: 1.75rem;
@@ -6778,7 +6790,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         background: rgba(26, 26, 26, 0.9);
         color: rgba(245, 245, 240, 0.9);
         font-size: 0.95rem;
-        font-family: 'Cormorant', serif;
+        font-family: var(--font-body);
         transition: all 0.3s;
     }
 
@@ -6801,7 +6813,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         color: var(--gold);
         font-size: 0.9rem;
         font-weight: 500;
-        font-family: 'Cinzel', serif;
+        font-family: var(--font-heading);
         cursor: pointer;
         transition: all 0.3s;
         text-align: center;
@@ -6830,7 +6842,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         color: var(--gold);
         font-size: 0.75rem;
         font-weight: 500;
-        font-family: 'Cormorant', serif;
+        font-family: var(--font-body);
         cursor: pointer;
         transition: all 0.3s ease;
         text-align: center;
@@ -7103,7 +7115,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         font-size: 1rem;
         font-weight: 600;
         color: var(--gold);
-        font-family: 'Cinzel', serif;
+        font-family: var(--font-heading);
         letter-spacing: 1px;
         text-shadow: 0 0 10px rgba(212, 175, 55, 0.6), 0 2px 4px rgba(0, 0, 0, 0.5);
         margin: 0;
@@ -7176,7 +7188,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         color: rgba(245, 245, 240, 0.7);
         font-size: 0.8125rem;
         font-weight: 500;
-        font-family: 'Cormorant', serif;
+        font-family: var(--font-body);
         letter-spacing: 0.5px;
         cursor: pointer;
         transition: all 0.3s ease;
@@ -7320,7 +7332,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         font-weight: 600;
         color: var(--gold);
         margin: 0;
-        font-family: 'Cinzel', serif;
+        font-family: var(--font-heading);
         letter-spacing: 0.8px;
     }
 
@@ -7377,7 +7389,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         font-weight: 600;
         color: var(--gold);
         margin: 0;
-        font-family: 'Cinzel', serif;
+        font-family: var(--font-heading);
         letter-spacing: 0.8px;
     }
 
@@ -7515,7 +7527,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         font-size: 0.65rem;
         font-weight: 600;
         color: var(--gold, #D4AF37);
-        font-family: 'Inter', sans-serif;
+        font-family: var(--font-body);
         text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5),
                      0 0 4px rgba(0, 0, 0, 0.3);
         white-space: nowrap;
@@ -7638,7 +7650,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         color: var(--gold);
         margin-bottom: 0.75rem;
         font-size: 1.1rem;
-        font-family: 'Cinzel', serif;
+        font-family: var(--font-heading);
     }
 
     .mobile-region-info p {
@@ -7698,7 +7710,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         border-radius: 20px;
         color: rgba(245, 245, 240, 0.8);
         padding: 0.5rem 1rem;
-        font-family: 'Cormorant', serif;
+        font-family: var(--font-body);
         font-size: 0.85rem;
         font-weight: 500;
         cursor: pointer;
@@ -7755,7 +7767,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         padding: 0.5rem 0.75rem;
         border-radius: 10px;
         transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        font-family: 'Cinzel', serif;
+        font-family: var(--font-heading);
         font-weight: 500;
         flex-shrink: 0;
     }
@@ -7771,7 +7783,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     }
 
     .mobile-wines-cards-title {
-        font-family: 'Cinzel', serif;
+        font-family: var(--font-heading);
         font-size: 1.4rem;
         color: var(--gold);
         margin: 0;
@@ -7944,7 +7956,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         letter-spacing: 0.2px;
         flex: 1;
         min-width: 0;
-        font-family: 'Cinzel', serif;
+        font-family: var(--font-heading);
         word-wrap: break-word;
         overflow-wrap: break-word;
         white-space: nowrap;
@@ -7957,7 +7969,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         color: rgba(212, 175, 55, 0.9);
         font-weight: 500;
         font-style: italic;
-        font-family: 'Cormorant', serif;
+        font-family: var(--font-body);
     }
     
     .mobile-wine-card-grid-info {
@@ -7983,7 +7995,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         font-weight: 700;
         text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
         white-space: nowrap;
-        font-family: 'Cinzel', serif;
+        font-family: var(--font-heading);
         flex-shrink: 0;
     }
 
@@ -7992,7 +8004,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         color: rgba(212, 175, 55, 0.9);
         font-weight: 500;
         font-style: italic;
-        font-family: 'Cormorant', serif;
+        font-family: var(--font-body);
         flex: 1;
         min-width: 0;
         line-height: 1.2;
@@ -8040,7 +8052,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        font-family: 'Cinzel', serif;
+        font-family: var(--font-heading);
         margin-bottom: 0.25rem;
         display: block;
     }
@@ -8049,7 +8061,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         font-size: 0.7rem;
         color: rgba(245, 245, 240, 0.8);
         font-style: italic;
-        font-family: 'Cormorant', serif;
+        font-family: var(--font-body);
         line-height: 1.4;
         margin-top: 0.25rem;
     }
@@ -8084,7 +8096,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        font-family: 'Cinzel', serif;
+        font-family: var(--font-heading);
         margin-bottom: 0.25rem;
         display: block;
     }
@@ -8093,7 +8105,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         font-size: 0.65rem;
         color: rgba(245, 245, 240, 0.75);
         font-style: italic;
-        font-family: 'Cormorant', serif;
+        font-family: var(--font-body);
         line-height: 1.3;
         margin-top: 0.2rem;
     }
