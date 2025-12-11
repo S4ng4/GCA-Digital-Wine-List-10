@@ -187,6 +187,32 @@
     --wine-accent: #FF1744; /* Rosso acceso brillante */
     --wine-border: rgba(220, 20, 60, 0.3);
     --wine-highlight: rgba(220, 20, 60, 0.1);
+    
+    /* === SCALA TIPOGRAFICA MODULARE (Major Third 1.25) === */
+    --fs-900: 3.815rem;    /* H1 hero/principale */
+    --fs-800: 3.052rem;    /* H1 interno */
+    --fs-700: 2.441rem;    /* H2 */
+    --fs-600: 1.953rem;    /* H3 */
+    --fs-500: 1.563rem;    /* H4 / sottotitoli */
+    --fs-400: 1.25rem;     /* Testo lead/importante */
+    --fs-300: 1rem;        /* Testo corpo (base) */
+    --fs-200: 0.8rem;      /* Testo piccolo, caption */
+    
+    /* === SCALA SPAZIATURA (SISTEMA 8pt) === */
+    --space-unit: 0.5rem;   /* 8px se base font-size 16px */
+    --space-xxs: calc(var(--space-unit) * 0.5); /* 4px */
+    --space-xs: calc(var(--space-unit) * 1);     /* 8px */
+    --space-sm: calc(var(--space-unit) * 2);     /* 16px */
+    --space-md: calc(var(--space-unit) * 3);     /* 24px */
+    --space-lg: calc(var(--space-unit) * 4);     /* 32px */
+    --space-xl: calc(var(--space-unit) * 6);     /* 48px */
+    --space-xxl: calc(var(--space-unit) * 8);    /* 64px */
+    
+    /* === REGOLE COLORE PER LEGGIBILITÀ === */
+    /* Oro (#D4AF37) usato SOLO per: */
+    /* 1. Accenti su sfondo scuro (hover, bordi attivi) */
+    /* 2. Testo molto grande su sfondo #0A0A0A o #1A1A1A */
+    /* MAI per testo normale su sfondo chiaro */
 }
 
 /* Night Mode (default) */
@@ -235,6 +261,39 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* === GERARCHIA TIPOGRAFICA - HEADING SYSTEM === */
+h1 {
+    font-size: var(--fs-800);
+    font-weight: 700;
+    line-height: 1.1;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.5px;
+}
+
+h2 {
+    font-size: var(--fs-700);
+    font-weight: 600;
+    line-height: 1.2;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.3px;
+}
+
+h3 {
+    font-size: var(--fs-600);
+    font-weight: 600;
+    line-height: 1.3;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.2px;
+}
+
+h4 {
+    font-size: var(--fs-500);
+    font-weight: 500;
+    line-height: 1.4;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.1px;
 }
 
 /* Disable scrolling only for home page - ottimizzato per mobile */
@@ -1241,7 +1300,8 @@ body:not(.home-page) .luxury-container {
     background: linear-gradient(145deg, rgba(26, 26, 26, 0.7), rgba(10, 10, 10, 0.9));
     border: 2px solid rgba(212, 175, 55, 0.2);
     border-radius: 15px;
-    padding: 1.5rem 1rem;
+    padding: var(--space-md);
+    margin-bottom: var(--space-lg);
     transition: all 0.4s ease;
     position: relative;
     overflow: hidden;
@@ -1289,8 +1349,8 @@ body:not(.home-page) .luxury-container {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 1rem;
-    gap: 1rem;
+    margin-bottom: var(--space-sm);
+    gap: var(--space-sm);
     flex-wrap: wrap;
     width: 100%;
     position: relative;
@@ -1333,7 +1393,7 @@ body:not(.home-page) .luxury-container {
 }
 
 .wine-details {
-    margin-bottom: 1rem;
+    margin-bottom: var(--space-sm);
     flex-grow: 1;
     min-height: 0;
     width: 100%;
@@ -9166,6 +9226,30 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     color: var(--text-primary) !important;
 }
 
+/* === CORREZIONE CONTRASTO: Testo oro su sfondo chiaro === */
+/* Nel day mode, sostituisci testo oro con nero/charcoal per WCAG AA */
+:root[data-theme="day"] .wine-name,
+:root[data-theme="day"] .wine-price,
+:root[data-theme="day"] .luxury-title,
+:root[data-theme="day"] .nav-title,
+:root[data-theme="day"] .wines-list-title,
+:root[data-theme="day"] .region-info h3,
+:root[data-theme="day"] [class*="title"],
+:root[data-theme="day"] [class*="name"] {
+    color: var(--text-primary, #1A1A1A) !important;
+}
+
+/* Mantieni oro solo per elementi su sfondo scuro nel day mode */
+:root[data-theme="day"] .wine-card,
+:root[data-theme="day"] .wine-card-sidebar {
+    background: var(--bg-primary) !important;
+}
+
+:root[data-theme="day"] .wine-card .wine-name,
+:root[data-theme="day"] .wine-card .wine-price {
+    color: var(--text-primary, #0A0A0A) !important;
+}
+
 :root[data-theme="day"] * {
     /* Rimuovi gradienti complessi per e-paper */
     background-image: none !important;
@@ -9272,5 +9356,113 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     :root[data-theme="day"] .mobile-map-view .leaflet-container,
     :root[data-theme="day"] .interactive-map-main {
         background: var(--bg-primary) !important; /* Light background for day mode on tablet */
+    }
+}
+
+/* ==================== TABLET OPTIMIZATION (768px - 1024px) ==================== */
+/* Ottimizzazioni specifiche per esperienza tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+    /* === 1. GERARCHIA TIPOGRAFICA TABLET === */
+    :root {
+        --fs-900: 3.052rem;  /* Riduci leggermente scale per tablet */
+        --fs-800: 2.441rem;
+        --fs-700: 1.953rem;
+        --fs-600: 1.563rem;
+        --fs-500: 1.25rem;
+    }
+    
+    /* === 2. LAYOUT GRIGLIA TABLET PER LISTA VINI === */
+    .wines-grid-container {
+        grid-template-columns: repeat(2, 1fr) !important; /* 2 colonne invece di 1 o 3 */
+        gap: var(--space-md) !important;
+        padding: var(--space-md);
+    }
+    
+    /* === 3. MAPPA INTERATTIVA TABLET === */
+    #wine-region-map,
+    #map,
+    #mobileMap {
+        height: 400px !important; /* Altezza ottimale per tablet */
+        margin: var(--space-lg) 0;
+    }
+    
+    .map-wrapper {
+        min-height: 400px !important;
+        max-height: 50vh !important;
+    }
+    
+    /* === 4. CARD VINI TABLET === */
+    .wine-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%; /* Usa altezza piena nella griglia */
+        padding: var(--space-md);
+        margin-bottom: var(--space-lg);
+    }
+    
+    .wine-card-image,
+    .wine-card img {
+        height: 180px !important; /* Altezza fissa per uniformità */
+        object-fit: cover;
+        width: 100%;
+    }
+    
+    /* === 5. NAVIGAZIONE TABLET === */
+    .main-nav,
+    .top-nav {
+        padding: var(--space-sm) var(--space-md) !important;
+    }
+    
+    /* === 6. TIPOGRAFIA LEGGERMENTE RIDOTTA PER TABLET === */
+    body {
+        font-size: 0.95rem; /* Leggera riduzione per schermi medi */
+    }
+    
+    /* === 7. TOUCH TARGET MINIMI 44x44px === */
+    button,
+    .btn,
+    .btn-filter,
+    .luxury-filter-btn,
+    .wine-type-filter-btn,
+    .mobile-wine-type-filter-btn,
+    .leaflet-control-zoom a {
+        min-width: 44px !important;
+        min-height: 44px !important;
+        padding: var(--space-xs) var(--space-sm) !important;
+    }
+    
+    /* === 8. PADDING GENEROSI PER COMFORT NAVIGAZIONE === */
+    .wines-list-header {
+        padding: var(--space-md) var(--space-lg);
+    }
+    
+    .search-bar-container {
+        padding: var(--space-sm) var(--space-md);
+    }
+    
+    .search-input {
+        padding: var(--space-xs) var(--space-sm);
+        font-size: 1rem;
+    }
+    
+    /* === 9. OTTIMIZZAZIONI SPECIFICHE PER CARD === */
+    .wine-name {
+        font-size: var(--fs-500) !important; /* Usa scala tipografica */
+        margin-bottom: var(--space-xs);
+    }
+    
+    .wine-price {
+        font-size: var(--fs-400) !important;
+    }
+    
+    /* === 10. REGION INFO TABLET === */
+    .region-info {
+        padding: var(--space-md);
+        font-size: 0.95rem;
+    }
+    
+    .region-info h3 {
+        font-size: var(--fs-600) !important;
+        margin-bottom: var(--space-sm);
     }
 }
