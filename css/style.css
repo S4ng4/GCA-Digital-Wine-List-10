@@ -3845,8 +3845,8 @@ body:not(.home-page) .luxury-container {
 
 .nav-title {
     font-family: 'Cinzel', serif;
-    font-size: 1.5rem;
-    font-weight: 400;
+    font-size: var(--fs-600, 1.953rem); /* Usa scala tipografica */
+    font-weight: 600;
     color: var(--gold);
     letter-spacing: 3.5px;
     text-transform: uppercase;
@@ -4333,7 +4333,7 @@ body:not(.home-page) .luxury-container {
 .search-bar-container {
     background: linear-gradient(180deg, rgba(26, 26, 26, 0.5) 0%, rgba(10, 10, 10, 0.7) 100%);
     border-bottom: none;
-    padding: 1.5rem 2.5rem;
+    padding: var(--space-md) var(--space-lg);
     flex-shrink: 0;
     z-index: 50;
 }
@@ -4870,8 +4870,8 @@ body:not(.home-page) .luxury-container {
 
 .wines-list-title {
     font-family: 'Cinzel', serif;
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: var(--fs-600, 1.953rem); /* Usa scala tipografica */
+    font-weight: 600;
     color: var(--gold);
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -9411,6 +9411,12 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     .main-nav,
     .top-nav {
         padding: var(--space-sm) var(--space-md) !important;
+        min-height: auto !important; /* Rimuovi altezza minima fissa */
+    }
+    
+    .top-nav {
+        padding: var(--space-xs) var(--space-md) !important; /* Ancora più compatto */
+        min-height: 60px !important; /* Ridotto da 90px per tablet */
     }
     
     /* === 6. TIPOGRAFIA LEGGERMENTE RIDOTTA PER TABLET === */
@@ -9433,16 +9439,46 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     
     /* === 8. PADDING GENEROSI PER COMFORT NAVIGAZIONE === */
     .wines-list-header {
-        padding: var(--space-md) var(--space-lg);
+        padding: var(--space-md) var(--space-lg) !important;
     }
     
     .search-bar-container {
-        padding: var(--space-sm) var(--space-md);
+        padding: var(--space-sm) var(--space-md) !important; /* Ridotto per tablet */
+        min-height: auto !important;
     }
     
     .search-input {
-        padding: var(--space-xs) var(--space-sm);
-        font-size: 1rem;
+        padding: var(--space-xs) var(--space-sm) !important;
+        font-size: 0.95rem !important;
+    }
+    
+    /* === 11. TITOLI OTTIMIZZATI PER TABLET === */
+    .nav-title {
+        font-size: var(--fs-500, 1.25rem) !important; /* Ridotto per tablet */
+        font-weight: 600 !important;
+    }
+    
+    .wines-list-title {
+        font-size: var(--fs-500, 1.25rem) !important; /* Ridotto per tablet */
+        font-weight: 600 !important;
+    }
+    
+    .luxury-title {
+        font-size: var(--fs-700, 1.953rem) !important; /* Ridotto per tablet */
+        font-weight: 600 !important;
+    }
+    
+    .luxury-title.medium {
+        font-size: var(--fs-600, 1.563rem) !important;
+    }
+    
+    .luxury-title.small {
+        font-size: var(--fs-500, 1.25rem) !important;
+    }
+    
+    .nav-subtitle,
+    .wines-list-subtitle {
+        font-size: 0.85rem !important;
     }
     
     /* === 9. OTTIMIZZAZIONI SPECIFICHE PER CARD === */
