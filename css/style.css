@@ -3536,6 +3536,12 @@ body:not(.home-page) .luxury-container {
 
 /* Tablet layout - solo per schermi 768px-819px - unificato con mobile */
 @media (min-width: 768px) and (max-width: 819px) {
+    :root {
+        --mobile-nav-height: 70px;
+        --mobile-wine-type-height: 124px;
+        --mobile-search-height: 112px;
+    }
+    
     /* Usa lo stesso layout mobile - desktop map nascosta */
     .main-content-desktop .map-wrapper {
         display: none !important;
@@ -3565,7 +3571,12 @@ body:not(.home-page) .luxury-container {
         right: 0 !important;
         bottom: 0 !important;
         z-index: 50 !important;
-        padding-top: calc(70px + 140px) !important; /* Nav + search bar (fino ai pulsanti) */
+        padding-top: calc(var(--mobile-nav-height) + var(--mobile-search-height)) !important; /* Nav + search bar (fino ai pulsanti) */
+    }
+    
+    /* Nascondi wine type selector quando wines-cards-expanded è attivo */
+    body:has(.mobile-map-wines-container.wines-cards-expanded) .mobile-wine-type-selector {
+        display: none !important;
     }
     
     /* Assicura che mobile-wines-cards-header parta subito dopo i pulsanti */
@@ -6384,7 +6395,12 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         right: 0 !important;
         bottom: 0 !important;
         z-index: 50 !important;
-        padding-top: calc(70px + 140px) !important; /* Nav + search bar (fino ai pulsanti) */
+        padding-top: calc(var(--mobile-nav-height) + var(--mobile-search-height)) !important; /* Nav + search bar (fino ai pulsanti) */
+    }
+    
+    /* Nascondi wine type selector quando wines-cards-expanded è attivo */
+    body:has(.mobile-map-wines-container.wines-cards-expanded) .mobile-wine-type-selector {
+        display: none !important;
     }
     
     /* Assicura che mobile-wines-cards-header parta subito dopo i pulsanti */
@@ -7919,7 +7935,12 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         right: 0 !important;
         bottom: 0 !important;
         z-index: 50 !important;
-        padding-top: calc(70px + 140px) !important; /* Nav + search bar (fino ai pulsanti) */
+        padding-top: calc(var(--mobile-nav-height) + var(--mobile-search-height)) !important; /* Nav + search bar (fino ai pulsanti) */
+    }
+    
+    /* Nascondi wine type selector quando wines-cards-expanded è attivo */
+    body:has(.mobile-map-wines-container.wines-cards-expanded) .mobile-wine-type-selector {
+        display: none !important;
     }
     
     /* Assicura che mobile-wines-cards-header parta subito dopo i pulsanti */
@@ -7993,7 +8014,12 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         right: 0 !important;
         bottom: 0 !important;
         z-index: 50 !important;
-        padding-top: calc(70px + 140px) !important; /* Nav + search bar (fino ai pulsanti) */
+        padding-top: calc(var(--mobile-nav-height) + var(--mobile-search-height)) !important; /* Nav + search bar (fino ai pulsanti) */
+    }
+    
+    /* Nascondi wine type selector quando wines-cards-expanded è attivo */
+    body:has(.mobile-map-wines-container.wines-cards-expanded) .mobile-wine-type-selector {
+        display: none !important;
     }
     
     /* Assicura che mobile-wines-cards-header parta subito dopo i pulsanti */
@@ -8072,7 +8098,12 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         right: 0 !important;
         bottom: 0 !important;
         z-index: 50 !important;
-        padding-top: calc(70px + 140px) !important; /* Nav + search bar (fino ai pulsanti) */
+        padding-top: calc(var(--mobile-nav-height) + var(--mobile-search-height)) !important; /* Nav + search bar (fino ai pulsanti) */
+    }
+    
+    /* Nascondi wine type selector quando wines-cards-expanded è attivo */
+    body:has(.mobile-map-wines-container.wines-cards-expanded) .mobile-wine-type-selector {
+        display: none !important;
     }
     
     /* Assicura che mobile-wines-cards-header parta subito dopo i pulsanti */
@@ -8275,6 +8306,14 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         margin-left: 150px !important;
         width: calc(100% + 150px) !important;
         transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    
+    /* Quando wines-cards-expanded è attivo, ignora le regole del popup */
+    body:has(.mobile-wine-type-popup.show) .mobile-map-wines-container.wines-cards-expanded {
+        margin-left: 0 !important;
+        width: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
     }
     
     :root[data-theme="day"] .mobile-wine-type-popup {
