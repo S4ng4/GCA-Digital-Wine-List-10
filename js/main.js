@@ -4537,11 +4537,11 @@ function initInteractiveMap() {
                 // At Italy's latitude (~42-47°), 1 degree ≈ 78-111km
                 // Label width in pixels, convert to approximate degrees
                 // Assuming zoom level gives us ~1000px per degree longitude
-                const paddingLat = 0.12; // Minimum vertical distance in degrees
-                const paddingLng = 0.15; // Minimum horizontal distance in degrees
+                const paddingLat = 0.18; // Increased minimum vertical distance in degrees (was 0.12)
+                const paddingLng = 0.22; // Increased minimum horizontal distance in degrees (was 0.15)
                 
                 // Convert pixel width to degrees (rough estimate: 100px ≈ 0.1 degrees at typical zoom)
-                const widthDeg = (width / 1000) * 0.15; // More conservative estimate
+                const widthDeg = (width / 1000) * 0.2; // More conservative estimate (was 0.15)
                 
                 for (const placed of placedLabels) {
                     const latDiff = Math.abs(lat - placed.lat);
@@ -4555,7 +4555,7 @@ function initInteractiveMap() {
                     
                     // Also check if too close even if not overlapping (for readability)
                     const distance = Math.sqrt(latDiff * latDiff + lngDiff * lngDiff);
-                    if (distance < 0.1) { // Very close labels
+                    if (distance < 0.15) { // Increased from 0.1 - Very close labels
                         return true;
                     }
                 }
@@ -4565,8 +4565,8 @@ function initInteractiveMap() {
             // Get optimal label position - prefer center of region, fallback to outside if collision
             const getOptimalPosition = (bounds, center, regionName) => {
                 const labelWidth = getLabelWidth(regionName);
-                const offset = 0.25; // Base offset in degrees (outside the region)
-                const largeOffset = 0.5; // Larger offset for crowded areas
+                const offset = 0.3; // Increased base offset in degrees (outside the region) (was 0.25)
+                const largeOffset = 0.65; // Increased larger offset for crowded areas (was 0.5)
                 const isNorth = center.lat > 43; // Regions in northern Italy
                 const isSmall = (bounds.getNorth() - bounds.getSouth()) < 0.5; // Small regions
                 
@@ -4763,33 +4763,99 @@ function initInteractiveMap() {
             regionData.forEach(({ feature, layer, bounds, regionName, normalizedName, center, position }) => {
                 let finalPosition = { ...position };
                 
-                // Apply specific label adjustments
+                // Apply specific label adjustments - improved to avoid overlaps
                 if (normalizedName.includes('piemonte')) {
-                    // Piemonte: scende dove c'è Liguria
-                    if (regionPositions['liguria']) {
-                        finalPosition = { lat: regionPositions['liguria'].lat, lng: regionPositions['liguria'].lng, priority: position.priority };
-                    }
+                    // Piemonte: sposta più a nord-ovest per evitare sovrapposizioni
+                    finalPosition = { lat: bounds.getNorth() + 0.4, lng: bounds.getWest() - 0.5, priority: position.priority };
                 } else if (normalizedName.includes('liguria')) {
-                    // Liguria: scende all'altezza di Toscana ma solo orizzontalmente (stessa lat di Toscana, stessa lng di Liguria)
-                    if (regionPositions['toscana']) {
-                        finalPosition = { lat: regionPositions['toscana'].lat, lng: position.lng, priority: position.priority };
-                    }
+                    // Liguria: sposta a ovest, leggermente più in basso
+                    finalPosition = { lat: center.lat - 0.1, lng: bounds.getWest() - 0.6, priority: position.priority };
                 } else if (normalizedName.includes('friuli')) {
-                    // Friuli Venezia Giulia: si sposta più a destra
-                    finalPosition = { lat: position.lat, lng: position.lng + 0.25, priority: position.priority };
-                } else if (normalizedName.includes('marche')) {
-                    // Marche: si sposta più a destra
-                    finalPosition = { lat: position.lat, lng: position.lng + 0.25, priority: position.priority };
-                } else if (normalizedName.includes('abruzzo') || normalizedName.includes('molise')) {
-                    // Abruzzo, Molise: si spostano sulla destra
-                    finalPosition = { lat: position.lat, lng: position.lng + 0.15, priority: position.priority };
+                    // Friuli Venezia Giulia: si sposta più a destra e leggermente in alto
+                    finalPosition = { lat: position.lat + 0.05, lng: bounds.getEast() + 0.4, priority: position.priority };
                 } else if (normalizedName.includes('veneto')) {
-                    // Veneto: scende di 10px (circa 0.001 gradi)
-                    finalPosition = { lat: position.lat - 0.001, lng: position.lng, priority: position.priority };
+                    // Veneto: sposta più a destra e leggermente in basso
+                    finalPosition = { lat: position.lat - 0.08, lng: bounds.getEast() + 0.35, priority: position.priority };
+                } else if (normalizedName.includes('emilia')) {
+                    // Emilia-Romagna: sposta più a destra
+                    finalPosition = { lat: position.lat, lng: bounds.getEast() + 0.3, priority: position.priority };
+                } else if (normalizedName.includes('trentino')) {
+                    // Trentino-Alto Adige: sposta più in alto
+                    finalPosition = { lat: bounds.getNorth() + 0.35, lng: center.lng, priority: position.priority };
+                } else if (normalizedName.includes('lombardia')) {
+                    // Lombardia: sposta leggermente a destra
+                    finalPosition = { lat: position.lat, lng: position.lng + 0.1, priority: position.priority };
+                } else if (normalizedName.includes('toscana')) {
+                    // Toscana: sposta leggermente a sinistra per evitare sovrapposizioni
+                    finalPosition = { lat: position.lat, lng: position.lng - 0.05, priority: position.priority };
+                } else if (normalizedName.includes('marche')) {
+                    // Marche: si sposta più a destra e leggermente in alto
+                    finalPosition = { lat: position.lat + 0.05, lng: bounds.getEast() + 0.4, priority: position.priority };
                 } else if (normalizedName.includes('umbria')) {
-                    // Umbria: prende il posto di Marche
-                    if (regionPositions['marche']) {
-                        finalPosition = { lat: regionPositions['marche'].lat, lng: regionPositions['marche'].lng, priority: position.priority };
+                    // Umbria: sposta leggermente a sinistra per evitare sovrapposizione con Marche
+                    finalPosition = { lat: position.lat, lng: position.lng - 0.15, priority: position.priority };
+                } else if (normalizedName.includes('lazio')) {
+                    // Lazio: sposta leggermente a destra
+                    finalPosition = { lat: position.lat, lng: position.lng + 0.1, priority: position.priority };
+                } else if (normalizedName.includes('abruzzo')) {
+                    // Abruzzo: si sposta più a destra
+                    finalPosition = { lat: position.lat, lng: bounds.getEast() + 0.3, priority: position.priority };
+                } else if (normalizedName.includes('molise')) {
+                    // Molise: si sposta più a destra e leggermente in alto
+                    finalPosition = { lat: position.lat + 0.05, lng: bounds.getEast() + 0.35, priority: position.priority };
+                } else if (normalizedName.includes('campania')) {
+                    // Campania: sposta leggermente a sinistra
+                    finalPosition = { lat: position.lat, lng: position.lng - 0.1, priority: position.priority };
+                } else if (normalizedName.includes('puglia')) {
+                    // Puglia: sposta più a destra
+                    finalPosition = { lat: position.lat, lng: bounds.getEast() + 0.5, priority: position.priority };
+                } else if (normalizedName.includes('basilicata')) {
+                    // Basilicata: sposta leggermente a destra
+                    finalPosition = { lat: position.lat, lng: position.lng + 0.1, priority: position.priority };
+                } else if (normalizedName.includes('calabria')) {
+                    // Calabria: sposta leggermente a sinistra
+                    finalPosition = { lat: position.lat, lng: position.lng - 0.1, priority: position.priority };
+                } else if (normalizedName.includes('sicilia')) {
+                    // Sicilia: sposta leggermente a destra
+                    finalPosition = { lat: position.lat, lng: position.lng + 0.1, priority: position.priority };
+                } else if (normalizedName.includes('sardegna')) {
+                    // Sardegna: sposta leggermente a sinistra
+                    finalPosition = { lat: position.lat, lng: position.lng - 0.15, priority: position.priority };
+                } else if (normalizedName.includes('valle')) {
+                    // Valle d'Aosta: sposta più in alto
+                    finalPosition = { lat: bounds.getNorth() + 0.3, lng: center.lng, priority: position.priority };
+                }
+                
+                // Final collision check: if the adjusted position still collides, try alternative positions
+                const labelWidth = getLabelWidth(regionName);
+                if (checkCollision(finalPosition.lat, finalPosition.lng, labelWidth)) {
+                    // Try to find a better position by adjusting slightly
+                    const adjustments = [
+                        { lat: 0.1, lng: 0 }, { lat: -0.1, lng: 0 },
+                        { lat: 0, lng: 0.15 }, { lat: 0, lng: -0.15 },
+                        { lat: 0.15, lng: 0.15 }, { lat: -0.15, lng: -0.15 },
+                        { lat: 0.15, lng: -0.15 }, { lat: -0.15, lng: 0.15 },
+                        { lat: 0.2, lng: 0 }, { lat: -0.2, lng: 0 },
+                        { lat: 0, lng: 0.25 }, { lat: 0, lng: -0.25 }
+                    ];
+                    
+                    let foundPosition = false;
+                    for (const adj of adjustments) {
+                        const testPos = { 
+                            lat: finalPosition.lat + adj.lat, 
+                            lng: finalPosition.lng + adj.lng,
+                            priority: finalPosition.priority 
+                        };
+                        if (!checkCollision(testPos.lat, testPos.lng, labelWidth)) {
+                            finalPosition = testPos;
+                            foundPosition = true;
+                            break;
+                        }
+                    }
+                    
+                    // If still colliding, use the original optimal position
+                    if (!foundPosition) {
+                        finalPosition = position;
                     }
                 }
                 
@@ -4800,8 +4866,7 @@ function initInteractiveMap() {
                     name: regionName
                 });
                 
-                // Calculate icon size based on text length
-                const labelWidth = getLabelWidth(regionName);
+                // Calculate icon size based on text length (already calculated above, reuse)
                 const iconSize = [labelWidth, 30];
                 
                 // Create custom icon for label

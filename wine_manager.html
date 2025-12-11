@@ -266,6 +266,71 @@
             margin-bottom: 20px;
         }
 
+        .region-filter {
+            padding: 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .region-filter:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .region-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: 20px 0 10px 0;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.2em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .region-header:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .region-header.collapsed {
+            background: #6c757d;
+        }
+
+        .region-content {
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .region-content.collapsed {
+            max-height: 0;
+            overflow: hidden;
+        }
+
+        .region-count {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        .btn-save-local {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn-save-local:hover {
+            background: #0056b3;
+        }
+
         @media (max-width: 768px) {
             .wine-table {
                 font-size: 12px;
@@ -298,8 +363,14 @@
                 <input type="file" id="jsonFile" accept=".json">
             </div>
             <input type="text" class="search-box" id="searchBox" placeholder="Cerca vino, produttore o numero...">
-            <button class="btn btn-primary" onclick="downloadUpdatedJSON()">Scarica wines.json aggiornato</button>
-            <button class="btn btn-secondary" onclick="downloadUpdatedCSV()">Scarica wine_links.csv aggiornato</button>
+            <select class="region-filter" id="regionFilter">
+                <option value="">Tutte le regioni</option>
+            </select>
+            <button class="btn btn-secondary" onclick="toggleView()" id="toggleViewBtn">Vista Regioni</button>
+            <button class="btn btn-primary" onclick="downloadUpdatedJSON()">Scarica wines.json</button>
+            <button class="btn btn-save-local" onclick="saveToLocalFile()">💾 Salva in locale</button>
+            <button class="btn btn-secondary" onclick="downloadUpdatedCSV()">Scarica CSV</button>
+            <button class="btn btn-secondary" onclick="clearLocalStorage()" style="background: #dc3545;">Cancella salvati</button>
         </div>
 
         <div class="stats" id="stats" style="display: none;">
@@ -339,12 +410,17 @@
             <div id="loadingStatus">Caricamento file in corso...</div>
         </div>
 
+        <div id="winesByRegion" style="display: none;">
+            <!-- I vini verranno organizzati per regione qui -->
+        </div>
+        
         <table class="wine-table" id="wineTable" style="display: none;">
             <thead>
                 <tr>
                     <th>Immagine</th>
                     <th>Produttore</th>
                     <th>Nome Vino</th>
+                    <th>Regione</th>
                     <th>Numero</th>
                     <th>Link Attuale</th>
                     <th>Nuovo Link</th>
@@ -453,12 +529,54 @@
                     wineName: csvWine.wineName,
                     link: csvWine.link,
                     producer: jsonWine.wine_producer || 'N/A',
+                    region: jsonWine.region || 'N/A',
                     jsonWine: jsonWine
                 };
             });
 
+            populateRegionFilter(mergedWines);
             displayWines(mergedWines);
+            displayWinesByRegion(mergedWines);
             updateStats(mergedWines.length);
+        }
+
+        function populateRegionFilter(wines) {
+            const regionFilter = document.getElementById('regionFilter');
+            const regions = [...new Set(wines.map(w => w.region).filter(r => r && r !== 'N/A'))].sort();
+            
+            // Pulisci le opzioni esistenti (mantieni "Tutte le regioni")
+            regionFilter.innerHTML = '<option value="">Tutte le regioni</option>';
+            
+            regions.forEach(region => {
+                const option = document.createElement('option');
+                option.value = region;
+                option.textContent = region;
+                regionFilter.appendChild(option);
+            });
+
+            // Aggiungi listener per il filtro
+            regionFilter.addEventListener('change', function() {
+                const selectedRegion = this.value;
+                filterByRegion(selectedRegion);
+            });
+        }
+
+        function filterByRegion(region) {
+            const rows = document.querySelectorAll('#wineTableBody tr, .region-section');
+            if (!region) {
+                rows.forEach(row => row.style.display = '');
+                return;
+            }
+            
+            rows.forEach(row => {
+                if (row.classList.contains('region-section')) {
+                    const regionName = row.dataset.region;
+                    row.style.display = regionName === region ? '' : 'none';
+                } else {
+                    const wineRegion = row.dataset.region;
+                    row.style.display = wineRegion === region ? '' : 'none';
+                }
+            });
         }
 
         function displayWines(wines) {
@@ -481,6 +599,7 @@
                     <td>
                         <div class="wine-name">${wine.wineName}</div>
                     </td>
+                    <td>${wine.region}</td>
                     <td>${wine.wineNumber}</td>
                     <td>
                         <div class="link-display" title="${wine.link}">${truncateLink(wine.link)}</div>
@@ -504,12 +623,19 @@
                         </div>
                     </td>
                 `;
+                row.dataset.region = wine.region;
 
                 tbody.appendChild(row);
             });
 
             document.getElementById('wineTable').style.display = 'table';
             document.getElementById('loading').style.display = 'none';
+            
+            // Mostra anche la vista per regioni
+            const regionView = document.getElementById('winesByRegion');
+            if (regionView && regionView.innerHTML) {
+                regionView.style.display = 'block';
+            }
         }
 
         function truncateLink(link) {
@@ -527,23 +653,28 @@
         }
 
         function updateLink(wineNumber) {
-            const input = document.querySelector(`input[data-wine-number="${wineNumber}"]`);
-            if (!input) return;
+            const inputs = document.querySelectorAll(`input[data-wine-number="${wineNumber}"]`);
+            if (inputs.length === 0) return;
 
-            const newLink = input.value.trim();
+            const newLink = inputs[0].value.trim();
             if (!newLink) {
                 alert('Inserisci un link valido');
                 return;
             }
 
-            // Aggiorna l'immagine
-            const row = document.getElementById(`wine-row-${wineNumber}`);
-            if (row) {
+            // Aggiorna tutte le immagini (sia vista tabella che vista regioni)
+            const rows = document.querySelectorAll(`#wine-row-${wineNumber}`);
+            rows.forEach(row => {
                 const img = row.querySelector('.wine-image');
                 if (img) {
                     img.src = newLink;
                 }
-            }
+            });
+
+            // Aggiorna tutti gli input con lo stesso valore
+            inputs.forEach(input => {
+                input.value = newLink;
+            });
 
             // Aggiorna il link nel JSON
             const wine = jsonData.wines.find(w => w.wine_number === wineNumber);
@@ -557,6 +688,9 @@
             if (csvWine) {
                 csvWine.link = newLink;
             }
+
+            // Salva automaticamente in localStorage
+            saveToLocalStorage();
 
             updateStats();
             alert(`Link aggiornato per il vino ${wineNumber}`);
@@ -580,6 +714,227 @@
             }
             document.getElementById('updatedLinks').textContent = updatedLinks.size;
             document.getElementById('stats').style.display = 'flex';
+        }
+
+        function saveToLocalStorage() {
+            try {
+                // Salva i dati JSON modificati
+                localStorage.setItem('wineManager_jsonData', JSON.stringify(jsonData));
+                // Salva i dati CSV modificati
+                localStorage.setItem('wineManager_winesData', JSON.stringify(winesData));
+                // Salva la lista dei link modificati
+                localStorage.setItem('wineManager_updatedLinks', JSON.stringify(Array.from(updatedLinks)));
+                console.log('Modifiche salvate in localStorage');
+            } catch (e) {
+                console.warn('Errore nel salvataggio localStorage:', e);
+            }
+        }
+
+        function loadFromLocalStorage() {
+            try {
+                const savedJson = localStorage.getItem('wineManager_jsonData');
+                const savedCsv = localStorage.getItem('wineManager_winesData');
+                const savedLinks = localStorage.getItem('wineManager_updatedLinks');
+
+                if (savedJson) {
+                    jsonData = JSON.parse(savedJson);
+                    console.log('Dati JSON caricati da localStorage');
+                }
+
+                if (savedCsv) {
+                    winesData = JSON.parse(savedCsv);
+                    console.log('Dati CSV caricati da localStorage');
+                }
+
+                if (savedLinks) {
+                    updatedLinks = new Set(JSON.parse(savedLinks));
+                    console.log(`Caricati ${updatedLinks.size} link modificati da localStorage`);
+                }
+
+                // Se ci sono dati salvati, ricarica la visualizzazione
+                if (savedJson && savedCsv) {
+                    mergeData();
+                    return true;
+                }
+            } catch (e) {
+                console.warn('Errore nel caricamento localStorage:', e);
+            }
+            return false;
+        }
+
+        function clearLocalStorage() {
+            if (confirm('Vuoi cancellare tutte le modifiche salvate? Questa azione non può essere annullata.')) {
+                localStorage.removeItem('wineManager_jsonData');
+                localStorage.removeItem('wineManager_winesData');
+                localStorage.removeItem('wineManager_updatedLinks');
+                updatedLinks.clear();
+                alert('Modifiche salvate cancellate. Ricarica la pagina per vedere i dati originali.');
+            }
+        }
+
+        function displayWinesByRegion(wines) {
+            const container = document.getElementById('winesByRegion');
+            container.innerHTML = '';
+
+            // Raggruppa per regione
+            const winesByRegion = {};
+            wines.forEach(wine => {
+                const region = wine.region || 'N/A';
+                if (!winesByRegion[region]) {
+                    winesByRegion[region] = [];
+                }
+                winesByRegion[region].push(wine);
+            });
+
+            // Ordina le regioni
+            const sortedRegions = Object.keys(winesByRegion).sort();
+
+            sortedRegions.forEach(region => {
+                const regionSection = document.createElement('div');
+                regionSection.className = 'region-section';
+                regionSection.dataset.region = region;
+                
+                const count = winesByRegion[region].length;
+                regionSection.innerHTML = `
+                    <div class="region-header" onclick="toggleRegion('${region}')">
+                        <span>${region}</span>
+                        <span class="region-count">${count} vini</span>
+                    </div>
+                    <div class="region-content" id="region-${region.replace(/\s+/g, '-')}">
+                        <table class="wine-table">
+                            <thead>
+                                <tr>
+                                    <th>Immagine</th>
+                                    <th>Produttore</th>
+                                    <th>Nome Vino</th>
+                                    <th>Numero</th>
+                                    <th>Link Attuale</th>
+                                    <th>Nuovo Link</th>
+                                    <th>Azioni</th>
+                                </tr>
+                            </thead>
+                            <tbody id="region-${region.replace(/\s+/g, '-')}-body">
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+                container.appendChild(regionSection);
+
+                // Popola la tabella della regione
+                const tbody = document.getElementById(`region-${region.replace(/\s+/g, '-')}-body`);
+                winesByRegion[region].forEach(wine => {
+                    const row = document.createElement('tr');
+                    row.id = `wine-row-${wine.wineNumber}`;
+                    row.dataset.wineNumber = wine.wineNumber;
+                    row.dataset.region = wine.region;
+                    
+                    row.innerHTML = `
+                        <td>
+                            <img src="${wine.link}" alt="${wine.wineName}" class="wine-image" 
+                                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%27 height=%27100%27%3E%3Crect fill=%27%23ddd%27 width=%27100%27 height=%27100%27/%3E%3Ctext x=%2750%25%27 y=%2750%27 text-anchor=%27middle%27 dy=%27.3em%27 fill=%27%23999%27%3ENo Image%3C/text%3E%3C/svg%3E'">
+                        </td>
+                        <td>
+                            <div class="wine-producer">${wine.producer}</div>
+                        </td>
+                        <td>
+                            <div class="wine-name">${wine.wineName}</div>
+                        </td>
+                        <td>${wine.wineNumber}</td>
+                        <td>
+                            <div class="link-display" title="${wine.link}">${truncateLink(wine.link)}</div>
+                        </td>
+                        <td>
+                            <input type="text" class="link-input" 
+                                   value="${wine.link}" 
+                                   data-wine-number="${wine.wineNumber}"
+                                   placeholder="Inserisci nuovo link">
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-small btn-highlight" 
+                                        onclick="highlightRow('${wine.wineNumber}')">
+                                    Evidenzia
+                                </button>
+                                <button class="btn btn-small btn-update" 
+                                        onclick="updateLink('${wine.wineNumber}')">
+                                    Aggiorna
+                                </button>
+                            </div>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            });
+
+            container.style.display = 'block';
+        }
+
+        function toggleRegion(region) {
+            const regionId = `region-${region.replace(/\s+/g, '-')}`;
+            const content = document.getElementById(regionId);
+            const header = content.previousElementSibling;
+            
+            if (content.classList.contains('collapsed')) {
+                content.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                content.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+        }
+
+        let currentView = 'table'; // 'table' or 'region'
+
+        function toggleView() {
+            const tableView = document.getElementById('wineTable');
+            const regionView = document.getElementById('winesByRegion');
+            const toggleBtn = document.getElementById('toggleViewBtn');
+            
+            if (currentView === 'table') {
+                tableView.style.display = 'none';
+                regionView.style.display = 'block';
+                toggleBtn.textContent = 'Vista Tabella';
+                currentView = 'region';
+            } else {
+                tableView.style.display = 'table';
+                regionView.style.display = 'none';
+                toggleBtn.textContent = 'Vista Regioni';
+                currentView = 'table';
+            }
+        }
+
+        function saveToLocalFile() {
+            if (updatedLinks.size === 0) {
+                alert('Nessun link è stato modificato');
+                return;
+            }
+
+            const dataStr = JSON.stringify(jsonData, null, 2);
+            
+            // Prova a salvare tramite il server
+            fetch('/save-wines-json', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: dataStr
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Errore nel salvataggio');
+            })
+            .then(data => {
+                alert(`✅ File wines.json salvato con successo in data/wines.json!\n${updatedLinks.size} link aggiornati.`);
+                // Aggiorna anche il localStorage
+                saveToLocalStorage();
+            })
+            .catch(error => {
+                console.warn('Salvataggio server non disponibile, scarico il file:', error);
+                // Fallback: scarica il file
+                downloadUpdatedJSON();
+            });
         }
 
         function downloadUpdatedJSON() {
@@ -645,6 +1000,14 @@
             const loadingStatus = document.getElementById('loadingStatus');
             let csvLoaded = false;
             let jsonLoaded = false;
+
+            // Prova prima a caricare da localStorage (modifiche salvate)
+            const hasSavedData = loadFromLocalStorage();
+            if (hasSavedData) {
+                loadingStatus.textContent = '✅ Dati caricati da localStorage (modifiche salvate)';
+                loadingStatus.style.color = '#28a745';
+                return; // Non caricare i file originali se ci sono dati salvati
+            }
 
             function updateLoadingStatus() {
                 if (csvLoaded && jsonLoaded) {
