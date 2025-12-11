@@ -326,6 +326,42 @@ body:not(.home-page) {
     background: var(--bg-primary, var(--black));
     position: relative;
     transition: background 0.3s ease;
+    /* Sfondo con immagine gcaLogoWall */
+    background-image: url('./image/gcaLogoWall.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+/* Overlay scuro per leggibilità del contenuto */
+.luxury-container::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        180deg,
+        rgba(10, 10, 10, 0.85) 0%,
+        rgba(10, 10, 10, 0.75) 50%,
+        rgba(10, 10, 10, 0.85) 100%
+    );
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Assicura che il contenuto sia sopra l'overlay */
+.content-wrapper,
+.top-nav,
+.search-bar-container,
+.sidebar,
+.regions-panel,
+.wines-panel,
+.wines-list-container {
+    position: relative;
+    z-index: 1;
 }
 
 :root[data-theme="night"] .luxury-container {
@@ -336,6 +372,22 @@ body:not(.home-page) {
 
 :root[data-theme="day"] .luxury-container {
     background: var(--bg-primary);
+    /* Mantieni immagine di sfondo anche in day mode ma con overlay più chiaro */
+    background-image: url('./image/gcaLogoWall.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+/* Overlay più chiaro per day mode */
+:root[data-theme="day"] .luxury-container::after {
+    background: linear-gradient(
+        180deg,
+        rgba(253, 251, 247, 0.9) 0%,
+        rgba(253, 251, 247, 0.85) 50%,
+        rgba(253, 251, 247, 0.9) 100%
+    );
 }
 
 /* Enable scrolling for wine-details page and other non-home pages */
@@ -870,6 +922,8 @@ body:not(.home-page) .luxury-container {
     letter-spacing: 2px;
     border-bottom: 1px solid rgba(212, 175, 55, 0.3);
     padding-bottom: 0.75rem;
+    /* Ombra per leggibilità su sfondo glassmorphism */
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 /* Breadcrumb inside sidebar */
@@ -3803,8 +3857,12 @@ body:not(.home-page) .luxury-container {
 
 /* ==================== TOP NAVIGATION ==================== */
 .top-nav {
-    background: linear-gradient(180deg, rgba(10, 10, 10, 0.98) 0%, rgba(26, 26, 26, 0.95) 100%);
-    border-bottom: none;
+    /* Glassmorphism effect */
+    background: rgba(10, 10, 10, 0.65);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     padding: 1.5rem 2.5rem;
     display: flex;
     align-items: center;
@@ -3812,6 +3870,7 @@ body:not(.home-page) .luxury-container {
     flex-shrink: 0;
     z-index: 100;
     min-height: 90px;
+    position: relative;
 }
 
 .logo {
@@ -3853,15 +3912,19 @@ body:not(.home-page) .luxury-container {
     margin: 0;
     line-height: 1.2;
     font-style: normal;
+    /* Ombra per leggibilità su sfondo glassmorphism */
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .nav-subtitle {
     font-family: 'Cormorant', serif;
     font-size: 0.9rem;
-    color: rgba(245, 245, 240, 0.6);
+    color: rgba(245, 245, 240, 0.8); /* Aumentato contrasto per leggibilità */
     letter-spacing: 0.8px;
     margin: 0.25rem 0 0 0;
     line-height: 1.3;
+    /* Ombra per leggibilità su sfondo glassmorphism */
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
 }
 
 /* ==================== CONTENT WRAPPER ==================== */
@@ -3932,13 +3995,18 @@ body:not(.home-page) .luxury-container {
 /* ==================== REGIONS PANEL ==================== */
 .regions-panel {
     width: 0;
-    background: linear-gradient(180deg, rgba(26, 26, 26, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
-    border-right: none;
+    /* Glassmorphism effect */
+    background: rgba(10, 10, 10, 0.6);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-right: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 4px 0 24px 0 rgba(0, 0, 0, 0.4);
     overflow-y: auto;
     flex-shrink: 0;
     transition: width 0.3s ease;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .regions-panel.active {
@@ -3959,6 +4027,8 @@ body:not(.home-page) .luxury-container {
     letter-spacing: 1.5px;
     text-transform: uppercase;
     margin-bottom: 0.5rem;
+    /* Ombra per leggibilità su sfondo glassmorphism */
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .regions-panel-subtitle {
@@ -4075,13 +4145,18 @@ body:not(.home-page) .luxury-container {
 /* ==================== WINES PANEL ==================== */
 .wines-panel {
     width: 0;
-    background: linear-gradient(180deg, rgba(26, 26, 26, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
-    border-left: none;
+    /* Glassmorphism effect */
+    background: rgba(10, 10, 10, 0.6);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-left: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: -4px 0 24px 0 rgba(0, 0, 0, 0.4);
     overflow-y: auto;
     flex-shrink: 0;
     transition: width 0.3s ease;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .wines-panel.active {
@@ -4102,6 +4177,8 @@ body:not(.home-page) .luxury-container {
     letter-spacing: 1.5px;
     text-transform: uppercase;
     margin-bottom: 0.5rem;
+    /* Ombra per leggibilità su sfondo glassmorphism */
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .wines-panel-subtitle {
@@ -4191,14 +4268,19 @@ body:not(.home-page) .luxury-container {
 /* ==================== SIDEBAR ==================== */
 .sidebar {
     width: 240px;
-    background: linear-gradient(180deg, rgba(26, 26, 26, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
-    border-right: none;
+    /* Glassmorphism effect */
+    background: rgba(10, 10, 10, 0.6);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-right: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 4px 0 24px 0 rgba(0, 0, 0, 0.4);
     padding: 2rem 1.5rem;
     overflow-y: auto;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    position: relative;
 }
 
 .sidebar::-webkit-scrollbar {
@@ -4331,11 +4413,16 @@ body:not(.home-page) .luxury-container {
 
 /* ==================== SEARCH BAR ==================== */
 .search-bar-container {
-    background: linear-gradient(180deg, rgba(26, 26, 26, 0.5) 0%, rgba(10, 10, 10, 0.7) 100%);
-    border-bottom: none;
+    /* Glassmorphism effect */
+    background: rgba(10, 10, 10, 0.55);
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.3);
     padding: var(--space-md) var(--space-lg);
     flex-shrink: 0;
     z-index: 50;
+    position: relative;
 }
 
 .search-wrapper {
@@ -4833,12 +4920,19 @@ body:not(.home-page) .luxury-container {
 }
 
 .wines-list-header {
+    /* Glassmorphism effect */
+    background: rgba(10, 10, 10, 0.6);
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.3);
     padding: 2rem 2.5rem;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
     display: flex;
     align-items: center;
     gap: 2rem;
     flex-shrink: 0;
+    position: relative;
+    z-index: 10;
 }
 
 .btn-back-to-map {
@@ -4877,15 +4971,19 @@ body:not(.home-page) .luxury-container {
     text-transform: uppercase;
     margin: 0 0 0.25rem 0;
     line-height: 1.2;
+    /* Ombra per leggibilità su sfondo glassmorphism */
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .wines-list-subtitle {
     font-family: 'Cormorant', serif;
     font-size: 0.9rem;
-    color: rgba(245, 245, 240, 0.6);
+    color: rgba(245, 245, 240, 0.8); /* Aumentato contrasto per leggibilità */
     letter-spacing: 0.8px;
     margin: 0;
     line-height: 1.3;
+    /* Ombra per leggibilità su sfondo glassmorphism */
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
 }
 
 /* Wine type filter buttons */
