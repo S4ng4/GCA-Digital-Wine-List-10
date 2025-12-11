@@ -558,6 +558,7 @@
         </div>
     </div>
 
+    <script src="js/wineries.js"></script>
     <script src="js/main.js"></script>
     <script>
         // TLC 11 Specific Initialization
@@ -764,7 +765,31 @@
                 producerName.textContent = wine.wine_producer || 'Unknown Producer';
             }
             if (producerDesc) {
-                producerDesc.textContent = wine.producer_description || 'A producer dedicated to quality wines.';
+                // Try to get winery information from WineriesDB
+                let description = null;
+                
+                // First, try to get from WineriesDB
+                if (window.WineriesDB && wine.wine_producer) {
+                    const winery = window.WineriesDB.findWinery(wine.wine_producer);
+                    if (winery) {
+                        description = window.WineriesDB.getDescription(winery);
+                    }
+                }
+                
+                // If not found in WineriesDB, use WineApp's getProducerDescription (which has fallback logic)
+                if (!description && window.wineApp && typeof window.wineApp.getProducerDescription === 'function') {
+                    description = window.wineApp.getProducerDescription(wine);
+                }
+                
+                // Final fallback
+                if (!description) {
+                    const region = wine.region || 'this region';
+                    const wineType = wine.wine_type || 'wine';
+                    const organic = wine.organic ? ' This wine is produced using organic methods.' : '';
+                    description = `This ${wineType.toLowerCase()} is crafted in ${region}, showcasing the unique terroir and winemaking traditions of the area.${organic} The producer focuses on quality and authenticity, bringing you an exceptional wine experience.`;
+                }
+                
+                producerDesc.textContent = description;
             }
         }
 

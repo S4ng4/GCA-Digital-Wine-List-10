@@ -1395,7 +1395,18 @@ class WineListApp {
     }
 
     getProducerDescription(wine) {
-        // Generate a description based on the wine data
+        // Try to get winery information from WineriesDB
+        if (window.WineriesDB && wine.wine_producer) {
+            const winery = window.WineriesDB.findWinery(wine.wine_producer);
+            if (winery) {
+                const description = window.WineriesDB.getDescription(winery);
+                if (description) {
+                    return description;
+                }
+            }
+        }
+        
+        // Fallback to generic description
         const region = wine.region || 'this region';
         const wineType = this.getWineTypeName(wine.wine_type);
         const organic = wine.organic ? ' This wine is produced using organic methods.' : '';
