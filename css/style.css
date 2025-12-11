@@ -1720,6 +1720,48 @@ body:not(.home-page) .luxury-container {
     color: var(--gold-light);
 }
 
+/* Wine Details Logo Styles */
+.wine-details-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.wine-details-logo:hover {
+    transform: scale(1.1);
+}
+
+.wine-details-logo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* TLC11 Logo Styles (for wine-details-tlc11.html) */
+.tlc11-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.tlc11-logo:hover {
+    transform: scale(1.1);
+}
+
+.tlc11-logo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
 /* Wine Details Page */
 .wine-details-container {
     max-width: 1400px;
@@ -1749,6 +1791,17 @@ body:not(.home-page) .luxury-container {
 
     .share-wine-section {
         display: none;
+    }
+}
+
+/* Show wine-details-top-bar on tablet devices */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .wine-details-top-bar {
+        display: flex !important;
+    }
+
+    .wine-details-container {
+        margin-top: 60px;
     }
 }
 
@@ -9545,6 +9598,27 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         width: 100% !important;
         height: 100% !important;
         object-fit: contain !important;
+    }
+    
+    /* === LOGO CONTAINER E HEADER VISIBILI SU TABLET === */
+    .logo-container {
+        display: flex !important;
+    }
+    
+    .luxury-header {
+        display: block !important;
+        visibility: visible !important;
+    }
+    
+    /* Wine details logo ottimizzato per tablet */
+    .wine-details-logo {
+        width: 56px !important;
+        height: 56px !important;
+    }
+    
+    .tlc11-logo {
+        width: 56px !important;
+        height: 56px !important;
     }
     
     /* === 6. TIPOGRAFIA LEGGERMENTE RIDOTTA PER TABLET === */
