@@ -9517,6 +9517,36 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         min-height: 60px !important; /* Ridotto da 90px per tablet */
     }
     
+    /* === 12. LOGO VISIBILE E OTTIMIZZATO PER TABLET === */
+    .logo {
+        display: flex !important; /* Assicura visibilità su tablet */
+        width: 56px !important; /* Leggermente più grande su tablet */
+        height: 56px !important;
+        min-width: 56px !important;
+        min-height: 56px !important;
+    }
+    
+    .logo-image {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important;
+    }
+    
+    .luxury-logo {
+        display: flex !important; /* Assicura visibilità su tablet */
+    }
+    
+    .luxury-logo.small {
+        width: 80px !important; /* Dimensioni ottimizzate per tablet */
+        height: 80px !important;
+    }
+    
+    .luxury-logo .logo-image {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important;
+    }
+    
     /* === 6. TIPOGRAFIA LEGGERMENTE RIDOTTA PER TABLET === */
     body {
         font-size: 0.95rem; /* Leggera riduzione per schermi medi */

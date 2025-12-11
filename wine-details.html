@@ -55,6 +55,39 @@
             z-index: 100;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+            gap: 1rem;
+        }
+        
+        .wine-details-logo {
+            width: 48px;
+            height: 48px;
+            background: transparent;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .wine-details-logo-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+        
+        .wine-details-logo:hover {
+            transform: scale(1.05);
+        }
+        
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .wine-details-logo {
+                width: 56px !important;
+                height: 56px !important;
+            }
         }
         
         @media (max-width: 767px) {
@@ -674,6 +707,9 @@
             <a href="#" class="wine-details-back-btn" id="backButton">
                 <i class="fas fa-chevron-left"></i>
             </a>
+            <div class="wine-details-logo" onclick="window.location.href='./index.html'">
+                <img src="./image/gcaLogo.png" alt="Gran Caffè L'Aquila Logo" class="wine-details-logo-image">
+            </div>
             <h1 class="wine-details-top-title">WINE DETAILS</h1>
             <button class="wine-details-share-btn" id="shareWineBtnTop">
                 <i class="fas fa-share-alt"></i>

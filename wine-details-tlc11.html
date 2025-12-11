@@ -54,6 +54,32 @@
             border-bottom: 2px solid rgba(212, 175, 55, 0.2);
             height: 60px;
             z-index: 100;
+            gap: 1rem;
+        }
+        
+        .tlc11-logo {
+            width: 48px;
+            height: 48px;
+            background: transparent;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .tlc11-logo-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+        
+        .tlc11-logo:hover {
+            transform: scale(1.05);
         }
 
         .tlc11-back-btn {
@@ -392,6 +418,9 @@
                 <i class="fas fa-chevron-left"></i>
                 <span>Back</span>
             </a>
+            <div class="tlc11-logo" onclick="window.location.href='./index.html'">
+                <img src="./image/gcaLogo.png" alt="Gran Caffè L'Aquila Logo" class="tlc11-logo-image">
+            </div>
             <h1 class="tlc11-top-title">WINE DETAILS</h1>
             <button class="tlc11-share-btn" id="tlc11ShareBtn">
                 <i class="fas fa-share-alt"></i>
