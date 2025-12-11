@@ -4949,6 +4949,11 @@ function initInteractiveMap() {
                 if (!window.wineApp || !window.wineApp.wines) return;
                 mapView.style.display = 'none';
                 winesContainer.style.display = 'flex';
+                // Add class to parent container to expand it fully
+                const mapWinesContainer = document.getElementById('mobileMapWinesContainer');
+                if (mapWinesContainer) {
+                    mapWinesContainer.classList.add('wines-cards-expanded');
+                }
                 // Update height for iPhone Safari
                 setTimeout(() => {
                     updateMobileWinesCardsHeight();
@@ -5096,6 +5101,11 @@ function initInteractiveMap() {
                     backBtn.onclick = () => {
                         mapView.style.display = 'flex';
                         winesContainer.style.display = 'none';
+                        // Remove class when going back to map
+                        const mapWinesContainer = document.getElementById('mobileMapWinesContainer');
+                        if (mapWinesContainer) {
+                            mapWinesContainer.classList.remove('wines-cards-expanded');
+                        }
                         // Reset height when going back to map
                         winesContainer.style.height = '';
                         winesContainer.style.maxHeight = '';
@@ -5122,6 +5132,11 @@ function initInteractiveMap() {
                 if (!window.wineApp || !window.wineApp.wines) return;
                 mapView.style.display = 'none';
                 winesContainer.style.display = 'flex';
+                // Add class to parent container to expand it fully
+                const mapWinesContainer = document.getElementById('mobileMapWinesContainer');
+                if (mapWinesContainer) {
+                    mapWinesContainer.classList.add('wines-cards-expanded');
+                }
                 // Update height for iPhone Safari
                 setTimeout(() => {
                     updateMobileWinesCardsHeight();
@@ -5253,6 +5268,11 @@ function initInteractiveMap() {
                     backBtn.onclick = () => {
                         mapView.style.display = 'flex';
                         winesContainer.style.display = 'none';
+                        // Remove class when going back to map
+                        const mapWinesContainer = document.getElementById('mobileMapWinesContainer');
+                        if (mapWinesContainer) {
+                            mapWinesContainer.classList.remove('wines-cards-expanded');
+                        }
                         // Reset height when going back to map
                         winesContainer.style.height = '';
                         winesContainer.style.maxHeight = '';
@@ -5279,6 +5299,11 @@ function initInteractiveMap() {
                 if (!window.wineApp || !window.wineApp.wines) return;
                 mapView.style.display = 'none';
                 winesContainer.style.display = 'flex';
+                // Add class to parent container to expand it fully
+                const mapWinesContainer = document.getElementById('mobileMapWinesContainer');
+                if (mapWinesContainer) {
+                    mapWinesContainer.classList.add('wines-cards-expanded');
+                }
                 // Update height for iPhone Safari
                 setTimeout(() => {
                     updateMobileWinesCardsHeight();
@@ -5422,6 +5447,11 @@ function initInteractiveMap() {
                     backBtn.onclick = () => {
                         mapView.style.display = 'flex';
                         winesContainer.style.display = 'none';
+                        // Remove class when going back to map
+                        const mapWinesContainer = document.getElementById('mobileMapWinesContainer');
+                        if (mapWinesContainer) {
+                            mapWinesContainer.classList.remove('wines-cards-expanded');
+                        }
                         // Reset height when going back to map
                         winesContainer.style.height = '';
                         winesContainer.style.maxHeight = '';
@@ -5464,6 +5494,11 @@ function initInteractiveMap() {
                 
                 mapView.style.display = 'none';
                 winesContainer.style.display = 'flex';
+                // Add class to parent container to expand it fully
+                const mapWinesContainer = document.getElementById('mobileMapWinesContainer');
+                if (mapWinesContainer) {
+                    mapWinesContainer.classList.add('wines-cards-expanded');
+                }
                 
                 setTimeout(() => {
                     updateMobileWinesCardsHeight();
@@ -5473,7 +5508,7 @@ function initInteractiveMap() {
                     if (filterType === 'organic') {
                         winesTitle.textContent = 'Organic Wines';
                     } else if (filterType === 'fancy') {
-                        winesTitle.textContent = 'Fellenig Fancy';
+                        winesTitle.textContent = 'Feeling Lucky';
                     }
                 }
                 
@@ -5595,6 +5630,11 @@ function initInteractiveMap() {
                     backBtn.onclick = () => {
                         mapView.style.display = 'flex';
                         winesContainer.style.display = 'none';
+                        // Remove class when going back to map
+                        const mapWinesContainer = document.getElementById('mobileMapWinesContainer');
+                        if (mapWinesContainer) {
+                            mapWinesContainer.classList.remove('wines-cards-expanded');
+                        }
                         winesContainer.style.height = '';
                         winesContainer.style.maxHeight = '';
                         winesContainer.style.minHeight = '';
@@ -5622,6 +5662,11 @@ function initInteractiveMap() {
                 
                 mapView.style.display = 'none';
                 winesContainer.style.display = 'flex';
+                // Add class to parent container to expand it fully
+                const mapWinesContainer = document.getElementById('mobileMapWinesContainer');
+                if (mapWinesContainer) {
+                    mapWinesContainer.classList.add('wines-cards-expanded');
+                }
                 
                 setTimeout(() => {
                     updateMobileWinesCardsHeight();
@@ -5757,6 +5802,11 @@ function initInteractiveMap() {
                     backBtn.onclick = () => {
                         mapView.style.display = 'flex';
                         winesContainer.style.display = 'none';
+                        // Remove class when going back to map
+                        const mapWinesContainer = document.getElementById('mobileMapWinesContainer');
+                        if (mapWinesContainer) {
+                            mapWinesContainer.classList.remove('wines-cards-expanded');
+                        }
                         winesContainer.style.height = '';
                         winesContainer.style.maxHeight = '';
                         winesContainer.style.minHeight = '';

@@ -3556,6 +3556,23 @@ body:not(.home-page) .luxury-container {
         display: flex !important;
     }
     
+    /* Quando mobile-wines-cards-container è visibile, espandi fino ai pulsanti */
+    .mobile-map-wines-container.wines-cards-expanded {
+        margin-top: 0 !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        z-index: 50 !important;
+        padding-top: calc(70px + 140px) !important; /* Nav + search bar (fino ai pulsanti) */
+    }
+    
+    /* Assicura che mobile-wines-cards-header parta subito dopo i pulsanti */
+    .mobile-map-wines-container.wines-cards-expanded .mobile-wines-cards-header {
+        margin-top: 0 !important;
+    }
+    
     /* Mobile map wrapper unificato */
     .mobile-map-wrapper {
         min-height: 350px;
@@ -6357,6 +6374,23 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         min-height: 0;
         margin-top: calc(140px + 70px); /* Search bar height + wine type selector height */
     }
+    
+    /* Quando mobile-wines-cards-container è visibile, espandi fino ai pulsanti */
+    .mobile-map-wines-container.wines-cards-expanded {
+        margin-top: 0 !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        z-index: 50 !important;
+        padding-top: calc(70px + 140px) !important; /* Nav + search bar (fino ai pulsanti) */
+    }
+    
+    /* Assicura che mobile-wines-cards-header parta subito dopo i pulsanti */
+    .mobile-map-wines-container.wines-cards-expanded .mobile-wines-cards-header {
+        margin-top: 0 !important;
+    }
 
     /* Hide desktop breadcrumb on mobile */
     .breadcrumb {
@@ -7291,6 +7325,14 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
+    /* Quando wines-cards-expanded è attivo, ignora le regole del popup */
+    body:has(.mobile-wine-type-popup.show) .mobile-map-wines-container.wines-cards-expanded {
+        margin-left: 0 !important;
+        width: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+    }
+    
     body:has(.mobile-wine-type-popup.show) .mobile-map-view {
         margin-left: 0;
         transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -7301,6 +7343,14 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         margin-left: 150px;
         width: calc(100% + 150px);
         transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* Quando wines-cards-expanded è attivo, ignora le regole del popup */
+    .mobile-wine-type-popup.show ~ .content-wrapper .mobile-map-wines-container.wines-cards-expanded {
+        margin-left: 0 !important;
+        width: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
     }
     
     .mobile-wine-type-popup.show ~ .content-wrapper .mobile-map-view {
@@ -7860,6 +7910,23 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         margin-top: calc(140px + 60px); /* Search bar height + wine type selector height */
     }
     
+    /* Quando mobile-wines-cards-container è visibile, espandi fino ai pulsanti */
+    .mobile-map-wines-container.wines-cards-expanded {
+        margin-top: 0 !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        z-index: 50 !important;
+        padding-top: calc(70px + 140px) !important; /* Nav + search bar (fino ai pulsanti) */
+    }
+    
+    /* Assicura che mobile-wines-cards-header parta subito dopo i pulsanti */
+    .mobile-map-wines-container.wines-cards-expanded .mobile-wines-cards-header {
+        margin-top: 0 !important;
+    }
+    
     /* Improve mobile wine type selector transitions */
     .mobile-wine-type-chip {
         transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -7917,6 +7984,23 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 
 /* Tablet UI Improvements - Apple-like design */
 @media (min-width: 768px) and (max-width: 1024px) {
+    /* Quando mobile-wines-cards-container è visibile, espandi fino ai pulsanti */
+    .mobile-map-wines-container.wines-cards-expanded {
+        margin-top: 0 !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        z-index: 50 !important;
+        padding-top: calc(70px + 140px) !important; /* Nav + search bar (fino ai pulsanti) */
+    }
+    
+    /* Assicura che mobile-wines-cards-header parta subito dopo i pulsanti */
+    .mobile-map-wines-container.wines-cards-expanded .mobile-wines-cards-header {
+        margin-top: 0 !important;
+    }
+    
     /* Optimized for tablet TLC */
     .mobile-wine-card-grid {
         padding: 0.75rem 1rem;
@@ -7979,6 +8063,23 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 }
 
 @media (min-width: 768px) and (max-width: 819px) {
+    /* Quando mobile-wines-cards-container è visibile, espandi fino ai pulsanti */
+    .mobile-map-wines-container.wines-cards-expanded {
+        margin-top: 0 !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        z-index: 50 !important;
+        padding-top: calc(70px + 140px) !important; /* Nav + search bar (fino ai pulsanti) */
+    }
+    
+    /* Assicura che mobile-wines-cards-header parta subito dopo i pulsanti */
+    .mobile-map-wines-container.wines-cards-expanded .mobile-wines-cards-header {
+        margin-top: 0 !important;
+    }
+    
     /* Improved spacing for tablet */
     .top-nav {
         padding: 1.25rem 1.5rem;
