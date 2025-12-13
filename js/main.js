@@ -4788,7 +4788,7 @@ function initInteractiveMap() {
                     const halfWidth = (labelWidth / 1000) * 0.15;
                     finalPosition = { 
                         lat: position.lat, 
-                        lng: position.lng - halfWidth,
+                        lng: position.lng + 1,
                         priority: position.priority 
                     };
                 } else if (normalizedName.includes('basilicata')) {
@@ -4796,7 +4796,7 @@ function initInteractiveMap() {
                     const halfWidth = (labelWidth / 1000) * 0.1;
                     finalPosition = { 
                         lat: position.lat - px3ToDegrees,
-                        lng: position.lng + halfWidth,
+                        lng: position.lng + 1,
                         priority: position.priority 
                     };
                 } else if (normalizedName.includes('friuli')) {
@@ -4804,14 +4804,14 @@ function initInteractiveMap() {
                     const halfWidth = (labelWidth / 1000) * 0.15;
                     finalPosition = { 
                         lat: position.lat, 
-                        lng: position.lng + halfWidth,
+                        lng: position.lng + 3,
                         priority: position.priority 
                     };
                 } else if (normalizedName.includes('trentino')) {
                     // Trentino: abbassato e centrato nella regione
                     finalPosition = { 
-                        lat: center.lat - px3ToDegrees,
-                        lng: center.lng,
+                        lat: center.lat + 0.5- px3ToDegrees,
+                        lng: center.lng + 1.3,
                         priority: position.priority 
                     };
                 } else if (normalizedName.includes('veneto')) {
@@ -4853,8 +4853,8 @@ function initInteractiveMap() {
                     // Piemonte: dove c'è Liguria (usa la posizione finale di Liguria)
                     if (regionFinalPositions['liguria']) {
                         finalPosition = { 
-                            lat: regionFinalPositions['liguria'].lat, 
-                            lng: regionFinalPositions['liguria'].lng, 
+                            lat: regionFinalPositions['liguria'].lat +1, 
+                            lng: regionFinalPositions['liguria'].lng -1, 
                             priority: position.priority 
                         };
                         positionChanged = true;
@@ -4863,8 +4863,8 @@ function initInteractiveMap() {
                     // Liguria: all'altezza della scritta Toscana ma non muoverla orizzontalmente
                     if (regionFinalPositions['toscana']) {
                         finalPosition = { 
-                            lat: regionFinalPositions['toscana'].lat, 
-                            lng: regionPositions['liguria'].lng, // Mantieni la longitudine originale
+                            lat: regionFinalPositions['toscana'].lat +0.5, 
+                            lng: regionPositions['liguria'].lng +2, // Mantieni la longitudine originale
                             priority: position.priority 
                         };
                         positionChanged = true;
@@ -4874,7 +4874,7 @@ function initInteractiveMap() {
                     if (regionFinalPositions['abruzzo']) {
                         const currentMarcheLat = regionFinalPositions['marche']?.lat || position.lat;
                         finalPosition = { 
-                            lat: currentMarcheLat + px3ToDegrees,
+                            lat: currentMarcheLat + 0.5,
                             lng: regionFinalPositions['abruzzo'].lng,
                             priority: position.priority 
                         };
