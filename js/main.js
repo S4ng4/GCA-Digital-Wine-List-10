@@ -4755,79 +4755,145 @@ function initInteractiveMap() {
             });
             
             // Second pass: apply specific label adjustments based on other regions
+            // First pass: calculate base positions and store them
             const regionPositions = {};
-            regionData.forEach(({ normalizedName, position }) => {
-                regionPositions[normalizedName] = { lat: position.lat, lng: position.lng };
-            });
+            const regionFinalPositions = {}; // Store final positions after adjustments
             
+            // Convert 3px to degrees (approximate: at typical zoom, 1px ≈ 0.001-0.002 degrees)
+            const px3ToDegrees = 0.004; // Approximately 3px in degrees
+            
+            // First iteration: calculate positions for regions that don't depend on others
             regionData.forEach(({ feature, layer, bounds, regionName, normalizedName, center, position }) => {
                 let finalPosition = { ...position };
+                const labelWidth = getLabelWidth(regionName);
                 
-                // Apply specific label adjustments - improved to avoid overlaps
-                if (normalizedName.includes('piemonte')) {
-                    // Piemonte: sposta più a nord-ovest per evitare sovrapposizioni
-                    finalPosition = { lat: bounds.getNorth() + 0.4, lng: bounds.getWest() - 0.5, priority: position.priority };
-                } else if (normalizedName.includes('liguria')) {
-                    // Liguria: sposta a ovest, leggermente più in basso
-                    finalPosition = { lat: center.lat - 0.1, lng: bounds.getWest() - 0.6, priority: position.priority };
-                } else if (normalizedName.includes('friuli')) {
-                    // Friuli Venezia Giulia: si sposta più a destra e leggermente in alto
-                    finalPosition = { lat: position.lat + 0.05, lng: bounds.getEast() + 0.4, priority: position.priority };
-                } else if (normalizedName.includes('veneto')) {
-                    // Veneto: sposta più a destra e leggermente in basso
-                    finalPosition = { lat: position.lat - 0.08, lng: bounds.getEast() + 0.35, priority: position.priority };
-                } else if (normalizedName.includes('emilia')) {
-                    // Emilia-Romagna: sposta più a destra
-                    finalPosition = { lat: position.lat, lng: bounds.getEast() + 0.3, priority: position.priority };
-                } else if (normalizedName.includes('trentino')) {
-                    // Trentino-Alto Adige: sposta più in alto
-                    finalPosition = { lat: bounds.getNorth() + 0.35, lng: center.lng, priority: position.priority };
-                } else if (normalizedName.includes('lombardia')) {
-                    // Lombardia: sposta leggermente a destra
-                    finalPosition = { lat: position.lat, lng: position.lng + 0.1, priority: position.priority };
-                } else if (normalizedName.includes('toscana')) {
-                    // Toscana: sposta leggermente a sinistra per evitare sovrapposizioni
-                    finalPosition = { lat: position.lat, lng: position.lng - 0.05, priority: position.priority };
-                } else if (normalizedName.includes('marche')) {
-                    // Marche: si sposta più a destra e leggermente in alto
-                    finalPosition = { lat: position.lat + 0.05, lng: bounds.getEast() + 0.4, priority: position.priority };
-                } else if (normalizedName.includes('umbria')) {
-                    // Umbria: sposta leggermente a sinistra per evitare sovrapposizione con Marche
-                    finalPosition = { lat: position.lat, lng: position.lng - 0.15, priority: position.priority };
-                } else if (normalizedName.includes('lazio')) {
-                    // Lazio: sposta leggermente a destra
-                    finalPosition = { lat: position.lat, lng: position.lng + 0.1, priority: position.priority };
+                // Store initial position data
+                regionPositions[normalizedName] = { 
+                    lat: position.lat, 
+                    lng: position.lng,
+                    bounds: bounds,
+                    center: center,
+                    labelWidth: labelWidth
+                };
+                
+                // Apply adjustments for regions that DON'T depend on others
+                if (normalizedName.includes('toscana')) {
+                    // Toscana: mantieni posizione (usata come riferimento per Liguria)
+                    finalPosition = { lat: position.lat, lng: position.lng, priority: position.priority };
                 } else if (normalizedName.includes('abruzzo')) {
-                    // Abruzzo: si sposta più a destra
+                    // Abruzzo: si sposta più a destra (usato come riferimento per Marche)
                     finalPosition = { lat: position.lat, lng: bounds.getEast() + 0.3, priority: position.priority };
+                } else if (normalizedName.includes('umbria')) {
+                    // Umbria: spostata dove inizia la U (inizio del testo, quindi spostare a sinistra)
+                    const halfWidth = (labelWidth / 1000) * 0.15;
+                    finalPosition = { 
+                        lat: position.lat, 
+                        lng: position.lng - halfWidth,
+                        priority: position.priority 
+                    };
+                } else if (normalizedName.includes('basilicata')) {
+                    // Basilicata: abbassata di 3px e spostata dove è attualmente l'ultima "a" di Basilicata
+                    const halfWidth = (labelWidth / 1000) * 0.1;
+                    finalPosition = { 
+                        lat: position.lat - px3ToDegrees,
+                        lng: position.lng + halfWidth,
+                        priority: position.priority 
+                    };
+                } else if (normalizedName.includes('friuli')) {
+                    // Friuli-Venezia Giulia: spostata dove è presente l'ultima lettera "a" di Giulia
+                    const halfWidth = (labelWidth / 1000) * 0.15;
+                    finalPosition = { 
+                        lat: position.lat, 
+                        lng: position.lng + halfWidth,
+                        priority: position.priority 
+                    };
+                } else if (normalizedName.includes('trentino')) {
+                    // Trentino: abbassato e centrato nella regione
+                    finalPosition = { 
+                        lat: center.lat - px3ToDegrees,
+                        lng: center.lng,
+                        priority: position.priority 
+                    };
+                } else if (normalizedName.includes('veneto')) {
+                    finalPosition = { lat: position.lat - 0.4, lng: bounds.getEast() + 0.4, priority: position.priority };
+                } else if (normalizedName.includes('emilia')) {
+                    finalPosition = { lat: position.lat, lng: bounds.getEast() + 0.3, priority: position.priority };
+                } else if (normalizedName.includes('lombardia')) {
+                    finalPosition = { lat: position.lat, lng: position.lng + 0.7, priority: position.priority };
+                } else if (normalizedName.includes('lazio')) {
+                    finalPosition = { lat: position.lat, lng: position.lng + 1.1, priority: position.priority };
                 } else if (normalizedName.includes('molise')) {
-                    // Molise: si sposta più a destra e leggermente in alto
-                    finalPosition = { lat: position.lat + 0.05, lng: bounds.getEast() + 0.35, priority: position.priority };
+                    finalPosition = { lat: position.lat + 0.35, lng: bounds.getEast() + 1.0, priority: position.priority };
                 } else if (normalizedName.includes('campania')) {
-                    // Campania: sposta leggermente a sinistra
                     finalPosition = { lat: position.lat, lng: position.lng - 0.1, priority: position.priority };
                 } else if (normalizedName.includes('puglia')) {
-                    // Puglia: sposta più a destra
                     finalPosition = { lat: position.lat, lng: bounds.getEast() + 0.5, priority: position.priority };
-                } else if (normalizedName.includes('basilicata')) {
-                    // Basilicata: sposta leggermente a destra
-                    finalPosition = { lat: position.lat, lng: position.lng + 0.1, priority: position.priority };
                 } else if (normalizedName.includes('calabria')) {
-                    // Calabria: sposta leggermente a sinistra
                     finalPosition = { lat: position.lat, lng: position.lng - 0.1, priority: position.priority };
                 } else if (normalizedName.includes('sicilia')) {
-                    // Sicilia: sposta leggermente a destra
-                    finalPosition = { lat: position.lat, lng: position.lng + 0.1, priority: position.priority };
+                    finalPosition = { lat: position.lat, lng: position.lng + 1.1, priority: position.priority };
                 } else if (normalizedName.includes('sardegna')) {
-                    // Sardegna: sposta leggermente a sinistra
-                    finalPosition = { lat: position.lat, lng: position.lng - 0.15, priority: position.priority };
+                    finalPosition = { lat: position.lat, lng: position.lng + 0.85, priority: position.priority };
                 } else if (normalizedName.includes('valle')) {
-                    // Valle d'Aosta: sposta più in alto
-                    finalPosition = { lat: bounds.getNorth() + 0.3, lng: center.lng, priority: position.priority };
+                    finalPosition = { lat: bounds.getNorth() - 0.3, lng: center.lng, priority: position.priority };
                 }
                 
+                // Store final position for this region
+                regionFinalPositions[normalizedName] = finalPosition;
+            });
+            
+            // Second iteration: apply adjustments for regions that depend on others
+            regionData.forEach(({ feature, layer, bounds, regionName, normalizedName, center, position }) => {
+                let finalPosition = regionFinalPositions[normalizedName] || { ...position };
+                const labelWidth = regionPositions[normalizedName]?.labelWidth || getLabelWidth(regionName);
+                let positionChanged = false;
+                
+                // Apply specific label adjustments that depend on other regions
+                if (normalizedName.includes('piemonte')) {
+                    // Piemonte: dove c'è Liguria (usa la posizione finale di Liguria)
+                    if (regionFinalPositions['liguria']) {
+                        finalPosition = { 
+                            lat: regionFinalPositions['liguria'].lat, 
+                            lng: regionFinalPositions['liguria'].lng, 
+                            priority: position.priority 
+                        };
+                        positionChanged = true;
+                    }
+                } else if (normalizedName.includes('liguria')) {
+                    // Liguria: all'altezza della scritta Toscana ma non muoverla orizzontalmente
+                    if (regionFinalPositions['toscana']) {
+                        finalPosition = { 
+                            lat: regionFinalPositions['toscana'].lat, 
+                            lng: regionPositions['liguria'].lng, // Mantieni la longitudine originale
+                            priority: position.priority 
+                        };
+                        positionChanged = true;
+                    }
+                } else if (normalizedName.includes('marche')) {
+                    // Marche: alzata di 3px e allineata con la lettera A di Abruzzo
+                    if (regionFinalPositions['abruzzo']) {
+                        const currentMarcheLat = regionFinalPositions['marche']?.lat || position.lat;
+                        finalPosition = { 
+                            lat: currentMarcheLat + px3ToDegrees,
+                            lng: regionFinalPositions['abruzzo'].lng,
+                            priority: position.priority 
+                        };
+                        positionChanged = true;
+                    }
+                }
+                
+                // Update final position if it was changed in this iteration
+                if (positionChanged) {
+                    regionFinalPositions[normalizedName] = finalPosition;
+                }
+            });
+            
+            // Third pass: final collision check and create markers for all regions
+            regionData.forEach(({ feature, layer, bounds, regionName, normalizedName, center, position }) => {
+                let finalPosition = regionFinalPositions[normalizedName] || { ...position };
+                const labelWidth = regionPositions[normalizedName]?.labelWidth || getLabelWidth(regionName);
+                
                 // Final collision check: if the adjusted position still collides, try alternative positions
-                const labelWidth = getLabelWidth(regionName);
                 if (checkCollision(finalPosition.lat, finalPosition.lng, labelWidth)) {
                     // Try to find a better position by adjusting slightly
                     const adjustments = [
@@ -4866,7 +4932,7 @@ function initInteractiveMap() {
                     name: regionName
                 });
                 
-                // Calculate icon size based on text length (already calculated above, reuse)
+                // Calculate icon size based on text length
                 const iconSize = [labelWidth, 30];
                 
                 // Create custom icon for label
