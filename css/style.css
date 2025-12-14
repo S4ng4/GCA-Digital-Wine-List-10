@@ -9713,4 +9713,76 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         font-size: var(--fs-600) !important;
         margin-bottom: var(--space-sm);
     }
+    
+    /* === 11. WINE INFORMATION COMPACT TABLET === */
+    /* Scheda unica compatta e minimalista per tablet */
+    .wine-information {
+        padding: 1.5rem !important;
+        margin-bottom: 2rem !important;
+        border-radius: 10px !important;
+        border: 2px solid rgba(212, 175, 55, 0.2) !important;
+        background: linear-gradient(145deg, rgba(26, 26, 26, 0.7), rgba(10, 10, 10, 0.9)) !important;
+    }
+    
+    .wine-information .section-title {
+        font-size: 1.1rem !important;
+        margin-bottom: 1rem !important;
+        text-align: left !important;
+    }
+    
+    /* Layout compatto: lista inline invece di grid */
+    .info-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+    }
+    
+    /* Info items compatti in stile luxury-wine-card */
+    .info-item {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        background: transparent !important;
+        border: none !important;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.15) !important;
+        border-radius: 0 !important;
+        padding: 0.75rem 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+    }
+    
+    .info-item:last-child {
+        border-bottom: none !important;
+    }
+    
+    .info-head {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        margin-bottom: 0 !important;
+        flex: 0 0 auto !important;
+    }
+    
+    .info-icon {
+        font-size: 0.85rem !important;
+        opacity: 0.7 !important;
+    }
+    
+    .info-label {
+        font-size: 0.85rem !important;
+        font-weight: 500 !important;
+        letter-spacing: 0.3px !important;
+        color: rgba(212, 175, 55, 0.9) !important;
+    }
+    
+    .info-value {
+        font-size: 0.9rem !important;
+        color: rgba(245, 245, 240, 0.85) !important;
+        text-align: right !important;
+        flex: 1 !important;
+        margin-left: 1rem !important;
+    }
 }
