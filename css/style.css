@@ -2107,9 +2107,10 @@ body:not(.home-page) .luxury-container {
 
 .info-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
     justify-items: center; /* center cards in grid */
+    align-items: stretch; /* ensure all items have same height */
 }
 
 /* Wine Information items with icons */
@@ -2123,6 +2124,7 @@ body:not(.home-page) .luxury-container {
     padding: 1rem 1.2rem;
     width: 100%;
     max-width: 320px;
+    height: 100%; /* ensure all items fill the grid cell height */
 }
 
 .info-head {
