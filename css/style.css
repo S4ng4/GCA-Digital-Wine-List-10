@@ -1823,35 +1823,37 @@ body:not(.home-page) .luxury-container {
     gap: 3rem;
     margin-bottom: 3rem;
     padding: 2rem 0;
+    position: relative;
+    min-height: 100vh;
 }
 
 .wine-image-section {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
 }
 
 .wine-image {
     width: 100%;
-    max-width: 400px;
-    height: 500px;
-    background: linear-gradient(135deg, rgba(26, 26, 26, 0.8) 0%, rgba(10, 10, 10, 0.95) 100%);
-    border: 2px solid rgba(212, 175, 55, 0.3);
-    border-radius: 15px;
+    height: 100%;
+    background: transparent;
+    border: none;
+    border-radius: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 2rem;
     position: relative;
-    overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(212, 175, 55, 0.1);
-    transition: all 0.3s ease;
-}
-
-.wine-image:hover {
-    border-color: rgba(212, 175, 55, 0.5);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 6px 20px rgba(212, 175, 55, 0.2);
-    transform: translateY(-5px);
+    overflow: visible;
+    box-shadow: none;
+    perspective: 1000px;
 }
 
 .wine-image::before {
@@ -1861,35 +1863,84 @@ body:not(.home-page) .luxury-container {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, transparent, rgba(212, 175, 55, 0.08), transparent);
+    background: linear-gradient(90deg, 
+        rgba(10, 10, 10, 0.95) 0%, 
+        rgba(10, 10, 10, 0.7) 30%,
+        transparent 50%,
+        transparent 100%);
     pointer-events: none;
+    z-index: 1;
 }
 
-/* Wine bottle image styles */
+/* Wine bottle image styles - 3D effect and uniform size */
 #wineBottleImage {
-    max-width: 100%;
-    max-height: 100%;
+    width: auto;
+    height: 80vh;
+    max-height: 800px;
+    min-height: 600px;
     object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
+    object-position: center;
+    border-radius: 0;
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.6),
+        0 10px 30px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(212, 175, 55, 0.1),
+        inset -10px 0 30px rgba(212, 175, 55, 0.1);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: perspective(1000px) rotateY(-15deg) rotateX(5deg) translateZ(50px);
+    filter: drop-shadow(-10px 10px 20px rgba(0, 0, 0, 0.5));
+    z-index: 2;
+    position: relative;
 }
 
 #wineBottleImage:hover {
-    transform: scale(1.05);
+    transform: perspective(1000px) rotateY(-10deg) rotateX(3deg) translateZ(80px) scale(1.02);
+    box-shadow: 
+        0 30px 80px rgba(0, 0, 0, 0.7),
+        0 15px 40px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(212, 175, 55, 0.2),
+        inset -15px 0 40px rgba(212, 175, 55, 0.15);
 }
 
 .wine-bottle {
     font-size: 8rem;
     color: var(--burgundy);
     z-index: 1;
+    width: auto;
+    height: 80vh;
+    max-height: 800px;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(-10px 10px 20px rgba(0, 0, 0, 0.5));
+    transform: perspective(1000px) rotateY(-15deg) rotateX(5deg) translateZ(50px);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (max-width: 767px) {
+    .wine-bottle {
+        font-size: 120px;
+        height: auto;
+        max-height: none;
+        min-height: auto;
+        transform: none;
+    }
 }
 
 .wine-info-section {
     display: flex;
     flex-direction: column;
-    align-items: center; /* center content horizontally */
-    /* Note: This section is visible and should be shown */
+    align-items: flex-start; /* align content to left */
+    position: relative;
+    z-index: 10;
+    background: rgba(10, 10, 10, 0.85);
+    padding: 2rem;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    max-width: 600px;
+    margin-right: auto;
 }
 
 /* Luxury wine name styling for wine-details page */
@@ -1930,18 +1981,19 @@ body:not(.home-page) .luxury-container {
     max-width: 600px;
 }
 
-/* Center text content within the info section */
+/* Left align text content within the info section */
 .wine-info-section .wine-name,
 .wine-info-section .wine-region,
 .wine-info-section .wine-price,
 .wine-info-section .wine-description {
-    text-align: center;
+    text-align: left;
+    width: 100%;
 }
 
-/* Optional: center meta items visually */
+/* Optional: left align meta items visually */
 .wine-meta .meta-item {
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
 }
 
 .meta-item {
@@ -2459,9 +2511,24 @@ body:not(.home-page) .luxury-container {
         gap: 2rem;
     }
     
+    /* Mobile: keep original layout */
+    .wine-image-section {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+    }
+    
     .wine-image {
         max-width: 300px;
         height: 400px;
+        position: relative !important;
+    }
+    
+    #wineBottleImage {
+        transform: none !important;
+        height: auto !important;
+        max-height: 400px !important;
+        min-height: auto !important;
     }
 
     .wine-details-container {
