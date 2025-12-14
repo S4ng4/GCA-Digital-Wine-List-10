@@ -2596,10 +2596,6 @@ body:not(.home-page) .luxury-container {
         grid-template-columns: 1fr;
     }
     
-    .info-grid {
-        grid-template-columns: 1fr;
-    }
-    
     .elegant-message {
         padding: 1.5rem;
     }
