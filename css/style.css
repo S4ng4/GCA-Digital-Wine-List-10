@@ -3548,6 +3548,11 @@ body:not(.home-page) .luxury-container {
 /* Tablet 820x1180 - Usa layout desktop come 1024x1366 */
 /* Gestisce portrait (820x1180) - width 820px-1023px */
 @media (min-width: 820px) and (max-width: 1023px) {
+    /* Mobile map view - padding uniforme */
+    .mobile-map-view {
+        padding: 1rem 1.25rem !important;
+    }
+    
     /* Usa layout desktop invece di mobile */
     .mobile-menu-btn,
     .mobile-search-btn,
@@ -6741,6 +6746,11 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     }
     
     @media (max-width: 600px) {
+        /* Mobile map view - padding uniforme */
+        .mobile-map-view {
+            padding: 1rem 1.25rem !important;
+        }
+        
         .content-wrapper {
             margin-left: 0px;
         }
@@ -7688,7 +7698,7 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
         align-items: center;
         justify-content: center;
         min-height: 0;
-        padding: 1rem 1.25rem;
+        padding: 1rem 1.25rem !important;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         background: var(--bg-primary, var(--black));
     }
@@ -8311,6 +8321,11 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 }
 
 @media (max-width: 480px) {
+    /* Mobile map view - padding uniforme */
+    .mobile-map-view {
+        padding: 1rem 1.25rem !important;
+    }
+    
     .mobile-side-menu {
         width: 90%;
     }
@@ -8362,6 +8377,11 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 
 /* Tablet UI Improvements - Apple-like design */
 @media (min-width: 768px) and (max-width: 1024px) {
+    /* Mobile map view - padding uniforme */
+    .mobile-map-view {
+        padding: 1rem 1.25rem !important;
+    }
+    
     /* Quando mobile-wines-cards-container è visibile, espandi fino ai pulsanti */
     .mobile-map-wines-container.wines-cards-expanded {
         margin-top: 0 !important;
@@ -8446,6 +8466,11 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 }
 
 @media (min-width: 768px) and (max-width: 819px) {
+    /* Mobile map view - padding uniforme */
+    .mobile-map-view {
+        padding: 1rem 1.25rem !important;
+    }
+    
     /* Quando mobile-wines-cards-container è visibile, espandi fino ai pulsanti */
     .mobile-map-wines-container.wines-cards-expanded {
         margin-top: 0 !important;
@@ -8739,7 +8764,6 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     /* Rimuovi gap nella mobile view map */
     .mobile-map-view {
         padding: 1rem 1.25rem !important;
-        padding-top: 1rem !important;
     }
     
     /* Assicura che la mappa desktop sia visibile */
@@ -8857,7 +8881,6 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
     /* Rimuovi gap 155px nella mobile view map per tablet grandi (>= 1024px) */
     .mobile-map-view {
         padding: 1rem 1.25rem !important;
-        padding-top: 1rem !important;
     }
 }
 
@@ -9106,24 +9129,9 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
             margin-bottom: 0;
         }
     }
-    /* Solo mobile-map-view mantiene padding-top 155px per iPhone iOS */
-    /* Questa regola si applica solo a dispositivi iOS grazie a constant() e env() */
+    /* Mobile map view - padding uniforme per tutti i dispositivi */
     .mobile-map-view {
-        padding-top: calc(155px + constant(safe-area-inset-top)); /* iOS 11.0-11.2 */
-        padding-top: calc(155px + env(safe-area-inset-top)); /* iOS 11.2+ */
-        padding-bottom: constant(safe-area-inset-bottom); /* iOS 11.0-11.2 */
-        padding-bottom: env(safe-area-inset-bottom); /* iOS 11.2+ */
-        padding-left: constant(safe-area-inset-left); /* iOS 11.0-11.2 */
-        padding-left: env(safe-area-inset-left); /* iOS 11.2+ */
-        padding-right: constant(safe-area-inset-right); /* iOS 11.0-11.2 */
-        padding-right: env(safe-area-inset-right); /* iOS 11.2+ */
-    }
-    
-    /* Per dispositivi non iOS, rimuovi il padding-top 155px */
-    @supports not (padding-top: env(safe-area-inset-top)) {
-        .mobile-map-view {
-            padding-top: 1rem !important;
-        }
+        padding: 1rem 1.25rem !important;
     }
     
     /* iOS fixes per mobile-wine-card-grid */
@@ -9246,6 +9254,11 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 
 /* PORTRAIT (verticale) - schermo alto e stretto */
 @media (max-width: 819px) and (orientation: portrait) {
+    /* Mobile map view - padding uniforme */
+    .mobile-map-view {
+        padding: 1rem 1.25rem !important;
+    }
+    
     /* Mappa più alta in portrait per sfruttare lo spazio verticale */
     .mobile-map-wrapper {
         height: 55vh !important;
@@ -9268,6 +9281,11 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 
 /* LANDSCAPE (orizzontale) - schermo largo e basso */
 @media (max-width: 819px) and (orientation: landscape) {
+    /* Mobile map view - padding uniforme */
+    .mobile-map-view {
+        padding: 1rem 1.25rem !important;
+    }
+    
     /* Mappa più bassa in landscape per dare spazio ai vini */
     .mobile-map-wrapper {
         height: 30vh !important;
@@ -9296,6 +9314,11 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 /* --------------- MOBILE & TABLET 2025 FIXES --------------- */
 /* Solo per dispositivi mobile/tablet piccoli (max-width: 819px) */
 @media (max-width: 819px) {
+    /* Mobile map view - padding uniforme */
+    .mobile-map-view {
+        padding: 1rem 1.25rem !important;
+    }
+    
     /* 1. Forza mappa sempre visibile */
     .map-wrapper,
     #map,
@@ -9315,6 +9338,11 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 
 /* Fix tecnici anche per 820px-1023px (ma senza nascondere elementi desktop) */
 @media (min-width: 820px) and (max-width: 1023px) {
+    /* Mobile map view - padding uniforme */
+    .mobile-map-view {
+        padding: 1rem 1.25rem !important;
+    }
+    
     /* 1. Forza mappa sempre visibile */
     .map-wrapper,
     #map,
@@ -9471,6 +9499,11 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 
 /* --------------- SMALL PHONES ≤ 390px --------------- */
 @media (max-width: 390px) {
+    /* Mobile map view - padding uniforme */
+    .mobile-map-view {
+        padding: 1rem 1.25rem !important;
+    }
+    
     .mobile-map-wrapper {
         height: 35vh;
         min-height: 200px;
@@ -9654,6 +9687,11 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 /* ==================== TABLET OPTIMIZATION (768px - 1024px) ==================== */
 /* Ottimizzazioni specifiche per esperienza tablet */
 @media (min-width: 768px) and (max-width: 1023px) {
+    /* Mobile map view - padding uniforme */
+    .mobile-map-view {
+        padding: 1rem 1.25rem !important;
+    }
+    
     /* === 1. GERARCHIA TIPOGRAFICA TABLET === */
     :root {
         --fs-900: 3.052rem;  /* Riduci leggermente scale per tablet */
@@ -9927,6 +9965,11 @@ body:has(.mobile-side-menu.open) .mobile-wines-cards-grid .mobile-wine-card-grid
 /* Focus su: gerarchia visiva, spacing modulare, tipografia raffinata, interazioni touch ottimizzate */
 
 @media (min-width: 768px) and (max-width: 1024px) {
+    /* Mobile map view - padding uniforme */
+    .mobile-map-view {
+        padding: 1rem 1.25rem !important;
+    }
+    
     /* === 1. SISTEMA DI SPACING MODULARE PROFESSIONALE === */
     /* === 2. GERARCHIA TIPOGRAFICA RAFFINATA PER TABLET === */
     /* Scala tipografica modulare ottimizzata per leggibilità tablet */
