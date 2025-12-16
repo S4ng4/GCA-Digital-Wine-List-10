@@ -3439,6 +3439,7 @@ function initInteractiveMap() {
             console.log('Map already initialized, skipping...');
             return;
         }
+        
         // Initialize map with uniform touch/mouse interactions
         mapInstance = L.map('map', {
             zoomControl: true,
@@ -3464,6 +3465,14 @@ function initInteractiveMap() {
             attribution: '© OpenStreetMap contributors',
             maxZoom: 19
         }).addTo(mapInstance);
+        
+        // #region agent log
+        setTimeout(() => {
+            const tilePane = document.querySelector('.leaflet-tile-pane');
+            const computedStyle = tilePane ? window.getComputedStyle(tilePane) : null;
+            fetch('http://127.0.0.1:7242/ingest/d35f811a-3a56-4f17-835c-c9191f9f6197',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:3466',message:'Map tiles check',data:{mapInitialized:!!mapInstance,tilePaneExists:!!tilePane,tilePaneDisplay:computedStyle?.display,tilePaneVisibility:computedStyle?.visibility,mapContainerDisplay:mapContainer?window.getComputedStyle(mapContainer).display:'N/A',mapWidth:mapContainer?.offsetWidth,mapHeight:mapContainer?.offsetHeight},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+        }, 500);
+        // #endregion
         
         function updateMobileMapHeight() {
             const mobileContainer = document.getElementById('mobileMapWinesContainer');
@@ -3590,6 +3599,13 @@ function initInteractiveMap() {
             })
             .then(geojson => {
                 console.log('🗺️ GeoJSON loaded successfully');
+                
+                // #region agent log
+                const tilePane = document.querySelector('.leaflet-tile-pane');
+                const computedStyle = tilePane ? window.getComputedStyle(tilePane) : null;
+                fetch('http://127.0.0.1:7242/ingest/d35f811a-3a56-4f17-835c-c9191f9f6197',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:3611',message:'GeoJSON loaded',data:{geoJsonLoaded:true,tilePaneExists:!!tilePane,tilePaneDisplay:computedStyle?.display,tilePaneVisibility:computedStyle?.visibility,mapInstanceExists:!!mapInstance},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+                // #endregion
+                
                 geoJsonLayer = L.geoJSON(geojson, {
                     style: function(feature) {
                         return {
@@ -4052,38 +4068,37 @@ function initInteractiveMap() {
                     const count = window.wineApp.wines.filter(wine => 
                         window.wineApp.wineMatchesFamily(wine, type)
                     ).length;
-                    if (count > 0) {
-                        const chip = document.createElement('div');
-                        chip.className = 'mobile-wine-type-chip';
-                        chip.dataset.type = type;
-                        chip.innerHTML = `
-                            <div class="mobile-wine-type-icon">
-                                <img src="${icon}" alt="${name}">
-                            </div>
-                            <div class="mobile-wine-type-name">${name}</div>
-                            <div class="mobile-wine-type-count">${count}</div>
-                        `;
-                        chip.addEventListener('click', () => {
-                            // If clicking the same chip, deselect it
-                            if (chip.classList.contains('active')) {
-                                chip.classList.remove('active');
-                                mobileCurrentWineType = null;
-                                updateMobileMapColors(null);
-                                closeMobileWineTypePopup();
-                                return;
-                            }
-                            
-                            document.querySelectorAll('.mobile-wine-type-chip').forEach(c => {
-                                c.classList.remove('active');
-                            });
-                            chip.classList.add('active');
-                            mobileCurrentWineType = type;
-                            updateMobileMapColors(type);
-                            // Open popup with regions for this wine type
-                            openMobileWineTypePopup(type);
+                    // Always show all 6 chips, even if count is 0
+                    const chip = document.createElement('div');
+                    chip.className = 'mobile-wine-type-chip';
+                    chip.dataset.type = type;
+                    chip.innerHTML = `
+                        <div class="mobile-wine-type-icon">
+                            <img src="${icon}" alt="${name}">
+                        </div>
+                        <div class="mobile-wine-type-name">${name}</div>
+                        <div class="mobile-wine-type-count">${count}</div>
+                    `;
+                    chip.addEventListener('click', () => {
+                        // If clicking the same chip, deselect it
+                        if (chip.classList.contains('active')) {
+                            chip.classList.remove('active');
+                            mobileCurrentWineType = null;
+                            updateMobileMapColors(null);
+                            closeMobileWineTypePopup();
+                            return;
+                        }
+                        
+                        document.querySelectorAll('.mobile-wine-type-chip').forEach(c => {
+                            c.classList.remove('active');
                         });
-                        wineTypesScroll.appendChild(chip);
-                    }
+                        chip.classList.add('active');
+                        mobileCurrentWineType = type;
+                        updateMobileMapColors(type);
+                        // Open popup with regions for this wine type
+                        openMobileWineTypePopup(type);
+                    });
+                    wineTypesScroll.appendChild(chip);
                 });
             });
         }
