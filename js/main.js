@@ -5,14 +5,14 @@ function getBasePath() {
     // Get the pathname (e.g., "/GCA-Digital-Wine-List-10/" or "/")
     const pathname = window.location.pathname;
     
-    // If we're at root (/), return empty string
-    if (pathname === '/' || pathname === '/index.html') {
+    // If we're at root (/) or any HTML file, return empty string
+    if (pathname === '/' || pathname.endsWith('.html')) {
         return '';
     }
     
     // Extract repo name from pathname (e.g., "/GCA-Digital-Wine-List-10/" -> "/GCA-Digital-Wine-List-10")
     const match = pathname.match(/^\/([^\/]+)/);
-    if (match && match[1] !== 'index.html') {
+    if (match && !match[1].endsWith('.html')) {
         return '/' + match[1];
     }
     
@@ -3487,10 +3487,12 @@ function initInteractiveMap() {
                 reservedHeight += searchBar.offsetHeight;
             }
             const mapHeight = Math.max(320, viewportHeight - reservedHeight - 40);
-            mobileWrapper.style.height = `${mapHeight}px`;
-            mobileWrapper.style.minHeight = `${mapHeight}px`;
-            mobileWrapper.style.maxHeight = `${mapHeight}px`;
-            mobileContainer.style.setProperty('--mobile-map-height', `${mapHeight}px`);
+            // Aumenta l'altezza del 30%
+            const increasedMapHeight = mapHeight * 1.3;
+            mobileWrapper.style.height = `${increasedMapHeight}px`;
+            mobileWrapper.style.minHeight = `${increasedMapHeight}px`;
+            mobileWrapper.style.maxHeight = `${increasedMapHeight}px`;
+            mobileContainer.style.setProperty('--mobile-map-height', `${increasedMapHeight}px`);
         }
         
         // Update mobile wines cards container height for iPhone Safari
@@ -3687,6 +3689,8 @@ function initInteractiveMap() {
                 setTimeout(() => {
                     if (popupInput) {
                         popupInput.focus();
+                        // Trigger click to show any existing suggestions
+                        popupInput.click();
                     }
                 }, 300);
             }
@@ -3695,10 +3699,16 @@ function initInteractiveMap() {
         function closeMobileMenuSearchPopup() {
             const popup = document.getElementById('mobileMenuSearchPopup');
             const popupInput = document.getElementById('mobileMenuSearchPopupInput');
+            const autocomplete = document.getElementById('mobileMenuSearchPopupAutocomplete');
             if (popup) {
                 popup.style.display = 'none';
                 if (popupInput) {
                     popupInput.value = '';
+                    popupInput.classList.remove('search-active');
+                }
+                // Hide autocomplete dropdown
+                if (autocomplete) {
+                    autocomplete.style.display = 'none';
                 }
             }
         }
@@ -4090,6 +4100,11 @@ function initInteractiveMap() {
         
         // Open Mobile Wine Type Popup
         function openMobileWineTypePopup(wineType) {
+            // Disabilita il popup su mobile e tablet (max-width: 1023px)
+            if (window.innerWidth <= 1023) {
+                return; // Non aprire il popup su mobile e tablet
+            }
+            
             const popup = document.getElementById('mobileWineTypePopup');
             const popupTitle = document.getElementById('mobileWineTypePopupTitle');
             const popupRegions = document.getElementById('mobileWineTypePopupRegions');
@@ -4373,10 +4388,11 @@ function initInteractiveMap() {
                             
                             // Fit bounds with more padding to show all regions better, with slight rotation
                             const bounds = mobileGeoJsonLayer.getBounds();
-                            mobileMapInstance.fitBounds(bounds, { padding: [50, 50] });
-                            // Slight adjustment for better angle
+                            // Aumenta il padding per assicurarsi che tutte le regioni siano visibili
+                            mobileMapInstance.fitBounds(bounds, { padding: [80, 80] });
+                            // Slight adjustment for better angle - zoom leggermente ridotto per mostrare tutte le regioni
                             setTimeout(() => {
-                                mobileMapInstance.setView([42.5, 12.5], 5.8);
+                                mobileMapInstance.setView([42.5, 12.5], 5.5);
                             }, 100);
                             
                             // Invalidate size again after GeoJSON is added
@@ -4795,8 +4811,8 @@ function initInteractiveMap() {
                     // Basilicata: abbassata di 3px e spostata dove è attualmente l'ultima "a" di Basilicata
                     const halfWidth = (labelWidth / 1000) * 0.1;
                     finalPosition = { 
-                        lat: position.lat - px3ToDegrees,
-                        lng: position.lng + halfWidth,
+                        lat: position.lat - 0.5,
+                        lng: position.lng + 1,
                         priority: position.priority 
                     };
                 } else if (normalizedName.includes('friuli')) {
@@ -4804,13 +4820,13 @@ function initInteractiveMap() {
                     const halfWidth = (labelWidth / 1000) * 0.15;
                     finalPosition = { 
                         lat: position.lat, 
-                        lng: position.lng + halfWidth,
+                        lng: position.lng + 2,
                         priority: position.priority 
                     };
                 } else if (normalizedName.includes('trentino')) {
                     // Trentino: abbassato e centrato nella regione
                     finalPosition = { 
-                        lat: center.lat - px3ToDegrees,
+                        lat: center.lat + 0.8,
                         lng: center.lng,
                         priority: position.priority 
                     };
@@ -4850,15 +4866,13 @@ function initInteractiveMap() {
                 
                 // Apply specific label adjustments that depend on other regions
                 if (normalizedName.includes('piemonte')) {
-                    // Piemonte: dove c'è Liguria (usa la posizione finale di Liguria)
-                    if (regionFinalPositions['liguria']) {
-                        finalPosition = { 
-                            lat: regionFinalPositions['liguria'].lat, 
-                            lng: regionFinalPositions['liguria'].lng, 
-                            priority: position.priority 
-                        };
-                        positionChanged = true;
-                    }
+                    // Piemonte: posiziona la label al centro della regione
+                    finalPosition = { 
+                        lat: center.lat, 
+                        lng: center.lng, 
+                        priority: position.priority 
+                    };
+                    positionChanged = true;
                 } else if (normalizedName.includes('liguria')) {
                     // Liguria: all'altezza della scritta Toscana ma non muoverla orizzontalmente
                     if (regionFinalPositions['toscana']) {
@@ -4870,12 +4884,13 @@ function initInteractiveMap() {
                         positionChanged = true;
                     }
                 } else if (normalizedName.includes('marche')) {
-                    // Marche: alzata di 3px e allineata con la lettera A di Abruzzo
-                    if (regionFinalPositions['abruzzo']) {
-                        const currentMarcheLat = regionFinalPositions['marche']?.lat || position.lat;
+                    // Marche: stessa altezza (latitudine) della scritta Umbria, spostata ~9px a destra
+                    // 9px ≈ 3 * px3ToDegrees
+                    if (regionFinalPositions['umbria']) {
+                        const currentMarcheLng = regionFinalPositions['marche']?.lng || position.lng;
                         finalPosition = { 
-                            lat: currentMarcheLat + px3ToDegrees,
-                            lng: regionFinalPositions['abruzzo'].lng,
+                            lat: regionFinalPositions['umbria'].lat,
+                            lng: currentMarcheLng + (px3ToDegrees * 50),
                             priority: position.priority 
                         };
                         positionChanged = true;
@@ -6108,6 +6123,17 @@ function initInteractiveMap() {
         // Menu search trigger
         if (menuSearchTrigger) {
             menuSearchTrigger.addEventListener('click', openMobileMenuSearchPopup);
+            
+            // Also open popup when user tries to type in the readonly input
+            const readonlyInput = menuSearchTrigger.querySelector('input[readonly]');
+            if (readonlyInput) {
+                readonlyInput.addEventListener('focus', openMobileMenuSearchPopup);
+                readonlyInput.addEventListener('keydown', function(e) {
+                    // Prevent any input and open popup instead
+                    e.preventDefault();
+                    openMobileMenuSearchPopup();
+                });
+            }
         }
         
         // Menu search popup close
@@ -7143,22 +7169,66 @@ function initInteractiveMap() {
                     // If it's a wine suggestion and we have a wine number, navigate directly to the wine page
                     if (suggestionType === 'wine' && wineNumber) {
                         console.log('🍷 Navigating to wine:', wineNumber);
+                        
+                        // Check if we're navigating from menu popup
+                        const popupInput = document.getElementById('mobileMenuSearchPopupInput');
+                        if (popupInput && dropdown.closest('#mobileMenuSearchPopup')) {
+                            closeMobileMenuSearchPopup();
+                            closeMobileMenu();
+                        }
+                        
                         // Navigate to wine details page
                         const wineDetailsUrl = `wine-details.html?id=${wineNumber}&from=search`;
                         window.location.href = wineDetailsUrl;
                         return;
                     }
                     
-                    // For other types (producer, varietal, region), perform search immediately
-                    const searchInput = document.getElementById('desktopSearchInput') || document.getElementById('mobileSearchInput');
+                    // For other types (producer, varietal/grape, region), perform search immediately
+                    const searchInput = document.getElementById('desktopSearchInput') || 
+                                       document.getElementById('mobileSearchInput') || 
+                                       document.getElementById('mobileMenuSearchPopupInput');
                     if (searchInput) {
                         searchInput.value = text;
                         dropdown.style.display = 'none';
                         
+                        // If searching from menu popup, close menu and popup
+                        if (searchInput.id === 'mobileMenuSearchPopupInput') {
+                            closeMobileMenuSearchPopup();
+                            closeMobileMenu();
+                        }
+                        
                         // Perform search immediately without debounce
                         waitForWineApp(() => {
-                            const results = performGlobalSearch(text);
-                            const isMobile = searchInput.id === 'mobileSearchInput';
+                            let results = [];
+                            const term = text.toLowerCase().trim();
+                            
+                            if (!window.wineApp || !window.wineApp.wines) {
+                                console.warn('⚠️ wineApp not ready for autocomplete search');
+                                return;
+                            }
+                            
+                            // Specialised behaviour so that:
+                            // - clicking a producer suggestion shows ALL wines from that producer
+                            // - clicking a grape/varietal suggestion shows ALL wines containing that grape
+                            // - clicking a region suggestion shows ALL wines from that region
+                            if (suggestionType === 'producer') {
+                                results = window.wineApp.wines.filter(w => 
+                                    w.wine_producer && w.wine_producer.toLowerCase().includes(term)
+                                );
+                            } else if (suggestionType === 'varietal') {
+                                results = window.wineApp.wines.filter(w => 
+                                    w.varietals && w.varietals.toLowerCase().includes(term)
+                                );
+                            } else if (suggestionType === 'region') {
+                                results = window.wineApp.wines.filter(w => 
+                                    w.region && w.region.toLowerCase().includes(term)
+                                );
+                            } else {
+                                // Fallback: generic global search (name, producer, varietal, region, description)
+                                results = performGlobalSearch(text);
+                            }
+                            
+                            const isMobile = searchInput.id === 'mobileSearchInput' || searchInput.id === 'mobileMenuSearchPopupInput';
                             if (isMobile) {
                                 displayMobileSearchResults(text, results);
                             } else {
@@ -7176,7 +7246,7 @@ function initInteractiveMap() {
             return text.replace(regex, '<mark style="background: rgba(212, 175, 55, 0.3); color: var(--gold);">$1</mark>');
         }
         
-        // Display search results
+        // Display search results (desktop main search bar)
         function displaySearchResults(searchTerm, results) {
             const winesListContainer = document.getElementById('winesListContainer');
             const winesGridContainer = document.getElementById('winesGridContainer');
@@ -7195,15 +7265,45 @@ function initInteractiveMap() {
             // Update title
             const winesListTitle = document.getElementById('winesListTitle');
             const winesListSubtitle = document.getElementById('winesListSubtitle');
+            // Determine if this is a specific producer or grape search to better match user intent
+            let displayResults = Array.isArray(results) ? [...results] : [];
+            let contextLabel = '';
+            
+            if (window.wineApp && window.wineApp.wines && searchTerm) {
+                const term = searchTerm.toLowerCase().trim();
+                
+                // Exact producer search: show all wines from that producer
+                const producerMatches = window.wineApp.wines.filter(w =>
+                    w.wine_producer && w.wine_producer.toLowerCase().trim() === term
+                );
+                
+                // Exact grape/varietal search: show all wines containing that grape
+                const varietalMatches = window.wineApp.wines.filter(w =>
+                    w.varietals && w.varietals.toLowerCase().trim() === term
+                );
+                
+                if (producerMatches.length > 0) {
+                    displayResults = producerMatches;
+                    contextLabel = 'producer';
+                } else if (varietalMatches.length > 0) {
+                    displayResults = varietalMatches;
+                    contextLabel = 'grape';
+                }
+            }
+            
             if (winesListTitle) {
-                winesListTitle.textContent = `Search Results`;
+                winesListTitle.textContent = contextLabel === 'producer'
+                    ? `Producer: ${searchTerm}`
+                    : contextLabel === 'grape'
+                        ? `Grape: ${searchTerm}`
+                        : `Search Results`;
             }
             if (winesListSubtitle) {
-                winesListSubtitle.textContent = `${results.length} wine${results.length !== 1 ? 's' : ''} found for "${searchTerm}"`;
+                winesListSubtitle.textContent = `${displayResults.length} wine${displayResults.length !== 1 ? 's' : ''} found for "${searchTerm}"`;
             }
             
             // Display results
-            if (results.length === 0) {
+            if (displayResults.length === 0) {
                 winesGridContainer.innerHTML = `
                     <div style="color: rgba(245, 245, 240, 0.5); text-align: center; padding: 3rem;">
                         <i class="fas fa-search" style="font-size: 3rem; color: var(--gold); opacity: 0.3; margin-bottom: 1rem; display: block;"></i>
@@ -7231,7 +7331,7 @@ function initInteractiveMap() {
             table.appendChild(thead);
             
             const tbody = document.createElement('tbody');
-            results.forEach(wine => {
+            displayResults.forEach(wine => {
                 const row = document.createElement('tr');
                 row.className = 'wine-table-row';
                 row.dataset.wineId = wine.wine_number;
@@ -7347,6 +7447,11 @@ function initInteractiveMap() {
                     
                     // If it's a wine suggestion, navigate directly
                     if (suggestionType === 'wine' && wineNumber) {
+                        // Close menu and popup if we're in menu search popup
+                        if (inputId === 'mobileMenuSearchPopupInput') {
+                            closeMobileMenuSearchPopup();
+                            closeMobileMenu();
+                        }
                         const wineDetailsUrl = `wine-details.html?id=${wineNumber}&from=search`;
                         window.location.href = wineDetailsUrl;
                         return;
